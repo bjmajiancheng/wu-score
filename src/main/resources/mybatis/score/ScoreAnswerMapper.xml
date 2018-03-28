@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IScoreAnswerDao">
+
+    <resultMap id="ScoreAnswer" type="com.wutuobang.score.model.ScoreAnswerModel">
+        <result property="id" column="id"/>
+        <result property="scoreQuestionId" column="score_question_id"/>
+        <result property="content" column="content"/>
+        <result property="score" column="score"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,score_question_id ,content ,score ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO d_score_answer (
+	        id  ,
+	        score_question_id  ,
+	        content  ,
+	        score  ,
+	        c_time  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{scoreQuestionId, jdbcType=INTEGER} ,
+        	#{content, jdbcType=VARCHAR} ,
+        	#{score, jdbcType=INTEGER} ,
+        	#{ctime, jdbcType=TIMESTAMP} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE d_score_answer SET
+	        <if test="scoreQuestionId != null">score_question_id = #{scoreQuestionId, jdbcType=INTEGER} ,</if>
+	        <if test="content != null">content = #{content, jdbcType=VARCHAR} ,</if>
+	        <if test="score != null">score = #{score, jdbcType=INTEGER} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM d_score_answer WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="ScoreAnswer">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM d_score_answer 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="content != null">
+						AND content = #{content}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM d_score_answer <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="ScoreAnswer">
+    	SELECT <include refid="columns"/> FROM d_score_answer 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="ScoreAnswer">
+	    SELECT <include refid="columns"/> FROM d_score_answer 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

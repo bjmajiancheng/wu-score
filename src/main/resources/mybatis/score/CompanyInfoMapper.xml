@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.ICompanyInfoDao">
+
+    <resultMap id="CompanyInfo" type="com.wutuobang.score.model.CompanyInfoModel">
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="companyName" column="company_name"/>
+        <result property="companyType" column="company_type"/>
+        <result property="societyCode" column="society_code"/>
+        <result property="companyMobile" column="company_mobile"/>
+        <result property="operator" column="operator"/>
+        <result property="operatorMobile" column="operator_mobile"/>
+        <result property="operatorAddress" column="operator_address"/>
+        <result property="remark" column="remark"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator ,operator_mobile ,operator_address ,remark ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO d_company_info (
+	        id  ,
+	        user_name  ,
+	        password  ,
+	        company_name  ,
+	        company_type  ,
+	        society_code  ,
+	        company_mobile  ,
+	        operator  ,
+	        operator_mobile  ,
+	        operator_address  ,
+	        remark  ,
+	        c_time  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{userName, jdbcType=VARCHAR} ,
+        	#{password, jdbcType=VARCHAR} ,
+        	#{companyName, jdbcType=VARCHAR} ,
+        	#{companyType, jdbcType=INTEGER} ,
+        	#{societyCode, jdbcType=VARCHAR} ,
+        	#{companyMobile, jdbcType=VARCHAR} ,
+        	#{operator, jdbcType=VARCHAR} ,
+        	#{operatorMobile, jdbcType=VARCHAR} ,
+        	#{operatorAddress, jdbcType=VARCHAR} ,
+        	#{remark, jdbcType=VARCHAR} ,
+        	#{ctime, jdbcType=TIMESTAMP} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE d_company_info SET
+	        <if test="userName != null">user_name = #{userName, jdbcType=VARCHAR} ,</if>
+	        <if test="password != null">password = #{password, jdbcType=VARCHAR} ,</if>
+	        <if test="companyName != null">company_name = #{companyName, jdbcType=VARCHAR} ,</if>
+	        <if test="companyType != null">company_type = #{companyType, jdbcType=INTEGER} ,</if>
+	        <if test="societyCode != null">society_code = #{societyCode, jdbcType=VARCHAR} ,</if>
+	        <if test="companyMobile != null">company_mobile = #{companyMobile, jdbcType=VARCHAR} ,</if>
+	        <if test="operator != null">operator = #{operator, jdbcType=VARCHAR} ,</if>
+	        <if test="operatorMobile != null">operator_mobile = #{operatorMobile, jdbcType=VARCHAR} ,</if>
+	        <if test="operatorAddress != null">operator_address = #{operatorAddress, jdbcType=VARCHAR} ,</if>
+	        <if test="remark != null">remark = #{remark, jdbcType=VARCHAR} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM d_company_info WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="CompanyInfo">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM d_company_info 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="userName != null">
+				AND user_name = #{userName}
+			</if>
+			<if test="password != null">
+				AND password = #{password}
+			</if>
+			<if test="companyName != null">
+				AND company_name = #{companyName}
+			</if>
+			<if test="societyCode != null">
+				AND society_code = #{societyCode}
+			</if>
+			<if test="companyMobile != null">
+				AND company_mobile = #{companyMobile}
+			</if>
+			<if test="operator != null">
+				AND operator = #{operator}
+			</if>
+			<if test="operatorMobile != null">
+				AND operator_mobile = #{operatorMobile}
+			</if>
+			<if test="operatorAddress != null">
+				AND operator_address = #{operatorAddress}
+			</if>
+			<if test="remark != null">
+				AND remark = #{remark}
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM d_company_info <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="CompanyInfo">
+    	SELECT <include refid="columns"/> FROM d_company_info 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="CompanyInfo">
+	    SELECT <include refid="columns"/> FROM d_company_info 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+
