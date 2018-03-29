@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>首页</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+    <!-- 左部导航 -->
+    #parse("common/lefter.html")
+    <!-- </script> -->
+    <!-- 中间二级导航 -->
+
+    <!-- 内容展示区 -->
+    <div class="integral-cont">
+
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head">居住证积分</div>
+            <div class="title-bar-after">申请人列表</div>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title">
+            申请人列表
+        </div>
+        <!-- 表格搜索框和按钮部分 -->
+        <div class="interal-tab-title-input">
+            <div class="interal-input-title">快速查询</div>
+            <input type="text">
+            <div class="interal-input-btn">查询</div>
+            <div class="interal-input-btn">返回</div>
+            <div class="interal-input-btn">添加申请人</div>
+            <div class="interal-input-btn">批量预约</div>
+        </div>
+        <!-- table2表格部分 -->
+        <table class="integral-table">
+            <tr>
+                <th>选择</th>
+                <th>序列</th>
+                <th>身份证号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>拟定户地</th>
+                <th>预约日期</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>1</td>
+                <td>410222199909008789</td>
+                <td>李金龙</td>
+                <td>男</td>
+                <td>河南开封</td>
+                <td>2016-08-02</td>
+                <td>
+                    <span class="integral-table-btn integral-table-btn1">编辑</span>
+                    <span class="integral-table-btn integral-table-btn2">测评</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>1</td>
+                <td>410222199909008789</td>
+                <td>李金龙</td>
+                <td>男</td>
+                <td>河南开封</td>
+                <td>2016-08-02</td>
+                <td>
+                    <span class="integral-table-btn integral-table-btn1">编辑</span>
+                    <span class="integral-table-btn integral-table-btn2">预约申请</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>1</td>
+                <td>410222199909008789</td>
+                <td>李金龙</td>
+                <td>男</td>
+                <td>河南开封</td>
+                <td>2016-08-02</td>
+                <td>
+                    <span class="integral-table-btn integral-table-btn1">编辑</span>
+                    <span class="integral-table-btn integral-table-btn2">预约凭证</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>1</td>
+                <td>410222199909008789</td>
+                <td>李金龙</td>
+                <td>男</td>
+                <td>河南开封</td>
+                <td>2016-08-02</td>
+                <td>
+                    <span class="integral-table-btn integral-table-btn1">编辑</span>
+                    <span class="integral-table-btn integral-table-btn2">预约</span>
+                </td>
+            </tr>
+        </table>
+        <!-- 分页器 -->
+        <div class="integral-paging-device-wrap">
+            <div class="integral-paging-device">
+                <div class="pageing-first base-color">首页</div>
+                <div class="pageing-before base-color">上一页</div>
+                <div class="pageing-dot">
+                    <span>1</span>
+                    <span class="base-color">2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>•••</span>
+                </div>
+                <div class="pageing-next base-color">下一页</div>
+                <div class="pageing-end base-color">尾页</div>
+                <div class="pageing-dur">当前第 2 页 / 共 5 页</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+
+</html>
+

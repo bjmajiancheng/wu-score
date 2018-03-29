@@ -144,7 +144,6 @@
       },
       login: function (event) {
         var data = "username="+vm.username+"&password="+vm.password+"&captcha="+vm.captcha;
-        alert(data);
         $.ajax({
           type: "POST",
           url: "sys/login",
