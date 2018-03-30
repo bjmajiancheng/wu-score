@@ -103,10 +103,10 @@ public class SysLoginController {
      *
      * @return
      */
-    @RequestMapping(value = "login.html", method = RequestMethod.GET)
+    /*@RequestMapping(value = "login.html", method = RequestMethod.GET)
     public String login() {
         ShiroUtils.logout();
-        return "redirect:login.html";
-    }
+        return "login.html";
+    }*/
 
 }

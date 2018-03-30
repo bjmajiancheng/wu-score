@@ -34,7 +34,7 @@
                     <td>
                         <span class="color-red">*</span>用&nbsp; 户 &nbsp;名：</td>
                     <td>
-                        <input class="integral-input w450 ml50" id="username" name="username" placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
+                        <input class="integral-input w450 ml50" id="userName" name="userName" placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
                     </td>
                 </tr>
                 <tr>
@@ -71,8 +71,10 @@
                     <td>
                         <span class="color-red">*</span>单位类型：</td>
                     <td>
-                        <input class="input_radio" type="radio" name="companyType" value="1">&nbsp;&nbsp;&nbsp;企事业单位
-                        <input class="input_radio ml30" type="radio" name="companyType" value="2">&nbsp;&nbsp;&nbsp;个体商户
+                        <input class="input_radio" type="radio" name="companyType" value="1" id="causeCompany">&nbsp;&nbsp;&nbsp;
+                        <label for="causeCompany">企事业单位</label>
+                        <input class="input_radio ml30" type="radio" name="companyType" value="2" id="simpleCompany">&nbsp;&nbsp;&nbsp;
+                        <label for="simpleCompany">个体商户</label>
                     </td>
                 </tr>
                 <tr>
@@ -138,18 +140,17 @@
 #parse("common/footer.html")
 </body>
 <script type="text/javascript">
-    $(function(){
-        $("#register").on("click", register);
-        alert(111);
+
+    //点击注册按钮
+    $("#register").on("click", function(){
+        $("#companyForm").submit();
     });
 
-    /**
-     * 注册用户信息
-     */
-    function register(){
+
+    $(function(){
         $("#companyForm").validate({
             rules: {
-                username: {
+                userName: {
                     required: true,
                     minlength: 6,
                     maxlength: 20
@@ -185,12 +186,11 @@
                     isMobile : true
                 },
                 operatorAddress: {
-                    required: true,
                     maxlength: 100
                 }
             },
             messages: {
-                username: {
+                userName: {
                     required: "请输入用户名",
                     minlength: "用户名最少由 6 个字母组成",
                     maxlength: "用户名最多由 20 个字母组成"
@@ -227,10 +227,40 @@
                     required: "请输入联系地址",
                     maxlength: "密码长度不能大于 100 个字母"
                 }
-            }
-        })
-    }
+            },
 
+            submitHandler:function(form){
+                var companyInfo = serializeForm($("#companyForm"));
+                var captcha = companyInfo['captcha'];
+                //移除元素
+                delete companyInfo['passwordConfirm'];
+                delete companyInfo['captcha'];
+
+                $.ajax({
+                    type: "POST",
+                    url: "${rc.contextPath}/companyInfo/register",
+                    data: {"companyInfo" : JSON.stringify(companyInfo), "captcha" : captcha},
+                    dataType: "json",
+                    success: function(result){
+                        if(result.code == 0){//注册成功
+                            parent.location.href ='${rc.contextPath}/login.html';
+                        }else{
+                            layer.alert(result.message);
+
+                            refreshCode();
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    /**
+     * 注册用户信息
+     */
+    function register(){
+        alert(111);
+    }
 </script>
 
 </html>

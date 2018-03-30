@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.google.code.kaptcha.Constants;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,10 +54,16 @@ public class CompanyInfoController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResultParam register(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo) {
-        if (StringUtils.isEmpty(companyInfo)) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResultParam register(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo,
+            @RequestParam("captcha") String captcha) {
+        if (StringUtils.isEmpty(companyInfo) || StringUtils.isEmpty(captcha)) {
             return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
+            return ResultParam.error("验证码不正确");
         }
 
         try {
@@ -64,7 +73,18 @@ public class CompanyInfoController {
                 return ResultParam.PARAM_ERROR_RESULT;
             }
 
+            CompanyInfoModel validateModel = companyInfoService.queryByUserName(companyInfoModel.getUserName());
+            if (validateModel != null) {
+                return ResultParam.error("用户名已注册, 请更换用户名!!!");
+            }
+
+
+            companyInfoModel.setPassword(new Sha256Hash(companyInfoModel.getPassword()).toHex());
+            companyInfoModel.setRemark(StringUtils.EMPTY);
             companyInfoModel.setCtime(new Date());
+            if(StringUtils.isNotEmpty(companyInfoModel.getOperatorAddress())) {
+                companyInfoModel.setOperatorAddress(StringUtils.EMPTY);
+            }
 
             companyInfoService.insert(companyInfoModel);
 

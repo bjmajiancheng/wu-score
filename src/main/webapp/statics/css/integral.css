@@ -67,25 +67,6 @@
     color: #f00;
 }
 
-.eg img {
-    max-width: 800px;
-    min-height: 500px;
-}
-
-input {
-    float: left;
-    margin: 0 5px;
-    width: 38px;
-    height: 38px;
-    line-height: 38px;
-    text-align: center;
-    background: #fff;
-    border: 1px solid #ebebeb;
-    outline: none;
-    color: #bdbdbd;
-    font-size: 14px;
-}
-
 
 /* 样式初始化 */
 
@@ -295,6 +276,15 @@ html {
     width: 450px;
 }
 
+table tr .tdleft {
+    text-align: left;
+    text-indent: 30px;
+}
+
+input + label,select + label{
+    text-indent: 10px;
+    display: inline-block;
+}
 .nowrap {
     white-space: nowrap;
 }
@@ -669,6 +659,25 @@ html {
     background-size: 18px 19px;
 }
 
+/* 办理指南 */
+
+.integral-grey-title-bar .title-bar-blzn {
+    background-image: url('../img/blzn.png');
+    background-size: 19px 19px;
+}
+/* 表格下载 */
+
+.integral-grey-title-bar .title-bar-xiazai {
+    background-image: url('../img/xiazai.png');
+    background-size: 20px 20px;
+}
+/* 常见问题 */
+
+.integral-grey-title-bar .title-bar-cjwt {
+    background-image: url('../img/cjwt.png');
+    background-size: 20px 20px;
+}
+
 .integral-grey-title-bar .title-bar-after {
     background-image: url(../img/disclosureIndicator.png);
     background-size: 8px 14px;
@@ -728,6 +737,27 @@ html {
     background-color: #FBFCFF;
 }
 
+.integral-table .down_btn {
+    width: 80px;
+    height: 27px;
+    border: 1px solid #DDDDDD;
+    display: inline-block;
+    line-height: 27px;
+    text-align: center;
+    color: #3B77F5;
+    float: right;
+    margin-right: 30px;
+    background-image: url(../img/download.png);
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    background-position: 19px 7px;
+    padding-left: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.integral-table img{
+    height:40px;
+}
 .integral-banner-title .integral-title .integral-register-info {
     float: right;
     font-size: 20px;
@@ -1030,6 +1060,9 @@ html {
     height: 25px;
     display: inline-block;
     margin: 0 10px;
+}
+.checkimg img{
+    height: 26px;
 }
 
 .click_me {
