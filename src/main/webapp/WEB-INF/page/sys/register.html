@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+    <title>用户注册</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+<!-- banner和title部分 -->
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+    <!-- 内容展示区  登录和注册等不带导航模块需要加 样式 ”cont-center“-->
+    <div class="integral-cont ml105">
+        <!-- 网上注册 -->
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head title-bar-yhzc">用户注册</div>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title">
+            网上注册
+        </div>
+        <!-- 示例title2 二级标题 -->
+        <div class="integral-grey-title-bar title-bar2">
+            <div class="title-bar-head title-bar-wszc">网上注册信息</div>
+        </div>
+        <form id="companyForm">
+        <!-- 用户注册表格 -->
+        <div class="integral-cont-table-wrap">
+            <table class="integral-cont-table">
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>用&nbsp; 户 &nbsp;名：</td>
+                    <td>
+                        <input class="integral-input w450 ml50" id="username" name="username" placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                    <td>
+                        <input class="integral-input w450 ml50" id="password" name="password" placeholder="请使用5--12位" type="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>确认密码：</td>
+                    <td>
+                        <input class="integral-input w450 ml50" id="passwordConfirm" name="passwordConfirm" placeholder="请再输入一遍您上面填写的密码" type="password">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 示例title2 二级标题 -->
+        <div class="integral-grey-title-bar title-bar2">
+            <div class="title-bar-head title-bar-dwjb">事业单位基本信息</div>
+        </div>
+        <!-- 事业单位基本信息表格 -->
+        <div class="integral-cont-table-wrap">
+            <table class="integral-cont-table">
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>单位名称：</td>
+                    <td>
+                        <input class="integral-input w450" id="companyName" name="companyName" placeholder="单位名称必须与营业执照一致" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>单位类型：</td>
+                    <td>
+                        <input class="input_radio" type="radio" name="companyType" value="1">&nbsp;&nbsp;&nbsp;企事业单位
+                        <input class="input_radio ml30" type="radio" name="companyType" value="2">&nbsp;&nbsp;&nbsp;个体商户
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>统一社会信用代码：</td>
+                    <td>
+                        <input class="integral-input w450" id="societyCode" name="societyCode" placeholder="如您没有统一社会信用代码，请输入机构代码" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>单位联系电话：</td>
+                    <td>
+                        <input class="integral-input w450" id="companyMobile" name="companyMobile" placeholder="" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>经办人：</td>
+                    <td>
+                        <input class="integral-input w450" id="operator" name="operator" placeholder="单位指定办理专员" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>联系手机：</td>
+                    <td>
+                        <input class="integral-input w450" id="operatorMobile" name="operatorMobile" placeholder="请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        联系地址：</td>
+                    <td>
+                        <input class="integral-input w450" placeholder="" id="operatorAddress" name="operatorAddress" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>验证码：</td>
+                    <td>
+                        <input class="integral-input w200" type="text" id="captcha" name="captcha"> <div class="checkimg"><img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="refreshCaptcha"></div><span class="refreshCaptcha">看不清点我</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="color-red">*注：标有红色 * 为必填项</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </form>
+
+        <!-- 登录按钮 -->
+        <div class="integral-bottom-btn-group mt150">
+            <div class="interal-main-btn big-btn m15" id="register">注册</div>
+            <div class="interal-main-btn big-btn interal-main-btn2 ml50" id="cancel">返回</div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function(){
+        $("#register").on("click", register);
+        alert(111);
+    });
+
+    /**
+     * 注册用户信息
+     */
+    function register(){
+        $("#companyForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 20
+                },
+                password: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 12
+                },
+                passwordConfirm: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#password"
+                },
+                companyName: {
+                    required: true,
+                    maxlength: 100
+                },
+                societyCode: {
+                    required: true,
+                    maxlength: 50
+                },
+                companyMobile: {
+                    required: true,
+                    isMobile : true
+                },
+                operator: {
+                    required: true,
+                    maxlength: 10
+                },
+                operatorMobile: {
+                    required: true,
+                    isMobile : true
+                },
+                operatorAddress: {
+                    required: true,
+                    maxlength: 100
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                    minlength: "用户名最少由 6 个字母组成",
+                    maxlength: "用户名最多由 20 个字母组成"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "用户名最少由 5 个字母组成",
+                    maxlength: "用户名最多由 12 个字母组成"
+                },
+                passwordConfirm: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于 5 个字母",
+                    equalTo: "两次密码输入不一致"
+                },
+                companyName: {
+                    required: "请输入单位名称",
+                    maxlength: "单位名称不能大于 100 个字母"
+                },
+                societyCode: {
+                    required: "请输入统一社会信用代码",
+                    maxlength: "密码长度不能大于 50 个字母"
+                },
+                companyMobile: {
+                    required: "请输入单位联系电话"
+                },
+                operator: {
+                    required: "请输入经办人",
+                    maxlength: "密码长度不能大于 10 个字母"
+                },
+                operatorMobile: {
+                    required: "请输入联系手机"
+                },
+                operatorAddress: {
+                    required: "请输入联系地址",
+                    maxlength: "密码长度不能大于 100 个字母"
+                }
+            }
+        })
+    }
+
+</script>
+
+</html>

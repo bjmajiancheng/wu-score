@@ -23,14 +23,14 @@
       <!-- 登录信息 -->
       <div class="integral-register-info">
         <img src="statics/img/user.png" alt="">
-        <a href="" class="login_cl">登录</a>
-        <a href="">注册</a>
+        <a href="login.html" class="login_cl">登录</a>
+        <a href="sys/register.html">注册</a>
       </div>
     </div>
   </div>
 
   <!-- 主体部分 -->
-  <div class="integral-main-box" id="rrapp" v-cloak>
+  <div class="integral-main-box">
     <!-- 内容展示区  登录和注册等不带导航模块需要加 样式 ”cont-center“-->
     <div class="integral-cont ml105">
       <!-- 登录部分 -->
@@ -47,31 +47,31 @@
         <tr>
           <td>用&nbsp;&nbsp;户&nbsp;&nbsp;名：</td>
           <td>
-            <input class="integral-input w450 ml50" v-model="username" placeholder="请提供您的手机号或邮箱" type="text">
+            <input class="integral-input w450 ml50" name="username" placeholder="请提供您的手机号或邮箱" type="text">
           </td>
         </tr>
         <tr>
           <td>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
           <td>
-            <input class="integral-input w450 ml50" v-model="password" placeholder="请输入您的密码" type="password">
+            <input class="integral-input w450 ml50" name="password" placeholder="请输入您的密码" type="password">
           </td>
         </tr>
         <tr>
           <td>验&nbsp;&nbsp;证&nbsp;&nbsp;码：</td>
           <td>
-            <input class="integral-input w450 ml50" v-model="captcha" placeholder="请提供验证码" type="text">
+            <input class="integral-input w450 ml50" name="captcha" placeholder="请提供验证码" type="text">
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <img alt="如果看不清楚，请单击图片刷新！" class="pointer" :src="src" @click="refreshCode">
-            &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" @click="refreshCode">点击刷新</a>
+            <img id="captchaImg" alt="如果看不清楚，请单击图片刷新！" class="pointer refreshCaptcha" src="captcha.jpg">
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="refreshCaptcha">点击刷新</a>
           </td>
         </tr>
       </table>
       <!-- 登录按钮 -->
       <div class="integral-bottom-btn-group">
-        <div class="interal-main-btn big-btn m15" @click="login">登录</div>
+        <div class="interal-main-btn big-btn m15" id="login">登录</div>
         <div class="interal-main-btn big-btn ml50 interal-main-btn2">返回</div>
       </div>
     </div>
@@ -113,56 +113,53 @@
   </div>
 </body>
 
-<script src="statics/js/jquery-1.11.3.min.js"></script>
+<script src="statics/js/jquery-1.9.1.min.js"></script>
 <script src="statics/js/integral.js"></script>
-
-<script src="statics/libs/vue.min.js"></script>
-<script src="statics/libs/bootstrap.min.js"></script>
-<script src="statics/libs/app.js"></script>
-
-<script src="statics/js/regular.min.js"></script>
 <script src="statics/support_ie/placeholders.jquery.js"></script>
-<script type="text/javascript">
-  var vm = new Vue({
-    el:'#rrapp',
-    data:{
-      username: '',
-      password: '',
-      captcha: '',
-      error: false,
-      errorMsg: '',
-      src: 'captcha.jpg'
-    },
-    beforeCreate: function(){
-      if(self != top){
-        top.location.href = self.location.href;
-      }
-    },
-    methods: {
-      refreshCode: function(){
-        this.src = "captcha.jpg?t=" + $.now();
-      },
-      login: function (event) {
-        var data = "username="+vm.username+"&password="+vm.password+"&captcha="+vm.captcha;
-        $.ajax({
-          type: "POST",
-          url: "sys/login",
-          data: data,
-          dataType: "json",
-          success: function(result){
-            if(result.code == 0){//登录成功
-              parent.location.href ='index.html';
-            }else{
-              vm.error = true;
-              vm.errorMsg = result.msg;
+<script src="statics/plugins/layer/layer.js"></script>
+<script src="statics/js/common.js"></script>
 
-              vm.refreshCode();
-            }
-          }
-        });
-      }
-    }
+<!--<script src="statics/js/regular.min.js"></script>-->
+<script type="text/javascript">
+
+  $(function(){
+    //登录操作
+    $("#login").on("click", login);
+
+    //刷新二维码
+    $(".refreshCaptcha").on("click", refreshCode);
   });
+
+  function refreshCode() {
+    $("#captchaImg").attr("src", "captcha.jpg?t=" + $.now());
+  }
+
+  /**
+   * 登录操作
+   */
+  function login() {
+    var username = $("input[type=text][name=username]").val();
+    var password = $("input[type=password][name=password]").val();
+    var captcha = $("input[type=text][name=captcha]").val();
+
+    var data = "username="+username+"&password="+password+"&captcha="+captcha;
+
+    $.ajax({
+      type: "POST",
+      url: "sys/login",
+      data: data,
+      dataType: "json",
+      success: function(result){
+        if(result.code == 0){//登录成功
+          parent.location.href ='index.html';
+        }else{
+          layer.alert(result.message);
+
+          refreshCode();
+        }
+      }
+    });
+  }
 </script>
 
 </html>

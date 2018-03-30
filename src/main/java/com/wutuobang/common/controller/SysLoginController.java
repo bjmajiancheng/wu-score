@@ -22,7 +22,7 @@ import java.io.IOException;
 
 /**
  * 登录相关
- * 
+ *
  * @author chenshun
  * @email sunlightcs@gmail.com
  * @date 2016年11月10日 下午1:15:31
@@ -30,11 +30,11 @@ import java.io.IOException;
 @Controller
 public class SysLoginController {
 
-	@Autowired
-	private Producer producer;
-	
-	@RequestMapping("captcha.jpg")
-	public void captcha(HttpServletResponse response)throws ServletException, IOException {
+    @Autowired
+    private Producer producer;
+
+    @RequestMapping("captcha.jpg")
+    public void captcha(HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
 
@@ -44,57 +44,69 @@ public class SysLoginController {
         BufferedImage image = producer.createImage(text);
         //保存到shiro session
         ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
-        
+
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
-	}
-	
-	/**
-	 * 登录
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-	public ResultParam login(String username, String password, String captcha)throws IOException {
-		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-		if(!captcha.equalsIgnoreCase(kaptcha)){
-			return ResultParam.error("验证码不正确");
-		}
-		
-		try{
-			Subject subject = ShiroUtils.getSubject();
-			//sha256加密
-			password = new Sha256Hash(password).toHex();
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-			subject.login(token);
-		}catch (UnknownAccountException e) {
-			return ResultParam.error(e.getMessage());
-		}catch (IncorrectCredentialsException e) {
-			return ResultParam.error(e.getMessage());
-		}catch (LockedAccountException e) {
-			return ResultParam.error(e.getMessage());
-		}catch (AuthenticationException e) {
-			return ResultParam.error("账户验证失败");
-		}
-	    
-		return ResultParam.ok();
-	}
-	
-	/**
-	 * 退出
-	 */
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout() {
-		ShiroUtils.logout();
-		return "redirect:login.html";
-	}
+    }
 
-	/**
-	 * 跳转到主页
-	 * @return
+    /**
+     * 登录
      */
-	@RequestMapping(value = "index.html", method = RequestMethod.GET)
-	public String index() {
-		return "index.html";
-	}
-	
+    @ResponseBody
+    @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
+    public ResultParam login(String username, String password, String captcha) throws IOException {
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
+            return ResultParam.error("验证码不正确");
+        }
+
+        try {
+            Subject subject = ShiroUtils.getSubject();
+            //sha256加密
+            password = new Sha256Hash(password).toHex();
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            subject.login(token);
+        } catch (UnknownAccountException e) {
+            return ResultParam.error(e.getMessage());
+        } catch (IncorrectCredentialsException e) {
+            return ResultParam.error(e.getMessage());
+        } catch (LockedAccountException e) {
+            return ResultParam.error(e.getMessage());
+        } catch (AuthenticationException e) {
+            return ResultParam.error("账户验证失败");
+        }
+
+        return ResultParam.ok();
+    }
+
+    /**
+     * 退出
+     */
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout() {
+        ShiroUtils.logout();
+        return "redirect:login.html";
+    }
+
+    /**
+     * 跳转到主页
+     *
+     * @return
+     */
+    @RequestMapping(value = "index.html", method = RequestMethod.GET)
+    public String index() {
+        return "index.html";
+    }
+
+    /**
+     * 跳转到登录页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "login.html", method = RequestMethod.GET)
+    public String login() {
+        ShiroUtils.logout();
+        return "redirect:login.html";
+    }
+
 }

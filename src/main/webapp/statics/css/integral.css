@@ -1,3 +1,92 @@
+/* 分页器 */
+
+@charset "UTF-8";
+.m-style {
+    position: relative;
+    text-align: center;
+    zoom: 1;
+}
+
+.m-style:before,
+.m-style:after {
+    content: "";
+    display: table;
+}
+
+.m-style:after {
+    clear: both;
+    overflow: hidden;
+}
+
+.m-style span {
+    float: left;
+    margin: 0 5px;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+.m-style .active {
+    float: left;
+    margin: 0 5px;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    color: #3B77F5;
+    font-size: 14px;
+}
+
+.m-style a {
+    float: left;
+    margin: 0 5px;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    color: #333333;
+    font-size: 14px;
+}
+
+.m-style a:hover {
+    color: #3B77F5;
+}
+
+.m-style .next,
+.m-style .prev {
+    font-family: "Simsun";
+    font-size: 14px;
+    font-weight: bold;
+    color: #3B77F5;
+    width: auto;
+}
+
+.now,
+.count {
+    padding: 0 5px;
+    color: #f00;
+}
+
+.eg img {
+    max-width: 800px;
+    min-height: 500px;
+}
+
+input {
+    float: left;
+    margin: 0 5px;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ebebeb;
+    outline: none;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+
 /* 样式初始化 */
 
 * {
@@ -158,6 +247,10 @@ html {
     margin-left: 15px;
 }
 
+.mr20 {
+    margin-right: 20px;
+}
+
 .pr15 {
     padding-right: 15px;
 }
@@ -201,12 +294,15 @@ html {
 .w450 {
     width: 450px;
 }
-.nowrap{
-  white-space: nowrap;
+
+.nowrap {
+    white-space: nowrap;
 }
-.lineh21{
-  line-height: 21px !important;
+
+.lineh21 {
+    line-height: 21px !important;
 }
+
 .grey-color {
     display: inline-block;
     margin-left: 50px;
@@ -226,6 +322,10 @@ html {
     height: 25px;
     background-color: #F5F6FA;
     border: none;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 
@@ -454,7 +554,20 @@ html {
     background: #F5F6FA;
     margin: 0;
     font-weight: 600;
-    padding-left:30px;
+    padding-left: 30px;
+}
+
+.title-bar2 a {
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    color: #333333;
+    padding: 10px 30px;
+    font-weight: 300;
+    background-image: url(../img/disclosureIndicator.png);
+    background-repeat: no-repeat;
+    background-position: 56px 12px;
+    background-size: 10px 14px;
 }
 
 .integral-grey-title-bar>div {
@@ -475,56 +588,87 @@ html {
     -ms-behavior: url('../support_ie/backgroundsize.min.htc');
     behavior: url('../support_ie/backgroundsize.min.htc');
 }
+
+
 /* 身份证信息 */
+
 .integral-grey-title-bar .title-bar-sfz {
     background-image: url('../img/sfz.png');
-    background-size:18px 17px;
+    background-size: 18px 17px;
 }
+
+
 /* 户籍迁移 */
+
 .integral-grey-title-bar .title-bar-hjqy {
-  background-image: url('../img/hjqy.png');
-  background-size:19px 18px;
+    background-image: url('../img/hjqy.png');
+    background-size: 19px 18px;
 }
+
+
 /* other */
+
 .integral-grey-title-bar .title-bar-other {
-  background-image: url('../img/other.png');
-  background-size:20px 20px;
+    background-image: url('../img/other.png');
+    background-size: 20px 20px;
 }
+
+
 /* 职业资格证书 */
+
 .integral-grey-title-bar .title-bar-zyzg {
-  background-image: url('../img/zyzg.png');
-  background-size:16px 21px;
+    background-image: url('../img/zyzg.png');
+    background-size: 16px 21px;
 }
+
+
 /* 用户注册 */
+
 .integral-grey-title-bar .title-bar-yhzc {
-  background-image: url('../img/yhzc.png');
-  background-size:18px 18px;
+    background-image: url('../img/yhzc.png');
+    background-size: 18px 18px;
 }
+
+
 /* 网上注册 */
+
 .integral-grey-title-bar .title-bar-wszc {
-  background-image: url('../img/wszc.png');
-  background-size:19px 19px;
+    background-image: url('../img/wszc.png');
+    background-size: 19px 19px;
 }
+
+
 /* 单位基本信息 */
+
 .integral-grey-title-bar .title-bar-dwjb {
-  background-image: url('../img/dwjb.png');
-  background-size:15px 20px;
+    background-image: url('../img/dwjb.png');
+    background-size: 15px 20px;
 }
+
+
 /* 密码修改 */
+
 .integral-grey-title-bar .title-bar-mmxg {
-  background-image: url('../img/mmxg.png');
-  background-size:14px 19px;
+    background-image: url('../img/mmxg.png');
+    background-size: 14px 19px;
 }
+
+
 /* 登录 */
+
 .integral-grey-title-bar .title-bar-login_icon {
-  background-image: url('../img/login_icon.png');
-  background-size:18px 19px;
+    background-image: url('../img/login_icon.png');
+    background-size: 18px 19px;
 }
+
+
 /* 用人单位修改 */
+
 .integral-grey-title-bar .title-bar-yrdwxg {
-  background-image: url('../img/yrdwxg.png');
-  background-size:18px 19px;
+    background-image: url('../img/yrdwxg.png');
+    background-size: 18px 19px;
 }
+
 .integral-grey-title-bar .title-bar-after {
     background-image: url(../img/disclosureIndicator.png);
     background-size: 8px 14px;
@@ -563,8 +707,16 @@ html {
     font-size: 12px !important;
 }
 
+.integral-table a:hover {
+    color: #4788FB;
+}
+
 .integral-table tr td:first-child,
 .integral-table tr th:first-child {
+    border: none;
+}
+
+.integral-table.no_border tr td {
     border: none;
 }
 
@@ -728,6 +880,12 @@ html {
     height: 67px;
 }
 
+.integral-paging-device-wrap2 {
+    height: 67px;
+    padding-top: 15px;
+    padding-left: 20px;
+}
+
 .integral-footer {
     width: 100%;
     height: 266px;
@@ -781,6 +939,18 @@ html {
     border: 1px solid #DDDDDD;
     padding: 10px;
     margin-right: 10px;
+    position: relative;
+}
+
+.del_idcard {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    background-image: url('../img/blackCircularGuanpop.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    right: 5px;
+    top: 5px;
 }
 
 .integral-td-title {
@@ -869,4 +1039,23 @@ html {
 
 .check-table {
     margin: 150px auto 70px;
+}
+
+.upload_input {
+    display: block;
+    width: 0;
+    height: 0;
+    -webkit-opacity: 0.0;
+    /* Netscape and Older than Firefox 0.9 */
+    -moz-opacity: 0.0;
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+    -khtml-opacity: 0.0;
+    /* IE9 + etc...modern browsers */
+    opacity: .0;
+    /* IE 4-9 */
+    filter: alpha(opacity=0);
+    /*This works in IE 8 & 9 too*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /*IE4-IE9*/
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 }

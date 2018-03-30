@@ -13,7 +13,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.utils.ResultParam;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wutuobang.score.model.CompanyInfoModel;
 
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
@@ -34,7 +40,39 @@ import com.wutuobang.score.service.*;
 @RequestMapping(value = "/companyInfo")
 public class CompanyInfoController {
 
-	@Autowired
-	private ICompanyInfoService companyInfoService;
+    @Autowired
+    private ICompanyInfoService companyInfoService;
+
+    /**
+     * 企业注册信息
+     *
+     * @param request
+     * @param companyInfo
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public ResultParam register(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo) {
+        if (StringUtils.isEmpty(companyInfo)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+
+            CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
+            if (companyInfoModel == null) {
+                return ResultParam.PARAM_ERROR_RESULT;
+            }
+
+            companyInfoModel.setCtime(new Date());
+
+            companyInfoService.insert(companyInfoModel);
+
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
 
 }

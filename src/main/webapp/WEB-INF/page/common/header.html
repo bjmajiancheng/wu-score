@@ -5,7 +5,35 @@
 <script src="${rc.contextPath}/statics/support_ie/selectivizr-min.js"></script>
 <link rel="stylesheet" href="${rc.contextPath}/statics/css/integral.css">
 
-<script src="${rc.contextPath}/statics/js/jquery-1.11.3.min.js"></script>
+<script src="${rc.contextPath}/statics/js/jquery-1.9.1.min.js"></script>
 <script src="${rc.contextPath}/statics/js/regular.min.js"></script>
 <script src="${rc.contextPath}/statics/support_ie/placeholders.jquery.js"></script>
 <script src="${rc.contextPath}/statics/js/integral.js"></script>
+<script src="${rc.contextPath}/statics/js/jquery.pagination.js"></script>
+<script src="${rc.contextPath}/statics/js/jquery.validate.min.js"></script>
+<script src="${rc.contextPath}/statics/js/messages_zh.js"></script>
+
+<script src="${rc.contextPath}/statics/js/common.js"></script>
+<script type="text/javascript">
+    //刷新二维码
+    $(function(){
+        $(".refreshCaptcha").on("click", refreshCode);
+
+        $('.integral-paging-device-wrap2').pagination({
+            pageCount: 50,
+            coping: true,
+            keepShowPN:true,
+            homePage: '首页',
+            endPage: '尾页',
+            prevContent: '上一页',
+            nextContent: '下一页',
+            callback: function (api) {
+                console.log(api.getCurrent())
+            }
+        });
+    });
+
+    function refreshCode() {
+        $("#captchaImg").attr("src", "${rc.contextPath}/captcha.jpg?t=" + $.now());
+    }
+</script>
