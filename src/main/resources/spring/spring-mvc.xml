@@ -96,7 +96,7 @@
                     <props>
                         <prop key="kaptcha.border">no</prop>
                         <prop key="kaptcha.textproducer.font.color">black</prop>
-                        <prop key="kaptcha.textproducer.char.space">5</prop>
+                        <prop key="kaptcha.textproducer.char.space">2</prop>
                     </props>
                 </constructor-arg>
             </bean>

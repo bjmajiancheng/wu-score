@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>申请人信息填写</title>
+  #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+  <!-- 左部导航 -->
+  #parse("common/lefter.html")
+  <!-- </script> -->
+  <!-- 中间二级导航 -->
+
+  <!-- 内容展示区 -->
+  <div class="integral-cont">
+    <!-- 第二大部分 -->
+    <!-- 表单部分 -->
+    <!-- 示例title 面包屑导航 -->
+    <div class="integral-grey-title-bar">
+      <div class="title-bar-head">居住证积分</div>
+      <div class="title-bar-after">申请人信息填写</div>
+    </div>
+    <!-- 内容描述title -->
+    <div class="integral-desc-title">
+      申请人信息填写
+    </div>
+    <!-- 示例title2 二级标题 -->
+    <div class="integral-grey-title-bar title-bar2">
+      <div class="title-bar-head title-bar-sfz">身份证信息</div>
+    </div>
+    <!-- 表单主体部分  用table实现布局 -->
+    <div class="integral-cont-table-wrap">
+      <table class="integral-cont-table">
+        <tr>
+          <td>身份证号：</td>
+          <td>
+            <input class="integral-input w450" type="text" id="idNumber" name="idNumber">
+            <!-- <div class="interal-main-btn m15">身份证上传</div> -->
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <div class="integral-idcard-img">
+              <img class="addImg pointer" src="${rc.contextPath}/statics/img/IDcard1.png" onclick="integral.clickImg(this);" alt="">
+              <img class="preview" id="preview" alt="" name="pic" width="152" height="100" style="display:none;" />
+              <input name="idcard1" type="file" class="upload_input" onchange="integral.change(this)" />
+              <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
+              <div class="title_idcard" style="display:none;">身份证正面</div>
+              <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
+            </div>
+            <div class="integral-idcard-img">
+              <img class="addImg pointer" src="${rc.contextPath}/statics/img/IDcard2.png" onclick="integral.clickImg(this);" alt="">
+              <img class="preview" id="preview" alt="" name="pic" width="152" height="100" style="display:none;" />
+              <input name="idcard2" type="file" class="upload_input" onchange="integral.change(this)" />
+              <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
+              <div class="title_idcard" style="display:none;">身份证反面</div>
+              <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="name" id="name">
+          </td>
+        </tr>
+        <tr>
+          <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+          <td>
+            <input class="input_radio" type="radio" name="sex" value="1" id="male">&nbsp;&nbsp;&nbsp;<label for="male">男</label>
+            <input class="input_radio ml30" type="radio" name="sex" value="0" id="female">&nbsp;&nbsp;&nbsp;<label for="female">女</label>
+          </td>
+        </tr>
+        <tr>
+          <td>出生日期：</td>
+          <td>
+            <input class="integral-input w450" placeholder="1970-01-01" type="text" name="birthday" id="birthday">
+          </td>
+        </tr>
+        <tr>
+          <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+          <td>
+            <input class="integral-input w450" type="text" id="age" name="age">
+          </td>
+        </tr>
+        <tr>
+          <td>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="nation" id="nation">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- 示例title2 二级标题 -->
+    <div class="integral-grey-title-bar title-bar2">
+      <div class="title-bar-head title-bar-hjqy">户籍迁移信息</div>
+    </div>
+    <!-- 表单主体部分  用table实现布局 -->
+    <div class="integral-cont-table-wrap">
+      <table class="integral-cont-table">
+        <tr>
+          <td>迁出地区：</td>
+          <td>
+            <select name="moveProvince" id="moveProvince">
+              <option value="0">请选择</option>
+            </select>
+            &nbsp;&nbsp;省
+            <select class="ml40" name="moveCity" id="moveCity">
+              <option value="0">请选择</option>
+            </select>
+            &nbsp;&nbsp;市
+            <select class="ml40" name="moveRegion" id="moveRegion">
+              <option value="0">请选择</option>
+            </select>
+            &nbsp;&nbsp;区
+          </td>
+        </tr>
+        <tr>
+          <td>迁出地地址：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="moveAddress" id="moveAddress">
+          </td>
+        </tr>
+        <tr>
+          <td>现户籍登记机关：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="moveRegisteredOffice" id="moveRegisteredOffice">
+          </td>
+        </tr>
+        <tr>
+          <td>现户口性质：</td>
+          <td>
+            <select name="houseNature" id="houseNature">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+            <span class="integral-td-title ml50">落户性质：</span>
+            <select name="settledNature" id="settledNature">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>迁入户籍登记机关：</td>
+          <td>
+            <select name="registeredOffice" id="registeredOffice">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+            <select class="ml50" name="" id="">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>迁入地址详细地址：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="address" id="address">
+          </td>
+        </tr>
+        <tr>
+          <td>证明收件人：</td>
+          <td>
+            <input class="integral-input w200" placeholder="户口准予迁入证明快递收件人" type="text" name="witness" id="witness">
+            <span class="integral-td-title ml50">电话：</span>
+            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone">
+          </td>
+        </tr>
+        <tr>
+          <td>证明收件地址：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="witnessAddress" id="witnessAddress">
+          </td>
+        </tr>
+        <tr>
+          <td>拟落户地区：</td>
+          <td>
+            <select name="region" id="region">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+            <span class="integral-td-title ml50">婚姻状况：</span>
+            <select name="marriageStatus" id="marriageStatus">
+              <option>选项1</option>
+              <option>选项2</option>
+              <option>选项3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>有无子女</td>
+          <td>
+            <input class="input_radio" type="radio" name="haveSon" value="1" id="haveSon">&nbsp;&nbsp;&nbsp;<label for="haveSon">有</label>
+            <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon">&nbsp;&nbsp;&nbsp;<label for="haveNoSon">无</label>
+            <span class="integral-td-title ml50">子女数量：</span>
+            <input class="integral-input w200" type="text" placeholder="无子女数量可不填" name="sonNumber" id="sonNumber">
+          </td>
+        </tr>
+      </table>
+      <!-- 上边选中子女 为有 校验下方子女表 -->
+      <div id="children-table">
+        <!-- table表格部分1 子女关系表 -->
+        <table class="integral-table border-add houseRelationships">
+          <tr>
+            <th width="50"> </th>
+            <th>与本人关系</th>
+            <th>姓名</th>
+            <th width="281">身份证号</th>
+            <th width="100">是否随迁</th>
+            <th>文化程度</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" name="check">
+            </td>
+            <td>
+              <input class="table_add_input" type="text" name="relationship">
+            </td>
+            <td>
+              <input class="table_add_input" type="text" name="name">
+            </td>
+            <td>
+              <input class="table_add_input" type="text" name="idNumber">
+            </td>
+            <td>
+              <input type="radio" name="isRemove" value="1">&nbsp;&nbsp;是
+              <input class="m15" type="radio" name="isRemove" value="2">&nbsp;&nbsp;否</td>
+            <td>
+              <input class="table_add_input" type="text" name="cultureDegree">
+            </td>
+          </tr>
+        </table>
+        <!-- 子女关系表 控制按钮 -->
+        <div class="integral-paging-device-wrap">
+          <!--  -->
+          <div class="interal-main-btn m15 fr mt10">增加</div>
+          <div class="interal-main-btn m15 fr mt10">删除</div>
+        </div>
+      </div>
+    </div>
+    <!-- 示例title2 二级标题 -->
+    <div class="integral-grey-title-bar title-bar2">
+      <div class="title-bar-head title-bar-other">其他信息</div>
+    </div>
+    <!-- 表单主体部分  用table实现布局 -->
+    <div class="integral-cont-table-wrap">
+      <table class="integral-cont-table">
+        <tr>
+          <td>申请人类型：</td>
+          <td>
+            <input class="input_radio" type="radio" name="applicantType" value="1">&nbsp;&nbsp;&nbsp;企业员工
+            <input class="input_radio ml30" type="radio" name="applicantType" value="2">&nbsp;&nbsp;&nbsp;投资者
+            <input class="input_radio ml30" type="radio" name="applicantType" value="3">&nbsp;&nbsp;&nbsp;个体商户
+          </td>
+        </tr>
+        <tr>
+          <td>政治面貌：</td>
+          <td>
+            <select name="politicalStatus" id="politicalStatus">
+              <option value="1">中共党员</option>
+              <option value="2">中共预备党员</option>
+              <option value="3">共青团员</option>
+            </select>
+            <span class="integral-td-title ml50">军人立功：</span>
+            <select name="soldierMeritorious" id="soldierMeritorious">
+              <option value="0">无</option>
+              <option value="1">一等功</option>
+              <option value="2">二等功</option>
+              <option value="3">三等功</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>文化程度：</td>
+          <td>
+            <select name="cultureDegree" id="cultureDegree">
+              <option value="1">中共党员</option>
+            </select>
+            <span class="integral-td-title ml50">学位：</span>
+            <select name="degree" id="degree">
+              <option value="0">无</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>专业：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="profession" id="profession">
+          </td>
+        </tr>
+        <tr>
+          <td>现单位名称：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="companyName">
+          </td>
+        </tr>
+        <tr>
+          <td>现单位地址：</td>
+          <td>
+            <input class="integral-input w450" type="text" name="companyAddress">
+          </td>
+        </tr>
+        <tr>
+          <td>单位电话：</td>
+          <td>
+            <input class="integral-input w200" placeholder="户口准予迁入证明快递收件人" type="text" name="companyPhone">
+            <span class="integral-td-title ml50">本人电话：</span>
+            <input class="integral-input w200" type="text" name="selfPhone">
+          </td>
+        </tr>
+        <tr>
+          <td>居住证申领日期：</td>
+          <td>
+            <input class="integral-input w200" type="text" name="applicationDate">
+          </td>
+        </tr>
+        <tr>
+          <td>社保缴纳：</td>
+          <td>
+            <input class="input_radio" type="radio" name="socialSecurityPay" value="1">&nbsp;&nbsp;&nbsp;是
+            <input class="input_radio ml30" type="radio" name="socialSecurityPay" value="2">&nbsp;&nbsp;&nbsp;否
+            <span class="grey-color">是否缴纳社保</span>
+          </td>
+        </tr>
+        <tr>
+          <td>公积金：</td>
+          <td>
+            <input class="input_radio" type="radio" name="providentFund" value="1">&nbsp;&nbsp;&nbsp;是
+            <input class="input_radio ml30" type="radio" name="providentFund" value="2">&nbsp;&nbsp;&nbsp;否
+            <span class="grey-color">是否参加住房公积金</span>
+          </td>
+        </tr>
+        <tr>
+          <td>缴纳情况：</td>
+          <td>
+            <input class="input_radio" type="radio" name="taxes" value="1">&nbsp;&nbsp;&nbsp;是
+            <input class="input_radio ml30" type="radio" name="taxes" value="2">&nbsp;&nbsp;&nbsp;否
+            <span class="grey-color">近3年在本市依法缴纳个人所得税累计10万元及以上</span>
+          </td>
+        </tr>
+        <tr>
+          <td>拘留记录：</td>
+          <td>
+            <input class="input_radio" type="radio" name="detention" value="1">&nbsp;&nbsp;&nbsp;是
+            <input class="input_radio ml30" type="radio" name="detention" value="2">&nbsp;&nbsp;&nbsp;否
+            <span class="grey-color">积分期间有无行政拘留记录</span>
+          </td>
+        </tr>
+        <tr>
+          <td>获刑记录：</td>
+          <td>
+            <input class="input_radio" type="radio" name="penalty" value="1">&nbsp;&nbsp;&nbsp;是
+            <input class="input_radio ml30" type="radio" name="penalty" value="2">&nbsp;&nbsp;&nbsp;否
+            <span class="grey-color">积分期间有无犯罪获刑记录</span>
+          </td>
+        </tr>
+        <tr>
+          <td>奖项荣誉称号：</td>
+          <td>
+            <select name="awardsTitle">
+              <option value="0">请选择</option>
+              <option value="1">拥有有效的中国发明专利</option>
+              <option value="2">获得党中央、国务院授予的奖项和荣誉称号</option>
+              <option value="3">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号</option>
+              <option value="3">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号</option>
+              <option value="4">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 示例title2 二级标题 -->
+    <div class="integral-grey-title-bar title-bar2">
+      <div class="title-bar-head title-bar-zyzg">职业资格证书</div>
+    </div>
+    <!-- 表单主体部分  用table实现布局 -->
+    <div class="integral-cont-table-wrap">
+      <table class="integral-cont-table">
+        <tr>
+          <td>职业资格项：</td>
+          <td>
+            <input class="input_radio" type="radio" name="professionType" value="1">&nbsp;&nbsp;&nbsp;无
+            <input class="input_radio ml30" type="radio" name="professionType" value="2">&nbsp;&nbsp;&nbsp;具有职称
+            <input class="input_radio ml30" type="radio" name="professionType" value="3">&nbsp;&nbsp;&nbsp;具有职业资格
+          </td>
+        </tr>
+        <tr>
+          <td>职称级别：</td>
+          <td>
+            <select name="jobTitleLevel" id="jobTitleLevel">
+              <option value="0">无</option>
+              <option value="1">初级职称</option>
+              <option value="2">中级职称</option>
+              <option value="3">高级职称</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>职位：</td>
+          <td>
+            <input class="integral-input w200" type="text" name="jobPosition">
+            <span class="integral-td-title ml50">发证机关：</span>
+            <input class="integral-input w200" type="text" name="issuingAuthority">
+          </td>
+        </tr>
+        <tr>
+          <td>发证日期：</td>
+          <td>
+            <input class="integral-input w200" type="text" name="issuingDate">
+            <span class="integral-td-title ml50">证书编号：</span>
+            <input class="integral-input w200" type="text" name="certificateCode">
+          </td>
+        </tr>
+        <tr>
+          <td>职业资格级别：</td>
+          <td>
+            <select name="jobLevel">
+              <option value="0">无</option>
+              <option value="1">高级技师</option>
+              <option value="2">技师</option>
+              <option value="3">高级工</option>
+              <option value="4">中级工</option>
+              <option value="5">初级工</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>工种：</td>
+          <td>
+            <select name="jobType">
+              <option value="0">选项1</option>
+              <option value="1">选项2</option>
+              <option value="2">选项3</option>
+            </select>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <!-- 验证码和底部按钮 -->
+    <table class="check-table">
+      <tr>
+        <td>
+          <span class="color-red">*</span>验证码：</td>
+        <td>
+          <input class="integral-input w200" type="text">
+          <div class="checkimg">
+            <img src="img/checkcode.png" alt="">
+          </div>
+          <span class="click_me">看不清点我</span>
+        </td>
+      </tr>
+    </table>
+    <!-- 保存按钮 -->
+    <div class="integral-bottom-btn-group">
+      <div class="interal-main-btn big-btn m15">保存并继续录入</div>
+      <div class="interal-main-btn big-btn ml50">保存</div>
+      <div class="interal-main-btn big-btn ml50">返回</div>
+    </div>
+  </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+  $(function(){
+      var provinces = getChildRegions(0);
+      //moveProvince
+      regionChange(0, "moveProvince");
+
+      $("#moveProvince").on("change", regionChange($("#moveProvince").val(), "moveCity")).change();
+      $("#moveCity").on("change", regionChange($("#moveCity").val(), "moveRegion")).change();
+  });
+
+  /**
+   * 根据地区id获取下级区域
+   *
+   * @param regionId
+   */
+  function getChildRegions(regionId) {
+    $.ajax({
+      type: "GET",
+      url: "${rc.contextPath}/region/child/regions/"+regionId,
+      async: true,
+      data: {},
+      dataType: "json",
+      success: function(result){
+        if(result.code == 0){
+          return result.data;
+        }else{
+          layer.alert(result.message);
+        }
+      }
+    });
+  }
+
+  /**
+   * 省市区变更
+   *
+   * @param regionId
+   */
+  function regionChange(regionId, changeRegion) {
+    var childRegions = getChildRegions(regionId);
+    var html = [];
+    for(var i=0; i<provinces.length; i++) {
+      html.push('<option value="'+ provinces[i].id +'">"' + provinces[i].name + '"</option>');
+    }
+    $("#"+changeRegion).appendChild(html.join(''));
+  }
+</script>
+
+</html>
+
