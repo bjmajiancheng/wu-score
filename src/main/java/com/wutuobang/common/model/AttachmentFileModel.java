@@ -5,10 +5,9 @@
  * 网址：www.davdian.com
  */
 
-package com.wutuobang.score.model;
+package com.wutuobang.common.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @version 1.0
  * @since 1.0
  */
-public class ScoreFileModel implements Serializable {
+public class AttachmentFileModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//columns START
@@ -33,8 +32,14 @@ public class ScoreFileModel implements Serializable {
 	private Integer isSystem;//"系统文件 1：是，0：否"
 
 	private Date ctime;//"创建时间"
-
 	//columns END
+
+	//自定义属性信息START
+	/** 系统文件:是 */
+	public static final int IS_SYSTEM_YES = 1;
+	/** 系统文件:否 */
+	public static final int IS_SYSTEM_NO = 0;
+	//自定义属性信息END
 		
 	public void setId(Integer id) {
 		this.id = id;

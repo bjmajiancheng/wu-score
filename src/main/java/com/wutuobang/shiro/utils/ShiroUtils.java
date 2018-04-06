@@ -31,6 +31,15 @@ public class ShiroUtils {
         return getUserEntity().getId();
     }
 
+    public static String getCurrUserName() {
+        CompanyInfoModel companyInfo = getUserEntity();
+        if(companyInfo != null) {
+            return companyInfo.getUserName();
+        }
+
+        return "default";
+    }
+
     public static void setSessionAttribute(Object key, Object value) {
         getSession().setAttribute(key, value);
     }

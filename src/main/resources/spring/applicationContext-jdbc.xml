@@ -79,6 +79,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<list>
+				<value>classpath:mybatis/common/*Mapper.xml</value>
 				<value>classpath:mybatis/score/*Mapper.xml</value>
 				<value>classpath:mybatis/shiro/*Mapper.xml</value>
 			</list>
@@ -86,7 +87,7 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.wutuobang.shiro.dao,com.wutuobang.score.dao" />
+		<property name="basePackage" value="com.wutuobang.shiro.dao,com.wutuobang.score.dao,com.wutuobang.common.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 </beans>

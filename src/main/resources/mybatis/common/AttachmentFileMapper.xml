@@ -3,9 +3,9 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.wutuobang.score.dao.IScoreFileDao">
+<mapper namespace="com.wutuobang.common.dao.IAttachmentFileDao">
 
-    <resultMap id="ScoreFile" type="com.wutuobang.score.model.ScoreFileModel">
+    <resultMap id="AttachmentFile" type="com.wutuobang.common.model.AttachmentFileModel">
         <result property="id" column="id"/>
         <result property="fileName" column="file_name"/>
         <result property="filePath" column="file_path"/>
@@ -21,17 +21,15 @@
 	    ]]>
 	</sql>
 	
-    <insert id="insert" >
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-        INSERT INTO d_score_file (
-	        id  ,
+        INSERT INTO d_attachment_file (
 	        file_name  ,
 	        file_path  ,
 	        download_path  ,
 	        is_system  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
         	#{fileName, jdbcType=VARCHAR} ,
         	#{filePath, jdbcType=VARCHAR} ,
         	#{downloadPath, jdbcType=VARCHAR} ,
@@ -42,7 +40,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_score_file SET
+        UPDATE d_attachment_file SET
 	        <if test="fileName != null">file_name = #{fileName, jdbcType=VARCHAR} ,</if>
 	        <if test="filePath != null">file_path = #{filePath, jdbcType=VARCHAR} ,</if>
 	        <if test="downloadPath != null">download_path = #{downloadPath, jdbcType=VARCHAR} ,</if>
@@ -54,15 +52,15 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_score_file WHERE
+        DELETE FROM d_attachment_file WHERE
         id = #{id} 
     ]]>
     </delete>
     
-    <select id="getById" resultMap="ScoreFile">
+    <select id="getById" resultMap="AttachmentFile">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_score_file 
+	        FROM d_attachment_file 
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -83,15 +81,15 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_score_file <include refid="findWhere"/>    
+        SELECT count(*) FROM d_attachment_file <include refid="findWhere"/>    
     </select>
     
     <!--
     	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
-    <select id="findPage" resultMap="ScoreFile">
-    	SELECT <include refid="columns"/> FROM d_score_file 
+    <select id="findPage" resultMap="AttachmentFile">
+    	SELECT <include refid="columns"/> FROM d_attachment_file 
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -99,8 +97,8 @@
     </select>
 
 	
-	<select id="find" resultMap="ScoreFile">
-	    SELECT <include refid="columns"/> FROM d_score_file 
+	<select id="find" resultMap="AttachmentFile">
+	    SELECT <include refid="columns"/> FROM d_attachment_file 
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
