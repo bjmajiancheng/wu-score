@@ -37,14 +37,15 @@ public class IAttachmentFileBiz {
      * @return
      * @throws IOException
      */
-    public AttachmentFileModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem) throws IOException {
+    public AttachmentFileModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem)
+            throws IOException {
         Date currDate = new Date();
 
-        String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
-                .DateToString(currDate, DateStyle.YYYYMMDD);
+        String savePath = uploadFolder + ShiroUtils.getCurrUserName() + "/" + DateUtil
+                .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
         String downloadPath = request.getContextPath() + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
-                .DateToString(currDate, DateStyle.YYYYMMDD);
+                .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
         File targetFile = new File(savePath);
         if (!targetFile.exists()) {
@@ -55,7 +56,7 @@ public class IAttachmentFileBiz {
 
         String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         String newFileName = DateUtil.DateToString(currDate, DateStyle.YYYYMMDDHHMMSS) + String
-                .format("%3d", new Random().nextInt(1000)) + "_" + fileName;
+                .format("%04d", new Random().nextInt(1000)) + "_" + fileName;
 
         FileUtil.saveFileFromInputStream(file.getInputStream(), savePath, newFileName);
 

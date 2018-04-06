@@ -521,6 +521,7 @@
 <!-- 底部栏 footer -->
 #parse("common/footer.html")
 </body>
+<script type="text/javascript" src="${rc.contextPath}/$static.curr_ver()/js/jquery.form.min.js"></script>
 <script type="text/javascript">
   var relation_idx = 1;
 
@@ -570,13 +571,47 @@
     //提交
     $("#submit").on("click",submit);
     $("#submitAndContinue").on("click", submitAndContinue);
+
+    //身份证正面上传
+    $("input[name=idcard1]").on("change", function(){
+      var form = $("<form>");
+      form.attr('style', 'display:none');
+      form.attr('method', 'post');
+      form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
+      form.attr('enctype', 'multipart/form-data');
+      var file = $("input[name=idcard1]").clone();
+      $(file).attr('name', 'file');
+      $(form).append(file);
+
+      $('body').append(form);
+
+      $(form).ajaxSubmit(function() {
+        layer.alert("图片上传成功!!!");
+      });
+    });
+
+    //身份证反面上传
+    $("input[name=idcard2]").on("change", function(){
+      var form = $("<form>");
+      form.attr('style', 'display:none');
+      form.attr('method', 'post');
+      form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
+      form.attr('enctype', 'multipart/form-data');
+      var file = $("input[name=idcard2]").clone();
+      $(file).attr('name', 'file');
+      $(form).append(file);
+
+      $('body').append(form);
+      $(form).ajaxSubmit(function() {
+        layer.alert("图片上传成功!!!");
+      });
+    });
   });
 
   /**
    * 提交表单
    */
   function submit(){
-    debugger;
     var formInfo = getFormInfo();
   }
 
@@ -626,7 +661,6 @@
       data: {"identityInfoJson": identityInfoJson, "captcha":captcha},
       dataType: "json",
       success: function(result){
-        debugger;
         if(result.code == 0){
           layer.alert(result.message);
         }else{
