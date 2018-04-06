@@ -37,6 +37,11 @@ public class ResultParam {
     public static final ResultParam FAIL_RESULT = new ResultParam(4, "操作失败, 请重试!!!");
 
     /**
+     * 验证码错误
+     */
+    public static final ResultParam CAPTCHA_ERROR_RESULT = new ResultParam(5, "验证码不正确, 请重新输入");
+
+    /**
      * 默认错误编码
      */
     public static final int ERROR = 9;

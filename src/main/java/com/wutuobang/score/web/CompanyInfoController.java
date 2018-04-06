@@ -63,7 +63,7 @@ public class CompanyInfoController {
 
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
-            return ResultParam.error("验证码不正确");
+            return ResultParam.CAPTCHA_ERROR_RESULT;
         }
 
         try {

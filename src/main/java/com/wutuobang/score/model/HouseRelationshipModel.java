@@ -34,7 +34,7 @@ public class HouseRelationshipModel implements Serializable {
 
 	private Integer isRemove;//"是否随迁，1、是；2、否"
 
-	private Integer cultureDegree;//"文化程度"
+	private String cultureDegree;//"文化程度"
 
 	private Date ctime;//"创建时间"
 
@@ -88,11 +88,11 @@ public class HouseRelationshipModel implements Serializable {
 		return this.isRemove;
 	}
 		
-	public void setCultureDegree(Integer cultureDegree) {
+	public void setCultureDegree(String cultureDegree) {
 		this.cultureDegree = cultureDegree;
 	}
 
-	public Integer getCultureDegree() {
+	public String getCultureDegree() {
 		return this.cultureDegree;
 	}
 		

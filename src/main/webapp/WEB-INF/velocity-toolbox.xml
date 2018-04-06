@@ -6,4 +6,11 @@
 	    <scope>application</scope>
 	    <class>com.wutuobang.shiro.realm.VelocityShiro</class>
 	</tool>
+
+	<tool>
+		<key>static</key>
+		<scope>application</scope>
+		<class>com.wutuobang.common.utils.StaticUtils</class>
+	</tool>
+
 </toolbox>

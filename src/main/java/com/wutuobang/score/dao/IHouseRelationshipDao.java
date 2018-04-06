@@ -29,5 +29,13 @@ public interface IHouseRelationshipDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<HouseRelationshipModel> find(Map<String, Object> param);
+
+	/**
+	 * 批量添加家庭关系信息集合
+	 *
+	 * @param houseRelationships
+	 * @return
+	 */
+	public int batchInsert(@Param("houseRelationships") List<HouseRelationshipModel> houseRelationships);
 	
 }

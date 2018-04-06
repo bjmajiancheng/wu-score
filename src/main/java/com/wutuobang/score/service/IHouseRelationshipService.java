@@ -29,4 +29,12 @@ public interface IHouseRelationshipService{
 	public int removeById(Integer value);
 
 	public List<HouseRelationshipModel> find(Map<String, Object> param);
+
+	/**
+	 * 批量添加家庭关系信息集合
+	 *
+	 * @param houseRelationships
+	 * @return
+     */
+	public int batchInsert(List<HouseRelationshipModel> houseRelationships);
 }

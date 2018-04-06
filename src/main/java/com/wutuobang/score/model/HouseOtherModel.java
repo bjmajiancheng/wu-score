@@ -48,15 +48,15 @@ public class HouseOtherModel implements Serializable {
 
 	private String applicationDate;//"居住证申领日期"
 
-	private Boolean socialSecurityPay;//"是否缴纳社保, 1、是；2、否"
+	private Integer socialSecurityPay;//"是否缴纳社保, 1、是；2、否"
 
-	private Boolean providentFund;//"是否参加住房公积金, 1、是；2、否"
+	private Integer providentFund;//"是否参加住房公积金, 1、是；2、否"
 
-	private Boolean taxes;//"纳税情况, 1、是；2、否"
+	private Integer taxes;//"纳税情况, 1、是；2、否"
 
-	private Boolean detention;//"拘留情况, 1、是；2、否"
+	private Integer detention;//"拘留情况, 1、是；2、否"
 
-	private Boolean penalty;//"获刑情况, 1、是；2、否"
+	private Integer penalty;//"获刑情况, 1、是；2、否"
 
 	private Integer awardsTitle;//"奖项荣誉称号,1、拥有有效的中国发明专利；2、获得党中央、国务院授予的奖项和荣誉称号；3、获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号；4、获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇"
 
@@ -168,43 +168,43 @@ public class HouseOtherModel implements Serializable {
 		return this.applicationDate;
 	}
 		
-	public void setSocialSecurityPay(Boolean socialSecurityPay) {
+	public void setSocialSecurityPay(Integer socialSecurityPay) {
 		this.socialSecurityPay = socialSecurityPay;
 	}
 
-	public Boolean getSocialSecurityPay() {
+	public Integer getSocialSecurityPay() {
 		return this.socialSecurityPay;
 	}
 		
-	public void setProvidentFund(Boolean providentFund) {
+	public void setProvidentFund(Integer providentFund) {
 		this.providentFund = providentFund;
 	}
 
-	public Boolean getProvidentFund() {
+	public Integer getProvidentFund() {
 		return this.providentFund;
 	}
 		
-	public void setTaxes(Boolean taxes) {
+	public void setTaxes(Integer taxes) {
 		this.taxes = taxes;
 	}
 
-	public Boolean getTaxes() {
+	public Integer getTaxes() {
 		return this.taxes;
 	}
 		
-	public void setDetention(Boolean detention) {
+	public void setDetention(Integer detention) {
 		this.detention = detention;
 	}
 
-	public Boolean getDetention() {
+	public Integer getDetention() {
 		return this.detention;
 	}
 		
-	public void setPenalty(Boolean penalty) {
+	public void setPenalty(Integer penalty) {
 		this.penalty = penalty;
 	}
 
-	public Boolean getPenalty() {
+	public Integer getPenalty() {
 		return this.penalty;
 	}
 		

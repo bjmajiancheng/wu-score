@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,8 +48,17 @@ public class IdentityInfoModel implements Serializable {
 	private Date ctime;//"创建时间"
 
 	private Date utime;//"更新时间"
-
 	//columns END
+
+	//自定义属性 START
+	private HouseMoveModel houseMoveModel;//户籍迁移信息
+
+	private List<HouseRelationshipModel> houseRelationshipModelList;//申请人家庭关系信息
+
+	private HouseOtherModel houseOtherModel;//申请人其他信息
+
+	private HouseProfessionModel houseProfessionModel;//职业资格证书信息
+	//自定义属性 END
 		
 	public void setId(Integer id) {
 		this.id = id;
@@ -152,6 +162,38 @@ public class IdentityInfoModel implements Serializable {
 
 	public Date getUtime() {
 		return this.utime;
+	}
+
+	public HouseMoveModel getHouseMoveModel() {
+		return houseMoveModel;
+	}
+
+	public void setHouseMoveModel(HouseMoveModel houseMoveModel) {
+		this.houseMoveModel = houseMoveModel;
+	}
+
+	public List<HouseRelationshipModel> getHouseRelationshipModelList() {
+		return houseRelationshipModelList;
+	}
+
+	public void setHouseRelationshipModelList(List<HouseRelationshipModel> houseRelationshipModelList) {
+		this.houseRelationshipModelList = houseRelationshipModelList;
+	}
+
+	public HouseOtherModel getHouseOtherModel() {
+		return houseOtherModel;
+	}
+
+	public void setHouseOtherModel(HouseOtherModel houseOtherModel) {
+		this.houseOtherModel = houseOtherModel;
+	}
+
+	public HouseProfessionModel getHouseProfessionModel() {
+		return houseProfessionModel;
+	}
+
+	public void setHouseProfessionModel(HouseProfessionModel houseProfessionModel) {
+		this.houseProfessionModel = houseProfessionModel;
 	}
 
 	public Map<String, Object> getParam() {

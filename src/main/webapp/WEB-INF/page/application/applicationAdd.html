@@ -35,7 +35,8 @@
     </div>
     <!-- 表单主体部分  用table实现布局 -->
     <div class="integral-cont-table-wrap">
-      <table class="integral-cont-table">
+      <form class="identityInfoForm">
+        <table class="integral-cont-table">
         <tr>
           <td>身份证号：</td>
           <td>
@@ -47,7 +48,7 @@
           <td></td>
           <td>
             <div class="integral-idcard-img">
-              <img class="addImg pointer" src="${rc.contextPath}/statics/img/IDcard1.png" onclick="integral.clickImg(this);" alt="">
+              <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard1.png" onclick="integral.clickImg(this);" alt="">
               <img class="preview" id="preview" alt="" name="pic" width="152" height="100" style="display:none;" />
               <input name="idcard1" type="file" class="upload_input" onchange="integral.change(this)" />
               <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
@@ -55,8 +56,8 @@
               <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
             </div>
             <div class="integral-idcard-img">
-              <img class="addImg pointer" src="${rc.contextPath}/statics/img/IDcard2.png" onclick="integral.clickImg(this);" alt="">
-              <img class="preview" id="preview" alt="" name="pic" width="152" height="100" style="display:none;" />
+              <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard2.png" onclick="integral.clickImg(this);" alt="">
+              <img class="preview" id="back" alt="" name="pic" width="152" height="100" style="display:none;" />
               <input name="idcard2" type="file" class="upload_input" onchange="integral.change(this)" />
               <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
               <div class="title_idcard" style="display:none;">身份证反面</div>
@@ -96,6 +97,7 @@
           </td>
         </tr>
       </table>
+      </form>
     </div>
     <!-- 示例title2 二级标题 -->
     <div class="integral-grey-title-bar title-bar2">
@@ -103,7 +105,8 @@
     </div>
     <!-- 表单主体部分  用table实现布局 -->
     <div class="integral-cont-table-wrap">
-      <table class="integral-cont-table">
+      <form class="houseMoveForm">
+        <table class="integral-cont-table">
         <tr>
           <td>迁出地区：</td>
           <td>
@@ -137,15 +140,13 @@
           <td>现户口性质：</td>
           <td>
             <select name="houseNature" id="houseNature">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="1">农业户口</option>
+              <option value="2">非农户口</option>
             </select>
             <span class="integral-td-title ml50">落户性质：</span>
             <select name="settledNature" id="settledNature">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="1">农业户口</option>
+              <option value="2">非农户口</option>
             </select>
           </td>
         </tr>
@@ -153,14 +154,10 @@
           <td>迁入户籍登记机关：</td>
           <td>
             <select name="registeredOffice" id="registeredOffice">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="1">公安局</option>
             </select>
             <select class="ml50" name="" id="">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="1">派出所</option>
             </select>
           </td>
         </tr>
@@ -188,15 +185,29 @@
           <td>拟落户地区：</td>
           <td>
             <select name="region" id="region">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="21">和平区</option>
+              <option value="22">河东区</option>
+              <option value="23">河西区</option>
+              <option value="24">南开区</option>
+              <option value="25">河北区</option>
+              <option value="26">红桥区</option>
+              <option value="27">东丽区</option>
+              <option value="28">西青区</option>
+              <option value="29">津南区</option>
+              <option value="30">北辰区</option>
+              <option value="31">武清区</option>
+              <option value="32">宝坻区</option>
+              <option value="33">滨海新区</option>
+              <option value="34">宁河区</option>
+              <option value="35">静海区</option>
+              <option value="36">蓟州区</option>
             </select>
             <span class="integral-td-title ml50">婚姻状况：</span>
             <select name="marriageStatus" id="marriageStatus">
-              <option>选项1</option>
-              <option>选项2</option>
-              <option>选项3</option>
+              <option value="1">已婚</option>
+              <option value="2">未婚</option>
+              <option value="3">丧偶</option>
+              <option value="4">离婚</option>
             </select>
           </td>
         </tr>
@@ -210,10 +221,12 @@
           </td>
         </tr>
       </table>
+      </form>
       <!-- 上边选中子女 为有 校验下方子女表 -->
       <div id="children-table">
         <!-- table表格部分1 子女关系表 -->
-        <table class="integral-table border-add houseRelationships">
+        <form class="houseRelationshipsForm">
+          <table class="integral-table border-add houseRelationships">
           <tr>
             <th width="50"> </th>
             <th>与本人关系</th>
@@ -222,9 +235,9 @@
             <th width="100">是否随迁</th>
             <th>文化程度</th>
           </tr>
-          <tr>
+          <tr class="houseRelationship">
             <td>
-              <input type="checkbox" name="check">
+              <input type="checkbox" name="check" class="checkRelation">
             </td>
             <td>
               <input class="table_add_input" type="text" name="relationship">
@@ -236,18 +249,19 @@
               <input class="table_add_input" type="text" name="idNumber">
             </td>
             <td>
-              <input type="radio" name="isRemove" value="1">&nbsp;&nbsp;是
-              <input class="m15" type="radio" name="isRemove" value="2">&nbsp;&nbsp;否</td>
+              <input type="radio" name="isRemove" value="1" id="radio11"><label for="radio11">是</label><input class="m15" type="radio" name="isRemove" value="2" id="radio12"><label for="radio12">否</label>
+            </td>
             <td>
               <input class="table_add_input" type="text" name="cultureDegree">
             </td>
           </tr>
         </table>
+        </form>
         <!-- 子女关系表 控制按钮 -->
         <div class="integral-paging-device-wrap">
           <!--  -->
-          <div class="interal-main-btn m15 fr mt10">增加</div>
-          <div class="interal-main-btn m15 fr mt10">删除</div>
+          <div class="interal-main-btn m15 fr mt10" id="addRelation">增加</div>
+          <div class="interal-main-btn m15 fr mt10" id="delRelation">删除</div>
         </div>
       </div>
     </div>
@@ -257,13 +271,17 @@
     </div>
     <!-- 表单主体部分  用table实现布局 -->
     <div class="integral-cont-table-wrap">
-      <table class="integral-cont-table">
+      <form class="houseOtherForm">
+        <table class="integral-cont-table">
         <tr>
           <td>申请人类型：</td>
           <td>
-            <input class="input_radio" type="radio" name="applicantType" value="1">&nbsp;&nbsp;&nbsp;企业员工
-            <input class="input_radio ml30" type="radio" name="applicantType" value="2">&nbsp;&nbsp;&nbsp;投资者
-            <input class="input_radio ml30" type="radio" name="applicantType" value="3">&nbsp;&nbsp;&nbsp;个体商户
+            <input class="input_radio" type="radio" name="applicantType" value="1" id="radio13">&nbsp;&nbsp;&nbsp;
+            <label for="radio13">企业员工</label>
+            <input class="input_radio ml30" type="radio" name="applicantType" value="2" id="radio14">&nbsp;&nbsp;&nbsp;
+            <label for="radio14">投资者</label>
+            <input class="input_radio ml30" type="radio" name="applicantType" value="3" id="radio15">&nbsp;&nbsp;&nbsp;
+            <label for="radio15">个体商户</label>
           </td>
         </tr>
         <tr>
@@ -287,11 +305,20 @@
           <td>文化程度：</td>
           <td>
             <select name="cultureDegree" id="cultureDegree">
-              <option value="1">中共党员</option>
+              <option value="1">本科及以上</option>
+              <option value="2">大专</option>
+              <option value="3">高级技工学校</option>
+              <option value="4">其他</option>
             </select>
             <span class="integral-td-title ml50">学位：</span>
             <select name="degree" id="degree">
               <option value="0">无</option>
+              <option value="1">博士后</option>
+              <option value="2">名誉博士</option>
+              <option value="3">博士</option>
+              <option value="4">硕士</option>
+              <option value="5">学士</option>
+              <option value="6">双学士</option>
             </select>
           </td>
         </tr>
@@ -330,40 +357,50 @@
         <tr>
           <td>社保缴纳：</td>
           <td>
-            <input class="input_radio" type="radio" name="socialSecurityPay" value="1">&nbsp;&nbsp;&nbsp;是
-            <input class="input_radio ml30" type="radio" name="socialSecurityPay" value="2">&nbsp;&nbsp;&nbsp;否
+            <input class="input_radio" type="radio" name="socialSecurityPay" value="1" id="redio1">&nbsp;&nbsp;&nbsp;
+            <label for="redio1">是</label>
+            <input class="input_radio ml30" type="radio" name="socialSecurityPay" value="2" id="redio2">&nbsp;&nbsp;&nbsp;
+            <label for="redio2">否</label>
             <span class="grey-color">是否缴纳社保</span>
           </td>
         </tr>
         <tr>
           <td>公积金：</td>
           <td>
-            <input class="input_radio" type="radio" name="providentFund" value="1">&nbsp;&nbsp;&nbsp;是
-            <input class="input_radio ml30" type="radio" name="providentFund" value="2">&nbsp;&nbsp;&nbsp;否
+            <input class="input_radio" type="radio" name="providentFund" value="1" id="redio3">&nbsp;&nbsp;&nbsp;
+            <label for="redio3">是</label>
+            <input class="input_radio ml30" type="radio" name="providentFund" value="2" id="redio4">&nbsp;&nbsp;&nbsp;
+            <label for="redio4">否</label>
             <span class="grey-color">是否参加住房公积金</span>
           </td>
         </tr>
         <tr>
           <td>缴纳情况：</td>
           <td>
-            <input class="input_radio" type="radio" name="taxes" value="1">&nbsp;&nbsp;&nbsp;是
-            <input class="input_radio ml30" type="radio" name="taxes" value="2">&nbsp;&nbsp;&nbsp;否
+            <input class="input_radio" type="radio" name="taxes" value="1" id="radio5">&nbsp;&nbsp;&nbsp;
+            <label for="radio5">是</label>
+            <input class="input_radio ml30" type="radio" name="taxes" value="2" id="radio6">&nbsp;&nbsp;&nbsp;
+            <label for="radio6">否</label>
             <span class="grey-color">近3年在本市依法缴纳个人所得税累计10万元及以上</span>
           </td>
         </tr>
         <tr>
           <td>拘留记录：</td>
           <td>
-            <input class="input_radio" type="radio" name="detention" value="1">&nbsp;&nbsp;&nbsp;是
-            <input class="input_radio ml30" type="radio" name="detention" value="2">&nbsp;&nbsp;&nbsp;否
+            <input class="input_radio" type="radio" name="detention" value="1" id="radio7">&nbsp;&nbsp;&nbsp;
+            <label for="radio7">是</label>
+            <input class="input_radio ml30" type="radio" name="detention" value="2" id="radio8">&nbsp;&nbsp;&nbsp;
+            <label for="radio8">否</label>
             <span class="grey-color">积分期间有无行政拘留记录</span>
           </td>
         </tr>
         <tr>
           <td>获刑记录：</td>
           <td>
-            <input class="input_radio" type="radio" name="penalty" value="1">&nbsp;&nbsp;&nbsp;是
-            <input class="input_radio ml30" type="radio" name="penalty" value="2">&nbsp;&nbsp;&nbsp;否
+            <input class="input_radio" type="radio" name="penalty" value="1" id="radio9">&nbsp;&nbsp;&nbsp;
+            <label for="radio9">是</label>
+            <input class="input_radio ml30" type="radio" name="penalty" value="2" id="radio10">&nbsp;&nbsp;&nbsp;
+            <label for="radio10">否</label>
             <span class="grey-color">积分期间有无犯罪获刑记录</span>
           </td>
         </tr>
@@ -381,6 +418,7 @@
           </td>
         </tr>
       </table>
+      </form>
     </div>
 
     <!-- 示例title2 二级标题 -->
@@ -389,13 +427,17 @@
     </div>
     <!-- 表单主体部分  用table实现布局 -->
     <div class="integral-cont-table-wrap">
-      <table class="integral-cont-table">
+      <form class="houseProfessionForm">
+        <table class="integral-cont-table">
         <tr>
           <td>职业资格项：</td>
           <td>
-            <input class="input_radio" type="radio" name="professionType" value="1">&nbsp;&nbsp;&nbsp;无
-            <input class="input_radio ml30" type="radio" name="professionType" value="2">&nbsp;&nbsp;&nbsp;具有职称
-            <input class="input_radio ml30" type="radio" name="professionType" value="3">&nbsp;&nbsp;&nbsp;具有职业资格
+            <input class="input_radio" type="radio" name="professionType" value="1" id="radio16">&nbsp;&nbsp;&nbsp;
+            <label for="radio16">无</label>
+            <input class="input_radio ml30" type="radio" name="professionType" value="2" id="radio17">&nbsp;&nbsp;&nbsp;
+            <label for="radio17">具有职称</label>
+            <input class="input_radio ml30" type="radio" name="professionType" value="3" id="radio18">&nbsp;&nbsp;&nbsp;
+            <label for="radio18">具有职业资格</label>
           </td>
         </tr>
         <tr>
@@ -442,14 +484,15 @@
           <td>工种：</td>
           <td>
             <select name="jobType">
-              <option value="0">选项1</option>
-              <option value="1">选项2</option>
-              <option value="2">选项3</option>
+              <option value="0">请选择</option>
+              <option value="1">工种1</option>
+              <option value="2">工种2</option>
             </select>
           </td>
         </tr>
 
       </table>
+      </form>
     </div>
 
     <!-- 验证码和底部按钮 -->
@@ -458,18 +501,18 @@
         <td>
           <span class="color-red">*</span>验证码：</td>
         <td>
-          <input class="integral-input w200" type="text">
+          <input class="integral-input w200" type="text" name="captcha">
           <div class="checkimg">
-            <img src="img/checkcode.png" alt="">
+            <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="refreshCaptcha">
           </div>
-          <span class="click_me">看不清点我</span>
+          <span class="refreshCaptcha">看不清点我</span>
         </td>
       </tr>
     </table>
     <!-- 保存按钮 -->
     <div class="integral-bottom-btn-group">
-      <div class="interal-main-btn big-btn m15">保存并继续录入</div>
-      <div class="interal-main-btn big-btn ml50">保存</div>
+      <div class="interal-main-btn big-btn m15" id="submitAndContinue">保存并继续录入</div>
+      <div class="interal-main-btn big-btn ml50" id="submit">保存</div>
       <div class="interal-main-btn big-btn ml50">返回</div>
     </div>
   </div>
@@ -479,14 +522,120 @@
 #parse("common/footer.html")
 </body>
 <script type="text/javascript">
-  $(function(){
-      var provinces = getChildRegions(0);
-      //moveProvince
-      regionChange(0, "moveProvince");
+  var relation_idx = 1;
 
-      $("#moveProvince").on("change", regionChange($("#moveProvince").val(), "moveCity")).change();
-      $("#moveCity").on("change", regionChange($("#moveCity").val(), "moveRegion")).change();
+  $(function(){
+    /*var provinces = getChildRegions(0);*/
+    //初始化省份信息
+    regionChange(0, "moveProvince");
+
+    $("#moveProvince").on("change",
+        function(){
+          regionChange($("#moveProvince").val(), "moveCity");
+        }
+    ).change();
+    $("#moveCity").on("change",
+        function(){
+          regionChange($("#moveCity").val(), "moveRegion");
+        }
+    ).change();
+
+    //添加户籍关系
+    $("#addRelation").on("click",
+        function(){
+          var html = [];
+          html.push('<tr class="houseRelationship">');
+          html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
+          html.push('<td><input class="table_add_input" type="text" name="relationship"></td>');
+          html.push('<td><input class="table_add_input" type="text" name="name"></td>');
+          html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
+          html.push('<td><input type="radio" name="isRemove'+ relation_idx +'" value="1" id="isRemove'+ relation_idx +'_yes"><label for="isRemove'+ relation_idx +'_yes">是</label>');
+          html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove'+ relation_idx +'_no"><label for="isRemove'+ relation_idx +'_no">否</label></td>');
+          html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
+          html.push('</tr>');
+          $(".houseRelationships").append(html.join(''));
+
+          relation_idx = relation_idx+1;
+        }
+    );
+
+    $("#delRelation").on("click",
+      function(){
+        $(".checkRelation:checked").each(function(){
+            $(this).parents("tr").remove();
+        });
+      }
+    );
+
+    //提交
+    $("#submit").on("click",submit);
+    $("#submitAndContinue").on("click", submitAndContinue);
   });
+
+  /**
+   * 提交表单
+   */
+  function submit(){
+    debugger;
+    var formInfo = getFormInfo();
+  }
+
+  /**
+   * 提交并继续录入
+   */
+  function submitAndContinue(){
+    var formInfo = getFormInfo();
+  }
+
+  /**
+   * 获取表单信息
+   */
+  function getFormInfo() {
+    var identityInfo = serializeForm($(".identityInfoForm"));
+    var houseMoveInfo = serializeForm($(".houseMoveForm"));
+
+    var houseRelationshipInfos = [];
+    //初始化家庭关系信息
+    $(".houseRelationship").each(function(){
+      var relationship = $(this).find("input[name=relationship]").val();
+      var name = $(this).find("input[name=name]").val();
+      var idNumber = $(this).find("input[name=idNumber]").val();
+      var isRemove = $(this).find("input[type=radio]").val();
+      var cultureDegree = $(this).find("input[name=cultureDegree]").val();
+
+      var houseRelationship = {"relationship": relationship, "name": name, "idNumber": idNumber, "isRemove":isRemove, "cultureDegree": cultureDegree};
+      houseRelationshipInfos.push(houseRelationship);
+    });
+
+    var houseOtherInfo = serializeForm($(".houseOtherForm"));
+    var houseProfessionInfo = serializeForm($(".houseProfessionForm"));
+
+    identityInfo["houseMoveModel"] = houseMoveInfo;
+    identityInfo["houseRelationshipModelList"] = houseRelationshipInfos;
+    identityInfo["houseOtherModel"] = houseOtherInfo;
+    identityInfo["houseProfessionModel"] = houseProfessionInfo;
+
+    var captcha = $("input[name=captcha]").val();
+
+    var identityInfoJson = JSON.stringify(identityInfo);
+
+    $.ajax({
+      type: "POST",
+      url: "${rc.contextPath}/identityInfo/addIdentityInfo",
+      async: false,
+      data: {"identityInfoJson": identityInfoJson, "captcha":captcha},
+      dataType: "json",
+      success: function(result){
+        debugger;
+        if(result.code == 0){
+          layer.alert(result.message);
+        }else{
+          layer.alert(result.message);
+          refreshCode();
+        }
+      }
+    });
+  }
 
   /**
    * 根据地区id获取下级区域
@@ -494,20 +643,23 @@
    * @param regionId
    */
   function getChildRegions(regionId) {
+    var childRegions = [];
     $.ajax({
       type: "GET",
       url: "${rc.contextPath}/region/child/regions/"+regionId,
-      async: true,
+      async: false,
       data: {},
       dataType: "json",
       success: function(result){
         if(result.code == 0){
-          return result.data;
+          childRegions = result.data;
         }else{
           layer.alert(result.message);
         }
       }
     });
+
+    return childRegions;
   }
 
   /**
@@ -516,13 +668,26 @@
    * @param regionId
    */
   function regionChange(regionId, changeRegion) {
+    if(regionId == 0 && changeRegion != "moveProvince") {
+      return ;
+    }
+
+    if(changeRegion == "moveCity") {
+      $("#moveRegion").html('<option value="0">请选择</option>');
+    }
+
     var childRegions = getChildRegions(regionId);
     var html = [];
-    for(var i=0; i<provinces.length; i++) {
-      html.push('<option value="'+ provinces[i].id +'">"' + provinces[i].name + '"</option>');
+
+    html.push('<option value="0">请选择</option>');
+    if (childRegions != undefined) {
+      for(var i=0; i<childRegions.length; i++) {
+        html.push('<option value="'+ childRegions[i].id +'">' + childRegions[i].name + '</option>');
+      }
     }
-    $("#"+changeRegion).appendChild(html.join(''));
+    $("#"+changeRegion).html(html.join(''));
   }
+
 </script>
 
 </html>

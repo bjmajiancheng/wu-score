@@ -38,7 +38,6 @@
     <insert id="insert" >
     <![CDATA[
         INSERT INTO d_house_other (
-	        id  ,
 	        identity_info_id  ,
 	        applicant_type  ,
 	        political_status  ,
@@ -59,7 +58,6 @@
 	        awards_title  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{applicantType, jdbcType=INTEGER} ,
         	#{politicalStatus, jdbcType=INTEGER} ,
