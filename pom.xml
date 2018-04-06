@@ -184,6 +184,19 @@
       <artifactId>kaptcha</artifactId>
       <version>${kaptcha-version}</version>
     </dependency>
+
+    <!-- redis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.7.5.RELEASE</version>
+    </dependency>
+
     <!-- Velocity视图所需jar -->
     <dependency>
       <artifactId>velocity</artifactId>
@@ -327,10 +340,11 @@
         <configuration>
           <path>/</path>
           <charset>UTF-8</charset>
-          <port>80</port>
+          <port>8080</port>
           <uriEncoding>UTF-8</uriEncoding>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 </project>
