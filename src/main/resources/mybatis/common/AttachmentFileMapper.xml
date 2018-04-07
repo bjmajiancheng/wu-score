@@ -23,7 +23,7 @@
 	
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-        INSERT INTO d_attachment_file (
+        INSERT INTO t_attachment_file (
 	        file_name  ,
 	        file_path  ,
 	        download_path  ,
@@ -40,7 +40,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_attachment_file SET
+        UPDATE t_attachment_file SET
 	        <if test="fileName != null">file_name = #{fileName, jdbcType=VARCHAR} ,</if>
 	        <if test="filePath != null">file_path = #{filePath, jdbcType=VARCHAR} ,</if>
 	        <if test="downloadPath != null">download_path = #{downloadPath, jdbcType=VARCHAR} ,</if>
@@ -52,7 +52,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_attachment_file WHERE
+        DELETE FROM t_attachment_file WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -60,7 +60,7 @@
     <select id="getById" resultMap="AttachmentFile">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_attachment_file 
+	        FROM t_attachment_file
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -81,7 +81,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_attachment_file <include refid="findWhere"/>    
+        SELECT count(*) FROM t_attachment_file <include refid="findWhere"/>
     </select>
     
     <!--
@@ -89,7 +89,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="AttachmentFile">
-    	SELECT <include refid="columns"/> FROM d_attachment_file 
+    	SELECT <include refid="columns"/> FROM t_attachment_file
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -98,7 +98,7 @@
 
 	
 	<select id="find" resultMap="AttachmentFile">
-	    SELECT <include refid="columns"/> FROM d_attachment_file 
+	    SELECT <include refid="columns"/> FROM t_attachment_file
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

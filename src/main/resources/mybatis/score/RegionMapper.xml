@@ -21,7 +21,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_region (
+        INSERT INTO t_region (
 	        id  ,
 	        name  ,
 	        parent_id  ,
@@ -36,7 +36,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_region SET
+        UPDATE t_region SET
 	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
 	        <if test="parentId != null">parent_id = #{parentId, jdbcType=INTEGER} ,</if>
 	        <if test="level != null">level = #{level, jdbcType=INTEGER} </if>
@@ -46,7 +46,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_region WHERE
+        DELETE FROM t_region WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -54,7 +54,7 @@
     <select id="getById" resultMap="Region">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_region 
+	        FROM t_region
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -72,7 +72,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_region <include refid="findWhere"/>    
+        SELECT count(*) FROM t_region <include refid="findWhere"/>
     </select>
     
     <!--
@@ -80,7 +80,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="Region">
-    	SELECT <include refid="columns"/> FROM d_region 
+    	SELECT <include refid="columns"/> FROM t_region
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -89,7 +89,7 @@
 
 	
 	<select id="find" resultMap="Region">
-	    SELECT <include refid="columns"/> FROM d_region 
+	    SELECT <include refid="columns"/> FROM t_region
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

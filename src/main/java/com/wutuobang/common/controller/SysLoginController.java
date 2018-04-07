@@ -33,7 +33,7 @@ public class SysLoginController {
     @Autowired
     private Producer producer;
 
-    @RequestMapping("captcha.jpg")
+    @RequestMapping("/captcha.jpg")
     public void captcha(HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");

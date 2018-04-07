@@ -29,7 +29,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_company_info (
+        INSERT INTO t_company_info (
 	        id  ,
 	        user_name  ,
 	        password  ,
@@ -60,7 +60,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_company_info SET
+        UPDATE t_company_info SET
 	        <if test="userName != null">user_name = #{userName, jdbcType=VARCHAR} ,</if>
 	        <if test="password != null">password = #{password, jdbcType=VARCHAR} ,</if>
 	        <if test="companyName != null">company_name = #{companyName, jdbcType=VARCHAR} ,</if>
@@ -78,7 +78,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_company_info WHERE
+        DELETE FROM t_company_info WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -86,7 +86,7 @@
     <select id="getById" resultMap="CompanyInfo">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_company_info 
+	        FROM t_company_info
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -125,7 +125,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_company_info <include refid="findWhere"/>    
+        SELECT count(*) FROM t_company_info <include refid="findWhere"/>
     </select>
     
     <!--
@@ -133,7 +133,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="CompanyInfo">
-    	SELECT <include refid="columns"/> FROM d_company_info 
+    	SELECT <include refid="columns"/> FROM t_company_info
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -142,7 +142,7 @@
 
 	
 	<select id="find" resultMap="CompanyInfo">
-	    SELECT <include refid="columns"/> FROM d_company_info 
+	    SELECT <include refid="columns"/> FROM t_company_info
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

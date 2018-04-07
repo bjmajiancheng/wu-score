@@ -24,7 +24,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_score_period (
+        INSERT INTO t_score_period (
 	        id  ,
 	        score_period_id  ,
 	        datetime  ,
@@ -45,7 +45,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_score_period SET
+        UPDATE t_score_period SET
 	        <if test="scorePeriodId != null">score_period_id = #{scorePeriodId, jdbcType=INTEGER} ,</if>
 	        <if test="datetime != null">datetime = #{datetime, jdbcType=VARCHAR} ,</if>
 	        <if test="totalNumber != null">total_number = #{totalNumber, jdbcType=INTEGER} ,</if>
@@ -58,7 +58,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_score_period WHERE
+        DELETE FROM t_score_period WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -66,7 +66,7 @@
     <select id="getById" resultMap="ScorePeriod">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_score_period 
+	        FROM t_score_period
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -81,7 +81,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_score_period <include refid="findWhere"/>    
+        SELECT count(*) FROM t_score_period <include refid="findWhere"/>
     </select>
     
     <!--
@@ -89,7 +89,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="ScorePeriod">
-    	SELECT <include refid="columns"/> FROM d_score_period 
+    	SELECT <include refid="columns"/> FROM t_score_period
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -98,7 +98,7 @@
 
 	
 	<select id="find" resultMap="ScorePeriod">
-	    SELECT <include refid="columns"/> FROM d_score_period 
+	    SELECT <include refid="columns"/> FROM t_score_period
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

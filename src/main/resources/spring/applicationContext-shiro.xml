@@ -45,7 +45,8 @@
                 /api/**=anon
                 /login.html=anon
                 /sys/login=anon
-                /sys/register=anon
+                /sys/register.html=anon
+                /companyInfo/register=anon
                 /captcha.jpg=anon
                 /**=authc
             </value>

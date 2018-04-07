@@ -25,7 +25,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_house_relationship (
+        INSERT INTO t_house_relationship (
 	        id  ,
 	        identity_info_id  ,
 	        relationship  ,
@@ -48,7 +48,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_house_relationship SET
+        UPDATE t_house_relationship SET
 	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
 	        <if test="relationship != null">relationship = #{relationship, jdbcType=VARCHAR} ,</if>
 	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
@@ -62,7 +62,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_house_relationship WHERE
+        DELETE FROM t_house_relationship WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -70,7 +70,7 @@
     <select id="getById" resultMap="HouseRelationship">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_house_relationship 
+	        FROM t_house_relationship
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -91,7 +91,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_house_relationship <include refid="findWhere"/>    
+        SELECT count(*) FROM t_house_relationship <include refid="findWhere"/>
     </select>
     
     <!--
@@ -99,7 +99,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="HouseRelationship">
-    	SELECT <include refid="columns"/> FROM d_house_relationship 
+    	SELECT <include refid="columns"/> FROM t_house_relationship
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -108,7 +108,7 @@
 
 	
 	<select id="find" resultMap="HouseRelationship">
-	    SELECT <include refid="columns"/> FROM d_house_relationship 
+	    SELECT <include refid="columns"/> FROM t_house_relationship
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -116,7 +116,7 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO d_house_relationship(identity_info_id, relationship, name, id_number, is_remove, culture_degree)
+		INSERT INTO t_house_relationship(identity_info_id, relationship, name, id_number, is_remove, culture_degree)
 		VALUES
 		<foreach collection="houseRelationships" item="item" separator=",">
 			(#{item.identityInfoId}, #{item.relationship}, #{item.name}, #{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})

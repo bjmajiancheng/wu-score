@@ -54,6 +54,8 @@
               <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
               <div class="title_idcard" style="display:none;">身份证正面</div>
               <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
+
+              <input name="id_card_positive" type="hidden"/>
             </div>
             <div class="integral-idcard-img">
               <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard2.png" onclick="integral.clickImg(this);" alt="">
@@ -62,6 +64,8 @@
               <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
               <div class="title_idcard" style="display:none;">身份证反面</div>
               <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
+
+              <input name="id_card_opposite" type="hidden"/>
             </div>
           </td>
         </tr>
@@ -585,8 +589,13 @@
 
       $('body').append(form);
 
-      $(form).ajaxSubmit(function() {
-        layer.alert("图片上传成功!!!");
+      $(form).ajaxSubmit(function(result) {
+        var obj = JSON.parse(result);
+        if(!obj.code) {
+          $("input[name=id_card_positive]").val(obj.data);
+        } else {
+          layer.msg(obj.msg);
+        }
       });
     });
 
@@ -602,8 +611,13 @@
       $(form).append(file);
 
       $('body').append(form);
-      $(form).ajaxSubmit(function() {
-        layer.alert("图片上传成功!!!");
+      $(form).ajaxSubmit(function(result) {
+        var obj = JSON.parse(result);
+        if(!obj.code) {
+          $("input[name=id_card_opposite]").val(obj.data);
+        } else {
+          layer.msg(obj.msg);
+        }
       });
     });
   });

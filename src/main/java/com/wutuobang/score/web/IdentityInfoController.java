@@ -78,6 +78,9 @@ public class IdentityInfoController {
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
             if(identityInfoModel != null) {
                 identityInfoModel.setCompanyId(currUser.getId());
+                if(identityInfoModel.getHouseMoveModel() != null) {
+                    identityInfoModel.setRegion(identityInfoModel.getHouseMoveModel().getRegion());
+                }
                 identityInfoService.insert(identityInfoModel);
             }
 

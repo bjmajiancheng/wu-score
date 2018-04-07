@@ -37,7 +37,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_house_other (
+        INSERT INTO t_house_other (
 	        identity_info_id  ,
 	        applicant_type  ,
 	        political_status  ,
@@ -82,7 +82,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_house_other SET
+        UPDATE t_house_other SET
 	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
 	        <if test="applicantType != null">applicant_type = #{applicantType, jdbcType=INTEGER} ,</if>
 	        <if test="politicalStatus != null">political_status = #{politicalStatus, jdbcType=INTEGER} ,</if>
@@ -108,7 +108,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_house_other WHERE
+        DELETE FROM t_house_other WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -116,7 +116,7 @@
     <select id="getById" resultMap="HouseOther">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_house_other 
+	        FROM t_house_other
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -146,7 +146,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_house_other <include refid="findWhere"/>    
+        SELECT count(*) FROM t_house_other <include refid="findWhere"/>
     </select>
     
     <!--
@@ -154,7 +154,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="HouseOther">
-    	SELECT <include refid="columns"/> FROM d_house_other 
+    	SELECT <include refid="columns"/> FROM t_house_other
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -163,7 +163,7 @@
 
 	
 	<select id="find" resultMap="HouseOther">
-	    SELECT <include refid="columns"/> FROM d_house_other 
+	    SELECT <include refid="columns"/> FROM t_house_other
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

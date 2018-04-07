@@ -23,7 +23,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_system_notice (
+        INSERT INTO t_system_notice (
 	        id  ,
 	        title  ,
 	        content  ,
@@ -42,7 +42,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_system_notice SET
+        UPDATE t_system_notice SET
 	        <if test="title != null">title = #{title, jdbcType=VARCHAR} ,</if>
 	        <if test="content != null">content = #{content, jdbcType=VARCHAR} ,</if>
 	        <if test="type != null">type = #{type, jdbcType=INTEGER} ,</if>
@@ -54,7 +54,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_system_notice WHERE
+        DELETE FROM t_system_notice WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -62,7 +62,7 @@
     <select id="getById" resultMap="SystemNotice">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_system_notice 
+	        FROM t_system_notice
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -83,7 +83,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_system_notice <include refid="findWhere"/>    
+        SELECT count(*) FROM t_system_notice <include refid="findWhere"/>
     </select>
     
     <!--
@@ -91,7 +91,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="SystemNotice">
-    	SELECT <include refid="columns"/> FROM d_system_notice 
+    	SELECT <include refid="columns"/> FROM t_system_notice
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -100,7 +100,7 @@
 
 	
 	<select id="find" resultMap="SystemNotice">
-	    SELECT <include refid="columns"/> FROM d_system_notice 
+	    SELECT <include refid="columns"/> FROM t_system_notice
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

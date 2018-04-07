@@ -1,5 +1,7 @@
 package com.wutuobang.common.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wutuobang.common.biz.IAttachmentFileBiz;
 import com.wutuobang.common.model.AttachmentFileModel;
 import com.wutuobang.common.service.IAttachmentFileService;
@@ -36,18 +38,24 @@ public class FileUploadController {
     public void uploadImages(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "file", required = true) MultipartFile file) throws IOException {
 
-        PrintWriter writer = response.getWriter();
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
 
+        PrintWriter writer = response.getWriter();
         try {
             if (file == null || file.isEmpty()) {
-                writer.println("请选择文件!!!");
+                writer.println(JSON.toJSONString(ResultParam.error("请选择文件!!!")));
                 return;
             }
 
             AttachmentFileModel attachmentFile = attachmentFileBiz
                     .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO);
 
-            writer.println("上传成功!!");
+            ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!",
+                    attachmentFile.getFilePath());
+            writer.println(JSON.toJSONString(param));
+
             return;
         } catch (Exception e) {
             e.printStackTrace();

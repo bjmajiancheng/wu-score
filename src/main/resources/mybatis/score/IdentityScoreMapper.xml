@@ -27,7 +27,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_identity_score (
+        INSERT INTO t_identity_score (
 	        id  ,
 	        identity_period_id  ,
 	        question_no  ,
@@ -54,7 +54,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_identity_score SET
+        UPDATE t_identity_score SET
 	        <if test="identityPeriodId != null">identity_period_id = #{identityPeriodId, jdbcType=INTEGER} ,</if>
 	        <if test="questionNo != null">question_no = #{questionNo, jdbcType=INTEGER} ,</if>
 	        <if test="questionId != null">question_id = #{questionId, jdbcType=INTEGER} ,</if>
@@ -70,7 +70,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_identity_score WHERE
+        DELETE FROM t_identity_score WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -78,7 +78,7 @@
     <select id="getById" resultMap="IdentityScore">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_identity_score 
+	        FROM t_identity_score
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -93,7 +93,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_identity_score <include refid="findWhere"/>    
+        SELECT count(*) FROM t_identity_score <include refid="findWhere"/>
     </select>
     
     <!--
@@ -101,7 +101,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="IdentityScore">
-    	SELECT <include refid="columns"/> FROM d_identity_score 
+    	SELECT <include refid="columns"/> FROM t_identity_score
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -110,7 +110,7 @@
 
 	
 	<select id="find" resultMap="IdentityScore">
-	    SELECT <include refid="columns"/> FROM d_identity_score 
+	    SELECT <include refid="columns"/> FROM t_identity_score
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

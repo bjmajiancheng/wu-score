@@ -35,7 +35,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_reservation_info (
+        INSERT INTO t_reservation_info (
 	        id  ,
 	        period_id  ,
 	        identity_info_id  ,
@@ -78,7 +78,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_reservation_info SET
+        UPDATE t_reservation_info SET
 	        <if test="periodId != null">period_id = #{periodId, jdbcType=INTEGER} ,</if>
 	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
 	        <if test="registerCode != null">register_code = #{registerCode, jdbcType=VARCHAR} ,</if>
@@ -102,7 +102,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_reservation_info WHERE
+        DELETE FROM t_reservation_info WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -110,7 +110,7 @@
     <select id="getById" resultMap="ReservationInfo">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_reservation_info 
+	        FROM t_reservation_info
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -128,7 +128,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_reservation_info <include refid="findWhere"/>    
+        SELECT count(*) FROM t_reservation_info <include refid="findWhere"/>
     </select>
     
     <!--
@@ -136,7 +136,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="ReservationInfo">
-    	SELECT <include refid="columns"/> FROM d_reservation_info 
+    	SELECT <include refid="columns"/> FROM t_reservation_info
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -145,7 +145,7 @@
 
 	
 	<select id="find" resultMap="ReservationInfo">
-	    SELECT <include refid="columns"/> FROM d_reservation_info 
+	    SELECT <include refid="columns"/> FROM t_reservation_info
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

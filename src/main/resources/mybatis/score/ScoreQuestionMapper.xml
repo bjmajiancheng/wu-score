@@ -22,7 +22,7 @@
 	
     <insert id="insert" >
     <![CDATA[
-        INSERT INTO d_score_question (
+        INSERT INTO t_score_question (
 	        id  ,
 	        name  ,
 	        dept_ids  ,
@@ -39,7 +39,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE d_score_question SET
+        UPDATE t_score_question SET
 	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
 	        <if test="deptIds != null">dept_ids = #{deptIds, jdbcType=VARCHAR} ,</if>
 	        <if test="scoreType != null">score_type = #{scoreType, jdbcType=INTEGER} ,</if>
@@ -50,7 +50,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM d_score_question WHERE
+        DELETE FROM t_score_question WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -58,7 +58,7 @@
     <select id="getById" resultMap="ScoreQuestion">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM d_score_question 
+	        FROM t_score_question
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -76,7 +76,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM d_score_question <include refid="findWhere"/>    
+        SELECT count(*) FROM t_score_question <include refid="findWhere"/>
     </select>
     
     <!--
@@ -84,7 +84,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="ScoreQuestion">
-    	SELECT <include refid="columns"/> FROM d_score_question 
+    	SELECT <include refid="columns"/> FROM t_score_question
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -93,7 +93,7 @@
 
 	
 	<select id="find" resultMap="ScoreQuestion">
-	    SELECT <include refid="columns"/> FROM d_score_question 
+	    SELECT <include refid="columns"/> FROM t_score_question
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
