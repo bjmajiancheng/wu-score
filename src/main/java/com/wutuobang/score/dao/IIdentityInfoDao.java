@@ -29,5 +29,13 @@ public interface IIdentityInfoDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<IdentityInfoModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取分页总数信息
+	 *
+	 * @param param
+	 * @return
+     */
+	public int findPageCount(Map<String, Object> param);
 	
 }

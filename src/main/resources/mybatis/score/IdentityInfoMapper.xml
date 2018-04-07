@@ -94,24 +94,27 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="idNumber != null">
-						AND id_number = #{idNumber}
-					</if>
-					<if test="idCardPositive != null">
-						AND id_card_positive = #{idCardPositive}
-					</if>
-					<if test="idCardOpposite != null">
-						AND id_card_opposite = #{idCardOpposite}
-					</if>
-					<if test="name != null">
-						AND name = #{name}
-					</if>
-					<if test="birthday != null">
-						AND birthday = #{birthday}
-					</if>
-					<if test="nation != null">
-						AND nation = #{nation}
-					</if>
+			<if test="idNumber != null">
+				AND id_number = #{idNumber}
+			</if>
+			<if test="idCardPositive != null">
+				AND id_card_positive = #{idCardPositive}
+			</if>
+			<if test="idCardOpposite != null">
+				AND id_card_opposite = #{idCardOpposite}
+			</if>
+			<if test="name != null">
+				AND name = #{name}
+			</if>
+			<if test="birthday != null">
+				AND birthday = #{birthday}
+			</if>
+			<if test="nation != null">
+				AND nation = #{nation}
+			</if>
+			<if test="queryStr != null">
+				AND name LIKE #{queryStr}
+			</if>
 	    </where>
 	</sql>
 	 

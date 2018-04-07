@@ -7,6 +7,7 @@
 
 package com.wutuobang.score.service;
 
+import com.wutuobang.common.utils.PageData;
 import com.wutuobang.score.model.IdentityInfoModel;
 import java.util.*;
 import com.wutuobang.score.dao.*;
@@ -29,4 +30,12 @@ public interface IIdentityInfoService{
 	public int removeById(Integer value);
 
 	public List<IdentityInfoModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取分页数据信息
+	 *
+	 * @param queryStr
+	 * @return
+     */
+	public PageData<IdentityInfoModel> findPage(String queryStr);
 }

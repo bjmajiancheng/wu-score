@@ -37,4 +37,20 @@ public interface IRegionService{
 	 * @return
      */
 	public List<RegionModel> getByParendId(Integer regionId);
+
+	/**
+	 * 根据id集合获取地区信息
+	 *
+	 * @param ids
+	 * @return
+     */
+	public List<RegionModel> getByIds(List<Integer> ids);
+
+	/**
+	 * 根据id集合获取地区Map信息
+	 *
+	 * @param ids
+	 * @return
+     */
+	public Map<Integer, RegionModel> getMapByIds(List<Integer> ids);
 }

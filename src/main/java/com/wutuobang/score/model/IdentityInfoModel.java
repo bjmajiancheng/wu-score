@@ -58,6 +58,8 @@ public class IdentityInfoModel implements Serializable {
 	private HouseOtherModel houseOtherModel;//申请人其他信息
 
 	private HouseProfessionModel houseProfessionModel;//职业资格证书信息
+
+	private String regionName;//拟落户地区名称
 	//自定义属性 END
 		
 	public void setId(Integer id) {
@@ -196,10 +198,20 @@ public class IdentityInfoModel implements Serializable {
 		this.houseProfessionModel = houseProfessionModel;
 	}
 
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public String getSexStr() {
+		if(this.getSex() == null) {
+			return "";
+		}
+
+		return this.getSex() == 1 ? "男" : "女";
 	}
 }
 

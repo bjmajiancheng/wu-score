@@ -29,87 +29,48 @@
             申请人列表
         </div>
         <!-- 表格搜索框和按钮部分 -->
-        <div class="interal-tab-title-input">
-            <div class="interal-input-title">快速查询</div>
-            <input type="text">
-            <div class="interal-input-btn">查询</div>
-            <div class="interal-input-btn">返回</div>
-            <div class="interal-input-btn" id="addApplication">添加申请人</div>
-            <div class="interal-input-btn">批量预约</div>
+        <div id="app">
+            <script type="template/regular" id="identityRows">
+                <div class="interal-tab-title-input">
+                    <div class="interal-input-title">快速查询</div>
+                    <input type="text" name="queryStr">
+                    <div class="interal-input-btn" on-click={this.load()}>查询</div>
+                    <div class="interal-input-btn">返回</div>
+                    <div class="interal-input-btn" id="addApplication">添加申请人</div>
+                    <div class="interal-input-btn">批量预约</div>
+                </div>
+                <!-- table2表格部分 -->
+                <table class="integral-table">
+                    <tr>
+                        <th>选择</th>
+                        <th>序列</th>
+                        <th>身份证号</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>拟定户地</th>
+                        <th>预约日期</th>
+                        <th>操作</th>
+                    </tr>
+                    {#list identityInfos as identityInfo }
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>{identityInfo.id}</td>
+                        <td>{identityInfo.idNumber}</td>
+                        <td>{identityInfo.name}</td>
+                        <td>{identityInfo.sexStr}</td>
+                        <td>{identityInfo.regionName}</td>
+                        <td>2016-08-02</td>
+                        <td>
+                            <span class="integral-table-btn integral-table-btn1">编辑</span>
+                            <span class="integral-table-btn integral-table-btn2">测评</span>
+                        </td>
+                    </tr>
+                    {/list}
+                </table>
+            </script>
         </div>
-        <!-- table2表格部分 -->
-        <table class="integral-table">
-            <tr>
-                <th>选择</th>
-                <th>序列</th>
-                <th>身份证号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>拟定户地</th>
-                <th>预约日期</th>
-                <th>操作</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>1</td>
-                <td>410222199909008789</td>
-                <td>李金龙</td>
-                <td>男</td>
-                <td>河南开封</td>
-                <td>2016-08-02</td>
-                <td>
-                    <span class="integral-table-btn integral-table-btn1">编辑</span>
-                    <span class="integral-table-btn integral-table-btn2">测评</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>1</td>
-                <td>410222199909008789</td>
-                <td>李金龙</td>
-                <td>男</td>
-                <td>河南开封</td>
-                <td>2016-08-02</td>
-                <td>
-                    <span class="integral-table-btn integral-table-btn1">编辑</span>
-                    <span class="integral-table-btn integral-table-btn2">预约申请</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>1</td>
-                <td>410222199909008789</td>
-                <td>李金龙</td>
-                <td>男</td>
-                <td>河南开封</td>
-                <td>2016-08-02</td>
-                <td>
-                    <span class="integral-table-btn integral-table-btn1">编辑</span>
-                    <span class="integral-table-btn integral-table-btn2">预约凭证</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>1</td>
-                <td>410222199909008789</td>
-                <td>李金龙</td>
-                <td>男</td>
-                <td>河南开封</td>
-                <td>2016-08-02</td>
-                <td>
-                    <span class="integral-table-btn integral-table-btn1">编辑</span>
-                    <span class="integral-table-btn integral-table-btn2">预约</span>
-                </td>
-            </tr>
-        </table>
         <!-- 分页器插件 -->
         <div class="integral-paging-device-wrap2 m-style"></div>
     </div>
@@ -124,6 +85,45 @@
             window.open("${rc.contextPath}/identityInfo/toAddIdentityInfo");
         });
     });
+
+    //利用Regular构建你的app吧
+    var identityRowsRegular = Regular.extend({
+        template: '#identityRows'
+    });
+
+    // initialize component then $inject to #app's  bottom
+    var component = new identityRowsRegular({
+        data: {identityInfos: []},
+        load: function(data){
+            var queryStr = $("input[name=queryStr]").val();
+
+            if(queryStr == undefined) {
+                queryStr = "";
+            }
+            $.ajax({
+                type: "POST",
+                url: "${rc.contextPath}/identityInfo/list",
+                data: {"queryStr": queryStr},
+                dataType: "json",
+                success: function(result){
+                    var resultData = result.data;
+                    if(result.code == 0){//登录成功
+
+                        component.data.identityInfos = resultData.data;
+                        component.$update();
+
+                        $(".integral-paging-device-wrap2").pagination({pageCount: resultData.recordsTotal});
+                    }else{
+                        layer.alert(result.message);
+                    }
+                }
+            });
+        }
+    });
+
+    component.load();
+
+    component.$inject('#app');
 </script>
 
 </html>
