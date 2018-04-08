@@ -85,7 +85,13 @@ public class IdentityInfoController {
             if (identityInfoModel != null) {
                 identityInfoModel.setCompanyId(currUser.getId());
                 if (identityInfoModel.getHouseMoveModel() != null) {
-                    identityInfoModel.setRegion(identityInfoModel.getHouseMoveModel().getRegion());
+                    Integer region = identityInfoModel.getHouseMoveModel().getRegion();
+                    identityInfoModel.setRegion(region);
+
+                    RegionModel regionModel = regionService.getById(region);
+                    if(regionModel != null) {
+                        identityInfoModel.setRegionName(regionModel.getName());
+                    }
                 }
                 identityInfoService.insert(identityInfoModel);
             }
@@ -142,7 +148,7 @@ public class IdentityInfoController {
 
             PageData<IdentityInfoModel> pageData = identityInfoService.findPage(queryStr);
 
-            List<IdentityInfoModel> identityInfos = pageData.getData();
+            /*List<IdentityInfoModel> identityInfos = pageData.getData();
             if (CollectionUtils.isNotEmpty(identityInfos)) {
                 List<Integer> regionIds = new ArrayList<Integer>(identityInfos.size());
 
@@ -157,7 +163,7 @@ public class IdentityInfoController {
                         identityInfo.setRegionName(regionModel.getName());
                     }
                 }
-            }
+            }*/
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {

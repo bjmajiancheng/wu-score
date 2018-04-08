@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IIdentityPeriodReviewDao">
+
+    <resultMap id="IdentityPeriodReview" type="com.wutuobang.score.model.IdentityPeriodReviewModel">
+        <result property="id" column="id"/>
+        <result property="applyType" column="apply_type"/>
+        <result property="applyReason" column="apply_reason"/>
+        <result property="applyRemark" column="apply_remark"/>
+        <result property="applyPersonId" column="apply_person_id"/>
+        <result property="applyTime" column="apply_time"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="reviewPersonId" column="review_person_id"/>
+        <result property="reviewDept" column="review_dept"/>
+        <result property="reviewRemark" column="review_remark"/>
+        <result property="reviewTime" column="review_time"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,apply_type ,apply_reason ,apply_remark ,apply_person_id ,apply_time ,review_status ,review_person_id ,review_dept ,review_remark ,review_time ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_identity_period_review (
+	        id  ,
+	        apply_type  ,
+	        apply_reason  ,
+	        apply_remark  ,
+	        apply_person_id  ,
+	        apply_time  ,
+	        review_status  ,
+	        review_person_id  ,
+	        review_dept  ,
+	        review_remark  ,
+	        review_time  ,
+	        c_time  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{applyType, jdbcType=INTEGER} ,
+        	#{applyReason, jdbcType=INTEGER} ,
+        	#{applyRemark, jdbcType=VARCHAR} ,
+        	#{applyPersonId, jdbcType=INTEGER} ,
+        	#{applyTime, jdbcType=INTEGER} ,
+        	#{reviewStatus, jdbcType=INTEGER} ,
+        	#{reviewPersonId, jdbcType=INTEGER} ,
+        	#{reviewDept, jdbcType=INTEGER} ,
+        	#{reviewRemark, jdbcType=VARCHAR} ,
+        	#{reviewTime, jdbcType=INTEGER} ,
+        	#{ctime, jdbcType=TIMESTAMP} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_identity_period_review SET
+	        <if test="applyType != null">apply_type = #{applyType, jdbcType=INTEGER} ,</if>
+	        <if test="applyReason != null">apply_reason = #{applyReason, jdbcType=INTEGER} ,</if>
+	        <if test="applyRemark != null">apply_remark = #{applyRemark, jdbcType=VARCHAR} ,</if>
+	        <if test="applyPersonId != null">apply_person_id = #{applyPersonId, jdbcType=INTEGER} ,</if>
+	        <if test="applyTime != null">apply_time = #{applyTime, jdbcType=INTEGER} ,</if>
+	        <if test="reviewStatus != null">review_status = #{reviewStatus, jdbcType=INTEGER} ,</if>
+	        <if test="reviewPersonId != null">review_person_id = #{reviewPersonId, jdbcType=INTEGER} ,</if>
+	        <if test="reviewDept != null">review_dept = #{reviewDept, jdbcType=INTEGER} ,</if>
+	        <if test="reviewRemark != null">review_remark = #{reviewRemark, jdbcType=VARCHAR} ,</if>
+	        <if test="reviewTime != null">review_time = #{reviewTime, jdbcType=INTEGER} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_identity_period_review WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="IdentityPeriodReview">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_identity_period_review
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="applyRemark != null">
+						AND apply_remark = #{applyRemark}
+					</if>
+					<if test="reviewRemark != null">
+						AND review_remark = #{reviewRemark}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_identity_period_review <include refid="findWhere"/>
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="IdentityPeriodReview">
+    	SELECT <include refid="columns"/> FROM t_identity_period_review
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="IdentityPeriodReview">
+	    SELECT <include refid="columns"/> FROM t_identity_period_review
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

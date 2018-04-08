@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IHouseOtherDao">
+
+    <resultMap id="HouseOther" type="com.wutuobang.score.model.HouseOtherModel">
+        <result property="id" column="id"/>
+        <result property="identityInfoId" column="identity_info_id"/>
+        <result property="applicantType" column="applicant_type"/>
+        <result property="politicalStatus" column="political_status"/>
+        <result property="soldierMeritorious" column="soldier_meritorious"/>
+        <result property="cultureDegree" column="culture_degree"/>
+        <result property="degree" column="degree"/>
+        <result property="profession" column="profession"/>
+        <result property="companyName" column="company_name"/>
+        <result property="companyAddress" column="company_address"/>
+        <result property="companyPhone" column="company_phone"/>
+        <result property="selfPhone" column="self_phone"/>
+        <result property="applicationDate" column="application_date"/>
+        <result property="socialSecurityPay" column="social_security_pay"/>
+        <result property="providentFund" column="provident_fund"/>
+        <result property="taxes" column="taxes"/>
+        <result property="detention" column="detention"/>
+        <result property="penalty" column="penalty"/>
+        <result property="awardsTitle" column="awards_title"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_house_other (
+	        identity_info_id  ,
+	        applicant_type  ,
+	        political_status  ,
+	        soldier_meritorious  ,
+	        culture_degree  ,
+	        degree  ,
+	        profession  ,
+	        company_name  ,
+	        company_address  ,
+	        company_phone  ,
+	        self_phone  ,
+	        application_date  ,
+	        social_security_pay  ,
+	        provident_fund  ,
+	        taxes  ,
+	        detention  ,
+	        penalty  ,
+	        awards_title  ,
+	        c_time  
+        ) VALUES (
+        	#{identityInfoId, jdbcType=INTEGER} ,
+        	#{applicantType, jdbcType=INTEGER} ,
+        	#{politicalStatus, jdbcType=INTEGER} ,
+        	#{soldierMeritorious, jdbcType=INTEGER} ,
+        	#{cultureDegree, jdbcType=INTEGER} ,
+        	#{degree, jdbcType=INTEGER} ,
+        	#{profession, jdbcType=VARCHAR} ,
+        	#{companyName, jdbcType=VARCHAR} ,
+        	#{companyAddress, jdbcType=VARCHAR} ,
+        	#{companyPhone, jdbcType=VARCHAR} ,
+        	#{selfPhone, jdbcType=VARCHAR} ,
+        	#{applicationDate, jdbcType=VARCHAR} ,
+        	#{socialSecurityPay, jdbcType=INTEGER} ,
+        	#{providentFund, jdbcType=INTEGER} ,
+        	#{taxes, jdbcType=INTEGER} ,
+        	#{detention, jdbcType=INTEGER} ,
+        	#{penalty, jdbcType=INTEGER} ,
+        	#{awardsTitle, jdbcType=INTEGER} ,
+        	#{ctime, jdbcType=TIMESTAMP} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_house_other SET
+	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
+	        <if test="applicantType != null">applicant_type = #{applicantType, jdbcType=INTEGER} ,</if>
+	        <if test="politicalStatus != null">political_status = #{politicalStatus, jdbcType=INTEGER} ,</if>
+	        <if test="soldierMeritorious != null">soldier_meritorious = #{soldierMeritorious, jdbcType=INTEGER} ,</if>
+	        <if test="cultureDegree != null">culture_degree = #{cultureDegree, jdbcType=INTEGER} ,</if>
+	        <if test="degree != null">degree = #{degree, jdbcType=INTEGER} ,</if>
+	        <if test="profession != null">profession = #{profession, jdbcType=VARCHAR} ,</if>
+	        <if test="companyName != null">company_name = #{companyName, jdbcType=VARCHAR} ,</if>
+	        <if test="companyAddress != null">company_address = #{companyAddress, jdbcType=VARCHAR} ,</if>
+	        <if test="companyPhone != null">company_phone = #{companyPhone, jdbcType=VARCHAR} ,</if>
+	        <if test="selfPhone != null">self_phone = #{selfPhone, jdbcType=VARCHAR} ,</if>
+	        <if test="applicationDate != null">application_date = #{applicationDate, jdbcType=VARCHAR} ,</if>
+	        <if test="socialSecurityPay != null">social_security_pay = #{socialSecurityPay, jdbcType=INTEGER} ,</if>
+	        <if test="providentFund != null">provident_fund = #{providentFund, jdbcType=INTEGER} ,</if>
+	        <if test="taxes != null">taxes = #{taxes, jdbcType=INTEGER} ,</if>
+	        <if test="detention != null">detention = #{detention, jdbcType=INTEGER} ,</if>
+	        <if test="penalty != null">penalty = #{penalty, jdbcType=INTEGER} ,</if>
+	        <if test="awardsTitle != null">awards_title = #{awardsTitle, jdbcType=INTEGER} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_house_other WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="HouseOther">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_house_other
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="profession != null">
+						AND profession = #{profession}
+					</if>
+					<if test="companyName != null">
+						AND company_name = #{companyName}
+					</if>
+					<if test="companyAddress != null">
+						AND company_address = #{companyAddress}
+					</if>
+					<if test="companyPhone != null">
+						AND company_phone = #{companyPhone}
+					</if>
+					<if test="selfPhone != null">
+						AND self_phone = #{selfPhone}
+					</if>
+					<if test="applicationDate != null">
+						AND application_date = #{applicationDate}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_house_other <include refid="findWhere"/>
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="HouseOther">
+    	SELECT <include refid="columns"/> FROM t_house_other
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="HouseOther">
+	    SELECT <include refid="columns"/> FROM t_house_other
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

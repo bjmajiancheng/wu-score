@@ -45,6 +45,8 @@ public class IdentityInfoModel implements Serializable {
 
 	private Integer region;//"拟落户地区"
 
+	private String regionName;//"拟落户地区名称"
+
 	private Date ctime;//"创建时间"
 
 	private Date utime;//"更新时间"
@@ -58,8 +60,6 @@ public class IdentityInfoModel implements Serializable {
 	private HouseOtherModel houseOtherModel;//申请人其他信息
 
 	private HouseProfessionModel houseProfessionModel;//职业资格证书信息
-
-	private String regionName;//拟落户地区名称
 	//自定义属性 END
 		
 	public void setId(Integer id) {
@@ -149,6 +149,14 @@ public class IdentityInfoModel implements Serializable {
 	public Integer getRegion() {
 		return this.region;
 	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
 		
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
@@ -196,14 +204,6 @@ public class IdentityInfoModel implements Serializable {
 
 	public void setHouseProfessionModel(HouseProfessionModel houseProfessionModel) {
 		this.houseProfessionModel = houseProfessionModel;
-	}
-
-	public String getRegionName() {
-		return regionName;
-	}
-
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
 	}
 
 	public String getSexStr() {

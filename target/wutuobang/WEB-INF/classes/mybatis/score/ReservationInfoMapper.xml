@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IReservationInfoDao">
+
+    <resultMap id="ReservationInfo" type="com.wutuobang.score.model.ReservationInfoModel">
+        <result property="id" column="id"/>
+        <result property="periodId" column="period_id"/>
+        <result property="identityInfoId" column="identity_info_id"/>
+        <result property="registerCode" column="register_code"/>
+        <result property="reservaionLocation" column="reservaion_location"/>
+        <result property="reservaionDate" column="reservaion_date"/>
+        <result property="status" column="status"/>
+        <result property="websiteReviewType" column="website_review_type"/>
+        <result property="websiteReviewTime" column="website_review_time"/>
+        <result property="reserveNumber" column="reserve_number"/>
+        <result property="policeReviewType" column="police_review_type"/>
+        <result property="policeReviewTime" column="police_review_time"/>
+        <result property="preReviewStatus" column="pre_review_status"/>
+        <result property="preReviewTime" column="pre_review_time"/>
+        <result property="formalAcceptTime" column="formal_accept_time"/>
+        <result property="fileSendStatus" column="file_send_status"/>
+        <result property="socoreStatus" column="socore_status"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,period_id ,identity_info_id ,register_code ,reservaion_location ,reservaion_date ,status ,website_review_type ,website_review_time ,reserve_number ,police_review_type ,police_review_time ,pre_review_status ,pre_review_time ,formal_accept_time ,file_send_status ,socore_status ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_reservation_info (
+	        id  ,
+	        period_id  ,
+	        identity_info_id  ,
+	        register_code  ,
+	        reservaion_location  ,
+	        reservaion_date  ,
+	        status  ,
+	        website_review_type  ,
+	        website_review_time  ,
+	        reserve_number  ,
+	        police_review_type  ,
+	        police_review_time  ,
+	        pre_review_status  ,
+	        pre_review_time  ,
+	        formal_accept_time  ,
+	        file_send_status  ,
+	        socore_status  ,
+	        c_time  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{periodId, jdbcType=INTEGER} ,
+        	#{identityInfoId, jdbcType=INTEGER} ,
+        	#{registerCode, jdbcType=VARCHAR} ,
+        	#{reservaionLocation, jdbcType=INTEGER} ,
+        	#{reservaionDate, jdbcType=INTEGER} ,
+        	#{status, jdbcType=INTEGER} ,
+        	#{websiteReviewType, jdbcType=INTEGER} ,
+        	#{websiteReviewTime, jdbcType=INTEGER} ,
+        	#{reserveNumber, jdbcType=VARCHAR} ,
+        	#{policeReviewType, jdbcType=INTEGER} ,
+        	#{policeReviewTime, jdbcType=INTEGER} ,
+        	#{preReviewStatus, jdbcType=INTEGER} ,
+        	#{preReviewTime, jdbcType=INTEGER} ,
+        	#{formalAcceptTime, jdbcType=INTEGER} ,
+        	#{fileSendStatus, jdbcType=INTEGER} ,
+        	#{socoreStatus, jdbcType=INTEGER} ,
+        	#{ctime, jdbcType=TIMESTAMP} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_reservation_info SET
+	        <if test="periodId != null">period_id = #{periodId, jdbcType=INTEGER} ,</if>
+	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
+	        <if test="registerCode != null">register_code = #{registerCode, jdbcType=VARCHAR} ,</if>
+	        <if test="reservaionLocation != null">reservaion_location = #{reservaionLocation, jdbcType=INTEGER} ,</if>
+	        <if test="reservaionDate != null">reservaion_date = #{reservaionDate, jdbcType=INTEGER} ,</if>
+	        <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
+	        <if test="websiteReviewType != null">website_review_type = #{websiteReviewType, jdbcType=INTEGER} ,</if>
+	        <if test="websiteReviewTime != null">website_review_time = #{websiteReviewTime, jdbcType=INTEGER} ,</if>
+	        <if test="reserveNumber != null">reserve_number = #{reserveNumber, jdbcType=VARCHAR} ,</if>
+	        <if test="policeReviewType != null">police_review_type = #{policeReviewType, jdbcType=INTEGER} ,</if>
+	        <if test="policeReviewTime != null">police_review_time = #{policeReviewTime, jdbcType=INTEGER} ,</if>
+	        <if test="preReviewStatus != null">pre_review_status = #{preReviewStatus, jdbcType=INTEGER} ,</if>
+	        <if test="preReviewTime != null">pre_review_time = #{preReviewTime, jdbcType=INTEGER} ,</if>
+	        <if test="formalAcceptTime != null">formal_accept_time = #{formalAcceptTime, jdbcType=INTEGER} ,</if>
+	        <if test="fileSendStatus != null">file_send_status = #{fileSendStatus, jdbcType=INTEGER} ,</if>
+	        <if test="socoreStatus != null">socore_status = #{socoreStatus, jdbcType=INTEGER} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_reservation_info WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="ReservationInfo">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_reservation_info
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="registerCode != null">
+						AND register_code = #{registerCode}
+					</if>
+					<if test="reserveNumber != null">
+						AND reserve_number = #{reserveNumber}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_reservation_info <include refid="findWhere"/>
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="ReservationInfo">
+    	SELECT <include refid="columns"/> FROM t_reservation_info
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="ReservationInfo">
+	    SELECT <include refid="columns"/> FROM t_reservation_info
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+
