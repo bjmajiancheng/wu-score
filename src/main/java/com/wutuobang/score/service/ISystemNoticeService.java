@@ -7,6 +7,7 @@
 
 package com.wutuobang.score.service;
 
+import com.wutuobang.common.utils.PageData;
 import com.wutuobang.score.model.SystemNoticeModel;
 import java.util.*;
 import com.wutuobang.score.dao.*;
@@ -29,4 +30,12 @@ public interface ISystemNoticeService{
 	public int removeById(Integer value);
 
 	public List<SystemNoticeModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取分页数据信息
+	 *
+	 * @param type
+	 * @return
+     */
+	public PageData<SystemNoticeModel> findPage(Integer type);
 }

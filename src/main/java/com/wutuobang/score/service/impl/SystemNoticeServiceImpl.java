@@ -12,55 +12,86 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.wutuobang.score.model.SystemNoticeModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 @Service("systemNoticeService")
-public class SystemNoticeServiceImpl implements ISystemNoticeService{
-	@Autowired
-	private ISystemNoticeDao systemNoticeDao;
+public class SystemNoticeServiceImpl implements ISystemNoticeService {
 
-	public int insert(SystemNoticeModel systemNotice) {
-		if(systemNotice == null) {
-			return 0;
-		}
-		return systemNoticeDao.insert(systemNotice);
-	}
-	
-	public int update(SystemNoticeModel systemNotice) {
-		if(systemNotice == null) {
-			return 0;
-		}
-		return systemNoticeDao.update(systemNotice);
-	}
-	
-	public SystemNoticeModel getById(Integer id) {
-		if(id == null) {
-			return null;
-		}
-		return systemNoticeDao.getById(id);
-	}
+    @Autowired
+    private ISystemNoticeDao systemNoticeDao;
 
-	public int removeById(Integer id) {
-		if(id == null) {
-			return 0;
-		}
-		return systemNoticeDao.delete(id);
-	}	
+    public int insert(SystemNoticeModel systemNotice) {
+        if (systemNotice == null) {
+            return 0;
+        }
+        return systemNoticeDao.insert(systemNotice);
+    }
 
-	public List<SystemNoticeModel> find(Map<String, Object> param) {
-		return systemNoticeDao.find(param);
-	}
-	
+    public int update(SystemNoticeModel systemNotice) {
+        if (systemNotice == null) {
+            return 0;
+        }
+        return systemNoticeDao.update(systemNotice);
+    }
+
+    public SystemNoticeModel getById(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return systemNoticeDao.getById(id);
+    }
+
+    public int removeById(Integer id) {
+        if (id == null) {
+            return 0;
+        }
+        return systemNoticeDao.delete(id);
+    }
+
+    public List<SystemNoticeModel> find(Map<String, Object> param) {
+        return systemNoticeDao.find(param);
+    }
+
+    /**
+     * 获取分页数据信息
+     *
+     * @param type
+     * @return
+     */
+    @Override
+    public PageData<SystemNoticeModel> findPage(Integer type) {
+        if (type == null) {
+            return new PageData<SystemNoticeModel>();
+        }
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("type", type);
+        int pageCount = systemNoticeDao.findPageCount(param);
+        if (pageCount == 0) {
+            return new PageData<SystemNoticeModel>();
+        }
+
+        List<SystemNoticeModel> systemNotices = this.find(param);
+        PageData<SystemNoticeModel> pageData = new PageData<SystemNoticeModel>();
+        pageData.setData(systemNotices);
+        pageData.setRecordsTotal(pageCount);
+
+        return pageData;
+    }
+
 }

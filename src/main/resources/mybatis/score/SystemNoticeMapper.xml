@@ -70,15 +70,18 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="title != null">
-						AND title = #{title}
-					</if>
-					<if test="content != null">
-						AND content = #{content}
-					</if>
-					<if test="author != null">
-						AND author = #{author}
-					</if>
+			<if test="title != null">
+				AND title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="author != null">
+				AND author = #{author}
+			</if>
+			<if test="type != null">
+				AND type = #{type}
+			</if>
 	    </where>
 	</sql>
 	 

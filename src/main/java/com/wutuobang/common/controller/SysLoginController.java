@@ -93,7 +93,7 @@ public class SysLoginController {
      *
      * @return
      */
-    @RequestMapping(value = "index.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public String index() {
         return "index.html";
     }

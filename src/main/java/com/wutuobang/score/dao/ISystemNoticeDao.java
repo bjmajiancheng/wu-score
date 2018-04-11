@@ -29,5 +29,13 @@ public interface ISystemNoticeDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<SystemNoticeModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取分页总数
+	 *
+	 * @param param
+	 * @return
+     */
+	public int findPageCount(Map<String, Object> param);
 	
 }
