@@ -81,8 +81,10 @@
 </body>
 <script type="text/javascript">
     $(function(){
+        currPage("identityList");
+
         $("#addApplication").on("click", function(){
-            window.open("${rc.contextPath}/identityInfo/toAddIdentityInfo");
+            window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
         });
     });
 

@@ -78,16 +78,76 @@ public class CompanyInfoController {
                 return ResultParam.error("用户名已注册, 请更换用户名!!!");
             }
 
-
             companyInfoModel.setPassword(new Sha256Hash(companyInfoModel.getPassword()).toHex());
             companyInfoModel.setRemark(StringUtils.EMPTY);
             companyInfoModel.setCtime(new Date());
-            if(StringUtils.isNotEmpty(companyInfoModel.getOperatorAddress())) {
+            if (StringUtils.isNotEmpty(companyInfoModel.getOperatorAddress())) {
                 companyInfoModel.setOperatorAddress(StringUtils.EMPTY);
             }
 
             companyInfoService.insert(companyInfoModel);
 
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 公司信息修改页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/companyEdit.html")
+    public String companyEdit(HttpServletRequest request) {
+        return "company/companyEdit.html";
+    }
+
+    /**
+     * 获取当前账户信息
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCurrCompanyInfo", method = RequestMethod.GET)
+    public ResultParam getCurrCompanyInfo(HttpServletRequest request) {
+        Integer userId = ShiroUtils.getUserId();
+
+        CompanyInfoModel currCompany = companyInfoService.getById(userId);
+        if (currCompany != null) {
+            currCompany.setPassword("******");
+        }
+
+        return new ResultParam(ResultParam.SUCCESS_RESULT, currCompany);
+    }
+
+    /**
+     * 用人单位修改
+     *
+     * @param request
+     * @param companyInfo
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/companyEdit", method = RequestMethod.POST)
+    public ResultParam companyEdit(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo,
+            @RequestParam("captcha") String captcha) {
+        if (StringUtils.isEmpty(companyInfo)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
+            return ResultParam.CAPTCHA_ERROR_RESULT;
+        }
+
+        try {
+            CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
+
+            companyInfoService.update(companyInfoModel);
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
             e.printStackTrace();

@@ -51,7 +51,7 @@ public class IdentityInfoController {
      *
      * @return
      */
-    @RequestMapping(value = "/toAddIdentityInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/applicationAdd.html", method = RequestMethod.GET)
     public String toAddIdentityInfo() {
         return "application/applicationAdd.html";
     }

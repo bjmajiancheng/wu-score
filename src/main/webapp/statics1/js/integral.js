@@ -8,6 +8,12 @@ $(function() {
         ts.toggleClass("arrow_up");
         ts.find(".integral-left-nav-item").slideToggle();
       });
+      // 点击展开收起导航栏
+      $("body").on("click", ".integral-single-item", function() {
+        var ts = $(this);
+        $(".integral-single-item").removeClass("active");
+        ts.addClass("active");
+      });
       // 点击材料上传
       $("body").on("click", ".td_upload", function() {
         var ts = $(this);

@@ -59,7 +59,7 @@
         <tr>
           <td>验&nbsp;&nbsp;证&nbsp;&nbsp;码：</td>
           <td>
-            <input class="integral-input w200 ml50" type="text" id="captcha" name="captcha" placeholder="请提供验证码"> <div class="checkimg"><img id="captchaImg" src="captcha.jpg" alt="看不清点我" class="refreshCaptcha"></div><span class="refreshCaptcha">看不清点我</span>
+            <input class="integral-input w200 ml50" type="text" id="captcha" name="captcha" placeholder="请提供验证码"> <div class="checkimg"><img id="captchaImg" src="captcha.jpg" alt="看不清点我" class="click_me"></div><span class="click_me">看不清点我</span>
           </td>
         </tr>
       </table>
@@ -122,7 +122,7 @@
     $("#login").on("click", login);
 
     //刷新二维码
-    $(".refreshCaptcha").on("click", refreshCode);
+    $(".click_me").on("click", refreshCode);
   });
 
   function refreshCode() {

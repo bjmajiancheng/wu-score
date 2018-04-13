@@ -59,6 +59,10 @@
 #parse("common/footer.html")
 </body>
 <script type="text/javascript">
+    $(function(){
+        currPage("systemPolicy");
+    });
+
     //利用Regular构建你的app吧
     var rowsRegular = Regular.extend({
         template: '#rows'

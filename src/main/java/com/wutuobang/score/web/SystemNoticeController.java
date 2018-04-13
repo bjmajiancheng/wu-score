@@ -79,7 +79,7 @@ public class SystemNoticeController {
     }
 
     /**
-     * 获取相关政策列表页面
+     * 获取办理指南列表页面
      *
      * @param request
      * @return

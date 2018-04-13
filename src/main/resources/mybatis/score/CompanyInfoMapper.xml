@@ -71,8 +71,9 @@
 	        <if test="operatorMobile != null">operator_mobile = #{operatorMobile, jdbcType=VARCHAR} ,</if>
 	        <if test="operatorAddress != null">operator_address = #{operatorAddress, jdbcType=VARCHAR} ,</if>
 	        <if test="remark != null">remark = #{remark, jdbcType=VARCHAR} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
-        WHERE 
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
+		WHERE
 	        id = #{id} 
     </update>
 

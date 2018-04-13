@@ -507,9 +507,9 @@
         <td>
           <input class="integral-input w200" type="text" name="captcha">
           <div class="checkimg">
-            <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="refreshCaptcha">
+            <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="click_me">
           </div>
-          <span class="refreshCaptcha">看不清点我</span>
+          <span class="click_me">看不清点我</span>
         </td>
       </tr>
     </table>
@@ -530,6 +530,9 @@
   var relation_idx = 1;
 
   $(function(){
+
+    currPage("addIdentity");
+
     /*var provinces = getChildRegions(0);*/
     //初始化省份信息
     regionChange(0, "moveProvince");
