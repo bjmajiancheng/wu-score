@@ -29,5 +29,21 @@ public interface ICommonQuestionDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<CommonQuestionModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取分页总数
+	 *
+	 * @param param
+	 * @return
+     */
+	public int findPageCount(Map<String, Object> param);
+
+	/**
+	 * 获取分页数据信息
+	 *
+	 * @param param
+	 * @return
+     */
+	public List<CommonQuestionModel> findPage(Map<String, Object> param);
 	
 }

@@ -12,55 +12,85 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.wutuobang.score.model.CommonQuestionModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 @Service("commonQuestionService")
-public class CommonQuestionServiceImpl implements ICommonQuestionService{
-	@Autowired
-	private ICommonQuestionDao commonQuestionDao;
+public class CommonQuestionServiceImpl implements ICommonQuestionService {
 
-	public int insert(CommonQuestionModel commonQuestion) {
-		if(commonQuestion == null) {
-			return 0;
-		}
-		return commonQuestionDao.insert(commonQuestion);
-	}
-	
-	public int update(CommonQuestionModel commonQuestion) {
-		if(commonQuestion == null) {
-			return 0;
-		}
-		return commonQuestionDao.update(commonQuestion);
-	}
-	
-	public CommonQuestionModel getById(Integer id) {
-		if(id == null) {
-			return null;
-		}
-		return commonQuestionDao.getById(id);
-	}
+    @Autowired
+    private ICommonQuestionDao commonQuestionDao;
 
-	public int removeById(Integer id) {
-		if(id == null) {
-			return 0;
-		}
-		return commonQuestionDao.delete(id);
-	}	
+    public int insert(CommonQuestionModel commonQuestion) {
+        if (commonQuestion == null) {
+            return 0;
+        }
+        return commonQuestionDao.insert(commonQuestion);
+    }
 
-	public List<CommonQuestionModel> find(Map<String, Object> param) {
-		return commonQuestionDao.find(param);
-	}
-	
+    public int update(CommonQuestionModel commonQuestion) {
+        if (commonQuestion == null) {
+            return 0;
+        }
+        return commonQuestionDao.update(commonQuestion);
+    }
+
+    public CommonQuestionModel getById(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return commonQuestionDao.getById(id);
+    }
+
+    public int removeById(Integer id) {
+        if (id == null) {
+            return 0;
+        }
+        return commonQuestionDao.delete(id);
+    }
+
+    public List<CommonQuestionModel> find(Map<String, Object> param) {
+        return commonQuestionDao.find(param);
+    }
+
+    /**
+     * 获取常见问题分页数据
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public PageData<CommonQuestionModel> findPage(Integer pageNo, Integer pageSize) {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("start", (pageNo - 1) * pageSize);
+        param.put("pageSize", pageSize);
+        int pageCount = this.commonQuestionDao.findPageCount(param);
+
+        if(pageCount == 0) {
+            return new PageData<CommonQuestionModel>();
+        }
+
+        List<CommonQuestionModel> commonQuestions = this.commonQuestionDao.findPage(param);
+
+        PageData<CommonQuestionModel> pageData = new PageData<CommonQuestionModel>();
+        pageData.setData(commonQuestions);
+        pageData.setRecordsTotal(pageCount);
+
+        return pageData;
+    }
+
 }

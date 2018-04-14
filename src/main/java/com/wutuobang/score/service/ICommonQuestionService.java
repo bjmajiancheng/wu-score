@@ -7,6 +7,7 @@
 
 package com.wutuobang.score.service;
 
+import com.wutuobang.common.utils.PageData;
 import com.wutuobang.score.model.CommonQuestionModel;
 import java.util.*;
 import com.wutuobang.score.dao.*;
@@ -29,4 +30,13 @@ public interface ICommonQuestionService{
 	public int removeById(Integer value);
 
 	public List<CommonQuestionModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取常见问题分页数据
+	 *
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+     */
+	public PageData<CommonQuestionModel> findPage(Integer pageNo, Integer pageSize);
 }

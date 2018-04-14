@@ -12,6 +12,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wutuobang.common.utils.PageData;
+import com.wutuobang.common.utils.ResultParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wutuobang.score.model.CommonQuestionModel;
 
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
@@ -32,7 +38,36 @@ import com.wutuobang.score.service.*;
 @RequestMapping(value = "/commonQuestion")
 public class CommonQuestionController {
 
-	@Autowired
-	private ICommonQuestionService commonQuestionService;
+    @Autowired
+    private ICommonQuestionService commonQuestionService;
+
+    /**
+     * 获取常见问题列表信息
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public ResultParam list(HttpServletRequest request) {
+        try {
+            PageData<CommonQuestionModel> pageData = commonQuestionService.findPage(1, 10);
+
+            return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 返回列表页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/list.html")
+    public String list() {
+        return "system/commonQuestion.html";
+    }
 
 }

@@ -89,4 +89,15 @@ public class SystemNoticeController {
         return "system/guidebook.html";
     }
 
+    /**
+     * 跳转到系统通知页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/systemNotice.html")
+    public String systemNotice(HttpServletRequest request) {
+        return "system/systemNotice.html";
+    }
+
 }
