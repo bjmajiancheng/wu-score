@@ -26,6 +26,7 @@ import java.util.*;
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -49,9 +50,9 @@ public class CommonQuestionController {
      */
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResultParam list(HttpServletRequest request) {
+    public ResultParam list(HttpServletRequest request, @RequestParam("pageNo") Integer pageNo) {
         try {
-            PageData<CommonQuestionModel> pageData = commonQuestionService.findPage(1, 10);
+            PageData<CommonQuestionModel> pageData = commonQuestionService.findPage(pageNo);
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {

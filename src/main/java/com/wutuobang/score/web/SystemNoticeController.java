@@ -52,13 +52,14 @@ public class SystemNoticeController {
      */
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResultParam list(HttpServletRequest request, @RequestParam("type") Integer type) {
+    public ResultParam list(HttpServletRequest request, @RequestParam("type") Integer type,
+            @RequestParam("pageNo") Integer pageNo) {
         if (type == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
 
         try {
-            PageData<SystemNoticeModel> pageData = systemNoticeService.findPage(type);
+            PageData<SystemNoticeModel> pageData = systemNoticeService.findPage(type, pageNo);
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {

@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,18 +75,20 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
      * @param queryStr
      * @return
      */
-    public PageData<IdentityInfoModel> findPage(String queryStr) {
+    public PageData<IdentityInfoModel> findPage(String queryStr, Integer pageNo) {
         Map<String, Object> param = new HashMap<String, Object>();
         if (StringUtils.isNotEmpty(queryStr)) {
             param.put("queryStr", "%" + queryStr + "%");
         }
 
+        param.put("start", (pageNo-1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);
         int pageCount = identityInfoDao.findPageCount(param);
         if (pageCount < 0) {
             return new PageData<IdentityInfoModel>();
         }
 
-        List<IdentityInfoModel> identityInfos = this.find(param);
+        List<IdentityInfoModel> identityInfos = identityInfoDao.findPage(param);
 
         PageData<IdentityInfoModel> identityInfoPageData = new PageData<IdentityInfoModel>();
         identityInfoPageData.setData(identityInfos);

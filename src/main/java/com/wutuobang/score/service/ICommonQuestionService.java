@@ -35,8 +35,7 @@ public interface ICommonQuestionService{
 	 * 获取常见问题分页数据
 	 *
 	 * @param pageNo
-	 * @param pageSize
 	 * @return
      */
-	public PageData<CommonQuestionModel> findPage(Integer pageNo, Integer pageSize);
+	public PageData<CommonQuestionModel> findPage(Integer pageNo);
 }

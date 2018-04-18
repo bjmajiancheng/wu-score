@@ -62,7 +62,10 @@
 </body>
 <script type="text/javascript">
     $(function(){
-       currPage("guidebook");
+        currPage("guidebook");
+
+        component.load();
+        component.$inject('#app');
     });
 
     //利用Regular构建你的app吧
@@ -74,29 +77,35 @@
     var component = new rowsRegular({
         data: {guidebooks: []},
         load: function(data){
-            $.ajax({
-                type: "POST",
-                url: "${rc.contextPath}/systemNotice/list",
-                data: {"type": 2},
-                dataType: "json",
-                success: function(result){
-                    var resultData = result.data;
-                    if(result.code == 0){//登录成功
-                        component.data.guidebooks = resultData.data;
-                        component.$update();
-
-                        $(".integral-paging-device-wrap2").pagination({pageCount: resultData.recordsTotal});
-                    }else{
-                        layer.alert(result.message);
-                    }
-                }
-            });
+            var pageCount = list(1);
+            showPage(pageCount);
         }
     });
 
-    component.load();
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent());
+        pageInfo.setPageCount(pageCount);
+    }
 
-    component.$inject('#app');
+    /**
+     * 分页列表信息
+     * @param page_index
+     */
+    function list(page_index) {
+        var pageCount = 0;
+        postSyncResultData("${rc.contextPath}/systemNotice/list", {"type": 2, "pageNo": page_index}, function(result){
+            component.data.guidebooks = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
 </script>
 
 </html>

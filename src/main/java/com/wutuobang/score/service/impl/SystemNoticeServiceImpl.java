@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,19 +75,22 @@ public class SystemNoticeServiceImpl implements ISystemNoticeService {
      * @return
      */
     @Override
-    public PageData<SystemNoticeModel> findPage(Integer type) {
+    public PageData<SystemNoticeModel> findPage(Integer type, Integer pageNo) {
         if (type == null) {
             return new PageData<SystemNoticeModel>();
         }
 
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("type", type);
+        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);
+
         int pageCount = systemNoticeDao.findPageCount(param);
         if (pageCount == 0) {
             return new PageData<SystemNoticeModel>();
         }
 
-        List<SystemNoticeModel> systemNotices = this.find(param);
+        List<SystemNoticeModel> systemNotices = systemNoticeDao.findPage(param);
         PageData<SystemNoticeModel> pageData = new PageData<SystemNoticeModel>();
         pageData.setData(systemNotices);
         pageData.setRecordsTotal(pageCount);

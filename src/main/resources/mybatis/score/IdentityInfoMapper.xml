@@ -133,6 +133,7 @@
     <select id="findPage" resultMap="IdentityInfo">
     	SELECT <include refid="columns"/> FROM t_identity_info
 		<include refid="findWhere"/>
+		LIMIT #{start}, #{pageSize}
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>

@@ -89,7 +89,7 @@ public class IdentityInfoController {
                     identityInfoModel.setRegion(region);
 
                     RegionModel regionModel = regionService.getById(region);
-                    if(regionModel != null) {
+                    if (regionModel != null) {
                         identityInfoModel.setRegionName(regionModel.getName());
                     }
                 }
@@ -142,11 +142,12 @@ public class IdentityInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResultParam list(HttpServletRequest request, @RequestParam("queryStr") String queryStr) {
+    public ResultParam list(HttpServletRequest request, @RequestParam("queryStr") String queryStr,
+            @RequestParam("pageNo") Integer pageNo) {
 
         try {
 
-            PageData<IdentityInfoModel> pageData = identityInfoService.findPage(queryStr);
+            PageData<IdentityInfoModel> pageData = identityInfoService.findPage(queryStr, pageNo);
 
             /*List<IdentityInfoModel> identityInfos = pageData.getData();
             if (CollectionUtils.isNotEmpty(identityInfos)) {

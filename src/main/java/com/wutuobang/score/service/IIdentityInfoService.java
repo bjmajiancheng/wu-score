@@ -37,5 +37,5 @@ public interface IIdentityInfoService{
 	 * @param queryStr
 	 * @return
      */
-	public PageData<IdentityInfoModel> findPage(String queryStr);
+	public PageData<IdentityInfoModel> findPage(String queryStr, Integer pageNo);
 }

@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,16 +72,15 @@ public class CommonQuestionServiceImpl implements ICommonQuestionService {
      * 获取常见问题分页数据
      *
      * @param pageNo
-     * @param pageSize
      * @return
      */
-    public PageData<CommonQuestionModel> findPage(Integer pageNo, Integer pageSize) {
+    public PageData<CommonQuestionModel> findPage(Integer pageNo) {
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("start", (pageNo - 1) * pageSize);
-        param.put("pageSize", pageSize);
+        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);
         int pageCount = this.commonQuestionDao.findPageCount(param);
 
-        if(pageCount == 0) {
+        if (pageCount == 0) {
             return new PageData<CommonQuestionModel>();
         }
 

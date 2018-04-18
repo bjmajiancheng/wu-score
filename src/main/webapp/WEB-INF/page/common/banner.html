@@ -13,7 +13,11 @@
         <!-- 登录信息 -->
         <div class="integral-register-info">
             <img src="${rc.contextPath}/$static.curr_ver()/img/user.png" alt="">
+            #if($shiro.hasLogin())
             <a href="${rc.contextPath}/login.html" class="login_cl">登录</a>
+            #else
+            <a href="${rc.contextPath}/logout.html" class="login_cl">注销</a>
+            #end
             <a href="${rc.contextPath}/sys/register.html">注册</a>
         </div>
     </div>

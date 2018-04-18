@@ -3,6 +3,8 @@
  */
 package com.wutuobang.common.utils;
 
+import com.wutuobang.common.constant.CommonConstant;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,21 +13,17 @@ import java.util.List;
  *
  */
 public class PageData<T> implements java.io.Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -558124060795928389L;
 	
 	private List<T> data = new ArrayList<T>();
 	
-	private Integer draw = 0;
-	
-	private Integer recordsTotal = 0;
+	private int recordsTotal = 0;
 
-	private Integer recordsFiltered;
-	
-	private String error;
+	private int pageNo = 1;
+
+	private int pageSize = CommonConstant.PAGE_SIZE;
+
+	private int pageCount;
 
 	public List<T> getData() {
 		return data;
@@ -35,38 +33,39 @@ public class PageData<T> implements java.io.Serializable{
 		this.data = data;
 	}
 
-	public Integer getDraw() {
-		return draw;
-	}
-
-	public void setDraw(Integer draw) {
-		this.draw = draw;
-	}
-
-	public Integer getRecordsTotal() {
+	public int getRecordsTotal() {
 		return recordsTotal;
 	}
 
-	public void setRecordsTotal(Integer recordsTotal) {
+	public void setRecordsTotal(int recordsTotal) {
 		this.recordsTotal = recordsTotal;
 	}
 
-	public Integer getRecordsFiltered() {
-		return recordsFiltered;
+	public int getPageNo() {
+		return pageNo;
 	}
 
-	public void setRecordsFiltered(Integer recordsFiltered) {
-		this.recordsFiltered = recordsFiltered;
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
 	}
 
-	public String getError() {
-		return error;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setError(String error) {
-		this.error = error;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
-	
-	
 
+	public int getPageCount() {
+		int pageCount = recordsTotal / pageSize;
+		if (recordsTotal % pageSize != 0) {
+			pageCount += 1;
+		}
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
 }

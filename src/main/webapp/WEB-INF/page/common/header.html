@@ -20,22 +20,23 @@
     //刷新二维码
     $(function(){
         $(".click_me").on("click", refreshCode);
+    });
 
+    function refreshCode() {
+        $("#captchaImg").attr("src", "${rc.contextPath}/captcha.jpg?t=" + $.now());
+    }
+
+    function showPage(pageCount) {
         $('.integral-paging-device-wrap2').pagination({
-            pageCount: 50,
+            pageCount: pageCount,
             coping: true,
+            showData: 10,
             keepShowPN:true,
             homePage: '首页',
             endPage: '尾页',
             prevContent: '上一页',
             nextContent: '下一页',
-            callback: function (api) {
-                console.log(api.getCurrent())
-            }
+            callback: pageCallback,
         });
-    });
-
-    function refreshCode() {
-        $("#captchaImg").attr("src", "${rc.contextPath}/captcha.jpg?t=" + $.now());
     }
 </script>

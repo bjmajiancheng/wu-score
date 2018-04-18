@@ -96,6 +96,7 @@
     <select id="findPage" resultMap="SystemNotice">
     	SELECT <include refid="columns"/> FROM t_system_notice
 		<include refid="findWhere"/>
+		LIMIT #{start}, #{pageSize}
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>

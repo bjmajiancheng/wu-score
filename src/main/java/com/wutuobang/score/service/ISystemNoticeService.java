@@ -37,5 +37,5 @@ public interface ISystemNoticeService{
 	 * @param type
 	 * @return
      */
-	public PageData<SystemNoticeModel> findPage(Integer type);
+	public PageData<SystemNoticeModel> findPage(Integer type, Integer pageNo);
 }

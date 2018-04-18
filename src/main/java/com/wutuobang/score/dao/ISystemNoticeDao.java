@@ -37,5 +37,13 @@ public interface ISystemNoticeDao {
 	 * @return
      */
 	public int findPageCount(Map<String, Object> param);
+
+	/**
+	 * 获取分页数据
+	 *
+	 * @param param
+	 * @return
+     */
+	public List<SystemNoticeModel> findPage(Map<String, Object> param);
 	
 }

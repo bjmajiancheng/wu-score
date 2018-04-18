@@ -62,6 +62,9 @@
 <script type="text/javascript">
     $(function(){
         currPage("normalQuestion");
+
+        component.load();
+        component.$inject('#app');
     });
 
     //利用Regular构建你的app吧
@@ -73,18 +76,36 @@
     var component = new rowsRegular({
         data: {commonQuestions: []},
         load: function(data){
-            postResultData("${rc.contextPath}/commonQuestion/list", {}, function(data){
-                component.data.commonQuestions = data.data;
-                component.$update();
-
-                $(".integral-paging-device-wrap2").pagination({pageCount: data.recordsTotal});
-            });
+            var pageCount = list(1);
+            showPage(pageCount);
         }
     });
 
-    component.load();
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent());
+        pageInfo.setPageCount(pageCount);
+    }
 
-    component.$inject('#app');
+    /**
+     * 分页列表信息
+     * @param page_index
+     */
+    function list(page_index) {
+        var pageCount = 0;
+        postSyncResultData("${rc.contextPath}/commonQuestion/list", {"pageNo": page_index}, function(result){
+            component.data.commonQuestions = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
+
 </script>
 
 </html>

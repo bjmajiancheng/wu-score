@@ -62,3 +62,26 @@ function postResultData(url, data, callback) {
         }
     });
 }
+
+/**
+ * 通过同步post方式获取数据信息
+ * @param url
+ * @param data
+ * @param callback
+ */
+function postSyncResultData(url, data, callback) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        dataType: "json",
+        async: false,
+        success: function(result){
+            if(result.code){//查询成功
+                layer.alert(result.message);
+            }else{
+                callback(result.data);
+            }
+        }
+    });
+}

@@ -86,6 +86,9 @@
         $("#addApplication").on("click", function(){
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
         });
+
+        component.load();
+        component.$inject('#app');
     });
 
     //利用Regular构建你的app吧
@@ -102,30 +105,31 @@
             if(queryStr == undefined) {
                 queryStr = "";
             }
-            $.ajax({
-                type: "POST",
-                url: "${rc.contextPath}/identityInfo/list",
-                data: {"queryStr": queryStr},
-                dataType: "json",
-                success: function(result){
-                    var resultData = result.data;
-                    if(result.code == 0){//登录成功
-
-                        component.data.identityInfos = resultData.data;
-                        component.$update();
-
-                        $(".integral-paging-device-wrap2").pagination({pageCount: resultData.recordsTotal});
-                    }else{
-                        layer.alert(result.message);
-                    }
-                }
-            });
+            var pageCount = list(1, queryStr);
+            showPage(pageCount);
         }
     });
 
-    component.load();
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent(), $("input[name=queryStr]").val());
+        pageInfo.setPageCount(pageCount);
+    }
 
-    component.$inject('#app');
+    function list(page_index, queryStr) {
+        var pageCount = 0;
+        postSyncResultData("${rc.contextPath}/identityInfo/list", {"queryStr": queryStr, "pageNo": page_index}, function(result) {
+            component.data.identityInfos = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
 </script>
 
 </html>

@@ -24,7 +24,7 @@ $(function() {
       $("body").on("click", ".more-box", function(e) {
         e.stopPropagation();
       });
-      $(".integral-paging-device-wrap2").pagination({
+      /*$(".integral-paging-device-wrap2").pagination({
         pageCount: 50,
         coping: true,
         keepShowPN: true,
@@ -32,7 +32,7 @@ $(function() {
         prevContent: "上一页",
         nextContent: "下一页",
         endPage: "尾页"
-      });
+      });*/
     },
     clickImg: function(obj) {
       $(obj)
