@@ -42,6 +42,29 @@ function getResultData(url, data, callback) {
 }
 
 /**
+ * 同步通过get方式获取数据信息
+ * @param url
+ * @param data
+ * @param callback
+ */
+function getSyncResultData(url, data, callback) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: data,
+        dataType: "json",
+        async: false,
+        success: function(result){
+            if(result.code){//查询成功
+                layer.alert(result.message);
+            }else{
+                callback(result.data);
+            }
+        }
+    });
+}
+
+/**
  * 通过post方式获取数据信息
  * @param url
  * @param data

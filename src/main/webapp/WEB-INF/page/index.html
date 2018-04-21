@@ -83,12 +83,12 @@
     $(function(){
         currPage("identityList");
 
+        component.load();
+        component.$inject('#app');
+
         $("#addApplication").on("click", function(){
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
         });
-
-        component.load();
-        component.$inject('#app');
     });
 
     //利用Regular构建你的app吧

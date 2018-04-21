@@ -169,33 +169,10 @@
           <td>迁入户籍登记机关：</td>
           <td>
             <select name="registeredOffice" id="registeredOffice">
-              <option>天津市公安局和平分局</option>
-              <option value="1">天津市公安局河东分局</option>
-              <option value="1">天津市公安局河西分局</option>
-              <option value="1">天津市公安局南开分局</option>
-              <option value="1">天津市公安局河北分局</option>
-              <option value="1">天津市公安局红桥分局</option>
-              <option value="1">天津市滨海新区公安局开发分局</option>
-              <option value="1">天津市滨海新区公安局汉沽分局</option>
-              <option value="1">天津市滨海新区公安局大港分局</option>
-              <option value="1">天津市公安局东丽分局</option>
-              <option value="1">天津市公安局西青分局</option>
-              <option value="1">天津市公安局津南分局</option>
-              <option value="1">天津市公安局北辰分局</option>
-              <option value="1">天津市公安局武清分局</option>
-              <option value="1">天津市公安局宝坻分局</option>
-              <option value="1">天津市公安局宁河分局</option>
-              <option value="1">天津市公安局静海分局</option>
-              <option value="1">天津市公安局蓟县分局</option>
-              <option value="1">天津市公安局天津港公安局</option>
-              <option value="1">天津市滨海新区公安局保税分局</option>
-              <option value="1">天津市公安局海河教育园区分局</option>
-              <option value="1">天津市滨海新区公安局生态城分局</option>
-              <option value="1">天津市滨海新区公安局高新分局</option>
-              <option value="1">天津市滨海新区公安局塘沽分局</option>
+              <option>请选择</option>
             </select>
-            <select class="ml50" name="" id="">
-              <option value="1">派出所</option>
+            <select class="ml50" name="registeredRegion" id="registeredRegion">
+              <option>请选择</option>
             </select>
           </td>
         </tr>
@@ -329,6 +306,16 @@
               <option value="1">中共党员</option>
               <option value="2">中共预备党员</option>
               <option value="3">共青团员</option>
+              <option value="4">民革会员</option>
+              <option value="5">民盟盟员</option>
+              <option value="6">民建会员</option>
+              <option value="7">民进会员</option>
+              <option value="8">农工党党员</option>
+              <option value="9">致公党党员</option>
+              <option value="10">九三学社社员</option>
+              <option value="11">台盟盟员</option>
+              <option value="12">无党派民主人士</option>
+              <option value="13">群众</option>
             </select>
             <span class="integral-td-title ml50">军人立功：</span>
             <select name="soldierMeritorious" id="soldierMeritorious">
@@ -482,7 +469,6 @@
           <td>职称级别：</td>
           <td>
             <select name="jobTitleLevel" id="jobTitleLevel">
-              <option value="0">无</option>
               <option value="1">初级职称</option>
               <option value="2">中级职称</option>
               <option value="3">高级职称</option>
@@ -510,11 +496,14 @@
           <td>
             <select name="jobLevel">
               <option value="0">无</option>
-              <option value="1">高级技师</option>
-              <option value="2">技师</option>
-              <option value="3">高级工</option>
-              <option value="4">中级工</option>
-              <option value="5">初级工</option>
+              <option value="1">高级职称</option>
+              <option value="2">中级职称</option>
+              <option value="3">初级职称</option>
+              <option value="4">高级技师(一级)</option>
+              <option value="5">技师(二级)</option>
+              <option value="6">高级工(三级)</option>
+              <option value="7">中级工(四级)</option>
+              <option value="8">初级工(五级)</option>
             </select>
           </td>
         </tr>
@@ -657,6 +646,37 @@
         }
       });
     });
+
+    var offices = getOffice(0);
+    if(offices != undefined) {
+      var officeHtml = new Array();
+      for(var i=0; i<offices.length; i++) {
+        var office = offices[i];
+        officeHtml.push('<option value="'+office["id"]+'">'+office["name"]+'</option>');
+      }
+      $("#registeredOffice").html(officeHtml.join(''));
+    }
+
+    $("#registeredOffice").on("change", function(){
+      var regions = getOffice($(this).val());
+      var regionHtml = new Array();
+      if(regions != undefined) {
+        for(var i=0; i<regions.length; i++) {
+          var region = regions[i];
+          regionHtml.push('<option value="'+region["id"]+'">'+region["name"]+'</option>');
+        }
+        $("#registeredRegion").html(regionHtml.join(''));
+      }
+    }).change();
+
+
+
+
+
+
+
+
+
   });
 
   /**
@@ -771,6 +791,20 @@
       }
     }
     $("#"+changeRegion).html(html.join(''));
+  }
+
+  /**
+   * 获取登记机关信息
+   *
+   * @param officeId
+   */
+  function getOffice(officeId) {
+    var offices = [];
+    getSyncResultData("${rc.contextPath}/office/getOffices", {parentId: officeId}, function(data){
+      offices = data;
+    });
+
+    return offices;
   }
 
 </script>
