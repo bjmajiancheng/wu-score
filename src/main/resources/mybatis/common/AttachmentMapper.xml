@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.common.dao.IAttachmentDao">
+
+    <resultMap id="Attachment" type="com.wutuobang.common.model.AttachmentModel">
+        <result property="attachmentId" column="attachment_id"/>
+        <result property="attachmentName" column="attachment_name"/>
+        <result property="attachmentType" column="attachment_type"/>
+        <result property="attachmentSuffix" column="attachment_suffix"/>
+        <result property="attachmentPath" column="attachment_path"/>
+        <result property="attachmentUrl" column="attachment_url"/>
+        <result property="attachmentSize" column="attachment_size"/>
+        <result property="uploadLoginName" column="upload_login_name"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        attachment_id ,attachment_name ,attachment_type ,attachment_suffix ,attachment_path ,attachment_url ,attachment_size ,upload_login_name 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO d_attachment (
+	        attachment_id  ,
+	        attachment_name  ,
+	        attachment_type  ,
+	        attachment_suffix  ,
+	        attachment_path  ,
+	        attachment_url  ,
+	        attachment_size  ,
+	        upload_login_name  
+        ) VALUES (
+        	#{attachmentId, jdbcType=INTEGER} ,
+        	#{attachmentName, jdbcType=VARCHAR} ,
+        	#{attachmentType, jdbcType=INTEGER} ,
+        	#{attachmentSuffix, jdbcType=VARCHAR} ,
+        	#{attachmentPath, jdbcType=VARCHAR} ,
+        	#{attachmentUrl, jdbcType=VARCHAR} ,
+        	#{attachmentSize, jdbcType=BIGINT} ,
+        	#{uploadLoginName, jdbcType=VARCHAR} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE d_attachment SET
+	        <if test="attachmentName != null">attachment_name = #{attachmentName, jdbcType=VARCHAR} ,</if>
+	        <if test="attachmentType != null">attachment_type = #{attachmentType, jdbcType=INTEGER} ,</if>
+	        <if test="attachmentSuffix != null">attachment_suffix = #{attachmentSuffix, jdbcType=VARCHAR} ,</if>
+	        <if test="attachmentPath != null">attachment_path = #{attachmentPath, jdbcType=VARCHAR} ,</if>
+	        <if test="attachmentUrl != null">attachment_url = #{attachmentUrl, jdbcType=VARCHAR} ,</if>
+	        <if test="attachmentSize != null">attachment_size = #{attachmentSize, jdbcType=BIGINT} ,</if>
+	        <if test="uploadLoginName != null">upload_login_name = #{uploadLoginName, jdbcType=VARCHAR} </if>
+        WHERE 
+	        attachment_id = #{attachmentId} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM d_attachment WHERE
+        attachment_id = #{attachmentId} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="Attachment">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM d_attachment 
+	        WHERE 
+		        attachment_id = #{attachmentId} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="attachmentName != null">
+				AND attachment_name = #{attachmentName}
+			</if>
+			<if test="attachmentSuffix != null">
+				AND attachment_suffix = #{attachmentSuffix}
+			</if>
+			<if test="attachmentPath != null">
+				AND attachment_path = #{attachmentPath}
+			</if>
+			<if test="attachmentUrl != null">
+				AND attachment_url = #{attachmentUrl}
+			</if>
+			<if test="uploadLoginName != null">
+				AND upload_login_name = #{uploadLoginName}
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM d_attachment <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="Attachment">
+    	SELECT <include refid="columns"/> FROM d_attachment 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="Attachment">
+	    SELECT <include refid="columns"/> FROM d_attachment 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

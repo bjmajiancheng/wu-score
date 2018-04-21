@@ -1,7 +1,9 @@
 package com.wutuobang.common.biz;
 
 import com.wutuobang.common.model.AttachmentFileModel;
+import com.wutuobang.common.model.AttachmentModel;
 import com.wutuobang.common.service.IAttachmentFileService;
+import com.wutuobang.common.service.IAttachmentService;
 import com.wutuobang.common.utils.DateStyle;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.FileUtil;
@@ -26,6 +28,9 @@ public class IAttachmentFileBiz {
     @Autowired
     private IAttachmentFileService attachmentFileService;
 
+    @Autowired
+    private IAttachmentService attachmentService;
+
     @Value("${data.upload.path}")
     private String uploadFolder;
 
@@ -37,7 +42,7 @@ public class IAttachmentFileBiz {
      * @return
      * @throws IOException
      */
-    public AttachmentFileModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem)
+    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem)
             throws IOException {
         Date currDate = new Date();
 
@@ -60,7 +65,17 @@ public class IAttachmentFileBiz {
 
         FileUtil.saveFileFromInputStream(file.getInputStream(), savePath, newFileName);
 
-        AttachmentFileModel attachmentFile = new AttachmentFileModel();
+        AttachmentModel attachmentModel = new AttachmentModel();
+        attachmentModel.setAttachmentName(fileName);
+        attachmentModel.setAttachmentType(0);
+        attachmentModel.setAttachmentSuffix(fileExt);
+        attachmentModel.setAttachmentPath(savePath + newFileName);
+        attachmentModel.setAttachmentUrl(downloadPath + newFileName);
+        attachmentModel.setAttachmentSize(file.getSize());
+        int count = attachmentService.insert(attachmentModel);
+
+        return attachmentModel;
+        /*AttachmentFileModel attachmentFile = new AttachmentFileModel();
         attachmentFile.setFileName(fileName);
         attachmentFile.setDownloadPath(downloadPath + newFileName);
         attachmentFile.setFilePath(savePath + newFileName);
@@ -68,7 +83,7 @@ public class IAttachmentFileBiz {
         attachmentFile.setCtime(new Date());
 
         int count = attachmentFileService.insert(attachmentFile);
-        return attachmentFile;
+        return attachmentFile;*/
     }
 
 }

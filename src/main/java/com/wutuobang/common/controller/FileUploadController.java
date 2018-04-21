@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wutuobang.common.biz.IAttachmentFileBiz;
 import com.wutuobang.common.model.AttachmentFileModel;
+import com.wutuobang.common.model.AttachmentModel;
 import com.wutuobang.common.service.IAttachmentFileService;
 import com.wutuobang.common.utils.ResultParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,11 @@ public class FileUploadController {
                 return;
             }
 
-            AttachmentFileModel attachmentFile = attachmentFileBiz
+            AttachmentModel attachmentFile = attachmentFileBiz
                     .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO);
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!",
-                    attachmentFile.getFilePath());
+                    attachmentFile.getAttachmentPath());
             writer.println(JSON.toJSONString(param));
 
             return;
