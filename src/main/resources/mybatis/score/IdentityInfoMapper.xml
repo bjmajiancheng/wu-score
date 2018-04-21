@@ -6,33 +6,48 @@
 <mapper namespace="com.wutuobang.score.dao.IIdentityInfoDao">
 
     <resultMap id="IdentityInfo" type="com.wutuobang.score.model.IdentityInfoModel">
-        <result property="id" column="id"/>
-        <result property="idNumber" column="id_number"/>
-        <result property="companyId" column="company_id"/>
-        <result property="idCardPositive" column="id_card_positive"/>
-        <result property="idCardOpposite" column="id_card_opposite"/>
-        <result property="name" column="name"/>
-        <result property="sex" column="sex"/>
-        <result property="birthday" column="birthday"/>
-        <result property="age" column="age"/>
+		<result property="id" column="id"/>
+		<result property="idNumber" column="id_number"/>
+		<result property="batchId" column="batch_id"/>
+		<result property="companyId" column="company_id"/>
+		<result property="idCardPositive" column="id_card_positive"/>
+		<result property="idCardOpposite" column="id_card_opposite"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="birthday" column="birthday"/>
+		<result property="age" column="age"/>
 		<result property="nation" column="nation"/>
-        <result property="region" column="region"/>
+		<result property="region" column="region"/>
 		<result property="regionName" column="region_name"/>
-        <result property="ctime" column="c_time"/>
-        <result property="utime" column="u_time"/>
+		<result property="reservationStatus" column="reservation_status"/>
+		<result property="hallStatus" column="hall_status"/>
+		<result property="unionApproveStatus1" column="union_approve_status_1"/>
+		<result property="unionApproveStatus2" column="union_approve_status_2"/>
+		<result property="policeApproveStatus" column="police_approve_status"/>
+		<result property="rensheAcceptStatus" column="renshe_accept_status"/>
+		<result property="cancelStatus" column="cancel_status"/>
+		<result property="acceptNumber" column="accept_number"/>
+		<result property="acceptAddressId" column="accept_address_id"/>
+		<result property="acceptAddress" column="accept_address"/>
+		<result property="reservaionDate" column="reservaion_date"/>
+		<result property="reservaionM" column="reservaion_m"/>
+		<result property="ctime" column="c_time"/>
+		<result property="utime" column="u_time"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,id_number ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region , region_name ,c_time ,u_time
+        id ,id_number ,batch_id ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region ,region_name ,reservation_status ,hall_status ,union_approve_status_1 ,union_approve_status_2 ,police_approve_status ,renshe_accept_status ,cancel_status ,accept_number ,accept_address_id ,accept_address ,reservaion_date ,reservaion_m ,c_time ,u_time
 	    ]]>
 	</sql>
 	
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
         INSERT INTO t_identity_info (
+	        id  ,
 	        id_number  ,
+	        batch_id  ,
 	        company_id  ,
 	        id_card_positive  ,
 	        id_card_opposite  ,
@@ -43,9 +58,24 @@
 	        nation  ,
 	        region  ,
 	        region_name  ,
-	        c_time
+	        reservation_status  ,
+	        hall_status  ,
+	        union_approve_status_1  ,
+	        union_approve_status_2  ,
+	        police_approve_status  ,
+	        renshe_accept_status  ,
+	        cancel_status  ,
+	        accept_number  ,
+	        accept_address_id  ,
+	        accept_address  ,
+	        reservaion_date  ,
+	        reservaion_m  ,
+	        c_time  ,
+	        u_time
         ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
         	#{idNumber, jdbcType=VARCHAR} ,
+        	#{batchId, jdbcType=INTEGER} ,
         	#{companyId, jdbcType=INTEGER} ,
         	#{idCardPositive, jdbcType=VARCHAR} ,
         	#{idCardOpposite, jdbcType=VARCHAR} ,
@@ -55,30 +85,57 @@
         	#{age, jdbcType=INTEGER} ,
         	#{nation, jdbcType=VARCHAR} ,
         	#{region, jdbcType=INTEGER} ,
-        	#{regionName, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP}
+        	#{regionName, jdbcType=VARCHAR} ,
+        	#{reservationStatus, jdbcType=INTEGER} ,
+        	#{hallStatus, jdbcType=INTEGER} ,
+        	#{unionApproveStatus1, jdbcType=INTEGER} ,
+        	#{unionApproveStatus2, jdbcType=INTEGER} ,
+        	#{policeApproveStatus, jdbcType=INTEGER} ,
+        	#{rensheAcceptStatus, jdbcType=INTEGER} ,
+        	#{cancelStatus, jdbcType=INTEGER} ,
+        	#{acceptNumber, jdbcType=VARCHAR} ,
+        	#{acceptAddressId, jdbcType=INTEGER} ,
+        	#{acceptAddress, jdbcType=VARCHAR} ,
+        	#{reservaionDate, jdbcType=INTEGER} ,
+        	#{reservaionM, jdbcType=INTEGER} ,
+        	#{ctime, jdbcType=TIMESTAMP} ,
+        	#{utime, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
 
     <update id="update" >
-        UPDATE t_identity_info SET
-	        <if test="idNumber != null">id_number = #{idNumber, jdbcType=VARCHAR} ,</if>
-	        <if test="companyId != null">company_id = #{companyId, jdbcType=INTEGER} ,</if>
-	        <if test="idCardPositive != null">id_card_positive = #{idCardPositive, jdbcType=VARCHAR} ,</if>
-	        <if test="idCardOpposite != null">id_card_opposite = #{idCardOpposite, jdbcType=VARCHAR} ,</if>
-	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
-	        <if test="sex != null">sex = #{sex, jdbcType=INTEGER} ,</if>
-	        <if test="birthday != null">birthday = #{birthday, jdbcType=VARCHAR} ,</if>
-	        <if test="age != null">age = #{age, jdbcType=INTEGER} ,</if>
-	        <if test="nation != null">nation = #{nation, jdbcType=VARCHAR} ,</if>
+		UPDATE t_identity_info SET
+			<if test="idNumber != null">id_number = #{idNumber, jdbcType=VARCHAR} ,</if>
+			<if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
+			<if test="companyId != null">company_id = #{companyId, jdbcType=INTEGER} ,</if>
+			<if test="idCardPositive != null">id_card_positive = #{idCardPositive, jdbcType=VARCHAR} ,</if>
+			<if test="idCardOpposite != null">id_card_opposite = #{idCardOpposite, jdbcType=VARCHAR} ,</if>
+			<if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
+			<if test="sex != null">sex = #{sex, jdbcType=INTEGER} ,</if>
+			<if test="birthday != null">birthday = #{birthday, jdbcType=VARCHAR} ,</if>
+			<if test="age != null">age = #{age, jdbcType=INTEGER} ,</if>
+			<if test="nation != null">nation = #{nation, jdbcType=VARCHAR} ,</if>
 			<if test="region != null">region = #{region, jdbcType=INTEGER} ,</if>
 			<if test="regionName != null">region_name = #{regionName, jdbcType=VARCHAR} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
-	        <if test="utime != null">u_time = #{utime, jdbcType=TIMESTAMP} </if>
-        WHERE 
-	        id = #{id} 
-    </update>
+			<if test="reservationStatus != null">reservation_status = #{reservationStatus, jdbcType=INTEGER} ,</if>
+			<if test="hallStatus != null">hall_status = #{hallStatus, jdbcType=INTEGER} ,</if>
+			<if test="unionApproveStatus1 != null">union_approve_status_1 = #{unionApproveStatus1, jdbcType=INTEGER} ,</if>
+			<if test="unionApproveStatus2 != null">union_approve_status_2 = #{unionApproveStatus2, jdbcType=INTEGER} ,</if>
+			<if test="policeApproveStatus != null">police_approve_status = #{policeApproveStatus, jdbcType=INTEGER} ,</if>
+			<if test="rensheAcceptStatus != null">renshe_accept_status = #{rensheAcceptStatus, jdbcType=INTEGER} ,</if>
+			<if test="cancelStatus != null">cancel_status = #{cancelStatus, jdbcType=INTEGER} ,</if>
+			<if test="acceptNumber != null">accept_number = #{acceptNumber, jdbcType=VARCHAR} ,</if>
+			<if test="acceptAddressId != null">accept_address_id = #{acceptAddressId, jdbcType=INTEGER} ,</if>
+			<if test="acceptAddress != null">accept_address = #{acceptAddress, jdbcType=VARCHAR} ,</if>
+			<if test="reservaionDate != null">reservaion_date = #{reservaionDate, jdbcType=INTEGER} ,</if>
+			<if test="reservaionM != null">reservaion_m = #{reservaionM, jdbcType=INTEGER} ,</if>
+			<if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			<if test="utime != null">u_time = #{utime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
+		WHERE
+		id = #{id}
+	</update>
 
     <delete id="delete">
     <![CDATA[

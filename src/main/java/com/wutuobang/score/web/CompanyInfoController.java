@@ -80,7 +80,7 @@ public class CompanyInfoController {
 
             companyInfoModel.setPassword(new Sha256Hash(companyInfoModel.getPassword()).toHex());
             companyInfoModel.setRemark(StringUtils.EMPTY);
-            companyInfoModel.setCtime(new Date());
+            companyInfoModel.setCreateTime(new Date());
             if (StringUtils.isNotEmpty(companyInfoModel.getOperatorAddress())) {
                 companyInfoModel.setOperatorAddress(StringUtils.EMPTY);
             }

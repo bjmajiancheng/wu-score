@@ -15,203 +15,333 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 public class IdentityInfoModel implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	//columns START
-	private Integer id;//"主键ID"
+    //columns START
+    private Integer id;//"主键ID"
 
-	private String idNumber;//"身份证号"
+    private String idNumber;//"身份证号"
 
-	private Integer companyId;//"单位ID"
+    private Integer batchId;//"批次ID"
 
-	private String idCardPositive;//"身份证正面图片"
+    private Integer companyId;//"单位ID"
 
-	private String idCardOpposite;//"身份证反面图片"
+    private String idCardPositive;//"身份证正面图片"
 
-	private String name;//"姓名"
+    private String idCardOpposite;//"身份证反面图片"
 
-	private Integer sex;//"性别：1、男；2、女"
+    private String name;//"姓名"
 
-	private String birthday;//"出生日期"
+    private Integer sex;//"性别：1、男；2、女"
 
-	private Integer age;//"年龄"
+    private String birthday;//"出生日期"
 
-	private String nation;//"民族"
+    private Integer age;//"年龄"
 
-	private Integer region;//"拟落户地区"
+    private String nation;//"民族"
 
-	private String regionName;//"拟落户地区名称"
+    private Integer region;//"拟落户地区"
 
-	private Date ctime;//"创建时间"
+    private String regionName;//"拟落户地区名称"
 
-	private Date utime;//"更新时间"
-	//columns END
+    private Integer reservationStatus;//"申请预约状态"
 
-	//自定义属性 START
-	private HouseMoveModel houseMoveModel;//户籍迁移信息
+    private Integer hallStatus;//"预约大厅状态"
 
-	private List<HouseRelationshipModel> houseRelationshipModelList;//申请人家庭关系信息
+    private Integer unionApproveStatus1;//"公安预审状态"
 
-	private HouseOtherModel houseOtherModel;//申请人其他信息
+    private Integer unionApproveStatus2;//"人社预审状态"
 
-	private HouseProfessionModel houseProfessionModel;//职业资格证书信息
-	//自定义属性 END
-		
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private Integer policeApproveStatus;//"公安前置预审状态"
 
-	public Integer getId() {
-		return this.id;
-	}
-		
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
+    private Integer rensheAcceptStatus;//"人社受理状态"
 
-	public String getIdNumber() {
-		return this.idNumber;
-	}
-		
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
-	}
+    private Integer cancelStatus;//"资格取消状态"
 
-	public Integer getCompanyId() {
-		return this.companyId;
-	}
-		
-	public void setIdCardPositive(String idCardPositive) {
-		this.idCardPositive = idCardPositive;
-	}
+    private String acceptNumber;//"受理编号"
 
-	public String getIdCardPositive() {
-		return this.idCardPositive;
-	}
-		
-	public void setIdCardOpposite(String idCardOpposite) {
-		this.idCardOpposite = idCardOpposite;
-	}
+    private Integer acceptAddressId;//"受理地点1、市级行政许可中心，2、滨海新区行政服务中心"
 
-	public String getIdCardOpposite() {
-		return this.idCardOpposite;
-	}
-		
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String acceptAddress;//"受理地点"
 
-	public String getName() {
-		return this.name;
-	}
-		
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
+    private Integer reservaionDate;//"预约日期"
 
-	public Integer getSex() {
-		return this.sex;
-	}
-		
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
+    private Integer reservaionM;//"上午，下午"
 
-	public String getBirthday() {
-		return this.birthday;
-	}
-		
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    private Date ctime;//"创建时间"
 
-	public Integer getAge() {
-		return this.age;
-	}
-		
-	public void setNation(String nation) {
-		this.nation = nation;
-	}
+    private Date utime;//"更新时间"
+    //columns END
 
-	public String getNation() {
-		return this.nation;
-	}
-		
-	public void setRegion(Integer region) {
-		this.region = region;
-	}
+    //自定义属性 START
+    private HouseMoveModel houseMoveModel;//户籍迁移信息
 
-	public Integer getRegion() {
-		return this.region;
-	}
+    private List<HouseRelationshipModel> houseRelationshipModelList;//申请人家庭关系信息
 
-	public String getRegionName() {
-		return regionName;
-	}
+    private HouseOtherModel houseOtherModel;//申请人其他信息
 
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
-	}
-		
-	public void setCtime(Date ctime) {
-		this.ctime = ctime;
-	}
+    private HouseProfessionModel houseProfessionModel;//职业资格证书信息
+    //自定义属性 END
 
-	public Date getCtime() {
-		return this.ctime;
-	}
-		
-	public void setUtime(Date utime) {
-		this.utime = utime;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Date getUtime() {
-		return this.utime;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public HouseMoveModel getHouseMoveModel() {
-		return houseMoveModel;
-	}
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
 
-	public void setHouseMoveModel(HouseMoveModel houseMoveModel) {
-		this.houseMoveModel = houseMoveModel;
-	}
+    public String getIdNumber() {
+        return this.idNumber;
+    }
 
-	public List<HouseRelationshipModel> getHouseRelationshipModelList() {
-		return houseRelationshipModelList;
-	}
+    public void setBatchId(Integer batchId) {
+        this.batchId = batchId;
+    }
 
-	public void setHouseRelationshipModelList(List<HouseRelationshipModel> houseRelationshipModelList) {
-		this.houseRelationshipModelList = houseRelationshipModelList;
-	}
+    public Integer getBatchId() {
+        return this.batchId;
+    }
 
-	public HouseOtherModel getHouseOtherModel() {
-		return houseOtherModel;
-	}
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
-	public void setHouseOtherModel(HouseOtherModel houseOtherModel) {
-		this.houseOtherModel = houseOtherModel;
-	}
+    public Integer getCompanyId() {
+        return this.companyId;
+    }
 
-	public HouseProfessionModel getHouseProfessionModel() {
-		return houseProfessionModel;
-	}
+    public void setIdCardPositive(String idCardPositive) {
+        this.idCardPositive = idCardPositive;
+    }
 
-	public void setHouseProfessionModel(HouseProfessionModel houseProfessionModel) {
-		this.houseProfessionModel = houseProfessionModel;
-	}
+    public String getIdCardPositive() {
+        return this.idCardPositive;
+    }
 
-	public String getSexStr() {
-		if(this.getSex() == null) {
-			return "";
-		}
+    public void setIdCardOpposite(String idCardOpposite) {
+        this.idCardOpposite = idCardOpposite;
+    }
 
-		return this.getSex() == 1 ? "男" : "女";
-	}
+    public String getIdCardOpposite() {
+        return this.idCardOpposite;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Integer getSex() {
+        return this.sex;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBirthday() {
+        return this.birthday;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getAge() {
+        return this.age;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
+
+    public String getNation() {
+        return this.nation;
+    }
+
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    public Integer getRegion() {
+        return this.region;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getRegionName() {
+        return this.regionName;
+    }
+
+    public void setReservationStatus(Integer reservationStatus) {
+        this.reservationStatus = reservationStatus;
+    }
+
+    public Integer getReservationStatus() {
+        return this.reservationStatus;
+    }
+
+    public void setHallStatus(Integer hallStatus) {
+        this.hallStatus = hallStatus;
+    }
+
+    public Integer getHallStatus() {
+        return this.hallStatus;
+    }
+
+    public void setUnionApproveStatus1(Integer unionApproveStatus1) {
+        this.unionApproveStatus1 = unionApproveStatus1;
+    }
+
+    public Integer getUnionApproveStatus1() {
+        return this.unionApproveStatus1;
+    }
+
+    public void setUnionApproveStatus2(Integer unionApproveStatus2) {
+        this.unionApproveStatus2 = unionApproveStatus2;
+    }
+
+    public Integer getUnionApproveStatus2() {
+        return this.unionApproveStatus2;
+    }
+
+    public void setPoliceApproveStatus(Integer policeApproveStatus) {
+        this.policeApproveStatus = policeApproveStatus;
+    }
+
+    public Integer getPoliceApproveStatus() {
+        return this.policeApproveStatus;
+    }
+
+    public void setRensheAcceptStatus(Integer rensheAcceptStatus) {
+        this.rensheAcceptStatus = rensheAcceptStatus;
+    }
+
+    public Integer getRensheAcceptStatus() {
+        return this.rensheAcceptStatus;
+    }
+
+    public void setCancelStatus(Integer cancelStatus) {
+        this.cancelStatus = cancelStatus;
+    }
+
+    public Integer getCancelStatus() {
+        return this.cancelStatus;
+    }
+
+    public void setAcceptNumber(String acceptNumber) {
+        this.acceptNumber = acceptNumber;
+    }
+
+    public String getAcceptNumber() {
+        return this.acceptNumber;
+    }
+
+    public void setAcceptAddressId(Integer acceptAddressId) {
+        this.acceptAddressId = acceptAddressId;
+    }
+
+    public Integer getAcceptAddressId() {
+        return this.acceptAddressId;
+    }
+
+    public void setAcceptAddress(String acceptAddress) {
+        this.acceptAddress = acceptAddress;
+    }
+
+    public String getAcceptAddress() {
+        return this.acceptAddress;
+    }
+
+    public void setReservaionDate(Integer reservaionDate) {
+        this.reservaionDate = reservaionDate;
+    }
+
+    public Integer getReservaionDate() {
+        return this.reservaionDate;
+    }
+
+    public void setReservaionM(Integer reservaionM) {
+        this.reservaionM = reservaionM;
+    }
+
+    public Integer getReservaionM() {
+        return this.reservaionM;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
+    }
+
+    public Date getCtime() {
+        return this.ctime;
+    }
+
+    public void setUtime(Date utime) {
+        this.utime = utime;
+    }
+
+    public Date getUtime() {
+        return this.utime;
+    }
+
+    public HouseMoveModel getHouseMoveModel() {
+        return houseMoveModel;
+    }
+
+    public void setHouseMoveModel(HouseMoveModel houseMoveModel) {
+        this.houseMoveModel = houseMoveModel;
+    }
+
+    public List<HouseRelationshipModel> getHouseRelationshipModelList() {
+        return houseRelationshipModelList;
+    }
+
+    public void setHouseRelationshipModelList(List<HouseRelationshipModel> houseRelationshipModelList) {
+        this.houseRelationshipModelList = houseRelationshipModelList;
+    }
+
+    public HouseOtherModel getHouseOtherModel() {
+        return houseOtherModel;
+    }
+
+    public void setHouseOtherModel(HouseOtherModel houseOtherModel) {
+        this.houseOtherModel = houseOtherModel;
+    }
+
+    public HouseProfessionModel getHouseProfessionModel() {
+        return houseProfessionModel;
+    }
+
+    public void setHouseProfessionModel(HouseProfessionModel houseProfessionModel) {
+        this.houseProfessionModel = houseProfessionModel;
+    }
+
+    public String getSexStr() {
+        if (this.getSex() == null) {
+            return "";
+        }
+
+        return this.getSex() == 1 ? "男" : "女";
+    }
 }
 

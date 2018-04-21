@@ -17,13 +17,13 @@
         <result property="operatorMobile" column="operator_mobile"/>
         <result property="operatorAddress" column="operator_address"/>
         <result property="remark" column="remark"/>
-        <result property="ctime" column="c_time"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator ,operator_mobile ,operator_address ,remark ,c_time 
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator ,operator_mobile ,operator_address ,remark ,create_time
 	    ]]>
 	</sql>
 	
@@ -41,7 +41,7 @@
 	        operator_mobile  ,
 	        operator_address  ,
 	        remark  ,
-	        c_time  
+	        create_time
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{userName, jdbcType=VARCHAR} ,
@@ -54,7 +54,7 @@
         	#{operatorMobile, jdbcType=VARCHAR} ,
         	#{operatorAddress, jdbcType=VARCHAR} ,
         	#{remark, jdbcType=VARCHAR} ,
-        	#{ctime, jdbcType=TIMESTAMP} 
+        	#{createTime, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
@@ -71,7 +71,7 @@
 	        <if test="operatorMobile != null">operator_mobile = #{operatorMobile, jdbcType=VARCHAR} ,</if>
 	        <if test="operatorAddress != null">operator_address = #{operatorAddress, jdbcType=VARCHAR} ,</if>
 	        <if test="remark != null">remark = #{remark, jdbcType=VARCHAR} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+	        <if test="createTime != null">create_time = #{createTime, jdbcType=TIMESTAMP} ,</if>
 			id = #{id}
 		WHERE
 	        id = #{id} 

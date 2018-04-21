@@ -44,7 +44,7 @@ public class CompanyInfoModel implements Serializable {
 
 	private String remark;//"备注说明"
 
-	private Date ctime;//"创建时间"
+	private Date createTime;//"创建时间"
 
 	//columns END
 		
@@ -136,18 +136,13 @@ public class CompanyInfoModel implements Serializable {
 		return this.remark;
 	}
 		
-	public void setCtime(Date ctime) {
-		this.ctime = ctime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
-	public Date getCtime() {
-		return this.ctime;
+	public Date getCreateTime() {
+		return this.createTime;
 	}
 
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
-	}
 }
 
