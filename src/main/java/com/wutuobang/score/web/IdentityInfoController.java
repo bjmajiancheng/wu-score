@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
 import com.wutuobang.shiro.utils.ShiroUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,9 @@ public class IdentityInfoController {
 
     @Autowired
     private IRegionService regionService;
+
+    @Autowired
+    private IBatchConfService batchConfService;
 
     /**
      * 前往新增用户页面
@@ -80,10 +85,24 @@ public class IdentityInfoController {
 
             CompanyInfoModel currUser = ShiroUtils.getUserEntity();
 
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+            if(batchConfModel == null) {
+                return ResultParam.error("当前没有落户批次信息,请根据落户指标时间填写申请人!!");
+            }
             //申请人信息
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
             if (identityInfoModel != null) {
+                identityInfoModel.setBatchId(batchConfModel.getId());
                 identityInfoModel.setCompanyId(currUser.getId());
+                //初始化状态信息
+                identityInfoModel.setReservationStatus(Constant.reservationStatus_1);//申请预约状态
+                identityInfoModel.setHallStatus(Constant.hallStatus_0);//预约大厅状态
+                identityInfoModel.setUnionApproveStatus1(Constant.unionApproveStatus1_0);//公安预审状态
+                identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
+                identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_1);//公安前置预审状态
+                identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_1);//人社受理状态
+
                 if (identityInfoModel.getHouseMoveModel() != null) {
                     Integer region = identityInfoModel.getHouseMoveModel().getRegion();
                     identityInfoModel.setRegion(region);

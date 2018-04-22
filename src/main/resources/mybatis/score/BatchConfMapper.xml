@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IBatchConfDao">
+
+    <resultMap id="BatchConf" type="com.wutuobang.score.model.BatchConfModel">
+        <result property="id" column="id"/>
+        <result property="batchName" column="batch_name"/>
+        <result property="batchNumber" column="batch_number"/>
+        <result property="applyBegin" column="apply_begin"/>
+        <result property="applyEnd" column="apply_end"/>
+        <result property="acceptBegin" column="accept_begin"/>
+        <result property="acceptEnd" column="accept_end"/>
+        <result property="publishBegin" column="publish_begin"/>
+        <result property="publishEnd" column="publish_end"/>
+        <result property="noticeBegin" column="notice_begin"/>
+        <result property="noticeEnd" column="notice_end"/>
+        <result property="selfScoreEnd" column="self_score_end"/>
+        <result property="acceptAddressId" column="accept_address_id"/>
+        <result property="indicatorType" column="indicator_type"/>
+        <result property="indicatorValue" column="indicator_value"/>
+        <result property="acceptUserCount" column="accept_user_count"/>
+        <result property="status" column="status"/>
+        <result property="process" column="process"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,batch_name ,batch_number ,apply_begin ,apply_end ,accept_begin ,accept_end ,publish_begin ,publish_end ,notice_begin ,notice_end ,self_score_end ,accept_address_id ,indicator_type ,indicator_value ,accept_user_count ,status ,process 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_batch_conf (
+	        id  ,
+	        batch_name  ,
+	        batch_number  ,
+	        apply_begin  ,
+	        apply_end  ,
+	        accept_begin  ,
+	        accept_end  ,
+	        publish_begin  ,
+	        publish_end  ,
+	        notice_begin  ,
+	        notice_end  ,
+	        self_score_end  ,
+	        accept_address_id  ,
+	        indicator_type  ,
+	        indicator_value  ,
+	        accept_user_count  ,
+	        status  ,
+	        process  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{batchName, jdbcType=VARCHAR} ,
+        	#{batchNumber, jdbcType=VARCHAR} ,
+        	#{applyBegin, jdbcType=DATE} ,
+        	#{applyEnd, jdbcType=DATE} ,
+        	#{acceptBegin, jdbcType=DATE} ,
+        	#{acceptEnd, jdbcType=DATE} ,
+        	#{publishBegin, jdbcType=DATE} ,
+        	#{publishEnd, jdbcType=DATE} ,
+        	#{noticeBegin, jdbcType=DATE} ,
+        	#{noticeEnd, jdbcType=DATE} ,
+        	#{selfScoreEnd, jdbcType=DATE} ,
+        	#{acceptAddressId, jdbcType=INTEGER} ,
+        	#{indicatorType, jdbcType=INTEGER} ,
+        	#{indicatorValue, jdbcType=INTEGER} ,
+        	#{acceptUserCount, jdbcType=INTEGER} ,
+        	#{status, jdbcType=INTEGER} ,
+        	#{process, jdbcType=INTEGER} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_batch_conf SET
+	        <if test="batchName != null">batch_name = #{batchName, jdbcType=VARCHAR} ,</if>
+	        <if test="batchNumber != null">batch_number = #{batchNumber, jdbcType=VARCHAR} ,</if>
+	        <if test="applyBegin != null">apply_begin = #{applyBegin, jdbcType=DATE} ,</if>
+	        <if test="applyEnd != null">apply_end = #{applyEnd, jdbcType=DATE} ,</if>
+	        <if test="acceptBegin != null">accept_begin = #{acceptBegin, jdbcType=DATE} ,</if>
+	        <if test="acceptEnd != null">accept_end = #{acceptEnd, jdbcType=DATE} ,</if>
+	        <if test="publishBegin != null">publish_begin = #{publishBegin, jdbcType=DATE} ,</if>
+	        <if test="publishEnd != null">publish_end = #{publishEnd, jdbcType=DATE} ,</if>
+	        <if test="noticeBegin != null">notice_begin = #{noticeBegin, jdbcType=DATE} ,</if>
+	        <if test="noticeEnd != null">notice_end = #{noticeEnd, jdbcType=DATE} ,</if>
+	        <if test="selfScoreEnd != null">self_score_end = #{selfScoreEnd, jdbcType=DATE} ,</if>
+	        <if test="acceptAddressId != null">accept_address_id = #{acceptAddressId, jdbcType=INTEGER} ,</if>
+	        <if test="indicatorType != null">indicator_type = #{indicatorType, jdbcType=INTEGER} ,</if>
+	        <if test="indicatorValue != null">indicator_value = #{indicatorValue, jdbcType=INTEGER} ,</if>
+	        <if test="acceptUserCount != null">accept_user_count = #{acceptUserCount, jdbcType=INTEGER} ,</if>
+	        <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
+	        <if test="process != null">process = #{process, jdbcType=INTEGER} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_batch_conf WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="BatchConf">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_batch_conf 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="batchName != null">
+				AND batch_name = #{batchName}
+			</if>
+			<if test="batchNumber != null">
+				AND batch_number = #{batchNumber}
+			</if>
+			<if test="currDate != null">
+				<![CDATA[
+			 	and apply_begin <= #{currDate,jdbcType=DATE}
+			 	and apply_end >= #{currDate,jdbcType=DATE}
+			 	]]>
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_batch_conf <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="BatchConf">
+    	SELECT <include refid="columns"/> FROM t_batch_conf 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="BatchConf">
+	    SELECT <include refid="columns"/> FROM t_batch_conf 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

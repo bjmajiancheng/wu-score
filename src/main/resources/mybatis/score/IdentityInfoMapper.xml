@@ -64,14 +64,7 @@
 	        union_approve_status_2  ,
 	        police_approve_status  ,
 	        renshe_accept_status  ,
-	        cancel_status  ,
-	        accept_number  ,
-	        accept_address_id  ,
-	        accept_address  ,
-	        reservaion_date  ,
-	        reservaion_m  ,
-	        c_time  ,
-	        u_time
+	        c_time
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -92,14 +85,7 @@
         	#{unionApproveStatus2, jdbcType=INTEGER} ,
         	#{policeApproveStatus, jdbcType=INTEGER} ,
         	#{rensheAcceptStatus, jdbcType=INTEGER} ,
-        	#{cancelStatus, jdbcType=INTEGER} ,
-        	#{acceptNumber, jdbcType=VARCHAR} ,
-        	#{acceptAddressId, jdbcType=INTEGER} ,
-        	#{acceptAddress, jdbcType=VARCHAR} ,
-        	#{reservaionDate, jdbcType=INTEGER} ,
-        	#{reservaionM, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP} ,
-        	#{utime, jdbcType=TIMESTAMP}
+        	#{ctime, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
