@@ -77,12 +77,9 @@ public class BatchConfServiceImpl implements IBatchConfService {
             date = new Date();
         }
 
-        List<BatchConfModel> batchConfModels = this.find(Collections.singletonMap("currDate", (Object) date));
-        if (CollectionUtils.isNotEmpty(batchConfModels)) {
-            return batchConfModels.get(0);
-        }
+        BatchConfModel batchConfModel = this.batchConfDao.getBatchInfoByDate(date);
 
-        return null;
+        return batchConfModel;
     }
 
 }

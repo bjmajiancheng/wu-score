@@ -14,6 +14,7 @@ import java.util.Set;
 
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.score.model.CompanyInfoModel;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,13 +76,16 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
      * @param queryStr
      * @return
      */
-    public PageData<IdentityInfoModel> findPage(String queryStr, Integer pageNo) {
+    public PageData<IdentityInfoModel> findPage(CompanyInfoModel currUser, Integer batchId, String queryStr,
+            Integer pageNo) {
         Map<String, Object> param = new HashMap<String, Object>();
+        param.put("companyId", currUser.getId());
+        param.put("batchId", batchId);
         if (StringUtils.isNotEmpty(queryStr)) {
             param.put("queryStr", "%" + queryStr + "%");
         }
 
-        param.put("start", (pageNo-1) * CommonConstant.PAGE_SIZE);
+        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
         param.put("pageSize", CommonConstant.PAGE_SIZE);
         int pageCount = identityInfoDao.findPageCount(param);
         if (pageCount < 0) {

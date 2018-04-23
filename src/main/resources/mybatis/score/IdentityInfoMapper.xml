@@ -162,6 +162,12 @@
 			<if test="queryStr != null">
 				AND name LIKE #{queryStr}
 			</if>
+			<if test="batchId != null">
+				AND batch_id = #{batchId}
+			</if>
+			<if test="companyId != null">
+				AND company_id = #{companyId}
+			</if>
 	    </where>
 	</sql>
 	 

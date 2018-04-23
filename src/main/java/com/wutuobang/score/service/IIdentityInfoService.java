@@ -8,34 +8,38 @@
 package com.wutuobang.score.service;
 
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.score.model.CompanyInfoModel;
 import com.wutuobang.score.model.IdentityInfoModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
-public interface IIdentityInfoService{
+public interface IIdentityInfoService {
 
-	public int insert(IdentityInfoModel identityInfo);
+    public int insert(IdentityInfoModel identityInfo);
 
-	public int update(IdentityInfoModel identityInfo);
+    public int update(IdentityInfoModel identityInfo);
 
-	public IdentityInfoModel getById(Integer value);
+    public IdentityInfoModel getById(Integer value);
 
-	public int removeById(Integer value);
+    public int removeById(Integer value);
 
-	public List<IdentityInfoModel> find(Map<String, Object> param);
+    public List<IdentityInfoModel> find(Map<String, Object> param);
 
-	/**
-	 * 获取分页数据信息
-	 *
-	 * @param queryStr
-	 * @return
+    /**
+     * 获取分页数据信息
+     *
+     * @param queryStr
+     * @return
      */
-	public PageData<IdentityInfoModel> findPage(String queryStr, Integer pageNo);
+    public PageData<IdentityInfoModel> findPage(CompanyInfoModel currUser, Integer batchId, String queryStr,
+            Integer pageNo);
 }

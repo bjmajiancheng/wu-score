@@ -157,6 +157,15 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="getBatchInfoByDate" resultMap="BatchConf">
+		SELECT <include refid="columns"/> FROM t_batch_conf
+		<![CDATA[
+		where apply_begin <= #{date,jdbcType=DATE}
+		and apply_end >= #{date,jdbcType=DATE}
+		]]>
+		order by id desc limit 1
+	</select>
 	
 </mapper>
 

@@ -54,7 +54,7 @@ public class FileUploadController {
                     .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO);
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!",
-                    attachmentFile.getAttachmentPath());
+                    attachmentFile.getAttachmentUrl());
             writer.println(JSON.toJSONString(param));
 
             return;

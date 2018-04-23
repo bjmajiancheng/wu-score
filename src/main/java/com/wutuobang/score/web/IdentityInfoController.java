@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by majiancheng on 2018/3/30.
@@ -87,7 +84,7 @@ public class IdentityInfoController {
 
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
-            if(batchConfModel == null) {
+            if (batchConfModel == null) {
                 return ResultParam.error("当前没有落户批次信息,请根据落户指标时间填写申请人!!");
             }
             //申请人信息
@@ -166,24 +163,17 @@ public class IdentityInfoController {
 
         try {
 
-            PageData<IdentityInfoModel> pageData = identityInfoService.findPage(queryStr, pageNo);
+            CompanyInfoModel currUser = ShiroUtils.getUserEntity();
+            if (currUser == null) {
+                return ResultParam.LOGIN_ERROR_RESULT;
+            }
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+            if (batchConfModel == null) {
+                return new ResultParam(ResultParam.SUCCESS_RESULT, Collections.emptyList());
+            }
 
-            /*List<IdentityInfoModel> identityInfos = pageData.getData();
-            if (CollectionUtils.isNotEmpty(identityInfos)) {
-                List<Integer> regionIds = new ArrayList<Integer>(identityInfos.size());
-
-                for (IdentityInfoModel identityInfo : identityInfos) {
-                    regionIds.add(identityInfo.getRegion());
-                }
-
-                Map<Integer, RegionModel> regionMap = regionService.getMapByIds(regionIds);
-                for (IdentityInfoModel identityInfo : identityInfos) {
-                    RegionModel regionModel = regionMap.get(identityInfo.getRegion());
-                    if (regionModel != null) {
-                        identityInfo.setRegionName(regionModel.getName());
-                    }
-                }
-            }*/
+            PageData<IdentityInfoModel> pageData = identityInfoService
+                    .findPage(currUser, batchConfModel.getId(), queryStr, pageNo);
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {

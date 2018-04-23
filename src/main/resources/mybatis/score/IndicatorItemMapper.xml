@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IIndicatorItemDao">
+
+    <resultMap id="IndicatorItem" type="com.wutuobang.score.model.IndicatorItemModel">
+        <result property="id" column="id"/>
+        <result property="indicatorId" column="indicator_id"/>
+        <result property="content" column="content"/>
+        <result property="score" column="score"/>
+        <result property="scoreFunction" column="score_function"/>
+        <result property="createTime" column="create_time"/>
+        <result property="addUser" column="add_user"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,indicator_id ,content ,score ,score_function ,create_time ,add_user 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_indicator_item (
+	        id  ,
+	        indicator_id  ,
+	        content  ,
+	        score  ,
+	        score_function  ,
+	        create_time  ,
+	        add_user  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{indicatorId, jdbcType=INTEGER} ,
+        	#{content, jdbcType=VARCHAR} ,
+        	#{score, jdbcType=INTEGER} ,
+        	#{scoreFunction, jdbcType=VARCHAR} ,
+        	#{createTime, jdbcType=TIMESTAMP} ,
+        	#{addUser, jdbcType=VARCHAR} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_indicator_item SET
+	        <if test="indicatorId != null">indicator_id = #{indicatorId, jdbcType=INTEGER} ,</if>
+	        <if test="content != null">content = #{content, jdbcType=VARCHAR} ,</if>
+	        <if test="score != null">score = #{score, jdbcType=INTEGER} ,</if>
+	        <if test="scoreFunction != null">score_function = #{scoreFunction, jdbcType=VARCHAR} ,</if>
+	        <if test="createTime != null">create_time = #{createTime, jdbcType=TIMESTAMP} ,</if>
+	        <if test="addUser != null">add_user = #{addUser, jdbcType=VARCHAR} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_indicator_item WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="IndicatorItem">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_indicator_item 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="content != null">
+						AND content = #{content}
+					</if>
+					<if test="scoreFunction != null">
+						AND score_function = #{scoreFunction}
+					</if>
+					<if test="addUser != null">
+						AND add_user = #{addUser}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_indicator_item <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="IndicatorItem">
+    	SELECT <include refid="columns"/> FROM t_indicator_item 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="IndicatorItem">
+	    SELECT <include refid="columns"/> FROM t_indicator_item 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+
