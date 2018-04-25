@@ -7,10 +7,12 @@
 
 package com.wutuobang.score.service;
 
+import com.wutuobang.score.model.IdentityInfoModel;
 import com.wutuobang.score.model.IndicatorModel;
 import java.util.*;
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
+import com.wutuobang.score.view.IndicatorView;
 
 /**
  * @author  davdian
@@ -29,4 +31,20 @@ public interface IIndicatorService{
 	public int removeById(Integer value);
 
 	public List<IndicatorModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取所有指标信息
+	 *
+	 * @return
+     */
+	public List<IndicatorModel> getAllIndicators();
+
+	/**
+	 * 初始化自助评测信息
+	 *
+	 * @param identityInfo 申请人信息
+	 * @param indicatorModels 所有指标信息
+     * @return
+     */
+	public IndicatorView initIndicatorView(IdentityInfoModel identityInfo, List<IndicatorModel> indicatorModels);
 }

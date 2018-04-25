@@ -122,27 +122,30 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="moveAddress != null">
-						AND move_address = #{moveAddress}
-					</if>
-					<if test="moveRegisteredOffice != null">
-						AND move_registered_office = #{moveRegisteredOffice}
-					</if>
-					<if test="registeredOffice != null">
-						AND registered_office = #{registeredOffice}
-					</if>
-					<if test="address != null">
-						AND address = #{address}
-					</if>
-					<if test="witness != null">
-						AND witness = #{witness}
-					</if>
-					<if test="witnessPhone != null">
-						AND witness_phone = #{witnessPhone}
-					</if>
-					<if test="witnessAddress != null">
-						AND witness_address = #{witnessAddress}
-					</if>
+			<if test="moveAddress != null">
+				AND move_address = #{moveAddress}
+			</if>
+			<if test="moveRegisteredOffice != null">
+				AND move_registered_office = #{moveRegisteredOffice}
+			</if>
+			<if test="registeredOffice != null">
+				AND registered_office = #{registeredOffice}
+			</if>
+			<if test="address != null">
+				AND address = #{address}
+			</if>
+			<if test="witness != null">
+				AND witness = #{witness}
+			</if>
+			<if test="witnessPhone != null">
+				AND witness_phone = #{witnessPhone}
+			</if>
+			<if test="witnessAddress != null">
+				AND witness_address = #{witnessAddress}
+			</if>
+			<if test="identityInfoId != null">
+				AND identity_info_id = #{identityInfoId}
+			</if>
 	    </where>
 	</sql>
 	 

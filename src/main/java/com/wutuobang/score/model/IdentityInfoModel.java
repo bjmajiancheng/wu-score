@@ -7,6 +7,10 @@
 
 package com.wutuobang.score.model;
 
+import com.wutuobang.common.utils.DateStyle;
+import com.wutuobang.common.utils.DateUtil;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,6 +24,7 @@ import java.util.Map;
  * @since 1.0
  */
 public class IdentityInfoModel implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     //columns START
@@ -86,6 +91,8 @@ public class IdentityInfoModel implements Serializable {
     private HouseOtherModel houseOtherModel;//申请人其他信息
 
     private HouseProfessionModel houseProfessionModel;//职业资格证书信息
+
+    private String reservaionDateStr;//预约日期
     //自定义属性 END
 
     public void setId(Integer id) {
@@ -334,6 +341,19 @@ public class IdentityInfoModel implements Serializable {
 
     public void setHouseProfessionModel(HouseProfessionModel houseProfessionModel) {
         this.houseProfessionModel = houseProfessionModel;
+    }
+
+    public String getReservaionDateStr() {
+        if (StringUtils.isEmpty(reservaionDateStr)) {
+            if (this.reservaionDate != null) {
+                this.reservaionDateStr = DateUtil.IntToDateString(this.reservaionDate, DateStyle.YYYY_MM_DD);
+            }
+        }
+        return reservaionDateStr;
+    }
+
+    public void setReservaionDateStr(String reservaionDateStr) {
+        this.reservaionDateStr = reservaionDateStr;
     }
 
     public String getSexStr() {

@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +62,21 @@ public class HouseMoveServiceImpl implements IHouseMoveService{
 
 	public List<HouseMoveModel> find(Map<String, Object> param) {
 		return houseMoveDao.find(param);
+	}
+
+	/**
+	 * 根据申请人id获取户籍迁移信息
+	 *
+	 * @param identityInfoId
+	 * @return
+	 */
+	public HouseMoveModel getByIdentityInfoId(Integer identityInfoId) {
+		List<HouseMoveModel> houseMoves = this.find(Collections.singletonMap("identityInfoId", (Object)identityInfoId));
+		if(CollectionUtils.isEmpty(houseMoves)) {
+			return null;
+		}
+
+		return houseMoves.get(0);
 	}
 	
 }

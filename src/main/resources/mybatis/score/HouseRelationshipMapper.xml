@@ -87,6 +87,9 @@
 			<if test="idNumber != null">
 				AND id_number = #{idNumber}
 			</if>
+			<if test="identityInfoId != null">
+				AND identity_info_id = #{identityInfoId}
+			</if>
 	    </where>
 	</sql>
 	 

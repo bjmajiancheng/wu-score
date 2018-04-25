@@ -29,4 +29,12 @@ public interface IHouseOtherService{
 	public int removeById(Integer value);
 
 	public List<HouseOtherModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取其他信息
+	 *
+	 * @param identityInfoId
+	 * @return
+     */
+	public HouseOtherModel getByIdentityInfoId(Integer identityInfoId);
 }

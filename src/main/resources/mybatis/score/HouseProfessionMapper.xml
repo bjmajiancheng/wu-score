@@ -90,18 +90,21 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="jobPosition != null">
-						AND job_position = #{jobPosition}
-					</if>
-					<if test="issuingAuthority != null">
-						AND issuing_authority = #{issuingAuthority}
-					</if>
-					<if test="issuingDate != null">
-						AND issuing_date = #{issuingDate}
-					</if>
-					<if test="certificateCode != null">
-						AND certificate_code = #{certificateCode}
-					</if>
+			<if test="jobPosition != null">
+				AND job_position = #{jobPosition}
+			</if>
+			<if test="issuingAuthority != null">
+				AND issuing_authority = #{issuingAuthority}
+			</if>
+			<if test="issuingDate != null">
+				AND issuing_date = #{issuingDate}
+			</if>
+			<if test="certificateCode != null">
+				AND certificate_code = #{certificateCode}
+			</if>
+			<if test="identityInfoId != null">
+				AND identity_info_id = #{identityInfoId}
+			</if>
 	    </where>
 	</sql>
 	 

@@ -12,55 +12,79 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.wutuobang.score.model.HouseProfessionModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 @Service("houseProfessionService")
-public class HouseProfessionServiceImpl implements IHouseProfessionService{
-	@Autowired
-	private IHouseProfessionDao houseProfessionDao;
+public class HouseProfessionServiceImpl implements IHouseProfessionService {
 
-	public int insert(HouseProfessionModel houseProfession) {
-		if(houseProfession == null) {
-			return 0;
-		}
-		return houseProfessionDao.insert(houseProfession);
-	}
-	
-	public int update(HouseProfessionModel houseProfession) {
-		if(houseProfession == null) {
-			return 0;
-		}
-		return houseProfessionDao.update(houseProfession);
-	}
-	
-	public HouseProfessionModel getById(Integer id) {
-		if(id == null) {
-			return null;
-		}
-		return houseProfessionDao.getById(id);
-	}
+    @Autowired
+    private IHouseProfessionDao houseProfessionDao;
 
-	public int removeById(Integer id) {
-		if(id == null) {
-			return 0;
-		}
-		return houseProfessionDao.delete(id);
-	}	
+    public int insert(HouseProfessionModel houseProfession) {
+        if (houseProfession == null) {
+            return 0;
+        }
+        return houseProfessionDao.insert(houseProfession);
+    }
 
-	public List<HouseProfessionModel> find(Map<String, Object> param) {
-		return houseProfessionDao.find(param);
-	}
-	
+    public int update(HouseProfessionModel houseProfession) {
+        if (houseProfession == null) {
+            return 0;
+        }
+        return houseProfessionDao.update(houseProfession);
+    }
+
+    public HouseProfessionModel getById(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return houseProfessionDao.getById(id);
+    }
+
+    public int removeById(Integer id) {
+        if (id == null) {
+            return 0;
+        }
+        return houseProfessionDao.delete(id);
+    }
+
+    public List<HouseProfessionModel> find(Map<String, Object> param) {
+        return houseProfessionDao.find(param);
+    }
+
+    /**
+     * 获取专业信息
+     *
+     * @param identityInfoId
+     * @return
+     */
+    public HouseProfessionModel getByIdentityInfoId(Integer identityInfoId) {
+        if (identityInfoId == null) {
+            return null;
+        }
+
+        List<HouseProfessionModel> houseProfessions = this
+                .find(Collections.singletonMap("identityInfoId", (Object) identityInfoId));
+
+        if (CollectionUtils.isEmpty(houseProfessions)) {
+            return null;
+        }
+        return houseProfessions.get(0);
+    }
+
 }

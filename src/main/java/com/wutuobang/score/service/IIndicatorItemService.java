@@ -29,4 +29,11 @@ public interface IIndicatorItemService{
 	public int removeById(Integer value);
 
 	public List<IndicatorItemModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取所有指标选项信息
+	 *
+	 * @return
+     */
+	public Map<Integer, List<IndicatorItemModel>> getAllMapItemInfo();
 }

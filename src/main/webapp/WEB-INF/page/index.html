@@ -52,19 +52,19 @@
                         <th>操作</th>
                     </tr>
                     {#list identityInfos as identityInfo }
-                    <tr>
+                    <tr class="identityInfoTr">
                         <td>
-                            <input type="checkbox">
+                            <input type="checkbox" name="identityInfoId" value="{identityInfo.id}" />
                         </td>
                         <td>{identityInfo.id}</td>
                         <td>{identityInfo.idNumber}</td>
                         <td>{identityInfo.name}</td>
                         <td>{identityInfo.sexStr}</td>
                         <td>{identityInfo.regionName}</td>
-                        <td>2016-08-02</td>
+                        <td>{identityInfo.reservaionDateStr}</td>
                         <td>
                             <span class="integral-table-btn integral-table-btn1">编辑</span>
-                            <span class="integral-table-btn integral-table-btn2">测评</span>
+                            <span class="integral-table-btn integral-table-btn2 autoTest">测评</span>
                         </td>
                     </tr>
                     {/list}
@@ -88,6 +88,12 @@
 
         $("#addApplication").on("click", function(){
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
+        });
+
+        $(".autoTest").on("click", function(){
+            var id = $(this).parents(".identityInfoTr").find("input[name=identityInfoId]").val();
+
+            window.open("${rc.contextPath}/identityInfo/autoTest/"+id);
         });
     });
 

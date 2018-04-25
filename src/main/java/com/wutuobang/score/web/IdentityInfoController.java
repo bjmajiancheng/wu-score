@@ -7,15 +7,15 @@ import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
+import com.wutuobang.score.view.EvaluationView;
+import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -47,6 +47,15 @@ public class IdentityInfoController {
 
     @Autowired
     private IBatchConfService batchConfService;
+
+    @Autowired
+    private IIndicatorService indicatorService;
+
+    @Autowired
+    private IIndicatorItemService indicatorItemService;
+
+    @Autowired
+    private IPersonBatchScoreResultService personBatchScoreResultService;
 
     /**
      * 前往新增用户页面
@@ -180,5 +189,86 @@ public class IdentityInfoController {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
         }
+    }
+
+    /**
+     * 自助测评
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/autoTest/{id}", method = RequestMethod.GET)
+    public ModelAndView autoTest(HttpServletRequest request, @PathVariable("id") Integer id) {
+        if (id == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+        try {
+            CompanyInfoModel currUser = ShiroUtils.getUserEntity();
+            IdentityInfoModel identityInfo = identityInfoService.getById(id);
+            initIdentityInfoAttrs(identityInfo);
+
+            if ((int) currUser.getId() != identityInfo.getCompanyId()) {
+                return new ModelAndView("500", "result", ResultParam.error("自动测评数据异常, 请稍后重试"));
+            }
+
+            List<IndicatorModel> indicatorModels = indicatorService.getAllIndicators();
+
+            IndicatorView indicatorView = indicatorService.initIndicatorView(identityInfo, indicatorModels);
+
+            ModelAndView mv = new ModelAndView("evaluation/autoEvaluation.html");
+            mv.addObject("indicatorView", indicatorView);
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("500", "result", ResultParam.SYSTEM_ERROR_RESULT);
+        }
+    }
+
+    /**
+     * 自助评测信息
+     *
+     * @param request
+     * @param evaluationViewStr
+     * @return
+     */
+    @RequestMapping(value = "/autoEvaluation", method = RequestMethod.POST)
+    public ResultParam autoEvaluation(HttpServletRequest request,
+            @RequestParam("evaluationView") String evaluationViewStr) {
+        if (StringUtils.isEmpty(evaluationViewStr)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+            EvaluationView evaluationView = JSON.parseObject(evaluationViewStr, EvaluationView.class);
+            List<PersonBatchScoreResultModel> toAddScoreResults = new ArrayList<PersonBatchScoreResultModel>();
+
+
+
+            personBatchScoreResultService.batchInsert(toAddScoreResults);
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+
+    }
+
+    /**
+     * 初始化申请人关联子表信息信息
+     *
+     * @param identityInfo
+     */
+    private void initIdentityInfoAttrs(IdentityInfoModel identityInfo) {
+        if (identityInfo == null) {
+            return;
+        }
+        Integer id = identityInfo.getId();
+        identityInfo.setHouseMoveModel(houseMoveService.getByIdentityInfoId(id));
+        identityInfo.setHouseRelationshipModelList(houseRelationshipService.getByIdentityInfoId(id));
+        identityInfo.setHouseOtherModel(houseOtherService.getByIdentityInfoId(id));
+        identityInfo.setHouseProfessionModel(houseProfessionService.getByIdentityInfoId(id));
     }
 }

@@ -29,56 +29,77 @@
         <div class="integral-desc-title border-bottom">
             自助测评信息
         </div>
-        <div class="integral-cont-table-wrap">
+        <form id="autoEvaluation">
+            <div class="integral-cont-table-wrap">
             <table class="integral-cont-table">
                 <tr>
                     <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                    <td>30周岁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分20分</td>
+                    <td>
+                        #if($indicatorView.ageItem)
+                            $indicatorView.ageItem.itemValue
+                            <input type="hidden" name="ageItemScore" value="$indicatorView.ageItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
                 <tr>
                     <td>受教育程度：</td>
-                    <td>本科及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分40分</td>
+                    <td>
+                        #if($indicatorView.educationItem)
+                            $indicatorView.educationItem.itemValue
+                            <input type="hidden" name="educationItemScore" value="$indicatorView.ageItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
                 <tr>
                     <td class="nowrap">专业技术职业技能：</td>
-                    <td>高级技师&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分50分</td>
+                    <td>
+                        #if($indicatorView.skillItem)
+                            $indicatorView.skillItem.itemValue
+                            <input type="hidden" name="skillItemScore" value="$indicatorView.ageItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
                 <tr>
                     <td class="lineh21">社保公积金：</td>
                     <td class="lineh21">
-                        养老保险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月
+                        基本养老保险<input type="number" name="pensionMonth"/>(月)
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="lineh21">医疗保险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月</td>
+                    <td class="lineh21">基本医疗保险<input type="number" name="medicalMonth"/>(月)</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="lineh21">失业保险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月</td>
+                    <td class="lineh21">基本失业保险<input type="number" name="unemploymentMonth"/>(月)</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="lineh21">工伤保险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月</td>
+                    <td class="lineh21">基本工伤保险<input type="number" name="workInjuryMonth"/>(月)</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="lineh21">生育保险&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月</td>
+                    <td class="lineh21">基本生育保险<input type="number" name="fertilityMonth"/>(月)</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="lineh21">公&nbsp;&nbsp;积&nbsp;&nbsp;金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20个月</td>
+                    <td class="lineh21">公&nbsp;&nbsp;积&nbsp;&nbsp;金<input type="number" name="fundMonth"/>(月)</td>
                 </tr>
                 <tr>
                     <td>住房：</td>
                     <td>
-                        <input class="input_radio" type="radio" name="zhufang" id="">&nbsp;&nbsp;&nbsp;无（不得分）
-                        <input class="input_radio ml30" type="radio" name="zhufang" id="">&nbsp;&nbsp;&nbsp;天津市有本人产权住房（包括与配偶、父母、子女共有得40分）
+                        <input class="input_radio" type="radio" name="house" value="0">&nbsp;&nbsp;&nbsp;无（不得分）&nbsp;&nbsp;
+                        <input class="input_radio" type="radio" name="house" value="1">&nbsp;&nbsp;&nbsp;天津市有本人产权住房（包括与配偶、父母、子女共有得40分）
                     </td>
                 </tr>
                 <tr>
                     <td>职业工种：</td>
-                    <td>非常紧缺职业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分30分</td>
+                    <td>
+                        #if($indicatorView.workTypeItem)
+                            $indicatorView.workTypeItem.itemValue
+                            <input type="hidden" name="workTypeItemScore" value="$indicatorView.workTypeItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
                 <tr>
                     <td>落户地区：</td>
@@ -86,44 +107,63 @@
                 </tr>
                 <tr>
                     <td>纳税：</td>
-                    <td>近三年在本市依法缴纳个人所得税累计10万元及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分20分</td>
+                    <td>
+                        <input class="input_radio" type="radio" name="taxes" value="1">近三年在本市依法缴纳个人所得税累计10万元及以上(20分)&nbsp;&nbsp;
+                        <input class="input_radio" type="radio" name="taxes" value="0">无(不得分)
+                    </td>
                 </tr>
                 <tr>
                     <td>婚姻状况：</td>
-                    <td>已婚，且夫妻双方均在本市就业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分10分</td>
+                    <td>
+                        <input class="input_radio" type="radio" name="marriage" value="1">已婚，且夫妻双方均在本市就业，配偶缴纳社会保险满24个月（10分）。&nbsp;&nbsp;
+                        <input class="input_radio" type="radio" name="marriage" value="0">无(不得分)
+                    </td>
                 </tr>
                 <tr>
                     <td class="nowrap">奖项及荣誉称号：</td>
                     <td>
-                        <input class="input_radio" type="checkbox" name="zhufang" id="">&nbsp;&nbsp;&nbsp;获得党中央、国务院授予的奖项和荣誉称号（40分）</td>
+                        #if($indicatorView.awardsItem)
+                            $indicatorView.awardsItem.itemValue
+                            <input type="hidden" name="awardsItemScore" value="$indicatorView.awardsItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td></td>
                     <td class="lineh21">
-                        <input class="input_radio" type="checkbox" name="zhufang" id="">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇（30分）</td>
+                        <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇（30分）
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <input class="input_radio" type="checkbox" name="zhufang" id="">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号（20分）</td>
+                        <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号（20分）
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <input class="input_radio" type="checkbox" name="zhufang" id="">&nbsp;&nbsp;&nbsp;拥有成效的中国发明专利（20分）</td>
+                        <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;拥有成效的中国发明专利（20分）
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <input class="input_radio" type="checkbox" name="zhufang" id="">&nbsp;&nbsp;&nbsp;无</td>
-                </tr>
+                        <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;无
+                    </td>
+                </tr>-->
                 <tr>
                     <td>工作年限：</td>
                     <td>在津具有合法稳定职业，累计6年及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分10分</td>
                 </tr>
                 <tr>
                     <td>退役军人：</td>
-                    <td>一等功&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分20分</td>
+                    <td>
+                        #if($indicatorView.soldierItem)
+                            $indicatorView.soldierItem.itemValue
+                            <input type="hidden" name="soldierItemScore" value="$indicatorView.soldierItem.scoreValue"/>
+                        #end
+                    </td>
                 </tr>
             </table>
             <!-- 验证码和底部按钮 -->
@@ -132,9 +172,9 @@
                     <td>
                         <span class="color-red">*</span>验证码：</td>
                     <td>
-                        <input class="integral-input w200" type="text">
+                        <input class="integral-input w200" type="text" name="captcha">
                         <div class="checkimg">
-                            <img src="img/checkcode.png" alt="">
+                            <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="click_me">
                         </div>
                         <span class="click_me">看不清点我</span>
                     </td>
@@ -142,10 +182,11 @@
             </table>
             <!-- 保存按钮 -->
             <div class="integral-bottom-btn-group">
-                <div class="interal-main-btn big-btn m15">提交</div>
+                <div class="interal-main-btn big-btn m15" id="submit">提交</div>
                 <div class="interal-main-btn big-btn ml50">关闭</div>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -154,41 +195,20 @@
 </body>
 <script type="text/javascript">
     $(function(){
-        currPage("autoEvaluation");
-    });
+        //提交事件
+        $("#submit").on("click", function() {
+            var formInfo = getForminfo();
 
-    //利用Regular构建你的app吧
-    var rowsRegular = Regular.extend({
-        template: '#rows'
-    });
+        });
 
-    // initialize component then $inject to #app's  bottom
-    var component = new rowsRegular({
-        data: {guidebooks: []},
-        load: function(data){
-            $.ajax({
-                type: "POST",
-                url: "${rc.contextPath}/systemNotice/list",
-                data: {"type": 2},
-                dataType: "json",
-                success: function(result){
-                    var resultData = result.data;
-                    if(result.code == 0){//登录成功
-                        component.data.guidebooks = resultData.data;
-                        component.$update();
-
-                        $(".integral-paging-device-wrap2").pagination({pageCount: resultData.recordsTotal});
-                    }else{
-                        layer.alert(result.message);
-                    }
-                }
-            });
+        //获取表单数据信息
+        function getFormInfo(){
+            var evaluationForm = serializeForm($(".autoEvaluation"));
+            return evaluationForm;
         }
+
+
     });
-
-    component.load();
-
-    component.$inject('#app');
 </script>
 
 </html>

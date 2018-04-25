@@ -29,4 +29,12 @@ public interface IHouseMoveService{
 	public int removeById(Integer value);
 
 	public List<HouseMoveModel> find(Map<String, Object> param);
+
+	/**
+	 * 根据申请人id获取户籍迁移信息
+	 *
+	 * @param identityInfoId
+	 * @return
+     */
+	public HouseMoveModel getByIdentityInfoId(Integer identityInfoId);
 }

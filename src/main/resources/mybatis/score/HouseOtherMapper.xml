@@ -124,24 +124,27 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="profession != null">
-						AND profession = #{profession}
-					</if>
-					<if test="companyName != null">
-						AND company_name = #{companyName}
-					</if>
-					<if test="companyAddress != null">
-						AND company_address = #{companyAddress}
-					</if>
-					<if test="companyPhone != null">
-						AND company_phone = #{companyPhone}
-					</if>
-					<if test="selfPhone != null">
-						AND self_phone = #{selfPhone}
-					</if>
-					<if test="applicationDate != null">
-						AND application_date = #{applicationDate}
-					</if>
+			<if test="profession != null">
+				AND profession = #{profession}
+			</if>
+			<if test="companyName != null">
+				AND company_name = #{companyName}
+			</if>
+			<if test="companyAddress != null">
+				AND company_address = #{companyAddress}
+			</if>
+			<if test="companyPhone != null">
+				AND company_phone = #{companyPhone}
+			</if>
+			<if test="selfPhone != null">
+				AND self_phone = #{selfPhone}
+			</if>
+			<if test="applicationDate != null">
+				AND application_date = #{applicationDate}
+			</if>
+			<if test="identityInfoId != null">
+				AND identity_info_id = #{identityInfoId}
+			</if>
 	    </where>
 	</sql>
 	 

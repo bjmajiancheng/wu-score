@@ -37,4 +37,11 @@ public interface IHouseRelationshipService{
 	 * @return
      */
 	public int batchInsert(List<HouseRelationshipModel> houseRelationships);
+
+	/**
+	 * 获取家庭关系集合
+	 *
+	 * @return
+     */
+	public List<HouseRelationshipModel> getByIdentityInfoId(Integer identityInfoId);
 }

@@ -77,5 +77,18 @@ public class HouseRelationshipServiceImpl implements IHouseRelationshipService{
 
 		return houseRelationshipDao.batchInsert(houseRelationships);
 	}
+
+	/**
+	 * 获取家庭关系集合
+	 *
+	 * @return
+	 */
+	public List<HouseRelationshipModel> getByIdentityInfoId(Integer identityInfoId) {
+		if(identityInfoId == null) {
+			return Collections.emptyList();
+		}
+
+		return this.find(Collections.singletonMap("identityInfoId", (Object)identityInfoId));
+	}
 	
 }
