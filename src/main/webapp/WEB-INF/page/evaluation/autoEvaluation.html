@@ -30,6 +30,7 @@
             自助测评信息
         </div>
         <form id="autoEvaluation">
+            <input type="hidden" name="identityInfoId" value="$identityInfo.id">
             <div class="integral-cont-table-wrap">
             <table class="integral-cont-table">
                 <tr>
@@ -197,13 +198,16 @@
     $(function(){
         //提交事件
         $("#submit").on("click", function() {
-            var formInfo = getForminfo();
+            var formInfo = getFormInfo();
 
+            postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"evaluationView": JSON.stringify(formInfo)}, function(data){
+                debugger;
+            });
         });
 
         //获取表单数据信息
         function getFormInfo(){
-            var evaluationForm = serializeForm($(".autoEvaluation"));
+            var evaluationForm = serializeForm($("#autoEvaluation"));
             return evaluationForm;
         }
 

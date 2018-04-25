@@ -219,6 +219,7 @@ public class IdentityInfoController {
 
             ModelAndView mv = new ModelAndView("evaluation/autoEvaluation.html");
             mv.addObject("indicatorView", indicatorView);
+            mv.addObject("identityInfo", identityInfo);
             return mv;
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,6 +234,7 @@ public class IdentityInfoController {
      * @param evaluationViewStr
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/autoEvaluation", method = RequestMethod.POST)
     public ResultParam autoEvaluation(HttpServletRequest request,
             @RequestParam("evaluationView") String evaluationViewStr) {
@@ -240,13 +242,60 @@ public class IdentityInfoController {
             return ResultParam.PARAM_ERROR_RESULT;
         }
 
+        Date currDate = new Date();
+
+        /**
+         * 1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
+         * 9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
+         **/
+
         try {
             EvaluationView evaluationView = JSON.parseObject(evaluationViewStr, EvaluationView.class);
+            Integer identityInfoId = evaluationView.getIdentityInfoId();
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+            initIdentityInfoAttrs(identityInfoModel);
+
             List<PersonBatchScoreResultModel> toAddScoreResults = new ArrayList<PersonBatchScoreResultModel>();
+            //1.年龄
+            PersonBatchScoreResultModel ageResult = new PersonBatchScoreResultModel(1, evaluationView.getAgeItemScore());
+            toAddScoreResults.add(ageResult);
+            //2.受教育程度
+            PersonBatchScoreResultModel educationResult = new PersonBatchScoreResultModel(2, evaluationView.getEducationItemScore());
+            toAddScoreResults.add(educationResult);
+            //3.专业技术职业技能
+            PersonBatchScoreResultModel skillResult = new PersonBatchScoreResultModel(3, evaluationView.getSkillItemScore());
+            toAddScoreResults.add(skillResult);
+            //4.社会保险
+            //5.住房公积金
+            //6.住房
+            //7.在津连续居住年限
+            //8.职业（工种)
+            PersonBatchScoreResultModel workTypeResult = new PersonBatchScoreResultModel(8, evaluationView.getWorkTypeItemScore());
+            toAddScoreResults.add(workTypeResult);
+            //9.落户地区
+            //10.纳税
+            //11.婚姻情况
+            //12.知识产权
+            //13.奖项和荣誉称号
+            PersonBatchScoreResultModel awardsResult = new PersonBatchScoreResultModel(13, evaluationView.getAwardsItemScore());
+            toAddScoreResults.add(awardsResult);
+            //14.退役军人
+            PersonBatchScoreResultModel soldierResult = new PersonBatchScoreResultModel(14, evaluationView.getSoldierItemScore());
+            toAddScoreResults.add(soldierResult);
+            //15.守法诚信
 
+            //初始化分数结果信息
+            if(CollectionUtils.isNotEmpty(toAddScoreResults)) {
+                for(PersonBatchScoreResultModel scoreResult : toAddScoreResults) {
+                    scoreResult.setBatchId(identityInfoModel.getBatchId());
+                    scoreResult.setPersonId(identityInfoModel.getId());
+                    scoreResult.setPersonName(identityInfoModel.getName());
+                    scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
+                    scoreResult.setCtime(currDate);
+                }
 
-
-            personBatchScoreResultService.batchInsert(toAddScoreResults);
+                personBatchScoreResultService.batchInsert(toAddScoreResults);
+            }
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
             e.printStackTrace();

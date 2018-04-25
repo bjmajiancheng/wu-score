@@ -42,6 +42,13 @@ public class PersonBatchScoreResultModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 	//columns END
+
+	public PersonBatchScoreResultModel(){}
+
+	public PersonBatchScoreResultModel(Integer indicatorId, BigDecimal scoreValue){
+		this.indicatorId = indicatorId;
+		this.scoreValue = scoreValue;
+	}
 		
 	public void setId(Integer id) {
 		this.id = id;

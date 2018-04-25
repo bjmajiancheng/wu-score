@@ -41,7 +41,7 @@ public class EvaluationView implements Serializable {
 
     private Integer workYear;//工作年限
 
-    private BigDecimal soldierItemScore;//奖项及荣誉称号
+    private BigDecimal soldierItemScore;//退役军人
 
     public Integer getIdentityInfoId() {
         return identityInfoId;
