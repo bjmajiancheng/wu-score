@@ -34,6 +34,10 @@ function getResultData(url, data, callback) {
         success: function(result){
             if(result.code){//查询成功
                 layer.alert(result.message);
+
+                if($("input[name=captcha]").length > 0) {
+                    refreshCode();
+                }
             }else{
                 callback(result.data);
             }
@@ -57,6 +61,10 @@ function getSyncResultData(url, data, callback) {
         success: function(result){
             if(result.code){//查询成功
                 layer.alert(result.message);
+
+                if($("input[name=captcha]").length > 0) {
+                    refreshCode();
+                }
             }else{
                 callback(result.data);
             }
@@ -77,8 +85,12 @@ function postResultData(url, data, callback) {
         data: data,
         dataType: "json",
         success: function(result){
-            if(result.code){//查询成功
+            if(result.code){//查询失败
                 layer.alert(result.message);
+
+                if($("input[name=captcha]").length > 0) {
+                    refreshCode();
+                }
             }else{
                 callback(result.data);
             }
@@ -102,6 +114,10 @@ function postSyncResultData(url, data, callback) {
         success: function(result){
             if(result.code){//查询成功
                 layer.alert(result.message);
+
+                if($("input[name=captcha]").length > 0) {
+                    refreshCode();
+                }
             }else{
                 callback(result.data);
             }

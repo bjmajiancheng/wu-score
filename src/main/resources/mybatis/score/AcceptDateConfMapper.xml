@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IAcceptDateConfDao">
+
+    <resultMap id="AcceptDateConf" type="com.wutuobang.score.model.AcceptDateConfModel">
+        <result property="id" column="id"/>
+        <result property="batchId" column="batch_id"/>
+        <result property="addressId" column="address_id"/>
+        <result property="acceptDate" column="accept_date"/>
+        <result property="weekDay" column="week_day"/>
+        <result property="amUserCount" column="am_user_count"/>
+        <result property="pmUserCount" column="pm_user_count"/>
+        <result property="amRemainingCount" column="am_remaining_count"/>
+        <result property="pmRemainingCount" column="pm_remaining_count"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,batch_id ,address_id ,accept_date ,week_day ,am_user_count ,pm_user_count ,am_remaining_count ,pm_remaining_count 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_accept_date_conf (
+	        id  ,
+	        batch_id  ,
+	        address_id  ,
+	        accept_date  ,
+	        week_day  ,
+	        am_user_count  ,
+	        pm_user_count  ,
+	        am_remaining_count  ,
+	        pm_remaining_count  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{batchId, jdbcType=INTEGER} ,
+        	#{addressId, jdbcType=INTEGER} ,
+        	#{acceptDate, jdbcType=DATE} ,
+        	#{weekDay, jdbcType=VARCHAR} ,
+        	#{amUserCount, jdbcType=INTEGER} ,
+        	#{pmUserCount, jdbcType=INTEGER} ,
+        	#{amRemainingCount, jdbcType=INTEGER} ,
+        	#{pmRemainingCount, jdbcType=INTEGER} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_accept_date_conf SET
+	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
+	        <if test="addressId != null">address_id = #{addressId, jdbcType=INTEGER} ,</if>
+	        <if test="acceptDate != null">accept_date = #{acceptDate, jdbcType=DATE} ,</if>
+	        <if test="weekDay != null">week_day = #{weekDay, jdbcType=VARCHAR} ,</if>
+	        <if test="amUserCount != null">am_user_count = #{amUserCount, jdbcType=INTEGER} ,</if>
+	        <if test="pmUserCount != null">pm_user_count = #{pmUserCount, jdbcType=INTEGER} ,</if>
+	        <if test="amRemainingCount != null">am_remaining_count = #{amRemainingCount, jdbcType=INTEGER} ,</if>
+	        <if test="pmRemainingCount != null">pm_remaining_count = #{pmRemainingCount, jdbcType=INTEGER} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_accept_date_conf WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="AcceptDateConf">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_accept_date_conf 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="weekDay != null">
+				AND week_day = #{weekDay}
+			</if>
+			<if test="batchId != null">
+				AND batch_id = #{batchId}
+			</if>
+			<if test="addressId != null">
+				AND address_id = #{addressId}
+			</if>
+			<if test="currDate != null">
+				<![CDATA[
+			 	and accept_date > #{currDate,jdbcType=DATE}
+			 	]]>
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_accept_date_conf <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="AcceptDateConf">
+    	SELECT <include refid="columns"/> FROM t_accept_date_conf 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="AcceptDateConf">
+	    SELECT <include refid="columns"/> FROM t_accept_date_conf 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	<update id="amSubtractionOne">
+		UPDATE t_accept_date_conf SET am_remaining_count = am_remaining_count - 1
+		WHERE id = #{id}
+	</update>
+
+
+	<update id="pmSubtractionOne">
+		UPDATE t_accept_date_conf SET pm_remaining_count = pm_remaining_count - 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
+

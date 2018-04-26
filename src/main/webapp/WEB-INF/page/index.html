@@ -63,8 +63,12 @@
                         <td>{identityInfo.regionName}</td>
                         <td>{identityInfo.reservaionDateStr}</td>
                         <td>
-                            <span class="integral-table-btn integral-table-btn1">编辑</span>
+                            <span class="integral-table-btn integral-table-btn1 edit">编辑</span>
+                            <span class="integral-table-btn integral-table-btn2 view">查看</span>
                             <span class="integral-table-btn integral-table-btn2 autoTest">测评</span>
+                            <span class="integral-table-btn integral-table-btn2 reservation">预约</span>
+                            <span class="integral-table-btn integral-table-btn2 cancalReservation">取消预约</span>
+                            <span class="integral-table-btn integral-table-btn2 print">打印</span>
                         </td>
                     </tr>
                     {/list}
@@ -90,10 +94,18 @@
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
         });
 
+        //自助测评
         $(".autoTest").on("click", function(){
             var id = $(this).parents(".identityInfoTr").find("input[name=identityInfoId]").val();
 
             window.open("${rc.contextPath}/identityInfo/autoTest/"+id);
+        });
+
+        //预约
+        $(".reservation").on("click", function(){
+            var id = $(this).parents(".identityInfoTr").find("input[name=identityInfoId]").val();
+
+            window.open("${rc.contextPath}/reservation/reserveLocation/"+id+".html");
         });
     });
 
