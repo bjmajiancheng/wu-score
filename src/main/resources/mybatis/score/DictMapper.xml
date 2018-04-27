@@ -73,6 +73,15 @@
 			<if test="alias != null">
 				AND alias = #{alias}
 			</if>
+			<if test="value != null">
+				AND value = #{value}
+			</if>
+			<if test="values != null">
+				AND value IN
+				<foreach collection="values" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 			<if test="aliasName != null">
 				AND alias_name = #{aliasName}
 			</if>

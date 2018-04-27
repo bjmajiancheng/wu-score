@@ -113,8 +113,11 @@
                 "identityInfoId": $("#identityInfoId").val(), "captcha":captcha};
 
             postSyncResultData("${rc.contextPath}/identityInfo/reserveDate", requestData, function(data){
-                layer.msg('预约成功!!');
-                window.close();
+                layer.msg('预约时间成功!!', {
+                    time: 1000
+                }, function(){
+                    window.close();
+                });
             });
         });
 

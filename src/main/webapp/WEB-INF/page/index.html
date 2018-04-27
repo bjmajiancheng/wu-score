@@ -63,12 +63,27 @@
                         <td>{identityInfo.regionName}</td>
                         <td>{identityInfo.reservaionDateStr}</td>
                         <td>
+                            {\#if identityInfo.reservationStatus == 1}
                             <span class="integral-table-btn integral-table-btn1 edit">编辑</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 6 || identityInfo.reservationStatus == 9 || identityInfo.reservationStatus == 10 || identityInfo.reservationStatus == 11}
                             <span class="integral-table-btn integral-table-btn2 view">查看</span>
-                            <span class="integral-table-btn integral-table-btn2 autoTest">测评</span>
-                            <span class="integral-table-btn integral-table-btn2 reservation">预约</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 6}
+                            <span class="integral-table-btn integral-table-btn2" onclick="reservationLocation({identityInfo.id})">申请审核</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 1}
+                            <span class="integral-table-btn integral-table-btn2" onclick="autoTest({identityInfo.id})">测评</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 10}
+                            <span class="integral-table-btn integral-table-btn2" onclick="reservationTime({identityInfo.id})">预约时间</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 11}
                             <span class="integral-table-btn integral-table-btn2 cancalReservation">取消预约</span>
+                            {/if}
+                            {\#if identityInfo.reservationStatus == 10}
                             <span class="integral-table-btn integral-table-btn2 print">打印</span>
+                            {/if}
                         </td>
                     </tr>
                     {/list}
@@ -92,20 +107,6 @@
 
         $("#addApplication").on("click", function(){
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
-        });
-
-        //自助测评
-        $(".autoTest").on("click", function(){
-            var id = $(this).parents(".identityInfoTr").find("input[name=identityInfoId]").val();
-
-            window.open("${rc.contextPath}/identityInfo/autoTest/"+id);
-        });
-
-        //预约
-        $(".reservation").on("click", function(){
-            var id = $(this).parents(".identityInfoTr").find("input[name=identityInfoId]").val();
-
-            window.open("${rc.contextPath}/reservation/reserveLocation/"+id+".html");
         });
     });
 
@@ -147,6 +148,30 @@
         });
 
         return pageCount;
+    }
+
+    /**
+     * 预约地点
+     * @param id
+     */
+    function reservationLocation(id) {
+        window.open("${rc.contextPath}/reservation/reserveLocation/"+id+".html");
+    }
+
+    /**
+     * 预约时间
+     * @param id
+     */
+    function reservationTime(id) {
+        window.open("${rc.contextPath}/reservation/reserveTime/"+id+".html");
+    }
+
+    /**
+     * 自助评测
+     * @param id
+     */
+    function autoTest(id) {
+        window.open("${rc.contextPath}/identityInfo/autoTest/"+id);
     }
 </script>
 

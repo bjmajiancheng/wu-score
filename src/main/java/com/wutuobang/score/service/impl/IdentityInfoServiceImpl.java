@@ -101,4 +101,21 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         return identityInfoPageData;
     }
 
+    /**
+     * 生成受理编号
+     *
+     * @param identityInfoModel
+     * @return
+     */
+    public String generAcceptNumber(IdentityInfoModel identityInfoModel) {
+        if (identityInfoModel == null) {
+            return "";
+        }
+
+        String acceptNumber = "00000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
+        acceptNumber = acceptNumber.substring(acceptNumber.length() - 5, acceptNumber.length());
+
+        return acceptNumber;
+    }
+
 }

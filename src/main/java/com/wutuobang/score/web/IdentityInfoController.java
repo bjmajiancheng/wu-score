@@ -11,6 +11,7 @@ import com.wutuobang.score.view.EvaluationView;
 import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +63,12 @@ public class IdentityInfoController {
 
     @Autowired
     private IAcceptDateConfService acceptDateConfService;
+
+    @Autowired
+    private IPersonBatchStatusRecordService personBatchStatusRecordService;
+
+    @Autowired
+    private IDictService dictService;
 
     /**
      * 前往新增用户页面
@@ -125,6 +132,15 @@ public class IdentityInfoController {
                     }
                 }
                 identityInfoService.insert(identityInfoModel);
+
+                //记录状态日志信息
+                DictModel dictModel = dictService
+                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_1);
+                if (dictModel != null) {
+                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                            dictModel, "添加申请人信息成功");
+                    personBatchStatusRecordService.insert(recordModel);
+                }
             }
 
             //户籍迁移信息
@@ -308,6 +324,23 @@ public class IdentityInfoController {
 
                 personBatchScoreResultService.batchInsert(toAddScoreResults);
             }
+
+            //自助测评通过
+            if (true) {
+                IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+                updateIdentityInfo.setId(identityInfoId);
+                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_6);
+                identityInfoService.update(updateIdentityInfo);
+                //记录状态日志信息
+                DictModel dictModel = dictService
+                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_6);
+                if (dictModel != null) {
+                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                            dictModel, "自助测评通过");
+                    personBatchStatusRecordService.insert(recordModel);
+                }
+            }
+
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,13 +377,35 @@ public class IdentityInfoController {
                 return ResultParam.error("受理地点选择异常,请重新选择");
             }
 
-            //更新预约地点
-            IdentityInfoModel identityInfoModel = new IdentityInfoModel();
-            identityInfoModel.setId(identityInfoId);
-            identityInfoModel.setAcceptAddressId(acceptAddressId);
-            identityInfoModel.setAcceptAddress(acceptAddressModel.getAddress());
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
 
-            identityInfoService.update(identityInfoModel);
+            //更新预约地点
+            IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+            updateIdentityInfo.setId(identityInfoId);
+            updateIdentityInfo.setAcceptAddressId(acceptAddressId);
+            updateIdentityInfo.setAcceptAddress(acceptAddressModel.getAddress());
+            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_8);
+            updateIdentityInfo.setUnionApproveStatus1(Constant.unionApproveStatus1_1);
+            updateIdentityInfo.setUnionApproveStatus2(Constant.unionApproveStatus2_1);
+
+            identityInfoService.update(updateIdentityInfo);
+
+            List<Integer> values = new ArrayList<Integer>();
+            values.add(Constant.reservationStatus_7);
+            values.add(Constant.reservationStatus_8);
+            //记录状态日志信息
+            Map<Integer, DictModel> dictMap = dictService.findByAliasAndValues("reservationStatus", values);
+            if (MapUtils.isNotEmpty(dictMap)) {
+                PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                        dictMap.get(Constant.reservationStatus_7), "预约地点成功");
+                PersonBatchStatusRecordModel recordModel1 = new PersonBatchStatusRecordModel(identityInfoModel,
+                        dictMap.get(Constant.reservationStatus_8), "变更联合预审状态");
+                List<PersonBatchStatusRecordModel> recordModels = new ArrayList<PersonBatchStatusRecordModel>(2);
+                recordModels.add(recordModel);
+                recordModels.add(recordModel1);
+
+                personBatchStatusRecordService.batchInsert(recordModels);
+            }
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
@@ -384,37 +439,49 @@ public class IdentityInfoController {
         try {
             AcceptDateConfModel acceptDateConf = acceptDateConfService.getById(reservaionDateId);
 
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+
             if (acceptDateConf == null) {
                 return ResultParam.error("受理时间选择异常,请重新选择");
             }
 
             int count = 0;
             //更新预约名额
-            if(reservaionM == 1) {
-                if(acceptDateConf.getAmRemainingCount() <= 0) {
+            if (reservaionM == 1) {
+                if (acceptDateConf.getAmRemainingCount() <= 0) {
                     return ResultParam.error("预约失败。名额已被占用,请选择其他日期!!");
                 }
                 count = acceptDateConfService.amSubtractionOne(reservaionDateId);
-            } else if(reservaionM == 2) {
-                if(acceptDateConf.getPmRemainingCount() <= 0) {
+            } else if (reservaionM == 2) {
+                if (acceptDateConf.getPmRemainingCount() <= 0) {
                     return ResultParam.error("预约失败。名额已被占用,请选择其他日期!!");
                 }
                 count = acceptDateConfService.pmSubtractionOne(reservaionDateId);
             }
 
-            if(count == 0) {
+            if (count == 0) {
                 return ResultParam.error("预约失败, 请重新预约!!");
             }
 
             //更新预约地点
-            IdentityInfoModel identityInfoModel = new IdentityInfoModel();
-            identityInfoModel.setId(identityInfoId);
-            identityInfoModel.setReservaionDate((int)(acceptDateConf.getAcceptDate().getTime() / 1000));
-            identityInfoModel.setReservaionM(reservaionM);
+            IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+            updateIdentityInfo.setId(identityInfoId);
+            updateIdentityInfo.setReservaionDate((int) (acceptDateConf.getAcceptDate().getTime() / 1000));
+            updateIdentityInfo.setReservaionM(reservaionM);
+            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
+            String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel);
+            updateIdentityInfo.setAcceptNumber(acceptNumber);
+            updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
 
-            identityInfoService.update(identityInfoModel);
+            identityInfoService.update(updateIdentityInfo);
 
-
+            //记录状态日志信息
+            DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_11);
+            if (dictModel != null) {
+                PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                        dictModel, "添加申请人信息成功");
+                personBatchStatusRecordService.insert(recordModel);
+            }
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {

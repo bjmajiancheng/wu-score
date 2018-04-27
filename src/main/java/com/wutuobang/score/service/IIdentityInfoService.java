@@ -42,4 +42,12 @@ public interface IIdentityInfoService {
      */
     public PageData<IdentityInfoModel> findPage(CompanyInfoModel currUser, Integer batchId, String queryStr,
             Integer pageNo);
+
+    /**
+     * 生成受理编号
+     *
+     * @param identityInfoModel
+     * @return
+     */
+    public String generAcceptNumber(IdentityInfoModel identityInfoModel);
 }

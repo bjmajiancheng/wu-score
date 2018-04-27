@@ -29,7 +29,7 @@
             预约信息
         </div>
         <div class="integral-cont-table-wrap">
-            <input type="hidden" id="identityInfoId" name="identityInfoId" value="$companyInfo.id" />
+            <input type="hidden" id="identityInfoId" name="identityInfoId" value="$identityInfo.id" />
             <table class="integral-cont-table" style="margin-left:180px;">
                 <tr>
                     <td>受理地点选择：</td>
@@ -120,14 +120,13 @@
 
             var requestData = {"acceptAddressId": $("#acceptAddress").val(), "identityInfoId": $("#identityInfoId").val(),
                 "captcha":$("#captcha").val()};
-            var flag = false;
             postSyncResultData("${rc.contextPath}/identityInfo/reserveLocation", requestData, function(data){
-                flag = true;
+                layer.msg('预约地点成功!!', {
+                    time: 1000
+                }, function(){
+                    window.close();
+                });
             });
-
-            if(flag) {
-                window.location.href = "${rc.contextPath}/reservation/reserveTime/"+$("#identityInfoId").val()+".html";
-            }
         });
     });
 </script>

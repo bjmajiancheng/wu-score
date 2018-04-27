@@ -45,4 +45,22 @@ public interface IDictService{
 	 * @return
      */
 	public Map<String, List<DictModel>> findMapByAliasKeys(List<String> aliasKeys);
+
+	/**
+	 * 根据alias和value获取字典信息
+	 *
+	 * @param alias
+	 * @param value
+     * @return
+     */
+	public DictModel findByAliasAndValue(String alias, Integer value);
+
+	/**
+	 * 根据别名和值获取字典信息
+	 *
+	 * @param alias
+	 * @param values
+     * @return
+     */
+	public Map<Integer, DictModel> findByAliasAndValues(String alias, List<Integer> values);
 }
