@@ -31,14 +31,14 @@ function getResultData(url, data, callback) {
         url: url,
         data: data,
         dataType: "json",
-        success: function(result){
-            if(result.code){//查询成功
+        success: function (result) {
+            if (result.code) {
                 layer.alert(result.message);
 
                 if($("input[name=captcha]").length > 0) {
                     refreshCode();
                 }
-            }else{
+            } else {
                 callback(result.data);
             }
         }

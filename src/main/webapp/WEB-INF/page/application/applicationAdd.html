@@ -179,10 +179,10 @@
                         <td>迁入户籍登记机关：</td>
                         <td>
                             <select name="registeredOffice" id="registeredOffice">
-                                <option>请选择</option>
+                                <option value="0">请选择</option>
                             </select>
                             <select class="ml50" name="registeredRegion" id="registeredRegion">
-                                <option>请选择</option>
+                                <option value="0">请选择</option>
                             </select>
                         </td>
                     </tr>
@@ -255,7 +255,7 @@
             <div id="children-table">
                 <!-- table表格部分1 子女关系表 -->
                 <form class="houseRelationshipsForm">
-                    <table class="integral-table border-add houseRelationships">
+                    <table class="integral-table border-add integral-cont-table houseRelationships">
                         <tr>
                             <th width="50"></th>
                             <th>与本人关系</th>
@@ -269,7 +269,10 @@
                                 <input type="checkbox" name="check" class="checkRelation">
                             </td>
                             <td>
-                                <input class="table_add_input" type="text" name="relationship">
+                                <select name="relationship" id="relationship">
+                                    <option value="子女">子女</option>
+                                    <option value="配偶">配偶</option>
+                                </select>
                             </td>
                             <td>
                                 <input class="table_add_input" type="text" name="name">
@@ -578,46 +581,60 @@
 
         currPage("addIdentity");
 
-        /*var provinces = getChildRegions(0);*/
+        //获取评分选项信息
+        getResultData("${rc.contextPath}/indicator/getAllIndicators", {}, function(data){
+            //1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,
+            //8.职业（工种）,9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
+            initIndicatorInfo(data["2"], $("#cultureDegree"));
+
+            initIndicatorInfo(data["3"], $("#jobLevel"));
+
+            initIndicatorInfo(data["8"], $("#jobType"));
+
+            initIndicatorInfo(data["13"], $("#awardsTitle"));
+
+            initIndicatorInfo(data["14"], $("#soldierMeritorious"));
+        });
+
         //初始化省份信息
         regionChange(0, "moveProvince");
 
         $("#moveProvince").on("change",
-                function () {
-                    regionChange($("#moveProvince").val(), "moveCity");
-                }
+            function () {
+                regionChange($("#moveProvince").val(), "moveCity");
+            }
         ).change();
         $("#moveCity").on("change",
-                function () {
-                    regionChange($("#moveCity").val(), "moveRegion");
-                }
+            function () {
+                regionChange($("#moveCity").val(), "moveRegion");
+            }
         ).change();
 
         //添加户籍关系
         $("#addRelation").on("click",
-                function () {
-                    var html = [];
-                    html.push('<tr class="houseRelationship">');
-                    html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
-                    html.push('<td><input class="table_add_input" type="text" name="relationship"></td>');
-                    html.push('<td><input class="table_add_input" type="text" name="name"></td>');
-                    html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
-                    html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove' + relation_idx + '_yes"><label for="isRemove' + relation_idx + '_yes">是</label>');
-                    html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove' + relation_idx + '_no"><label for="isRemove' + relation_idx + '_no">否</label></td>');
-                    html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
-                    html.push('</tr>');
-                    $(".houseRelationships").append(html.join(''));
+            function () {
+                var html = [];
+                html.push('<tr class="houseRelationship">');
+                html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
+                html.push('<td><input class="table_add_input" type="text" name="relationship"></td>');
+                html.push('<td><input class="table_add_input" type="text" name="name"></td>');
+                html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
+                html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove' + relation_idx + '_yes"><label for="isRemove' + relation_idx + '_yes">是</label>');
+                html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove' + relation_idx + '_no"><label for="isRemove' + relation_idx + '_no">否</label></td>');
+                html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
+                html.push('</tr>');
+                $(".houseRelationships").append(html.join(''));
 
-                    relation_idx = relation_idx + 1;
-                }
+                relation_idx = relation_idx + 1;
+            }
         );
 
         $("#delRelation").on("click",
-                function () {
-                    $(".checkRelation:checked").each(function () {
-                        $(this).parents("tr").remove();
-                    });
-                }
+            function () {
+                $(".checkRelation:checked").each(function () {
+                    $(this).parents("tr").remove();
+                });
+            }
         );
 
         //提交
@@ -669,43 +686,12 @@
             });
         });
 
-        var offices = getOffice(0);
-        if (offices != undefined) {
-            var officeHtml = new Array();
-            for (var i = 0; i < offices.length; i++) {
-                var office = offices[i];
-                officeHtml.push('<option value="' + office["id"] + '">' + office["name"] + '</option>');
-            }
-            $("#registeredOffice").html(officeHtml.join(''));
-        }
+        //初始化迁入户籍登记机关
+        initOfficeInfo(0, $("#registeredOffice"));
 
         $("#registeredOffice").on("change", function () {
-            var regions = getOffice($(this).val());
-            var regionHtml = new Array();
-            if (regions != undefined) {
-                for (var i = 0; i < regions.length; i++) {
-                    var region = regions[i];
-                    regionHtml.push('<option value="' + region["id"] + '">' + region["name"] + '</option>');
-                }
-                $("#registeredRegion").html(regionHtml.join(''));
-            }
+            initOfficeInfo($(this).val(), $("#registeredRegion"));
         }).change();
-
-        //获取评分选项信息
-        getResultData("${rc.contextPath}/indicator/getAllIndicators", {}, function(data){
-            /*1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,
-                    8.职业（工种）,9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信*/
-            initIndicatorInfo(data[2], $("#cultureDegree"));
-
-            initIndicatorInfo(data[3], $("#jobLevel"));
-
-            initIndicatorInfo(data[8], $("#jobType"));
-
-            initIndicatorInfo(data[13], $("#awardsTitle"));
-
-            initIndicatorInfo(data[14], $("#soldierMeritorious"));
-
-        });
 
     });
 
@@ -761,50 +747,13 @@
 
         var identityInfoJson = JSON.stringify(identityInfo);
 
-        $.ajax({
-            type: "POST",
-            url: "${rc.contextPath}/identityInfo/addIdentityInfo",
-            async: false,
-            data: {"identityInfoJson": identityInfoJson, "captcha": captcha},
-            dataType: "json",
-            success: function (result) {
-                if (result.code == 0) {
-                    layer.msg('保存成功!!', {
-                        time: 1000
-                    }, function () {
-                        window.close();
-                    });
-                } else {
-                    layer.alert(result.message);
-                    refreshCode();
-                }
-            }
+        postResultData("${rc.contextPath}/identityInfo/addIdentityInfo", {"identityInfoJson": identityInfoJson, "captcha": captcha}, function(data){
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+                window.close();
+            });
         });
-    }
-
-    /**
-     * 根据地区id获取下级区域
-     *
-     * @param regionId
-     */
-    function getChildRegions(regionId) {
-        var childRegions = [];
-        $.ajax({
-            type: "GET",
-            url: "${rc.contextPath}/region/child/regions/" + regionId,
-            async: false,
-            data: {},
-            dataType: "json",
-            success: function (result) {
-                if (result.code == 0) {
-                    childRegions = result.data;
-                } else {
-                    layer.alert(result.message);
-                }
-            }
-        });
-
-        return childRegions;
     }
 
     /**
@@ -821,30 +770,17 @@
             $("#moveRegion").html('<option value="0">请选择</option>');
         }
 
-        var childRegions = getChildRegions(regionId);
-        var html = [];
-
-        html.push('<option value="0">请选择</option>');
-        if (childRegions != undefined) {
-            for (var i = 0; i < childRegions.length; i++) {
-                html.push('<option value="' + childRegions[i].id + '">' + childRegions[i].name + '</option>');
+        getResultData("${rc.contextPath}/region/child/regions/" + regionId, {}, function(data){
+            var html = [];
+            html.push('<option value="0">请选择</option>');
+            if (data != undefined) {
+                for (var i = 0; i < data.length; i++) {
+                    html.push('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                }
             }
-        }
-        $("#" + changeRegion).html(html.join(''));
-    }
-
-    /**
-     * 获取登记机关信息
-     *
-     * @param officeId
-     */
-    function getOffice(officeId) {
-        var offices = [];
-        getSyncResultData("${rc.contextPath}/office/getOffices", {parentId: officeId}, function (data) {
-            offices = data;
+            $("#" + changeRegion).html(html.join(''));
         });
 
-        return offices;
     }
 
     /**
@@ -861,10 +797,26 @@
         }
         var arr = new Array();
         for(var i=0; i<indicatorItems.length; i++) {
-            arr.push('<option value="'+ indicatorItems[i].id +'">"'+ indicatorItems[i].content +'"</option>');
+            arr.push('<option value="'+ indicatorItems[i].id +'">'+ indicatorItems[i].content +'</option>');
         }
 
         field.html(arr.join(''));
+    }
+
+    /**
+     * 初始化迁入登记机关
+     *
+     */
+    function initOfficeInfo(officeId, field) {
+        getResultData("${rc.contextPath}/office/getOffices", {"parentId": officeId}, function (data) {
+            var offices = data;
+            var officeArr = new Array();
+            for (var i = 0; i < offices.length; i++) {
+                var office = offices[i];
+                officeArr.push('<option value="' + office["id"] + '">' + office["name"] + '</option>');
+            }
+            field.html(officeArr.join(''));
+        });
     }
 
 </script>

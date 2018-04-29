@@ -294,7 +294,7 @@
   </profiles>
 
   <build>
-    <finalName>wutuobang</finalName>
+    <finalName>wu-score</finalName>
     <filters>
       <filter>src/main/resources/profile/profile.${env}.properties</filter>
     </filters>

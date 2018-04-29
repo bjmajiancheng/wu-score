@@ -112,8 +112,8 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
             return "";
         }
 
-        String acceptNumber = "00000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
-        acceptNumber = acceptNumber.substring(acceptNumber.length() - 5, acceptNumber.length());
+        String acceptNumber = "00000000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
+        acceptNumber = acceptNumber.substring(acceptNumber.length() - 8, acceptNumber.length());
 
         return acceptNumber;
     }

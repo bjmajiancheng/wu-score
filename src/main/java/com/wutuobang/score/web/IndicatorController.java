@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.utils.ResultParam;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +49,16 @@ public class IndicatorController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/getAllIndicators", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllIndicators", method = { RequestMethod.POST, RequestMethod.GET })
     public ResultParam getAllIndicators(HttpServletRequest request) {
         try {
             List<IndicatorModel> allIndicators = indicatorService.getAllIndicators();
-            if(CollectionUtils.isEmpty(allIndicators)) {
+            if (CollectionUtils.isEmpty(allIndicators)) {
                 return new ResultParam(ResultParam.SUCCESS_RESULT, Collections.emptyMap());
             }
-            Map<Integer, IndicatorModel> indicatorMap = new HashMap<Integer, IndicatorModel>();
-            for(IndicatorModel indicatorModel : allIndicators) {
-                indicatorMap.put(indicatorModel.getIndexNum(), indicatorModel);
+            Map<String, IndicatorModel> indicatorMap = new HashMap<String, IndicatorModel>();
+            for (IndicatorModel indicatorModel : allIndicators) {
+                indicatorMap.put(String.valueOf(indicatorModel.getIndexNum()), indicatorModel);
             }
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, indicatorMap);
