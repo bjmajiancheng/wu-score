@@ -74,13 +74,15 @@ public class IdentityInfoModel implements Serializable {
 
     private String acceptAddress;//"受理地点"
 
-    private Integer reservaionDate;//"预约日期"
-
-    private Integer reservaionM;//"上午，下午"
-
     private Date ctime;//"创建时间"
 
     private Date utime;//"更新时间"
+
+    private Integer resultStatus;//"核算状态 0未核算 1已核算"
+
+    private Date reservationDate;//"预约日期"
+
+    private Integer reservationM;//"上午，下午"
     //columns END
 
     //自定义属性 START
@@ -95,220 +97,228 @@ public class IdentityInfoModel implements Serializable {
     private String reservaionDateStr;//预约日期
     //自定义属性 END
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getId() {
-        return this.id;
+    public String getIdNumber() {
+        return idNumber;
     }
 
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
     }
 
-    public String getIdNumber() {
-        return this.idNumber;
+    public Integer getBatchId() {
+        return batchId;
     }
 
     public void setBatchId(Integer batchId) {
         this.batchId = batchId;
     }
 
-    public Integer getBatchId() {
-        return this.batchId;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
-    public Integer getCompanyId() {
-        return this.companyId;
+    public String getIdCardPositive() {
+        return idCardPositive;
     }
 
     public void setIdCardPositive(String idCardPositive) {
         this.idCardPositive = idCardPositive;
     }
 
-    public String getIdCardPositive() {
-        return this.idCardPositive;
+    public String getIdCardOpposite() {
+        return idCardOpposite;
     }
 
     public void setIdCardOpposite(String idCardOpposite) {
         this.idCardOpposite = idCardOpposite;
     }
 
-    public String getIdCardOpposite() {
-        return this.idCardOpposite;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    public Integer getSex() {
+        return sex;
     }
 
     public void setSex(Integer sex) {
         this.sex = sex;
     }
 
-    public Integer getSex() {
-        return this.sex;
+    public String getBirthday() {
+        return birthday;
     }
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getBirthday() {
-        return this.birthday;
+    public Integer getAge() {
+        return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
     }
 
-    public Integer getAge() {
-        return this.age;
+    public String getNation() {
+        return nation;
     }
 
     public void setNation(String nation) {
         this.nation = nation;
     }
 
-    public String getNation() {
-        return this.nation;
+    public Integer getRegion() {
+        return region;
     }
 
     public void setRegion(Integer region) {
         this.region = region;
     }
 
-    public Integer getRegion() {
-        return this.region;
+    public String getRegionName() {
+        return regionName;
     }
 
     public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
 
-    public String getRegionName() {
-        return this.regionName;
+    public Integer getReservationStatus() {
+        return reservationStatus;
     }
 
     public void setReservationStatus(Integer reservationStatus) {
         this.reservationStatus = reservationStatus;
     }
 
-    public Integer getReservationStatus() {
-        return this.reservationStatus;
+    public Integer getHallStatus() {
+        return hallStatus;
     }
 
     public void setHallStatus(Integer hallStatus) {
         this.hallStatus = hallStatus;
     }
 
-    public Integer getHallStatus() {
-        return this.hallStatus;
+    public Integer getUnionApproveStatus1() {
+        return unionApproveStatus1;
     }
 
     public void setUnionApproveStatus1(Integer unionApproveStatus1) {
         this.unionApproveStatus1 = unionApproveStatus1;
     }
 
-    public Integer getUnionApproveStatus1() {
-        return this.unionApproveStatus1;
+    public Integer getUnionApproveStatus2() {
+        return unionApproveStatus2;
     }
 
     public void setUnionApproveStatus2(Integer unionApproveStatus2) {
         this.unionApproveStatus2 = unionApproveStatus2;
     }
 
-    public Integer getUnionApproveStatus2() {
-        return this.unionApproveStatus2;
+    public Integer getPoliceApproveStatus() {
+        return policeApproveStatus;
     }
 
     public void setPoliceApproveStatus(Integer policeApproveStatus) {
         this.policeApproveStatus = policeApproveStatus;
     }
 
-    public Integer getPoliceApproveStatus() {
-        return this.policeApproveStatus;
+    public Integer getRensheAcceptStatus() {
+        return rensheAcceptStatus;
     }
 
     public void setRensheAcceptStatus(Integer rensheAcceptStatus) {
         this.rensheAcceptStatus = rensheAcceptStatus;
     }
 
-    public Integer getRensheAcceptStatus() {
-        return this.rensheAcceptStatus;
+    public Integer getCancelStatus() {
+        return cancelStatus;
     }
 
     public void setCancelStatus(Integer cancelStatus) {
         this.cancelStatus = cancelStatus;
     }
 
-    public Integer getCancelStatus() {
-        return this.cancelStatus;
+    public String getAcceptNumber() {
+        return acceptNumber;
     }
 
     public void setAcceptNumber(String acceptNumber) {
         this.acceptNumber = acceptNumber;
     }
 
-    public String getAcceptNumber() {
-        return this.acceptNumber;
+    public Integer getAcceptAddressId() {
+        return acceptAddressId;
     }
 
     public void setAcceptAddressId(Integer acceptAddressId) {
         this.acceptAddressId = acceptAddressId;
     }
 
-    public Integer getAcceptAddressId() {
-        return this.acceptAddressId;
+    public String getAcceptAddress() {
+        return acceptAddress;
     }
 
     public void setAcceptAddress(String acceptAddress) {
         this.acceptAddress = acceptAddress;
     }
 
-    public String getAcceptAddress() {
-        return this.acceptAddress;
-    }
-
-    public void setReservaionDate(Integer reservaionDate) {
-        this.reservaionDate = reservaionDate;
-    }
-
-    public Integer getReservaionDate() {
-        return this.reservaionDate;
-    }
-
-    public void setReservaionM(Integer reservaionM) {
-        this.reservaionM = reservaionM;
-    }
-
-    public Integer getReservaionM() {
-        return this.reservaionM;
+    public Date getCtime() {
+        return ctime;
     }
 
     public void setCtime(Date ctime) {
         this.ctime = ctime;
     }
 
-    public Date getCtime() {
-        return this.ctime;
+    public Date getUtime() {
+        return utime;
     }
 
     public void setUtime(Date utime) {
         this.utime = utime;
     }
 
-    public Date getUtime() {
-        return this.utime;
+    public Integer getResultStatus() {
+        return resultStatus;
+    }
+
+    public void setResultStatus(Integer resultStatus) {
+        this.resultStatus = resultStatus;
+    }
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public Integer getReservationM() {
+        return reservationM;
+    }
+
+    public void setReservationM(Integer reservationM) {
+        this.reservationM = reservationM;
     }
 
     public HouseMoveModel getHouseMoveModel() {
@@ -345,8 +355,8 @@ public class IdentityInfoModel implements Serializable {
 
     public String getReservaionDateStr() {
         if (StringUtils.isEmpty(reservaionDateStr)) {
-            if (this.reservaionDate != null) {
-                this.reservaionDateStr = DateUtil.IntToDateString(this.reservaionDate, DateStyle.YYYY_MM_DD);
+            if (this.reservationDate != null) {
+                this.reservaionDateStr = DateUtil.DateToString(this.reservationDate, DateStyle.YYYY_MM_DD);
             }
         }
         return reservaionDateStr;

@@ -29,16 +29,17 @@
 		<result property="acceptNumber" column="accept_number"/>
 		<result property="acceptAddressId" column="accept_address_id"/>
 		<result property="acceptAddress" column="accept_address"/>
-		<result property="reservaionDate" column="reservaion_date"/>
-		<result property="reservaionM" column="reservaion_m"/>
 		<result property="ctime" column="c_time"/>
 		<result property="utime" column="u_time"/>
+		<result property="resultStatus" column="result_status"/>
+		<result property="reservationDate" column="reservation_date"/>
+		<result property="reservationM" column="reservation_m"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,id_number ,batch_id ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region ,region_name ,reservation_status ,hall_status ,union_approve_status_1 ,union_approve_status_2 ,police_approve_status ,renshe_accept_status ,cancel_status ,accept_number ,accept_address_id ,accept_address ,reservaion_date ,reservaion_m ,c_time ,u_time
+        id ,id_number ,batch_id ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region ,region_name ,reservation_status ,hall_status ,union_approve_status_1 ,union_approve_status_2 ,police_approve_status ,renshe_accept_status ,cancel_status ,accept_number ,accept_address_id ,accept_address ,c_time ,u_time ,result_status ,reservation_date ,reservation_m
 	    ]]>
 	</sql>
 	
@@ -64,7 +65,15 @@
 	        union_approve_status_2  ,
 	        police_approve_status  ,
 	        renshe_accept_status  ,
-	        c_time
+	        cancel_status  ,
+	        accept_number  ,
+	        accept_address_id  ,
+	        accept_address  ,
+	        c_time  ,
+	        u_time  ,
+	        result_status  ,
+	        reservation_date  ,
+	        reservation_m
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -85,7 +94,15 @@
         	#{unionApproveStatus2, jdbcType=INTEGER} ,
         	#{policeApproveStatus, jdbcType=INTEGER} ,
         	#{rensheAcceptStatus, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP}
+        	#{cancelStatus, jdbcType=INTEGER} ,
+        	#{acceptNumber, jdbcType=VARCHAR} ,
+        	#{acceptAddressId, jdbcType=INTEGER} ,
+        	#{acceptAddress, jdbcType=VARCHAR} ,
+        	#{ctime, jdbcType=TIMESTAMP} ,
+        	#{utime, jdbcType=TIMESTAMP} ,
+        	#{resultStatus, jdbcType=INTEGER} ,
+        	#{reservationDate, jdbcType=DATE} ,
+        	#{reservationM, jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -114,10 +131,11 @@
 			<if test="acceptNumber != null">accept_number = #{acceptNumber, jdbcType=VARCHAR} ,</if>
 			<if test="acceptAddressId != null">accept_address_id = #{acceptAddressId, jdbcType=INTEGER} ,</if>
 			<if test="acceptAddress != null">accept_address = #{acceptAddress, jdbcType=VARCHAR} ,</if>
-			<if test="reservaionDate != null">reservaion_date = #{reservaionDate, jdbcType=INTEGER} ,</if>
-			<if test="reservaionM != null">reservaion_m = #{reservaionM, jdbcType=INTEGER} ,</if>
 			<if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
 			<if test="utime != null">u_time = #{utime, jdbcType=TIMESTAMP} ,</if>
+			<if test="resultStatus != null">result_status = #{resultStatus, jdbcType=INTEGER} ,</if>
+			<if test="reservationDate != null">reservation_date = #{reservationDate, jdbcType=DATE} ,</if>
+			<if test="reservationM != null">reservation_m = #{reservationM, jdbcType=INTEGER}, </if>
 			id = #{id}
 		WHERE
 		id = #{id}

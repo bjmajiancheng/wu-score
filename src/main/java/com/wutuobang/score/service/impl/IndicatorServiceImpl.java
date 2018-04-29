@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.utils.NumberUtil;
 import com.wutuobang.score.constant.EnumConstant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.view.IndicatorItemView;
@@ -80,21 +81,13 @@ public class IndicatorServiceImpl implements IIndicatorService {
      * @return
      */
     public List<IndicatorModel> getAllIndicators() {
-        List<IndicatorModel> indicatorModels = this.find(new HashMap<String, Object>());
+        List<IndicatorModel> indicatorModels = indicatorDao.getAllIndicators();
 
         Map<Integer, List<IndicatorItemModel>> indicatorItemMap = indicatorItemService.getAllMapItemInfo();
         if (CollectionUtils.isNotEmpty(indicatorModels)) {
             for (IndicatorModel indicatorModel : indicatorModels) {
                 List<IndicatorItemModel> indicatorItems = indicatorItemMap.get(indicatorModel.getId());
-
-                Map<String, IndicatorItemModel> tempItemMap = new HashMap<String, IndicatorItemModel>();
-                if (CollectionUtils.isNotEmpty(indicatorItems)) {
-                    for (IndicatorItemModel indicatorItem : indicatorItems) {
-                        tempItemMap.put(indicatorItem.getContent(), indicatorItem);
-                    }
-                }
-
-                indicatorModel.setIndicatorItemMap(tempItemMap);
+                indicatorModel.setIndicatorItems(indicatorItems);
             }
         }
         return indicatorModels;
@@ -107,8 +100,7 @@ public class IndicatorServiceImpl implements IIndicatorService {
      * @param indicatorModels 所有指标信息
      * @return
      */
-    public IndicatorView initIndicatorView(IdentityInfoModel identityInfo, List<IndicatorModel> indicatorModels) {
-        IndicatorView indicatorView = new IndicatorView();
+    public void initIndicatorView(IdentityInfoModel identityInfo, List<IndicatorModel> indicatorModels) {
 
         /** 申请人信息 */
         HouseOtherModel houseOtherModel = identityInfo.getHouseOtherModel();
@@ -120,46 +112,52 @@ public class IndicatorServiceImpl implements IIndicatorService {
          **/
         if (CollectionUtils.isNotEmpty(indicatorModels)) {
             for (IndicatorModel indicatorModel : indicatorModels) {
-                Map<String, IndicatorItemModel> indicatorItemMap = indicatorModel.getIndicatorItemMap();
+                List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
+                boolean flag = false;
 
                 switch (indicatorModel.getIndexNum()) {
                     case 1:
-                        IndicatorItemView ageItem = null;
                         Integer age = identityInfo.getAge();
-                        if (age >= 36 && age <= 45) {
-                            ageItem = new IndicatorItemView(indicatorModel.getIndexNum(), 1, "35周岁以下（含35周岁，20分）",
-                                    new BigDecimal(20));
-                        } else if (age <= 35) {
-                            ageItem = new IndicatorItemView(indicatorModel.getIndexNum(), 2, "36至45周岁（10分）",
-                                    new BigDecimal(10));
-                        } else {
-                            ageItem = new IndicatorItemView(indicatorModel.getIndexNum(), 3, "无", new BigDecimal(0));
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            String[] ageArr = indicatorItem.getScoreFunction().split("-");
+
+                            int minAge = NumberUtil.getInteger(ageArr[0]);
+                            int maxAge = NumberUtil.getInteger(ageArr[1]);
+                            if (age >= minAge && age <= maxAge) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
                         }
-                        indicatorView.setAgeItem(ageItem);
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
+
                         break;
                     case 2:
-                        Integer cultureDegree = houseOtherModel.getCultureDegree();
+                        int cultureDegree = houseOtherModel.getCultureDegree();
 
-                        String cultureDegreeText = EnumConstant.cultureDegreeArr[cultureDegree];
-
-                        IndicatorItemModel educationItem = indicatorItemMap.get(cultureDegreeText);
-                        IndicatorItemView educationView = new IndicatorItemView(indicatorModel.getIndexNum(),
-                                cultureDegree, cultureDegreeText,
-                                educationItem == null ? BigDecimal.ZERO : new BigDecimal(educationItem.getScore()));
-
-                        indicatorView.setEducationItem(educationView);
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getId() == cultureDegree) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
                         break;
                     case 3:
-                        Integer jobLevel = houseProfession.getJobLevel();
+                        int jobLevel = houseProfession.getJobLevel();
 
-                        String jobLevelText = EnumConstant.jobLevelArr[jobLevel];
-
-                        IndicatorItemModel jobLevelItem = indicatorItemMap.get(jobLevelText);
-                        IndicatorItemView jobLevelView = new IndicatorItemView(indicatorModel.getIndexNum(), jobLevel,
-                                jobLevelText,
-                                jobLevelItem == null ? BigDecimal.ZERO : new BigDecimal(jobLevelItem.getScore()));
-
-                        indicatorView.setSkillItem(jobLevelView);
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getId() == jobLevel) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
                         break;
                     case 4:
                         break;
@@ -170,15 +168,17 @@ public class IndicatorServiceImpl implements IIndicatorService {
                     case 7:
                         break;
                     case 8:
-                        Integer jobType = houseProfession.getJobType();
-                        String jobTyleText = EnumConstant.jobTypeArr[jobType];
+                        int jobType = houseProfession.getJobType();
 
-                        IndicatorItemModel jobTypeItem = indicatorItemMap.get(jobTyleText);
-                        IndicatorItemView jobTypeView = new IndicatorItemView(indicatorModel.getIndexNum(), jobType,
-                                jobTyleText,
-                                jobTypeItem == null ? BigDecimal.ZERO : new BigDecimal(jobTypeItem.getScore()));
-
-                        indicatorView.setWorkTypeItem(jobTypeView);
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getId() == jobType) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
                         break;
                     case 9:
                         break;
@@ -189,34 +189,36 @@ public class IndicatorServiceImpl implements IIndicatorService {
                     case 12:
                         break;
                     case 13:
-                        Integer awardsTitle = houseOtherModel.getAwardsTitle();
-                        String awardsTitleText = EnumConstant.awardsArr[awardsTitle];
+                        int awardsTitle = houseOtherModel.getAwardsTitle();
 
-                        IndicatorItemModel awardsItem = indicatorItemMap.get(awardsTitleText);
-                        IndicatorItemView awardsView = new IndicatorItemView(indicatorModel.getIndexNum(), awardsTitle,
-                                awardsTitleText,
-                                awardsItem == null ? BigDecimal.ZERO : new BigDecimal(awardsItem.getScore()));
-
-                        indicatorView.setAwardsItem(awardsView);
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getId() == awardsTitle) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
                         break;
                     case 14:
-                        Integer soldierMeritorious = houseOtherModel.getSoldierMeritorious();
-                        String soldierText = EnumConstant.soldierArr[soldierMeritorious];
+                        int soldierMeritorious = houseOtherModel.getSoldierMeritorious();
 
-                        IndicatorItemModel soldierItem = indicatorItemMap.get(soldierText);
-                        IndicatorItemView soldierView = new IndicatorItemView(indicatorModel.getIndexNum(),
-                                soldierMeritorious, soldierText,
-                                soldierItem == null ? BigDecimal.ZERO : new BigDecimal(soldierItem.getScore()));
-
-                        indicatorView.setSoldierItem(soldierView);
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getId() == soldierMeritorious) {
+                                indicatorItem.setChecked(1);
+                                flag = true;
+                            }
+                        }
+                        if (flag) {
+                            indicatorModel.setDisabled(1);
+                        }
                         break;
                     case 15:
                         break;
                 }
             }
         }
-
-        return indicatorView;
     }
 
 }

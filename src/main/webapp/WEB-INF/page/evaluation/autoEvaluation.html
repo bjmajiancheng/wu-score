@@ -32,7 +32,31 @@
             <input type="hidden" name="identityInfoId" value="$identityInfo.id">
             <div class="integral-cont-table-wrap">
                 <table class="integral-cont-table">
+                    {#list indicatorModels as indicatorModel}
                     <tr>
+                        <td>{indicatorModel.name}</td>
+                        <td indicator-id="{indicatorModel.id}">
+                            #if(indicatorModel.itemType == 0)
+                                {#list indicatorModel.indicatorItems as indicatorItem}
+                                    <input class="input_radio" type="radio" name="indicator_item_{indicatorItem.id}" value="{indicatorItem.id}"
+                                           #if(indicatorModel.disabled ==1) disabled #end #if(indicatorItem.checked == 1) checked="checked" #end/>
+                                    {indicatorItem.content}({indicatorItem.score}分)
+                                {/list}
+                            #elseif(indicatorModel.itemType == 1)
+                                #if(indicatorModel.indexNum == 4)
+                                    基本医疗保险<input type="number" name="medicalMonth"/>(月)
+                                    基本失业保险<input type="number" name="unemploymentMonth"/>(月)
+                                    基本工伤保险<input type="number" name="workInjuryMonth"/>(月)
+                                    基本生育保险<input type="number" name="fertilityMonth"/>(月)
+                                    公积金<input type="number" name="fundMonth"/>(月)
+                                #elseif(indicatorModel.indexNum == 6)
+
+                                #end
+                            #end
+                        </td>
+                    </tr>
+                    {/list}
+                    <!--<tr>
                         <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>
                             #if($indicatorView.ageItem)
@@ -128,32 +152,8 @@
                             <input type="hidden" name="awardsItemScore" value="$indicatorView.awardsItem.scoreValue"/>
                             #end
                         </td>
-                    </tr>
-                    <!--<tr>
-                        <td></td>
-                        <td class="lineh21">
-                            <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇（30分）
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号（20分）
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;拥有成效的中国发明专利（20分）
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input class="input_radio" type="checkbox" name="zhufang">&nbsp;&nbsp;&nbsp;无
-                        </td>
                     </tr>-->
-                    <tr>
+                    <!--<tr>
                         <td>工作年限：</td>
                         <td>在津具有合法稳定职业，累计6年及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分10分</td>
                     </tr>
@@ -165,7 +165,7 @@
                             <input type="hidden" name="soldierItemScore" value="$indicatorView.soldierItem.scoreValue"/>
                             #end
                         </td>
-                    </tr>
+                    </tr>-->
                 </table>
                 <!-- 验证码和底部按钮 -->
                 <table class="check-table">

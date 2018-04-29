@@ -46,5 +46,5 @@ public interface IIndicatorService{
 	 * @param indicatorModels 所有指标信息
      * @return
      */
-	public IndicatorView initIndicatorView(IdentityInfoModel identityInfo, List<IndicatorModel> indicatorModels);
+	public void initIndicatorView(IdentityInfoModel identityInfo, List<IndicatorModel> indicatorModels);
 }

@@ -110,6 +110,11 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="findAllIndicatorItem" resultMap="IndicatorItem">
+		SELECT <include refid="columns"/> FROM t_indicator_item
+		order by id ASC
+	</select>
 	
 </mapper>
 

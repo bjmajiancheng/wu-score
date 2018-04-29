@@ -35,8 +35,11 @@ public class IndicatorItemModel implements Serializable {
 	private Date createTime;//"创建时间"
 
 	private String addUser;//"创建用户"
-
 	//columns END
+
+	//自定义属性START
+	private int checked = 0;
+	//自定义属性END
 		
 	public void setId(Integer id) {
 		this.id = id;
@@ -94,10 +97,12 @@ public class IndicatorItemModel implements Serializable {
 		return this.addUser;
 	}
 
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
+	public int getChecked() {
+		return checked;
+	}
+
+	public void setChecked(int checked) {
+		this.checked = checked;
 	}
 }
 

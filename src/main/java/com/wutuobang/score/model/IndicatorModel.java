@@ -9,10 +9,7 @@ package com.wutuobang.score.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author davdian
@@ -44,7 +41,9 @@ public class IndicatorModel implements Serializable {
     //columns END
 
     //自定义属性 START
-    private Map<String, IndicatorItemModel> indicatorItemMap;//指标选项信息
+    private List<IndicatorItemModel> indicatorItems = new ArrayList<IndicatorItemModel>();//指标选项信息
+
+    private int disabled = 0;//不可选择
     //自定义属性 END
 
     public void setId(Integer id) {
@@ -119,12 +118,20 @@ public class IndicatorModel implements Serializable {
         return this.addUser;
     }
 
-    public Map<String, IndicatorItemModel> getIndicatorItemMap() {
-        return indicatorItemMap;
+    public List<IndicatorItemModel> getIndicatorItems() {
+        return indicatorItems;
     }
 
-    public void setIndicatorItemMap(Map<String, IndicatorItemModel> indicatorItemMap) {
-        this.indicatorItemMap = indicatorItemMap;
+    public void setIndicatorItems(List<IndicatorItemModel> indicatorItems) {
+        this.indicatorItems = indicatorItems;
+    }
+
+    public int getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(int disabled) {
+        this.disabled = disabled;
     }
 }
 

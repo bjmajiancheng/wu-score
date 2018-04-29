@@ -82,18 +82,18 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="category != null">
-						AND category = #{category}
-					</if>
-					<if test="name != null">
-						AND name = #{name}
-					</if>
-					<if test="note != null">
-						AND note = #{note}
-					</if>
-					<if test="addUser != null">
-						AND add_user = #{addUser}
-					</if>
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+			<if test="name != null">
+				AND name = #{name}
+			</if>
+			<if test="note != null">
+				AND note = #{note}
+			</if>
+			<if test="addUser != null">
+				AND add_user = #{addUser}
+			</if>
 	    </where>
 	</sql>
 	 
@@ -115,12 +115,17 @@
 
 	
 	<select id="find" resultMap="Indicator">
-	    SELECT <include refid="columns"/> FROM t_indicator 
+	    SELECT <include refid="columns"/> FROM t_indicator
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="getAllIndicators" resultMap="Indicator">
+		SELECT <include refid="columns"/> FROM t_indicator
+		order by indexNum asc;
+	</select>
 	
 </mapper>
 

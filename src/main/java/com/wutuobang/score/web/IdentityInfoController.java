@@ -220,8 +220,8 @@ public class IdentityInfoController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/autoTest/{id}", method = RequestMethod.GET)
-    public ModelAndView autoTest(HttpServletRequest request, @PathVariable("id") Integer id) {
+    @RequestMapping(value = "/autoEvaluation/{id}", method = RequestMethod.GET)
+    public ModelAndView autoEvaluation(HttpServletRequest request, @PathVariable("id") Integer id) {
         if (id == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
         }
@@ -236,11 +236,11 @@ public class IdentityInfoController {
             }
 
             List<IndicatorModel> indicatorModels = indicatorService.getAllIndicators();
-
-            IndicatorView indicatorView = indicatorService.initIndicatorView(identityInfo, indicatorModels);
+            indicatorService.initIndicatorView(identityInfo, indicatorModels);
 
             ModelAndView mv = new ModelAndView("evaluation/autoEvaluation.html");
-            mv.addObject("indicatorView", indicatorView);
+
+            mv.addObject("indicatorModels", indicatorModels);
             mv.addObject("identityInfo", identityInfo);
             return mv;
         } catch (Exception e) {
@@ -466,8 +466,8 @@ public class IdentityInfoController {
             //更新预约地点
             IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
             updateIdentityInfo.setId(identityInfoId);
-            updateIdentityInfo.setReservaionDate((int) (acceptDateConf.getAcceptDate().getTime() / 1000));
-            updateIdentityInfo.setReservaionM(reservaionM);
+            updateIdentityInfo.setReservationDate(acceptDateConf.getAcceptDate());
+            updateIdentityInfo.setReservationM(reservaionM);
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
             String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel);
             updateIdentityInfo.setAcceptNumber(acceptNumber);

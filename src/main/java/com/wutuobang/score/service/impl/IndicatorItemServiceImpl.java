@@ -73,7 +73,7 @@ public class IndicatorItemServiceImpl implements IIndicatorItemService {
      * @return
      */
     public Map<Integer, List<IndicatorItemModel>> getAllMapItemInfo() {
-        List<IndicatorItemModel> indicatorItems = this.find(new HashMap<String, Object>());
+        List<IndicatorItemModel> indicatorItems = indicatorItemDao.findAllIndicatorItem();
         if (CollectionUtils.isEmpty(indicatorItems)) {
             return Collections.emptyMap();
         }

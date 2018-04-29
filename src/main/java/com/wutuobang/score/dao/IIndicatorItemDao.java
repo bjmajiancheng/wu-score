@@ -29,5 +29,12 @@ public interface IIndicatorItemDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<IndicatorItemModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取所有评分选项信息并排序
+	 *
+	 * @return
+     */
+	public List<IndicatorItemModel> findAllIndicatorItem();
 	
 }
