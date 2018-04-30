@@ -83,6 +83,8 @@ public class IdentityInfoModel implements Serializable {
     private Date reservationDate;//"预约日期"
 
     private Integer reservationM;//"上午，下午"
+
+    private BigDecimal score;//自测分数
     //columns END
 
     //自定义属性 START
@@ -319,6 +321,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setReservationM(Integer reservationM) {
         this.reservationM = reservationM;
+    }
+
+    public BigDecimal getScore() {
+        return score;
+    }
+
+    public void setScore(BigDecimal score) {
+        this.score = score;
     }
 
     public HouseMoveModel getHouseMoveModel() {

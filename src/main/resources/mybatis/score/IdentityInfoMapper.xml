@@ -34,12 +34,13 @@
 		<result property="resultStatus" column="result_status"/>
 		<result property="reservationDate" column="reservation_date"/>
 		<result property="reservationM" column="reservation_m"/>
+		<result property="score" column="score"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,id_number ,batch_id ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region ,region_name ,reservation_status ,hall_status ,union_approve_status_1 ,union_approve_status_2 ,police_approve_status ,renshe_accept_status ,cancel_status ,accept_number ,accept_address_id ,accept_address ,c_time ,u_time ,result_status ,reservation_date ,reservation_m
+        id ,id_number ,batch_id ,company_id ,id_card_positive ,id_card_opposite ,name ,sex ,birthday ,age ,nation ,region ,region_name ,reservation_status ,hall_status ,union_approve_status_1 ,union_approve_status_2 ,police_approve_status ,renshe_accept_status ,cancel_status ,accept_number ,accept_address_id ,accept_address ,c_time ,u_time ,result_status ,reservation_date ,reservation_m, score
 	    ]]>
 	</sql>
 	
@@ -73,7 +74,8 @@
 	        u_time  ,
 	        result_status  ,
 	        reservation_date  ,
-	        reservation_m
+	        reservation_m  ,
+	        score
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -102,7 +104,8 @@
         	#{utime, jdbcType=TIMESTAMP} ,
         	#{resultStatus, jdbcType=INTEGER} ,
         	#{reservationDate, jdbcType=DATE} ,
-        	#{reservationM, jdbcType=INTEGER}
+        	#{reservationM, jdbcType=INTEGER} ,
+        	#{score, jdbcType=DECIMAL} ,
         )
     ]]>
     </insert>
@@ -136,6 +139,7 @@
 			<if test="resultStatus != null">result_status = #{resultStatus, jdbcType=INTEGER} ,</if>
 			<if test="reservationDate != null">reservation_date = #{reservationDate, jdbcType=DATE} ,</if>
 			<if test="reservationM != null">reservation_m = #{reservationM, jdbcType=INTEGER}, </if>
+			<if test="score != null">score = #{score, jdbcType=INTEGER}, </if>
 			id = #{id}
 		WHERE
 		id = #{id}

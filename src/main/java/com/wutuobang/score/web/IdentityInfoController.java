@@ -129,6 +129,7 @@ public class IdentityInfoController {
                 identityInfoModel.setAcceptAddressId(0);
                 identityInfoModel.setAcceptAddress(StringUtils.EMPTY);
                 identityInfoModel.setReservationM(0);
+                identityInfoModel.setScore(BigDecimal.ZERO);
 
                 if (identityInfoModel.getHouseMoveModel() != null) {
                     Integer region = identityInfoModel.getHouseMoveModel().getRegion();
