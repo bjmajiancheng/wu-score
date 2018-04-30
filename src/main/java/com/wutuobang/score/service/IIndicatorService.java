@@ -12,7 +12,6 @@ import com.wutuobang.score.model.IndicatorModel;
 import java.util.*;
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
-import com.wutuobang.score.view.IndicatorView;
 
 /**
  * @author  davdian
@@ -38,6 +37,13 @@ public interface IIndicatorService{
 	 * @return
      */
 	public List<IndicatorModel> getAllIndicators();
+
+	/**
+	 * 获取所有指标map信息
+	 *
+	 * @return
+     */
+	public Map<Integer, IndicatorModel> getAllMapIndicator();
 
 	/**
 	 * 初始化自助评测信息

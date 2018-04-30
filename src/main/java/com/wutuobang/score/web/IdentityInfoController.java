@@ -7,7 +7,7 @@ import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
-import com.wutuobang.score.view.EvaluationView;
+import com.wutuobang.score.view.IndicatorItemView;
 import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -69,6 +70,9 @@ public class IdentityInfoController {
 
     @Autowired
     private IDictService dictService;
+
+    @Autowired
+    private IBasicConfService basicConfService;
 
     /**
      * 前往新增用户页面
@@ -257,15 +261,21 @@ public class IdentityInfoController {
      * 自助评测信息
      *
      * @param request
-     * @param evaluationViewStr
+     * @param indicatorViewStr
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/autoEvaluation", method = RequestMethod.POST)
     public ResultParam autoEvaluation(HttpServletRequest request,
-            @RequestParam("evaluationView") String evaluationViewStr) {
-        if (StringUtils.isEmpty(evaluationViewStr)) {
+            @RequestParam("indicatorView") String indicatorViewStr) {
+        if (StringUtils.isEmpty(indicatorViewStr)) {
             return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        //基本设置信息
+        BasicConfModel basicConfModel = basicConfService.findLastConf();
+        if (basicConfModel == null) {
+            return ResultParam.error("请联系管理员配置测评信息");
         }
 
         Date currDate = new Date();
@@ -274,48 +284,93 @@ public class IdentityInfoController {
          * 1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
          * 9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
          **/
-
         try {
-            EvaluationView evaluationView = JSON.parseObject(evaluationViewStr, EvaluationView.class);
-            Integer identityInfoId = evaluationView.getIdentityInfoId();
-            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
-            initIdentityInfoAttrs(identityInfoModel);
+            IndicatorView indicatorView = JSON.parseObject(indicatorViewStr, IndicatorView.class);
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
 
             List<PersonBatchScoreResultModel> toAddScoreResults = new ArrayList<PersonBatchScoreResultModel>();
-            //1.年龄
-            PersonBatchScoreResultModel ageResult = new PersonBatchScoreResultModel(1,
-                    evaluationView.getAgeItemScore());
-            toAddScoreResults.add(ageResult);
-            //2.受教育程度
-            PersonBatchScoreResultModel educationResult = new PersonBatchScoreResultModel(2,
-                    evaluationView.getEducationItemScore());
-            toAddScoreResults.add(educationResult);
-            //3.专业技术职业技能
-            PersonBatchScoreResultModel skillResult = new PersonBatchScoreResultModel(3,
-                    evaluationView.getSkillItemScore());
-            toAddScoreResults.add(skillResult);
-            //4.社会保险
-            //5.住房公积金
-            //6.住房
-            //7.在津连续居住年限
-            //8.职业（工种)
-            PersonBatchScoreResultModel workTypeResult = new PersonBatchScoreResultModel(8,
-                    evaluationView.getWorkTypeItemScore());
-            toAddScoreResults.add(workTypeResult);
-            //9.落户地区
-            //10.纳税
-            //11.婚姻情况
-            //12.知识产权
-            //13.奖项和荣誉称号
-            PersonBatchScoreResultModel awardsResult = new PersonBatchScoreResultModel(13,
-                    evaluationView.getAwardsItemScore());
-            toAddScoreResults.add(awardsResult);
-            //14.退役军人
-            PersonBatchScoreResultModel soldierResult = new PersonBatchScoreResultModel(14,
-                    evaluationView.getSoldierItemScore());
-            toAddScoreResults.add(soldierResult);
-            //15.守法诚信
 
+            Map<Integer, IndicatorModel> indicatorModelMap = indicatorService.getAllMapIndicator();
+
+            if (CollectionUtils.isNotEmpty(indicatorView.getIndicatorItemList())) {
+                //初始化评测信息
+                for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
+                    IndicatorModel indicatorModel = indicatorModelMap.get((int) indicatorItemView.getIndicatorId());
+                    if (indicatorModel != null) {
+                        if (indicatorItemView.getIndexNum() == 4) {
+                            //参加社会保险按险种计分。缴费不满60个月的，每年最高积12分，
+                            //其中：参加基本养老保险（4分），参加基本医疗保险、失业保险、工伤保险、生育保险（各2分）；
+                            //缴费满60个月的，自满60个月的下一月起，每年最高积18分，
+                            //其中：参加基本养老保险（6分），参加基本医疗保险、失业保险、工伤保险、生育保险（各3分）。
+                            int pensionScore = 0;
+                            if (indicatorView.getPensionMonth() >= 60) {
+                                pensionScore = indicatorView.getPensionMonth() / 2;
+                            } else {
+                                pensionScore = indicatorView.getPensionMonth() / 3;
+                            }
+                            int medicalScore = 0;
+                            if (indicatorView.getMedicalMonth() >= 60) {
+                                medicalScore = indicatorView.getMedicalMonth() / 4;
+                            } else {
+                                medicalScore = indicatorView.getMedicalMonth() / 6;
+                            }
+                            int unemploymentScore = 0;
+                            if (indicatorView.getUnemploymentMonth() >= 60) {
+                                unemploymentScore = indicatorView.getUnemploymentMonth() / 4;
+                            } else {
+                                unemploymentScore = indicatorView.getUnemploymentMonth() / 6;
+                            }
+                            int workInjuryScore = 0;
+                            if (indicatorView.getWorkInjuryMonth() >= 60) {
+                                workInjuryScore = indicatorView.getWorkInjuryMonth() / 4;
+                            } else {
+                                workInjuryScore = indicatorView.getWorkInjuryMonth() / 6;
+                            }
+                            int fertilityScore = 0;
+                            if (indicatorView.getFertilityMonth() >= 60) {
+                                fertilityScore = indicatorView.getFertilityMonth() / 4;
+                            } else {
+                                fertilityScore = indicatorView.getFertilityMonth() / 6;
+                            }
+                            int totalScore =
+                                    pensionScore + medicalScore + unemploymentScore + workInjuryScore + fertilityScore;
+
+                            indicatorItemView.setScoreValue(new BigDecimal(totalScore));
+                            continue;
+                        } else if (indicatorItemView.getIndexNum() == 5) {
+                            //参加住房公积金的每年积2分。
+                            int fundScore = indicatorView.getFundMonth() / 6;
+                            indicatorItemView.setScoreValue(new BigDecimal(fundScore));
+                            continue;
+                        } else if (indicatorItemView.getIndexNum() == 7) {
+                            indicatorItemView.setScoreValue(new BigDecimal(indicatorView.getLiveYear() * 6));
+                            continue;
+                        }
+
+                        List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
+                        if (CollectionUtils.isEmpty(indicatorItems)) {
+                            continue;
+                        }
+
+                        for (IndicatorItemModel indicatorItemModel : indicatorItems) {
+                            if ((int) indicatorItemModel.getId() == indicatorItemView.getIndicatorItemId()) {
+                                indicatorItemView.setScoreValue(new BigDecimal(indicatorItemModel.getScore()));
+                            }
+                        }
+
+                        indicatorItemView.setIndicatorName(indicatorModel.getName());
+                    }
+                }
+
+                for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
+                    PersonBatchScoreResultModel personBatchScoreResult = new PersonBatchScoreResultModel(
+                            indicatorItemView.getIndicatorId(), indicatorItemView.getIndicatorName(),
+                            indicatorItemView.getScoreValue());
+                    toAddScoreResults.add(personBatchScoreResult);
+                }
+            }
+
+            BigDecimal totalDecimal = new BigDecimal(0);
             //初始化分数结果信息
             if (CollectionUtils.isNotEmpty(toAddScoreResults)) {
                 for (PersonBatchScoreResultModel scoreResult : toAddScoreResults) {
@@ -324,15 +379,17 @@ public class IdentityInfoController {
                     scoreResult.setPersonName(identityInfoModel.getName());
                     scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
                     scoreResult.setCtime(currDate);
+
+                    totalDecimal = totalDecimal.add(scoreResult.getScoreValue());
                 }
 
                 personBatchScoreResultService.batchInsert(toAddScoreResults);
             }
 
             //自助测评通过
-            if (true) {
+            if (totalDecimal.compareTo(basicConfModel.getSelfTestScoreLine()) >= 0) {
                 IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
-                updateIdentityInfo.setId(identityInfoId);
+                updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
                 updateIdentityInfo.setReservationStatus(Constant.reservationStatus_6);
                 identityInfoService.update(updateIdentityInfo);
                 //记录状态日志信息
@@ -340,7 +397,21 @@ public class IdentityInfoController {
                         .findByAliasAndValue("reservationStatus", Constant.reservationStatus_6);
                 if (dictModel != null) {
                     PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
-                            dictModel, "自助测评通过");
+                            dictModel, "自助测评通过, 测评分数为:" + totalDecimal.toString());
+                    personBatchStatusRecordService.insert(recordModel);
+                }
+            } else {
+                IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+                updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
+                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_5);
+                identityInfoService.update(updateIdentityInfo);
+
+                //记录状态日志信息
+                DictModel dictModel = dictService
+                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_5);
+                if (dictModel != null) {
+                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                            dictModel, "自助测评未通过, 测评分数为:" + totalDecimal.toString());
                     personBatchStatusRecordService.insert(recordModel);
                 }
             }

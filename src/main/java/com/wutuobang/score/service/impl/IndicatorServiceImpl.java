@@ -14,10 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.wutuobang.common.utils.NumberUtil;
-import com.wutuobang.score.constant.EnumConstant;
 import com.wutuobang.score.model.*;
-import com.wutuobang.score.view.IndicatorItemView;
-import com.wutuobang.score.view.IndicatorView;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,6 +88,25 @@ public class IndicatorServiceImpl implements IIndicatorService {
             }
         }
         return indicatorModels;
+    }
+
+    /**
+     * 获取所有指标map信息
+     *
+     * @return
+     */
+    public Map<Integer, IndicatorModel> getAllMapIndicator() {
+        List<IndicatorModel> indicatorModels = this.getAllIndicators();
+        if(CollectionUtils.isEmpty(indicatorModels)) {
+            return Collections.emptyMap();
+        }
+
+        Map<Integer, IndicatorModel> indicatorModelMap = new HashMap<Integer, IndicatorModel>(indicatorModels.size());
+        for(IndicatorModel indicatorModel : indicatorModels) {
+            indicatorModelMap.put(indicatorModel.getId(), indicatorModel);
+        }
+
+        return indicatorModelMap;
     }
 
     /**

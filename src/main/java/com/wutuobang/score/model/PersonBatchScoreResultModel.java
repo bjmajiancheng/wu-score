@@ -14,126 +14,129 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 public class PersonBatchScoreResultModel implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	//columns START
-	private Integer id;//"id"
+    private static final long serialVersionUID = 1L;
 
-	private Integer batchId;//"批次ID"
+    //columns START
+    private Integer id;//"id"
 
-	private Integer indicatorId;//"指标ID"
+    private Integer batchId;//"批次ID"
 
-	private String indicatorName;//"指标名称"
+    private Integer indicatorId;//"指标ID"
 
-	private Integer personId;//"申请人ID"
+    private String indicatorName;//"指标名称"
 
-	private String personName;//"申请人"
+    private Integer personId;//"申请人ID"
 
-	private String personIdNum;//"申请人身份证"
+    private String personName;//"申请人"
 
-	private BigDecimal scoreValue;//"分数"
+    private String personIdNum;//"申请人身份证"
 
-	private String scoreDetail;//"打分说明"
+    private BigDecimal scoreValue;//"分数"
 
-	private Date ctime;//"创建时间"
-	//columns END
+    private String scoreDetail;//"打分说明"
 
-	public PersonBatchScoreResultModel(){}
+    private Date ctime;//"创建时间"
+    //columns END
 
-	public PersonBatchScoreResultModel(Integer indicatorId, BigDecimal scoreValue){
-		this.indicatorId = indicatorId;
-		this.scoreValue = scoreValue;
-	}
-		
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public PersonBatchScoreResultModel() {
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
-		
-	public void setBatchId(Integer batchId) {
-		this.batchId = batchId;
-	}
+    public PersonBatchScoreResultModel(Integer indicatorId, String indicatorName, BigDecimal scoreValue) {
+        this.indicatorId = indicatorId;
+        this.indicatorName = indicatorName;
+        this.scoreValue = scoreValue;
+    }
 
-	public Integer getBatchId() {
-		return this.batchId;
-	}
-		
-	public void setIndicatorId(Integer indicatorId) {
-		this.indicatorId = indicatorId;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getIndicatorId() {
-		return this.indicatorId;
-	}
-		
-	public void setIndicatorName(String indicatorName) {
-		this.indicatorName = indicatorName;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public String getIndicatorName() {
-		return this.indicatorName;
-	}
-		
-	public void setPersonId(Integer personId) {
-		this.personId = personId;
-	}
+    public void setBatchId(Integer batchId) {
+        this.batchId = batchId;
+    }
 
-	public Integer getPersonId() {
-		return this.personId;
-	}
-		
-	public void setPersonName(String personName) {
-		this.personName = personName;
-	}
+    public Integer getBatchId() {
+        return this.batchId;
+    }
 
-	public String getPersonName() {
-		return this.personName;
-	}
-		
-	public void setPersonIdNum(String personIdNum) {
-		this.personIdNum = personIdNum;
-	}
+    public void setIndicatorId(Integer indicatorId) {
+        this.indicatorId = indicatorId;
+    }
 
-	public String getPersonIdNum() {
-		return this.personIdNum;
-	}
-		
-	public void setScoreValue(BigDecimal scoreValue) {
-		this.scoreValue = scoreValue;
-	}
+    public Integer getIndicatorId() {
+        return this.indicatorId;
+    }
 
-	public BigDecimal getScoreValue() {
-		return this.scoreValue;
-	}
-		
-	public void setScoreDetail(String scoreDetail) {
-		this.scoreDetail = scoreDetail;
-	}
+    public void setIndicatorName(String indicatorName) {
+        this.indicatorName = indicatorName;
+    }
 
-	public String getScoreDetail() {
-		return this.scoreDetail;
-	}
-		
-	public void setCtime(Date ctime) {
-		this.ctime = ctime;
-	}
+    public String getIndicatorName() {
+        return this.indicatorName;
+    }
 
-	public Date getCtime() {
-		return this.ctime;
-	}
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
-	}
+    public Integer getPersonId() {
+        return this.personId;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonName() {
+        return this.personName;
+    }
+
+    public void setPersonIdNum(String personIdNum) {
+        this.personIdNum = personIdNum;
+    }
+
+    public String getPersonIdNum() {
+        return this.personIdNum;
+    }
+
+    public void setScoreValue(BigDecimal scoreValue) {
+        this.scoreValue = scoreValue;
+    }
+
+    public BigDecimal getScoreValue() {
+        return this.scoreValue;
+    }
+
+    public void setScoreDetail(String scoreDetail) {
+        this.scoreDetail = scoreDetail;
+    }
+
+    public String getScoreDetail() {
+        return this.scoreDetail;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
+    }
+
+    public Date getCtime() {
+        return this.ctime;
+    }
+
+    public Map<String, Object> getParam() {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("", "");
+        return param;
+    }
 }
 

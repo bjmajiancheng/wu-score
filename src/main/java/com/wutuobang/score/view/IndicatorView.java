@@ -1,6 +1,7 @@
 package com.wutuobang.score.view;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by majiancheng on 2018/4/23.
@@ -8,123 +9,93 @@ import java.io.Serializable;
 public class IndicatorView implements Serializable {
     private static final long serialVersionUID = 4565797266071864534L;
 
-    private IndicatorItemView ageItem;//年龄
+    private Integer identityInfoId;//申请人Id
 
-    private IndicatorItemView educationItem;//受教育程度
+    private Integer pensionMonth;//基本养老保险(月)
 
-    private IndicatorItemView skillItem;//专业技术职业技能
+    private Integer medicalMonth;//基本医疗保险(月)
 
-    private IndicatorItemView socialItem;//社保公积金
+    private Integer unemploymentMonth;//基本失业保险(月)
 
-    private IndicatorItemView houseItem;//住房
+    private Integer workInjuryMonth;//基本工伤保险(月)
 
-    private IndicatorItemView workTypeItem;//职业工种
+    private Integer fertilityMonth;//基本生育保险(月)
 
-    private IndicatorItemView settledRegionItem;//落户地区
+    private Integer fundMonth;//公积金(月)
 
-    private IndicatorItemView taxItem;//纳税
+    private Integer liveYear;//居住年限(年)
 
-    private IndicatorItemView marriageItem;//婚姻状况
+    private List<IndicatorItemView> indicatorItemList;//指标选项信息
 
-    private IndicatorItemView awardsItem;//奖项及荣誉称号
-
-    private IndicatorItemView jobYearsItem;//工作年限
-
-    private IndicatorItemView soldierItem;//退役军人
-
-    public IndicatorItemView getAgeItem() {
-        return ageItem;
+    public Integer getIdentityInfoId() {
+        return identityInfoId;
     }
 
-    public void setAgeItem(IndicatorItemView ageItem) {
-        this.ageItem = ageItem;
+    public void setIdentityInfoId(Integer identityInfoId) {
+        this.identityInfoId = identityInfoId;
     }
 
-    public IndicatorItemView getEducationItem() {
-        return educationItem;
+    public Integer getPensionMonth() {
+        return pensionMonth;
     }
 
-    public void setEducationItem(IndicatorItemView educationItem) {
-        this.educationItem = educationItem;
+    public void setPensionMonth(Integer pensionMonth) {
+        this.pensionMonth = pensionMonth;
     }
 
-    public IndicatorItemView getSkillItem() {
-        return skillItem;
+    public Integer getMedicalMonth() {
+        return medicalMonth;
     }
 
-    public void setSkillItem(IndicatorItemView skillItem) {
-        this.skillItem = skillItem;
+    public void setMedicalMonth(Integer medicalMonth) {
+        this.medicalMonth = medicalMonth;
     }
 
-    public IndicatorItemView getSocialItem() {
-        return socialItem;
+    public Integer getUnemploymentMonth() {
+        return unemploymentMonth;
     }
 
-    public void setSocialItem(IndicatorItemView socialItem) {
-        this.socialItem = socialItem;
+    public void setUnemploymentMonth(Integer unemploymentMonth) {
+        this.unemploymentMonth = unemploymentMonth;
     }
 
-    public IndicatorItemView getHouseItem() {
-        return houseItem;
+    public Integer getWorkInjuryMonth() {
+        return workInjuryMonth;
     }
 
-    public void setHouseItem(IndicatorItemView houseItem) {
-        this.houseItem = houseItem;
+    public void setWorkInjuryMonth(Integer workInjuryMonth) {
+        this.workInjuryMonth = workInjuryMonth;
     }
 
-    public IndicatorItemView getWorkTypeItem() {
-        return workTypeItem;
+    public Integer getFertilityMonth() {
+        return fertilityMonth;
     }
 
-    public void setWorkTypeItem(IndicatorItemView workTypeItem) {
-        this.workTypeItem = workTypeItem;
+    public void setFertilityMonth(Integer fertilityMonth) {
+        this.fertilityMonth = fertilityMonth;
     }
 
-    public IndicatorItemView getSettledRegionItem() {
-        return settledRegionItem;
+    public Integer getFundMonth() {
+        return fundMonth;
     }
 
-    public void setSettledRegionItem(IndicatorItemView settledRegionItem) {
-        this.settledRegionItem = settledRegionItem;
+    public void setFundMonth(Integer fundMonth) {
+        this.fundMonth = fundMonth;
     }
 
-    public IndicatorItemView getTaxItem() {
-        return taxItem;
+    public Integer getLiveYear() {
+        return liveYear;
     }
 
-    public void setTaxItem(IndicatorItemView taxItem) {
-        this.taxItem = taxItem;
+    public void setLiveYear(Integer liveYear) {
+        this.liveYear = liveYear;
     }
 
-    public IndicatorItemView getMarriageItem() {
-        return marriageItem;
+    public List<IndicatorItemView> getIndicatorItemList() {
+        return indicatorItemList;
     }
 
-    public void setMarriageItem(IndicatorItemView marriageItem) {
-        this.marriageItem = marriageItem;
-    }
-
-    public IndicatorItemView getAwardsItem() {
-        return awardsItem;
-    }
-
-    public void setAwardsItem(IndicatorItemView awardsItem) {
-        this.awardsItem = awardsItem;
-    }
-
-    public IndicatorItemView getJobYearsItem() {
-        return jobYearsItem;
-    }
-
-    public void setJobYearsItem(IndicatorItemView jobYearsItem) {
-        this.jobYearsItem = jobYearsItem;
-    }
-
-    public IndicatorItemView getSoldierItem() {
-        return soldierItem;
-    }
-
-    public void setSoldierItem(IndicatorItemView soldierItem) {
-        this.soldierItem = soldierItem;
+    public void setIndicatorItemList(List<IndicatorItemView> indicatorItemList) {
+        this.indicatorItemList = indicatorItemList;
     }
 }

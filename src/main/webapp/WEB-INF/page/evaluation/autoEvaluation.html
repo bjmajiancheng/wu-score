@@ -28,19 +28,23 @@
         <div class="integral-desc-title border-bottom">
             自助测评信息
         </div>
+        <!--1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
+         9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信-->
         <form id="autoEvaluation">
             <input type="hidden" name="identityInfoId" value="$identityInfo.id">
             <div class="integral-cont-table-wrap">
                 <table class="integral-table border-add integral-cont-table" style="text-align:left;">
                     #foreach($indicatorModel in $indicatorModels)
-                    <tr>
+                    <tr class="indicatorModelTr">
                         <td width="15%">$indicatorModel.name</td>
                         <td indicator-id="$indicatorModel.id" style="padding-left:10px;">
+                            <input type="hidden" name="indexNum" value="$indicatorModel.indexNum" />
                             #if($indicatorModel.itemType == 0)
                                 #foreach($indicatorItem in $indicatorModel.indicatorItems)
-                                    <input class="input_radio" type="radio" id="indicator_item_$indicatorItem.id" name="indicator_item_$indicatorModel.id" value="$indicatorItem.id"
+                                    <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$indicatorItem.id" name="indicator_item_$indicatorModel.id" value="$indicatorItem.id"
                                            #if($indicatorModel.disabled ==1) disabled #end #if($indicatorItem.checked == 1) checked="checked" #end/>
                                     <label for="indicator_item_$indicatorItem.id">$indicatorItem.content ($indicatorItem.score 分) &nbsp;&nbsp;&nbsp;</label>
+                                    </span>
                                 #end
                             #elseif($indicatorModel.itemType == 1)
                                 #if($indicatorModel.indexNum == 4)
@@ -48,125 +52,16 @@
                                     基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth"/>(月)<br/>
                                     基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth"/>(月)<br/>
                                     基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth"/>(月)<br/>
-                                    基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth"/>(月)<br/>
-                                    公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth"/>(月)<br/>
-                                #elseif($indicatorModel.indexNum == 6)
-
+                                    基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth"/>(月)
+                                #elseif($indicatorModel.indexNum == 5)
+                                    公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth"/>(月)
+                                #elseif($indicatorModel.indexNum == 7)
+                                    请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear"/>(年)
                                 #end
                             #end
                         </td>
                     </tr>
                     #end
-                    <!--<tr>
-                        <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                        <td>
-                            #if($indicatorView.ageItem)
-                            $indicatorView.ageItem.itemValue
-                            <input type="hidden" name="ageItemScore" value="$indicatorView.ageItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>受教育程度：</td>
-                        <td>
-                            #if($indicatorView.educationItem)
-                            $indicatorView.educationItem.itemValue
-                            <input type="hidden" name="educationItemScore" value="$indicatorView.ageItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="nowrap">专业技术职业技能：</td>
-                        <td>
-                            #if($indicatorView.skillItem)
-                            $indicatorView.skillItem.itemValue
-                            <input type="hidden" name="skillItemScore" value="$indicatorView.ageItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="lineh21">社保公积金：</td>
-                        <td class="lineh21">
-                            基本养老保险<input type="number" name="pensionMonth"/>(月)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="lineh21">基本医疗保险<input type="number" name="medicalMonth"/>(月)</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="lineh21">基本失业保险<input type="number" name="unemploymentMonth"/>(月)</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="lineh21">基本工伤保险<input type="number" name="workInjuryMonth"/>(月)</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="lineh21">基本生育保险<input type="number" name="fertilityMonth"/>(月)</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="lineh21">公&nbsp;&nbsp;积&nbsp;&nbsp;金<input type="number" name="fundMonth"/>(月)</td>
-                    </tr>
-                    <tr>
-                        <td>住房：</td>
-                        <td>
-                            <input class="input_radio" type="radio" name="house" value="0">&nbsp;&nbsp;&nbsp;无（不得分）&nbsp;&nbsp;
-                            <input class="input_radio" type="radio" name="house" value="1">&nbsp;&nbsp;&nbsp;天津市有本人产权住房（包括与配偶、父母、子女共有得40分）
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>职业工种：</td>
-                        <td>
-                            #if($indicatorView.workTypeItem)
-                            $indicatorView.workTypeItem.itemValue
-                            <input type="hidden" name="workTypeItemScore"
-                                   value="$indicatorView.workTypeItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>落户地区：</td>
-                        <td>申请落户东丽区、西青区、津南区、北辰区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分5分</td>
-                    </tr>
-                    <tr>
-                        <td>纳税：</td>
-                        <td>
-                            <input class="input_radio" type="radio" name="taxes" value="1">近三年在本市依法缴纳个人所得税累计10万元及以上(20分)&nbsp;&nbsp;
-                            <input class="input_radio" type="radio" name="taxes" value="0">无(不得分)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>婚姻状况：</td>
-                        <td>
-                            <input class="input_radio" type="radio" name="marriage" value="1">已婚，且夫妻双方均在本市就业，配偶缴纳社会保险满24个月（10分）。&nbsp;&nbsp;
-                            <input class="input_radio" type="radio" name="marriage" value="0">无(不得分)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="nowrap">奖项及荣誉称号：</td>
-                        <td>
-                            #if($indicatorView.awardsItem)
-                            $indicatorView.awardsItem.itemValue
-                            <input type="hidden" name="awardsItemScore" value="$indicatorView.awardsItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>-->
-                    <!--<tr>
-                        <td>工作年限：</td>
-                        <td>在津具有合法稳定职业，累计6年及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得分10分</td>
-                    </tr>
-                    <tr>
-                        <td>退役军人：</td>
-                        <td>
-                            #if($indicatorView.soldierItem)
-                            $indicatorView.soldierItem.itemValue
-                            <input type="hidden" name="soldierItemScore" value="$indicatorView.soldierItem.scoreValue"/>
-                            #end
-                        </td>
-                    </tr>-->
                 </table>
                 <!-- 验证码和底部按钮 -->
                 <table class="check-table">
@@ -202,7 +97,8 @@
         $("#submit").on("click", function () {
             var formInfo = getFormInfo();
 
-            postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"evaluationView": JSON.stringify(formInfo)}, function (data) {
+            debugger;
+            postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"indicatorView": JSON.stringify(formInfo)}, function (data) {
                 layer.msg('自助测评成功!!', {
                     time: 1000
                 }, function(){
@@ -213,8 +109,34 @@
 
         //获取表单数据信息
         function getFormInfo() {
-            var evaluationForm = serializeForm($("#autoEvaluation"));
-            return evaluationForm;
+
+            var indicatorArr = new Array();
+            $(".indicatorModelTr").each(function(){
+                var $indicatorTd = $(this).find("td").eq(1);
+                var indicatorId = $indicatorTd.attr("indicator-id");//指标
+                var indexNum = $indicatorTd.find("input[name=indexNum]").val();
+                var indicatorItemId = $indicatorTd.find("input.indicator_item:checked").val();//指标选项Id
+                if(indicatorItemId == undefined) {
+                    indicatorItemId = 0;
+                }
+
+                indicatorArr.push({"indicatorId": indicatorId, "indexNum": indexNum, "indicatorItemId": indicatorItemId});
+            });
+
+            var identityInfoId = $("input[name=identityInfoId]").val();
+            var pensionMonth = $("input[name=pensionMonth]").val();
+            var medicalMonth = $("input[name=medicalMonth]").val();
+            var unemploymentMonth = $("input[name=unemploymentMonth]").val();
+            var workInjuryMonth = $("input[name=workInjuryMonth]").val();
+            var fertilityMonth = $("input[name=fertilityMonth]").val();
+            var fundMonth = $("input[name=fundMonth]").val();
+            var liveYear = $("input[name=liveYear]").val();
+
+
+            var indicatorView = {"identityInfoId":identityInfoId, "pensionMonth":pensionMonth, "medicalMonth":medicalMonth, "unemploymentMonth":unemploymentMonth,"workInjuryMonth":workInjuryMonth,
+                "fertilityMonth":fertilityMonth, "fundMonth":fundMonth, "liveYear":liveYear, "indicatorItemList":indicatorArr};
+
+            return indicatorView;
         }
 
 

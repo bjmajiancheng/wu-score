@@ -12,21 +12,13 @@ public class IndicatorItemView implements Serializable {
 
     private Integer indicatorId;//指标ID
 
-    private Integer itemId;//用户选择指标选项ID
+    private String indicatorName;//指标名称
 
-    private String itemValue;//用户选择选项文本
+    private Integer indexNum;//用户选择指标选项Num
+
+    private Integer indicatorItemId;//用户选择选项ID
 
     private BigDecimal scoreValue;//得分
-
-    public IndicatorItemView() {
-    }
-
-    public IndicatorItemView(Integer indicatorId, Integer itemId, String itemValue, BigDecimal scoreValue) {
-        this.indicatorId = indicatorId;
-        this.itemId = itemId;
-        this.itemValue = itemValue;
-        this.scoreValue = scoreValue;
-    }
 
     public Integer getIndicatorId() {
         return indicatorId;
@@ -36,20 +28,28 @@ public class IndicatorItemView implements Serializable {
         this.indicatorId = indicatorId;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public String getIndicatorName() {
+        return indicatorName;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setIndicatorName(String indicatorName) {
+        this.indicatorName = indicatorName;
     }
 
-    public String getItemValue() {
-        return itemValue;
+    public Integer getIndexNum() {
+        return indexNum;
     }
 
-    public void setItemValue(String itemValue) {
-        this.itemValue = itemValue;
+    public void setIndexNum(Integer indexNum) {
+        this.indexNum = indexNum;
+    }
+
+    public Integer getIndicatorItemId() {
+        return indicatorItemId;
+    }
+
+    public void setIndicatorItemId(Integer indicatorItemId) {
+        this.indicatorItemId = indicatorItemId;
     }
 
     public BigDecimal getScoreValue() {
