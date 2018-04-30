@@ -31,31 +31,32 @@
         <form id="autoEvaluation">
             <input type="hidden" name="identityInfoId" value="$identityInfo.id">
             <div class="integral-cont-table-wrap">
-                <table class="integral-cont-table">
-                    {#list indicatorModels as indicatorModel}
+                <table class="integral-table border-add integral-cont-table" style="text-align:left;">
+                    #foreach($indicatorModel in $indicatorModels)
                     <tr>
-                        <td>{indicatorModel.name}</td>
-                        <td indicator-id="{indicatorModel.id}">
-                            #if(indicatorModel.itemType == 0)
-                                {#list indicatorModel.indicatorItems as indicatorItem}
-                                    <input class="input_radio" type="radio" name="indicator_item_{indicatorItem.id}" value="{indicatorItem.id}"
-                                           #if(indicatorModel.disabled ==1) disabled #end #if(indicatorItem.checked == 1) checked="checked" #end/>
-                                    {indicatorItem.content}({indicatorItem.score}分)
-                                {/list}
-                            #elseif(indicatorModel.itemType == 1)
-                                #if(indicatorModel.indexNum == 4)
-                                    基本医疗保险<input type="number" name="medicalMonth"/>(月)
-                                    基本失业保险<input type="number" name="unemploymentMonth"/>(月)
-                                    基本工伤保险<input type="number" name="workInjuryMonth"/>(月)
-                                    基本生育保险<input type="number" name="fertilityMonth"/>(月)
-                                    公积金<input type="number" name="fundMonth"/>(月)
-                                #elseif(indicatorModel.indexNum == 6)
+                        <td width="15%">$indicatorModel.name</td>
+                        <td indicator-id="$indicatorModel.id" style="padding-left:10px;">
+                            #if($indicatorModel.itemType == 0)
+                                #foreach($indicatorItem in $indicatorModel.indicatorItems)
+                                    <input class="input_radio" type="radio" id="indicator_item_$indicatorItem.id" name="indicator_item_$indicatorModel.id" value="$indicatorItem.id"
+                                           #if($indicatorModel.disabled ==1) disabled #end #if($indicatorItem.checked == 1) checked="checked" #end/>
+                                    <label for="indicator_item_$indicatorItem.id">$indicatorItem.content ($indicatorItem.score 分) &nbsp;&nbsp;&nbsp;</label>
+                                #end
+                            #elseif($indicatorModel.itemType == 1)
+                                #if($indicatorModel.indexNum == 4)
+                                    基本养老保险&nbsp;&nbsp;&nbsp;<input type="number" name="pensionMonth"/>(月)<br/>
+                                    基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth"/>(月)<br/>
+                                    基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth"/>(月)<br/>
+                                    基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth"/>(月)<br/>
+                                    基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth"/>(月)<br/>
+                                    公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth"/>(月)<br/>
+                                #elseif($indicatorModel.indexNum == 6)
 
                                 #end
                             #end
                         </td>
                     </tr>
-                    {/list}
+                    #end
                     <!--<tr>
                         <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>

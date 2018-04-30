@@ -121,6 +121,10 @@ public class IdentityInfoController {
                 identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
                 identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_1);//公安前置预审状态
                 identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_1);//人社受理状态
+                identityInfoModel.setAcceptNumber(StringUtils.EMPTY);
+                identityInfoModel.setAcceptAddressId(0);
+                identityInfoModel.setAcceptAddress(StringUtils.EMPTY);
+                identityInfoModel.setReservationM(0);
 
                 if (identityInfoModel.getHouseMoveModel() != null) {
                     Integer region = identityInfoModel.getHouseMoveModel().getRegion();

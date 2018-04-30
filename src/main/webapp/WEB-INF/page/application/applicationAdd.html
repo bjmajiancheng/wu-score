@@ -93,8 +93,7 @@
                     <tr>
                         <td>出生日期：</td>
                         <td>
-                            <input class="integral-input w450" placeholder="1970-01-01" type="text" name="birthday"
-                                   id="birthday">
+                            <input class="integral-input w450" type="text" name="birthday" id="birthday">
                         </td>
                     </tr>
                     <tr>
@@ -398,7 +397,7 @@
                     <tr>
                         <td>居住证申领日期：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="applicationDate">
+                            <input class="integral-input w200" type="text" name="applicationDate" id="applicationDate">
                         </td>
                     </tr>
                     <tr>
@@ -509,7 +508,7 @@
                     <tr>
                         <td>发证日期：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="issuingDate">
+                            <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate">
                             <span class="integral-td-title ml50">证书编号：</span>
                             <input class="integral-input w200" type="text" name="certificateCode">
                         </td>
@@ -580,6 +579,21 @@
     $(function () {
 
         currPage("addIdentity");
+
+        laydate.render({
+            elem: '#birthday' //生日
+            ,max: 0
+        });
+
+        laydate.render({
+            elem: '#issuingDate' //发证日期
+            ,max: 0
+        });
+
+        laydate.render({
+            elem: '#applicationDate' //居住证申领日期
+            ,max: 0
+        });
 
         //获取评分选项信息
         getResultData("${rc.contextPath}/indicator/getAllIndicators", {}, function(data){
@@ -719,7 +733,7 @@
         var houseRelationshipInfos = [];
         //初始化家庭关系信息
         $(".houseRelationship").each(function () {
-            var relationship = $(this).find("input[name=relationship]").val();
+            var relationship = $(this).find("select[name=relationship]").val();
             var name = $(this).find("input[name=name]").val();
             var idNumber = $(this).find("input[name=idNumber]").val();
             var isRemove = $(this).find("input[type=radio]").val();
