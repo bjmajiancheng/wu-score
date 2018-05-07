@@ -85,6 +85,14 @@ public class IdentityInfoController {
     }
 
     /**
+     * 前往申请人列表页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
+    public String index() {return "index.html";}
+
+    /**
      * 添加申请人信息
      *
      * @param request
@@ -229,7 +237,7 @@ public class IdentityInfoController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/autoEvaluation/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/autoEvaluation/{id}.html", method = RequestMethod.GET)
     public ModelAndView autoEvaluation(HttpServletRequest request, @PathVariable("id") Integer id) {
         if (id == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
@@ -392,6 +400,7 @@ public class IdentityInfoController {
                 IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
                 updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
                 updateIdentityInfo.setReservationStatus(Constant.reservationStatus_6);
+                updateIdentityInfo.setScore(totalDecimal);
                 identityInfoService.update(updateIdentityInfo);
                 //记录状态日志信息
                 DictModel dictModel = dictService

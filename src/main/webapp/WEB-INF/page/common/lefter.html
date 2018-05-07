@@ -1,34 +1,34 @@
 <div class="integral-left-nav">
     <!-- 用户信息 -->
     <div class="integral-user-info">
-        <div>
+        <!--<div>
             <img src="${rc.contextPath}/$static.curr_ver()/img/user.png" alt="">
         </div>
-        <p>您好！杜斌</p>
+        <p>您好！杜斌</p>-->
     </div>
     <!-- 导航nav 列表 -->
     <div class="integral-left-nav-list">
         <!-- 导航列表单个项 -->
-        <!-- 我要办事 -->
-        <!--<div class="integral-left-nav-item">
-            <a class="integral-single-item doc_bord" on-click={this.pop()}>我要办事</a>
-        </div>-->
-        <!-- 我的文件  添加active为选中-->
-        <!--<div class="integral-left-nav-item">
-            <a class="integral-single-item wenjian">我的文件</a>
-        </div>-->
-        <!-- 我的办件 -->
-        <!--<div class="integral-left-nav-item">
-            <a class="integral-single-item banjian">我的办件</a>
-        </div>-->
-        <!-- 我要预约 -->
-        <!--<div class="integral-left-nav-item">
-            <a class="integral-single-item yuyue">我要预约</a>
-        </div>-->
-        <!-- 我的互动 -->
-        <!--<div class="integral-left-nav-item">
-            <a class="integral-single-item hudong">我的互动</a>
-        </div>-->
+        <!-- 相关政策 -->
+        <div class="integral-left-nav-item">
+            <a class="integral-single-item systemPolicy" href="${rc.contextPath}/index.html">相关政策</a>
+        </div>
+        <!-- 办理指南-->
+        <div class="integral-left-nav-item">
+            <a class="integral-single-item guidebook" href="${rc.contextPath}/systemNotice/guidebook.html">办理指南</a>
+        </div>
+        <!-- 资料下载 -->
+        <div class="integral-left-nav-item">
+            <a class="integral-single-item fileDown" href="${rc.contextPath}/attachmentFile/download.html">资料下载</a>
+        </div>
+        <!-- 常见问题 -->
+        <div class="integral-left-nav-item">
+            <a class="integral-single-item normalQuestion" href="${rc.contextPath}/commonQuestion/list.html">常见问题</a>
+        </div>
+        <!-- 重要通知 -->
+        <div class="integral-left-nav-item">
+            <a class="integral-single-item systemNotice" href="${rc.contextPath}/systemNotice/systemNotice.html">重要通知</a>
+        </div>
         <!-- 收藏 -->
         <!--<div class="integral-left-nav-item">
             <a class="integral-single-item shoucang">我要收藏</a>
@@ -38,23 +38,25 @@
             <a class="integral-single-item qiye">我的企业</a>
         </div>-->
         <!-- integral-more-item  有拓展导航的时候加该样式 -->
+        #if($shiro.hasLogin())
         <div class="integral-left-nav-item integral-more-item">
             <a class="integral-single-item jifen">居住证积分</a>
             <!-- 导航列伸展项 more 更多 -->
             <div class="integral-left-nav-item more-box" style="display:none;">
-                <a class="integral-single-item identityList" href="${rc.contextPath}/index.html">申请人列表</a>
+                <a class="integral-single-item identityList" href="${rc.contextPath}/identityInfo/index.html">申请人列表</a>
                 <a class="integral-single-item addIdentity" href="${rc.contextPath}/identityInfo/applicationAdd.html">申请人信息填写</a>
                 <!--<a class="integral-single-item autoEvaluation" href="${rc.contextPath}/evaluation/autoEvaluation.html">自助测评</a>-->
                 <!--<a class="integral-single-item reserveLocation" href="${rc.contextPath}/reservation/reserveLocation.html">预约地点</a>
                 <a class="integral-single-item reserveTime" href="${rc.contextPath}/reservation/reserveTime.html">预约时间</a>-->
                 <a class="integral-single-item companyEdit" href="${rc.contextPath}/companyInfo/companyEdit.html">企业信息修改</a>
-                <a class="integral-single-item searchInfo" href="${rc.contextPath}/">信息查询</a>
-                <a class="integral-single-item systemPolicy" href="${rc.contextPath}/systemNotice/systemPolicy.html">相关政策</a>
+                <!--<a class="integral-single-item searchInfo" href="${rc.contextPath}/">信息查询</a>-->
+                <!--<a class="integral-single-item systemPolicy" href="${rc.contextPath}/systemNotice/systemPolicy.html">相关政策</a>
                 <a class="integral-single-item guidebook" href="${rc.contextPath}/systemNotice/guidebook.html">办理指南</a>
                 <a class="integral-single-item fileDown" href="${rc.contextPath}/attachmentFile/download.html">资料下载</a>
                 <a class="integral-single-item normalQuestion" href="${rc.contextPath}/commonQuestion/list.html">常见问题</a>
-                <a class="integral-single-item systemNotice" href="${rc.contextPath}/systemNotice/systemNotice.html">重要通知</a>
+                <a class="integral-single-item systemNotice" href="${rc.contextPath}/systemNotice/systemNotice.html">重要通知</a>-->
             </div>
         </div>
+        #end
     </div>
 </div>

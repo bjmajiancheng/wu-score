@@ -21,6 +21,21 @@
     //刷新二维码
     $(function(){
         $(".click_me").on("click", refreshCode);
+
+        $("#cancel").on("click", function(){
+            layer.confirm('是否要关闭当前页？', {
+                btn: ['是','否'] //按钮
+            }, function(index){
+                var refer = document.referrer;
+                if(refer) {
+                    window.location.href=refer;
+                } else {
+                    window.close();
+                }
+            }, function(index){
+                layer.close(index);
+            });
+        });
     });
 
     function refreshCode() {

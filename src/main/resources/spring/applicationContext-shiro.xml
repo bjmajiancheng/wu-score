@@ -48,6 +48,11 @@
                 /sys/register.html=anon
                 /companyInfo/register=anon
                 /captcha.jpg=anon
+                /index.html=anon
+                /systemNotice/**=anon
+                /attachmentFile/**=anon
+                /commonQuestion/**=anon
+                /systemNotice/**=anon
                 /**=authc
             </value>
         </property>

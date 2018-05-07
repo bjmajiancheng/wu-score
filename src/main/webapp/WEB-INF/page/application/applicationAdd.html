@@ -269,7 +269,8 @@
                             </td>
                             <td>
                                 <select name="relationship" id="relationship">
-                                    <option value="子女">子女</option>
+                                    <option value="子">子</option>
+                                    <option value="女">女</option>
                                     <option value="配偶">配偶</option>
                                 </select>
                             </td>
@@ -323,6 +324,7 @@
                         <td>政治面貌：</td>
                         <td>
                             <select name="politicalStatus" id="politicalStatus">
+                                <option value="13" selected>群众</option>
                                 <option value="1">中共党员</option>
                                 <option value="2">中共预备党员</option>
                                 <option value="3">共青团员</option>
@@ -335,7 +337,6 @@
                                 <option value="10">九三学社社员</option>
                                 <option value="11">台盟盟员</option>
                                 <option value="12">无党派民主人士</option>
-                                <option value="13">群众</option>
                             </select>
                             <span class="integral-td-title ml50">军人立功：</span>
                             <select name="soldierMeritorious" id="soldierMeritorious">
@@ -453,7 +454,7 @@
                     <tr>
                         <td>奖项荣誉称号：</td>
                         <td>
-                            <select name="awardsTitle" id="awardsTitle">
+                            <select name="awardsTitle" id="awardsTitle" style="width:500px;">
                                 <!--<option value="0">请选择</option>
                                 <option value="1">拥有有效的中国发明专利</option>
                                 <option value="2">获得党中央、国务院授予的奖项和荣誉称号</option>
@@ -564,7 +565,7 @@
         <div class="integral-bottom-btn-group">
             <div class="interal-main-btn big-btn m15" id="submitAndContinue">保存并继续录入</div>
             <div class="interal-main-btn big-btn ml50" id="submit">保存</div>
-            <div class="interal-main-btn big-btn ml50">返回</div>
+            <div class="interal-main-btn big-btn ml50" id="cancel">返回</div>
         </div>
     </div>
 </div>
@@ -582,7 +583,17 @@
 
         laydate.render({
             elem: '#birthday' //生日
-            ,max: 0
+            ,max: 0,
+            change: function(value, date, endDate) {
+                var date = new Date();
+                var startDate = new Date(value);
+                var newDate = date.getTime() - startDate.getTime();
+                var age = Math.ceil(newDate / 1000 / 60 / 60 / 24 /365);
+                if (isNaN(age)){
+                    age = "";
+                }
+                $("#age").val(age);
+            }
         });
 
         laydate.render({
@@ -630,7 +641,7 @@
                 var html = [];
                 html.push('<tr class="houseRelationship">');
                 html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
-                html.push('<td><input class="table_add_input" type="text" name="relationship"></td>');
+                html.push('<td><select name="relationship" id="relationship"><option value="子">子</option><option value="女">女</option><option value="配偶">配偶</option></select></td>');
                 html.push('<td><input class="table_add_input" type="text" name="name"></td>');
                 html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
                 html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove' + relation_idx + '_yes"><label for="isRemove' + relation_idx + '_yes">是</label>');
@@ -811,7 +822,11 @@
         }
         var arr = new Array();
         for(var i=0; i<indicatorItems.length; i++) {
-            arr.push('<option value="'+ indicatorItems[i].id +'">'+ indicatorItems[i].content +'</option>');
+            var selected = '';
+            if(indicatorItems[i].content == '无') {
+                selected = " selected ";
+            }
+            arr.push('<option value="'+ indicatorItems[i].id +'" ' + selected + '>'+ indicatorItems[i].content +'</option>');
         }
 
         field.html(arr.join(''));

@@ -16,6 +16,10 @@ function currPage(pageClass) {
     ts.toggleClass("arrow_up");
     ts.find(".integral-left-nav-item").slideToggle();
 
+    if(ts.find(".more-box").length == 0) {
+        $("."+pageClass).parents(".integral-left-nav-item").addClass("active");
+    }
+
     $("."+pageClass).addClass("active");
 }
 
