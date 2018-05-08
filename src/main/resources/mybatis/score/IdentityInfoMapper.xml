@@ -105,7 +105,7 @@
         	#{resultStatus, jdbcType=INTEGER} ,
         	#{reservationDate, jdbcType=DATE} ,
         	#{reservationM, jdbcType=INTEGER} ,
-        	#{score, jdbcType=DECIMAL} ,
+        	#{score, jdbcType=DECIMAL}
         )
     ]]>
     </insert>

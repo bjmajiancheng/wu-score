@@ -268,7 +268,7 @@
                                 <input type="checkbox" name="check" class="checkRelation">
                             </td>
                             <td>
-                                <select name="relationship" id="relationship">
+                                <select name="relationship">
                                     <option value="子">子</option>
                                     <option value="女">女</option>
                                     <option value="配偶">配偶</option>
@@ -641,7 +641,13 @@
                 var html = [];
                 html.push('<tr class="houseRelationship">');
                 html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
-                html.push('<td><select name="relationship" id="relationship"><option value="子">子</option><option value="女">女</option><option value="配偶">配偶</option></select></td>');
+                html.push('<td>');
+                var relationshipOption = '<option value="子">子</option><option value="女">女</option><option value="配偶">配偶</option>';
+                if($("#marriageStatus").val() == 2) {
+                    relationshipOption = '<option value="子">子</option><option value="女">女</option>';
+                }
+                html.push('<select name="relationship">'+relationshipOption+'</select>');
+                html.push('</td>');
                 html.push('<td><input class="table_add_input" type="text" name="name"></td>');
                 html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
                 html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove' + relation_idx + '_yes"><label for="isRemove' + relation_idx + '_yes">是</label>');
@@ -717,6 +723,24 @@
         $("#registeredOffice").on("change", function () {
             initOfficeInfo($(this).val(), $("#registeredRegion"));
         }).change();
+
+        $("#marriageStatus").on("change", function() {
+            if($(this).val() == 2) {
+                $("select[name=relationship]").each(function(){
+                    if($(this).val() == '配偶') {
+                        $(this).val('子');
+                    }
+
+                    $(this).find("option[value=配偶]").remove();
+                });
+            } else {
+                $("select[name=relationship]").each(function(){
+                    if($(this).find("option[value=配偶]").length == 0) {
+                        $(this).append('<option value="配偶">配偶</option>');
+                    }
+                });
+            }
+        });
 
     });
 
