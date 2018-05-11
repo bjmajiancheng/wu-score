@@ -35,7 +35,7 @@
         </div>
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
-            <form class="identityInfoForm">
+            <form class="identityInfoForm" id="identityInfoForm">
                 <table class="integral-cont-table">
                     <tr>
                         <td>身份证号：</td>
@@ -741,6 +741,12 @@
                 });
             }
         });
+
+        /*$("#identityInfoForm").validate({
+            rules:{
+
+            }
+        });*/
 
     });
 

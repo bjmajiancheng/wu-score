@@ -121,8 +121,18 @@ public class IdentityInfoController {
             if (batchConfModel == null) {
                 return ResultParam.error("当前没有落户批次信息,请根据落户指标时间填写申请人!!");
             }
+
             //申请人信息
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
+
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("batchId", batchConfModel.getId());
+            param.put("idNumber", identityInfoModel.getIdNumber());
+            List<IdentityInfoModel> identityInfoModels = identityInfoService.find(param);
+            if(CollectionUtils.isNotEmpty(identityInfoModels)) {
+                return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
+            }
+
             if (identityInfoModel != null) {
                 identityInfoModel.setBatchId(batchConfModel.getId());
                 identityInfoModel.setCompanyId(currUser.getId());
