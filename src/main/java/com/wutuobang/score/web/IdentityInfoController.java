@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.IdentityInfoBiz;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
@@ -15,6 +16,9 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,6 +77,9 @@ public class IdentityInfoController {
 
     @Autowired
     private IBasicConfService basicConfService;
+
+    @Autowired
+    private IdentityInfoBiz addIdentityInfo;
 
     /**
      * 前往新增用户页面
@@ -135,87 +142,8 @@ public class IdentityInfoController {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
 
-            if (identityInfoModel != null) {
-                identityInfoModel.setBatchId(batchConfModel.getId());
-                identityInfoModel.setCompanyId(currUser.getId());
-                //初始化状态信息
-                identityInfoModel.setReservationStatus(Constant.reservationStatus_1);//申请预约状态
-                identityInfoModel.setHallStatus(Constant.hallStatus_0);//预约大厅状态
-                identityInfoModel.setUnionApproveStatus1(Constant.unionApproveStatus1_0);//公安预审状态
-                identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
-                identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_1);//公安前置预审状态
-                identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_1);//人社受理状态
-                identityInfoModel.setAcceptNumber(StringUtils.EMPTY);
-                identityInfoModel.setAcceptAddressId(0);
-                identityInfoModel.setAcceptAddress(StringUtils.EMPTY);
-                identityInfoModel.setReservationM(0);
-                identityInfoModel.setScore(BigDecimal.ZERO);
 
-                if (identityInfoModel.getHouseMoveModel() != null) {
-                    Integer region = identityInfoModel.getHouseMoveModel().getRegion();
-                    identityInfoModel.setRegion(region);
-
-                    RegionModel regionModel = regionService.getById(region);
-                    if (regionModel != null) {
-                        identityInfoModel.setRegionName(regionModel.getName());
-                    }
-                }
-                identityInfoService.insert(identityInfoModel);
-
-                //记录状态日志信息
-                DictModel dictModel = dictService
-                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_1);
-                if (dictModel != null) {
-                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
-                            dictModel, "添加申请人信息成功");
-                    personBatchStatusRecordService.insert(recordModel);
-                }
-            }
-
-            //户籍迁移信息
-            HouseMoveModel houseMoveModel = identityInfoModel.getHouseMoveModel();
-            if (houseMoveModel != null) {
-                houseMoveModel.setIdentityInfoId(identityInfoModel.getId());
-                if(houseMoveModel.getSonNumber() == null){
-                    houseMoveModel.setSonNumber(0);
-                }
-                houseMoveService.insert(houseMoveModel);
-            }
-
-            //申请人家庭关系
-            List<HouseRelationshipModel> houseRelationshipModels = identityInfoModel.getHouseRelationshipModelList();
-            if (CollectionUtils.isNotEmpty(houseRelationshipModels)) {
-                for (HouseRelationshipModel houseRelationship : houseRelationshipModels) {
-                    houseRelationship.setIdentityInfoId(identityInfoModel.getId());
-                }
-                houseRelationshipService.batchInsert(houseRelationshipModels);
-            }
-
-            //申请人其他信息
-            HouseOtherModel houseOtherModel = identityInfoModel.getHouseOtherModel();
-            if (houseOtherModel != null) {
-                houseOtherModel.setIdentityInfoId(identityInfoModel.getId());
-                houseOtherService.insert(houseOtherModel);
-            }
-
-            //职业资格证书
-            HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
-            if (houseProfessionModel != null) {
-                houseProfessionModel.setIdentityInfoId(identityInfoModel.getId());
-                if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 2) {
-                    houseProfessionModel.setJobLevel(0);
-                    houseProfessionModel.setJobType(0);
-                }
-
-                if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 3) {
-                    houseProfessionModel.setJobTitleLevel(0);
-                    houseProfessionModel.setJobPosition(StringUtils.EMPTY);
-                    houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
-                    houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
-                    houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
-                }
-                houseProfessionService.insert(houseProfessionModel);
-            }
+            boolean addFlag = addIdentityInfo.addIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
