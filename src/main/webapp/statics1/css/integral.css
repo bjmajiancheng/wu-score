@@ -1200,3 +1200,7 @@ html {
     /*IE4-IE9*/
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 }
+
+label.error {
+    color: #D0021B;
+}

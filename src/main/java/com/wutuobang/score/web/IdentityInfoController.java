@@ -90,7 +90,9 @@ public class IdentityInfoController {
      * @return
      */
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public String index() {return "index.html";}
+    public String index() {
+        return "index.html";
+    }
 
     /**
      * 添加申请人信息
@@ -129,7 +131,7 @@ public class IdentityInfoController {
             param.put("batchId", batchConfModel.getId());
             param.put("idNumber", identityInfoModel.getIdNumber());
             List<IdentityInfoModel> identityInfoModels = identityInfoService.find(param);
-            if(CollectionUtils.isNotEmpty(identityInfoModels)) {
+            if (CollectionUtils.isNotEmpty(identityInfoModels)) {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
 
@@ -174,6 +176,9 @@ public class IdentityInfoController {
             HouseMoveModel houseMoveModel = identityInfoModel.getHouseMoveModel();
             if (houseMoveModel != null) {
                 houseMoveModel.setIdentityInfoId(identityInfoModel.getId());
+                if(houseMoveModel.getSonNumber() == null){
+                    houseMoveModel.setSonNumber(0);
+                }
                 houseMoveService.insert(houseMoveModel);
             }
 
@@ -197,6 +202,18 @@ public class IdentityInfoController {
             HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
             if (houseProfessionModel != null) {
                 houseProfessionModel.setIdentityInfoId(identityInfoModel.getId());
+                if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 2) {
+                    houseProfessionModel.setJobLevel(0);
+                    houseProfessionModel.setJobType(0);
+                }
+
+                if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 3) {
+                    houseProfessionModel.setJobTitleLevel(0);
+                    houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                    houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
+                    houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
+                    houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+                }
                 houseProfessionService.insert(houseProfessionModel);
             }
 
@@ -399,7 +416,7 @@ public class IdentityInfoController {
                     scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
                     scoreResult.setCtime(currDate);
 
-                    if(scoreResult.getScoreValue() == null) {
+                    if (scoreResult.getScoreValue() == null) {
                         scoreResult.setScoreValue(BigDecimal.ZERO);
                     }
                     totalDecimal = totalDecimal.add(scoreResult.getScoreValue());
@@ -582,6 +599,36 @@ public class IdentityInfoController {
             }
 
             return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 验证身份证号信息
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/validIdNumber", method = RequestMethod.POST)
+    public ResultParam validIdNumber(HttpServletRequest request, @RequestParam("idNumber") String idNumber) {
+        if (StringUtils.isEmpty(idNumber)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("idNumber", idNumber);
+            param.put("batchId", batchConfModel.getId());
+            List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
+
+            return new ResultParam(ResultParam.SUCCESS_RESULT,
+                    Collections.singletonMap("validFlag", CollectionUtils.isEmpty(identityInfos)));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
