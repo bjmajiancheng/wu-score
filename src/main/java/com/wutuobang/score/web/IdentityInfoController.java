@@ -399,6 +399,9 @@ public class IdentityInfoController {
                     scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
                     scoreResult.setCtime(currDate);
 
+                    if(scoreResult.getScoreValue() == null) {
+                        scoreResult.setScoreValue(BigDecimal.ZERO);
+                    }
                     totalDecimal = totalDecimal.add(scoreResult.getScoreValue());
                 }
 
