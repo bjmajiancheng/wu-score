@@ -10,6 +10,7 @@
         <result property="batchId" column="batch_id"/>
         <result property="indicatorId" column="indicator_id"/>
         <result property="indicatorName" column="indicator_name"/>
+		<result property="indicatorItemId" column="indicator_item_id"/>
         <result property="personId" column="person_id"/>
         <result property="personName" column="person_name"/>
         <result property="personIdNum" column="person_id_num"/>
@@ -21,7 +22,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,batch_id ,indicator_id ,indicator_name ,person_id ,person_name ,person_id_num ,score_value ,score_detail ,c_time 
+        id ,batch_id ,indicator_id ,indicator_name ,indicator_item_id ,person_id ,person_name ,person_id_num ,score_value ,score_detail ,c_time
 	    ]]>
 	</sql>
 	
@@ -32,6 +33,7 @@
 	        batch_id  ,
 	        indicator_id  ,
 	        indicator_name  ,
+	        indicator_item_id  ,
 	        person_id  ,
 	        person_name  ,
 	        person_id_num  ,
@@ -43,6 +45,7 @@
         	#{batchId, jdbcType=INTEGER} ,
         	#{indicatorId, jdbcType=INTEGER} ,
         	#{indicatorName, jdbcType=VARCHAR} ,
+        	#{indicatorItemId, jdbcType=INTEGER}
         	#{personId, jdbcType=INTEGER} ,
         	#{personName, jdbcType=VARCHAR} ,
         	#{personIdNum, jdbcType=VARCHAR} ,
@@ -58,6 +61,7 @@
 	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
 	        <if test="indicatorId != null">indicator_id = #{indicatorId, jdbcType=INTEGER} ,</if>
 	        <if test="indicatorName != null">indicator_name = #{indicatorName, jdbcType=VARCHAR} ,</if>
+			<if test="indicatorItemId != null">indicator_item_id = #{indicatorItemId, jdbcType=INTEGER} ,</if>
 	        <if test="personId != null">person_id = #{personId, jdbcType=INTEGER} ,</if>
 	        <if test="personName != null">person_name = #{personName, jdbcType=VARCHAR} ,</if>
 	        <if test="personIdNum != null">person_id_num = #{personIdNum, jdbcType=VARCHAR} ,</if>
@@ -86,18 +90,21 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="indicatorName != null">
-						AND indicator_name = #{indicatorName}
-					</if>
-					<if test="personName != null">
-						AND person_name = #{personName}
-					</if>
-					<if test="personIdNum != null">
-						AND person_id_num = #{personIdNum}
-					</if>
-					<if test="scoreDetail != null">
-						AND score_detail = #{scoreDetail}
-					</if>
+			<if test="indicatorName != null">
+				AND indicator_name = #{indicatorName}
+			</if>
+			<if test="personName != null">
+				AND person_name = #{personName}
+			</if>
+			<if test="personIdNum != null">
+				AND person_id_num = #{personIdNum}
+			</if>
+			<if test="scoreDetail != null">
+				AND score_detail = #{scoreDetail}
+			</if>
+			<if test="personId != null">
+				AND person_id = #{personId}
+			</if>
 	    </where>
 	</sql>
 	 
@@ -127,10 +134,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_person_batch_score_result(batch_id, indicator_id, indicator_name, person_id, person_name,
+		INSERT INTO t_person_batch_score_result(batch_id, indicator_id, indicator_name, indicator_item_id, person_id, person_name,
 	        person_id_num, score_value, score_detail, c_time) VALUES
 	    <foreach collection="personBatchScoreResults" item="item" separator=",">
-			(#{item.batchId}, #{item.indicatorId}, #{item.indicatorName}, #{item.personId}, #{item.personName}, #{item.personIdNum}, #{item.scoreValue},
+			(#{item.batchId}, #{item.indicatorId}, #{item.indicatorName}, #{item.indicatorItemId}, #{item.personId}, #{item.personName}, #{item.personIdNum}, #{item.scoreValue},
 			#{item.scoreDetail}, #{item.ctime})
 		</foreach>
 	</insert>

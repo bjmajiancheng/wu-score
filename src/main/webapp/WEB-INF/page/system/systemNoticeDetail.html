@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>办理指南</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+    <!-- 左部导航 -->
+    #parse("common/lefter.html")
+    <!-- </script> -->
+    <!-- 中间二级导航 -->
+
+    <!-- 内容展示区 -->
+    <div class="integral-cont">
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head title-bar-tongzhi">
+                #if(${systemNotice.type} == 1)
+                相关政策
+                #elseif(${systemNotice.type} == 2)
+                办理指南
+                #elseif(${systemNotice.type} == 3)
+                重要通知
+                #end
+            </div>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title border-bottom">
+            $!{systemNotice.title}
+        </div>
+
+        <div class="integral-text-p mt20">
+            $!{systemNotice.content}
+        </div>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function(){
+        #if(${systemNotice.type} == 1)
+            currPage("systemPolicy");
+        #elseif(${systemNotice.type} == 2)
+            currPage("guidebook");
+        #elseif(${systemNotice.type} == 3)
+            currPage("systemNotice");
+        #end
+    });
+</script>
+
+</html>
+

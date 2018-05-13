@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>申请人信息填写</title>
+    <title>#if(${addFlag}) 申请人信息填写 #else 修改申请人信息 #end</title>
     #parse("common/header.html")
 </head>
 
@@ -23,11 +23,11 @@
         <!-- 示例title 面包屑导航 -->
         <div class="integral-grey-title-bar">
             <div class="title-bar-head">居住证积分</div>
-            <div class="title-bar-after">申请人信息填写</div>
+            <div class="title-bar-after">#if(${addFlag}) 申请人信息填写 #else 修改申请人信息 #end</div>
         </div>
         <!-- 内容描述title -->
         <div class="integral-desc-title">
-            申请人信息填写
+            #if(${addFlag}) 申请人信息填写 #else 修改申请人信息 #end
         </div>
         <!-- 示例title2 二级标题 -->
         <div class="integral-grey-title-bar title-bar2">
@@ -36,11 +36,12 @@
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
             <form class="identityInfoForm" id="identityInfoForm">
+                <input type="hidden" name="id" value="$!{identityInfo.id}" />
                 <table class="integral-cont-table">
                     <tr>
                         <td class="color-red"></span>身份证号：</td>
                         <td>
-                            <input class="integral-input w450" type="text" id="idNumber" name="idNumber">
+                            <input class="integral-input w450" type="text" id="idNumber" name="idNumber" value="$!{identityInfo.idNumber}">
                             <!-- <div class="interal-main-btn m15">身份证上传</div> -->
                         </td>
                     </tr>
@@ -49,63 +50,63 @@
                         <td>
                             <div class="integral-idcard-img">
                                 <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard1.png"
-                                     onclick="integral.clickImg(this);" alt="">
+                                     onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardPositive}" != "") style="display: none;" #end >
                                 <img class="preview" id="preview" alt="" name="pic" width="152" height="100"
-                                     style="display:none;"/>
+                                     #if("$!{identityInfo.idCardPositive}"=="") style="display:none;" #end src="$!{identityInfo.idCardPositive}"/>
                                 <input name="idcard1" type="file" class="upload_input"
                                        onchange="integral.change(this)"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
                                 <div class="title_idcard" style="display:none;">身份证正面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
-                                <input name="id_card_positive" type="hidden"/>
+                                <input name="id_card_positive" type="hidden" value="$!{identityInfo.idCardPositive}"/>
                             </div>
                             <div class="integral-idcard-img">
                                 <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard2.png"
-                                     onclick="integral.clickImg(this);" alt="">
+                                     onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardOpposite}" != "") style="display: none;" #end alt="">
                                 <img class="preview" id="back" alt="" name="pic" width="152" height="100"
-                                     style="display:none;"/>
+                                     #if("$!{identityInfo.idCardOpposite}"=="") style="display:none;" #end src="$!{identityInfo.idCardOpposite}"/>
                                 <input name="idcard2" type="file" class="upload_input"
                                        onchange="integral.change(this)"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
                                 <div class="title_idcard" style="display:none;">身份证反面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
-                                <input name="id_card_opposite" type="hidden"/>
+                                <input name="id_card_opposite" type="hidden" value="$!{identityInfo.idCardOpposite}"/>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="name" id="name">
+                            <input class="integral-input w450" type="text" name="name" id="name" value="$!{identityInfo.name}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="sex" value="1"
-                                   id="male">&nbsp;&nbsp;&nbsp;<label for="male">男</label>
-                            <input class="input_radio ml30" type="radio" name="sex" value="0" id="female">&nbsp;&nbsp;&nbsp;<label
-                                for="female">女</label>
+                            <input class="input_radio" type="radio" name="sex" value="1" id="male" #if(${identityInfo.sex} == 1) checked #end>&nbsp;
+                            <label for="male">男</label>
+                            <input class="input_radio ml30" type="radio" name="sex" value="0" id="female" #if(${identityInfo.sex} == 2) checked #end>&nbsp;
+                            <label for="female">女</label>
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">出生日期：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="birthday" id="birthday">
+                            <input class="integral-input w450" type="text" name="birthday" id="birthday" value="$!{identityInfo.birthday}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>
-                            <input class="integral-input w450" type="text" id="age" name="age">
+                            <input class="integral-input w450" type="text" id="age" name="age" value="$!{identityInfo.age}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="nation" id="nation">
+                            <input class="integral-input w450" type="text" name="nation" id="nation" value="$!{identityInfo.nation}">
                         </td>
                     </tr>
                 </table>
@@ -118,35 +119,36 @@
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
             <form class="houseMoveForm" id="houseMoveForm">
+                <input type="hidden" name="id" value="$!{houseMoveModel.id}" />
                 <table class="integral-cont-table">
                     <tr>
                         <td class="color-red">迁出地区：</td>
                         <td>
-                            <select name="moveProvince" id="moveProvince">
+                            <select name="moveProvince" id="moveProvince" style="width:125px;">
                                 <option value="0">请选择</option>
                             </select>
-                            &nbsp;&nbsp;省
-                            <select class="ml40" name="moveCity" id="moveCity">
+                            省
+                            <select class="ml40" name="moveCity" id="moveCity" style="width:125px;">
                                 <option value="0">请选择</option>
                             </select>
-                            &nbsp;&nbsp;市
-                            <select class="ml40" name="moveRegion" id="moveRegion">
+                            市
+                            <select class="ml40" name="moveRegion" id="moveRegion" style="width:125px;">
                                 <option value="0">请选择</option>
                             </select>
-                            &nbsp;&nbsp;区
+                            区
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">迁出地地址：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="moveAddress" id="moveAddress">
+                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">现户籍登记机关：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="moveRegisteredOffice"
-                                   id="moveRegisteredOffice">
+                            <input class="integral-input w518" type="text" name="moveRegisteredOffice"
+                                   id="moveRegisteredOffice" value="$!{houseMoveModel.moveRegisteredOffice}">
                         </td>
                     </tr>
                     <tr>
@@ -180,7 +182,8 @@
                             <select name="registeredOffice" id="registeredOffice">
                                 <option value="0">请选择</option>
                             </select>
-                            <select class="ml50" name="registeredRegion" id="registeredRegion">
+                            <span class="integral-td-title ml50">登记地区：</span>
+                            <select name="registeredRegion" id="registeredRegion">
                                 <option value="0">请选择</option>
                             </select>
                         </td>
@@ -188,22 +191,22 @@
                     <tr>
                         <td class="color-red">迁入地址详细地址：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="address" id="address">
+                            <input class="integral-input w518" type="text" name="address" id="address" value="$!{houseMoveModel.address}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">证明收件人：</td>
                         <td>
                             <input class="integral-input w200" placeholder="户口准予迁入证明快递收件人" type="text" name="witness"
-                                   id="witness">
-                            <span class="integral-td-title ml50">电话：</span>
-                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone">
+                                   id="witness" value="$!{houseMoveModel.witness}">
+                            <span class="integral-td-title ml75">电话：</span>
+                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone" value="$!{houseMoveModel.witnessPhone}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">证明收件地址：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="witnessAddress" id="witnessAddress">
+                            <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress" value="$!{houseMoveModel.witnessAddress}">
                         </td>
                     </tr>
                     <tr>
@@ -239,13 +242,13 @@
                     <tr>
                         <td class="color-red">有无子女</td>
                         <td>
-                            <input class="input_radio" type="radio" name="haveSon" value="1" id="haveSon">&nbsp;&nbsp;&nbsp;<label
-                                for="haveSon">有</label>
-                            <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon">&nbsp;&nbsp;&nbsp;<label
-                                for="haveNoSon">无</label>
+                            <input class="input_radio" type="radio" name="haveSon" value="1" id="haveSon" #if(${houseMoveModel.haveSon} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp; <label for="haveSon">有</label>
+                            <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon" #if(${houseMoveModel.haveSon} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="haveNoSon">无</label>
                             <span class="integral-td-title ml50">子女数量：</span>
-                            <input class="integral-input w200" type="number" placeholder="无子女数量可不填" name="sonNumber"
-                                   id="sonNumber">
+                            <input class="integral-input" type="number" placeholder="无子女数量可不填" name="sonNumber"
+                                   id="sonNumber" value="$!{houseMoveModel.sonNumber}" style="width:265px;">
                         </td>
                     </tr>
                 </table>
@@ -263,32 +266,36 @@
                             <th width="100">是否随迁</th>
                             <th>文化程度</th>
                         </tr>
+                        #foreach(${houseRelationship} in $!{houseRelationshipList})
                         <tr class="houseRelationship">
                             <td>
+                                <input type="hidden" name="id" value="$!{houseRelationship.id}">
                                 <input type="checkbox" name="check" class="checkRelation">
                             </td>
                             <td>
                                 <select name="relationship">
-                                    <option value="子">子</option>
-                                    <option value="女">女</option>
-                                    <option value="配偶">配偶</option>
+                                    <option value="子" #if(${houseRelationship.relationship}=="子") selected #end>子</option>
+                                    <option value="女" #if(${houseRelationship.relationship}=="女") selected #end>女</option>
+                                    <option value="配偶" #if(${houseRelationship.relationship}=="配偶") selected #end>配偶</option>
                                 </select>
                             </td>
                             <td>
-                                <input class="table_add_input" type="text" name="name">
+                                <input class="table_add_input" type="text" name="name" value="$!{houseRelationship.name}">
                             </td>
                             <td>
-                                <input class="table_add_input" type="text" name="idNumber">
+                                <input class="table_add_input" type="text" name="idNumber" value="$!{houseRelationship.idNumber}">
                             </td>
                             <td>
-                                <input type="radio" name="isRemove" value="1" id="radio11"><label
-                                    for="radio11">是</label><input class="m15" type="radio" name="isRemove" value="2"
-                                                                  id="radio12"><label for="radio12">否</label>
+                                <input type="radio" name="isRemove" value="1" id="radio11" #if(${houseRelationship.isRemove} == 1) checked #end>
+                                <label for="radio11">是</label>
+                                <input class="m15" type="radio" name="isRemove" value="2" id="radio12" #if(${houseRelationship.isRemove} == 2) checked #end>
+                                <label for="radio12">否</label>
                             </td>
                             <td>
-                                <input class="table_add_input" type="text" name="cultureDegree">
+                                <input class="table_add_input" type="text" name="cultureDegree" value="$!{houseRelationship.cultureDegree}">
                             </td>
                         </tr>
+                        #end
                     </table>
                 </form>
                 <!-- 子女关系表 控制按钮 -->
@@ -306,18 +313,20 @@
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
             <form class="houseOtherForm" id="houseOtherForm">
+                <input type="hidden" name="id" value="$!{houseOtherModel.id}" />
+
                 <table class="integral-cont-table">
                     <tr>
                         <td class="color-red">申请人类型：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="applicantType" value="1" id="radio13">&nbsp;&nbsp;&nbsp;
-                            <label for="radio13">企业员工</label>
-                            <input class="input_radio ml30" type="radio" name="applicantType" value="2" id="radio14">&nbsp;&nbsp;&nbsp;
-                            <label for="radio14">投资者</label>
-                            <input class="input_radio ml30" type="radio" name="applicantType" value="3" id="radio15">&nbsp;&nbsp;&nbsp;
-                            <label for="radio15">个体商户</label>
-                            <input class="input_radio ml30" type="radio" name="applicantType" value="4" id="radio151">&nbsp;&nbsp;&nbsp;
-                            <label for="radio151">事业单位</label>
+                            <input class="input_radio" type="radio" name="applicantType" value="1" id="radio13" #if(${houseOtherModel.applicantType} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="radio13">企业员工</label>
+                            <input class="input_radio ml30" type="radio" name="applicantType" value="2" id="radio14" #if(${houseOtherModel.applicantType} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="radio14">投资者</label>
+                            <input class="input_radio ml30" type="radio" name="applicantType" value="3" id="radio15" #if(${houseOtherModel.applicantType} == 3) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="radio15">个体商户</label>
+                            <input class="input_radio ml30" type="radio" name="applicantType" value="4" id="radio151" #if(${houseOtherModel.applicantType} == 4) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="radio151">事业单位</label>
                         </td>
                     </tr>
                     <tr>
@@ -340,10 +349,6 @@
                             </select>
                             <span class="integral-td-title ml50">军人立功：</span>
                             <select name="soldierMeritorious" id="soldierMeritorious">
-                                <!--<option value="0">无</option>
-                                <option value="1">一等功</option>
-                                <option value="2">二等功</option>
-                                <option value="3">三等功</option>-->
                             </select>
                         </td>
                     </tr>
@@ -351,12 +356,8 @@
                         <td class="color-red">文化程度：</td>
                         <td>
                             <select name="cultureDegree" id="cultureDegree">
-                                <!--<option value="1">本科及以上</option>
-                                <option value="2">大专</option>
-                                <option value="3">高级技工学校</option>
-                                <option value="4">其他</option>-->
                             </select>
-                            <span class="integral-td-title ml50">学位：</span>
+                            <span class="integral-td-title ml75">学位：</span>
                             <select name="degree" id="degree">
                                 <option value="0">无</option>
                                 <option value="1">博士后</option>
@@ -371,61 +372,62 @@
                     <tr>
                         <td class="color-red">专业：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="profession" id="profession">
+                            <input class="integral-input w518" type="text" name="profession" id="profession" value="$!{houseOtherModel.profession}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">现单位名称：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="companyName">
+                            <input class="integral-input w518" type="text" name="companyName" value="$!{houseOtherModel.companyName}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">现单位地址：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="companyAddress">
+                            <input class="integral-input w518" type="text" name="companyAddress" value="$!{houseOtherModel.companyAddress}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">单位电话：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="companyPhone">
+                            <input class="integral-input w200" type="text" name="companyPhone" value="$!{houseOtherModel.companyPhone}">
                             <span class="integral-td-title ml50">本人电话：</span>
-                            <input class="integral-input w200" type="text" name="selfPhone">
+                            <input class="integral-input w200" type="text" name="selfPhone" value="$!{houseOtherModel.selfPhone}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">居住证申领日期：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="applicationDate" id="applicationDate">
+                            <input class="integral-input w200" type="text" name="applicationDate" id="applicationDate" value="$!{houseOtherModel.applicationDate}">
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">社保缴纳：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="socialSecurityPay" value="1" id="redio1">&nbsp;&nbsp;&nbsp;
-                            <label for="redio1">是</label>
-                            <input class="input_radio ml30" type="radio" name="socialSecurityPay" value="2" id="redio2">&nbsp;&nbsp;&nbsp;
-                            <label for="redio2">否</label>
+                            <input class="input_radio" type="radio" name="socialSecurityPay" value="1" id="redio1" #if(${houseOtherModel.socialSecurityPay} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio1">是</label>
+                            <input class="input_radio ml30" type="radio" name="socialSecurityPay" value="2" id="redio2" #if(${houseOtherModel.socialSecurityPay} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio2">否</label>
                             <span class="grey-color">是否缴纳社保</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">公积金：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="providentFund" value="1" id="redio3">&nbsp;&nbsp;&nbsp;
-                            <label for="redio3">是</label>
-                            <input class="input_radio ml30" type="radio" name="providentFund" value="2" id="redio4">&nbsp;&nbsp;&nbsp;
-                            <label for="redio4">否</label>
+                            <input class="input_radio" type="radio" name="providentFund" value="1" id="redio3" #if(${houseOtherModel.providentFund} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio3">是</label>
+                            <input class="input_radio ml30" type="radio" name="providentFund" value="2" id="redio4" #if(${houseOtherModel.providentFund} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio4">否</label>
                             <span class="grey-color">是否参加住房公积金</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="color-red">纳税情况：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="taxes" value="1" id="radio5">&nbsp;&nbsp;&nbsp;
-                            <label for="radio5">是</label>
-                            <input class="input_radio ml30" type="radio" name="taxes" value="2" id="radio6">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio" type="radio" name="taxes" value="1" id="radio5" #if(${houseOtherModel.taxes} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="radio5">是</label>
+                            <input class="input_radio ml30" type="radio" name="taxes" value="2" id="radio6" #if(${houseOtherModel.taxes} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio6">否</label>
                             <span class="grey-color">近3年在本市依法缴纳个人所得税累计10万元及以上</span>
                         </td>
@@ -433,9 +435,11 @@
                     <tr>
                         <td class="color-red">拘留记录：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="detention" value="1" id="radio7">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio" type="radio" name="detention" value="1" id="radio7" #if(${houseOtherModel.detention} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio7">是</label>
-                            <input class="input_radio ml30" type="radio" name="detention" value="2" id="radio8">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio ml30" type="radio" name="detention" value="2" id="radio8" #if(${houseOtherModel.detention} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio8">否</label>
                             <span class="grey-color">积分期间有无行政拘留记录</span>
                         </td>
@@ -443,9 +447,11 @@
                     <tr>
                         <td class="color-red">获刑记录：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="penalty" value="1" id="radio9">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio" type="radio" name="penalty" value="1" id="radio9" #if(${houseOtherModel.penalty} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio9">是</label>
-                            <input class="input_radio ml30" type="radio" name="penalty" value="2" id="radio10">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio ml30" type="radio" name="penalty" value="2" id="radio10" #if(${houseOtherModel.penalty} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio10">否</label>
                             <span class="grey-color">积分期间有无犯罪获刑记录</span>
                         </td>
@@ -453,14 +459,7 @@
                     <tr>
                         <td class="color-red">奖项荣誉称号：</td>
                         <td>
-                            <select name="awardsTitle" id="awardsTitle" style="width:500px;">
-                                <!--<option value="0">请选择</option>
-                                <option value="1">拥有有效的中国发明专利</option>
-                                <option value="2">获得党中央、国务院授予的奖项和荣誉称号</option>
-                                <option value="3">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号</option>
-                                <option value="3">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号</option>
-                                <option value="4">获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇
-                                </option>-->
+                            <select name="awardsTitle" id="awardsTitle" style="width:518px;">
                             </select>
                         </td>
                     </tr>
@@ -475,15 +474,19 @@
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
             <form class="houseProfessionForm">
+                <input type="hidden" name="id" value="$!{houseProfessionModel.id}" />
                 <table class="integral-cont-table">
                     <tr>
                         <td class="color-red">职业资格项：</td>
                         <td>
-                            <input class="input_radio" type="radio" name="professionType" value="1" id="radio16" checked>&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio" type="radio" name="professionType" value="1" id="radio16" #if(${addFlag}) checked #end #if(${houseProfessionModel.professionType} == 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio16">无</label>
-                            <input class="input_radio ml30" type="radio" name="professionType" value="2" id="radio17">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio ml30" type="radio" name="professionType" value="2" id="radio17" #if(${houseProfessionModel.professionType} == 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio17">具有职称</label>
-                            <input class="input_radio ml30" type="radio" name="professionType" value="3" id="radio18">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio ml30" type="radio" name="professionType" value="3" id="radio18" #if(${houseProfessionModel.professionType} == 3) checked #end>
+                            &nbsp;&nbsp;&nbsp;
                             <label for="radio18">具有职业资格</label>
                         </td>
                     </tr>
@@ -500,32 +503,23 @@
                     <tr class="professionType_2 color-red">
                         <td>职位：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="jobPosition" id="jobPosition">
+                            <input class="integral-input w200" type="text" name="jobPosition" id="jobPosition" value="$!{houseProfessionModel.jobPosition}">
                             <span class="integral-td-title ml50">发证机关：</span>
-                            <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority">
+                            <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
                         </td>
                     </tr>
                     <tr class="professionType_2 color-red">
                         <td>发证日期：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate">
+                            <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate" value="$!{houseProfessionModel.issuingDate}">
                             <span class="integral-td-title ml50">证书编号：</span>
-                            <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode">
+                            <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode" value="$!{houseProfessionModel.certificateCode}">
                         </td>
                     </tr>
                     <tr class="professionType_3 color-red">
                         <td>职业资格级别：</td>
                         <td>
                             <select name="jobLevel" id="jobLevel">
-                                <!--<option value="0">无</option>
-                                <option value="1">高级职称</option>
-                                <option value="2">中级职称</option>
-                                <option value="3">初级职称</option>
-                                <option value="4">高级技师(一级)</option>
-                                <option value="5">技师(二级)</option>
-                                <option value="6">高级工(三级)</option>
-                                <option value="7">中级工(四级)</option>
-                                <option value="8">初级工(五级)</option>-->
                             </select>
                         </td>
                     </tr>
@@ -533,10 +527,6 @@
                         <td>工种：</td>
                         <td>
                             <select name="jobType" id="jobType">
-                                <!--<option value="0">请选择</option>
-                                <option value="1">非常紧缺职业</option>
-                                <option value="2">紧缺职业</option>
-                                <option value="3">一般紧缺职业</option>-->
                             </select>
                         </td>
                     </tr>
@@ -589,7 +579,7 @@
                 var newDate = date.getTime() - startDate.getTime();
                 var age = Math.ceil(newDate / 1000 / 60 / 60 / 24 /365);
                 if (isNaN(age)){
-                    age = "";
+                    age = 0;
                 }
                 $("#age").val(age);
             }
@@ -609,28 +599,28 @@
         getResultData("${rc.contextPath}/indicator/getAllIndicators", {}, function(data){
             //1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,
             //8.职业（工种）,9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
-            initIndicatorInfo(data["2"], $("#cultureDegree"));
+            initIndicatorInfo(data["2"], $("#cultureDegree"), '$!{houseOtherModel.cultureDegree}');
 
-            initIndicatorInfo(data["3"], $("#jobLevel"));
+            initIndicatorInfo(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');
 
-            initIndicatorInfo(data["8"], $("#jobType"));
+            initIndicatorInfo(data["8"], $("#jobType"), '$!{houseProfessionModel.jobType}');
 
-            initIndicatorInfo(data["13"], $("#awardsTitle"));
+            initIndicatorInfo(data["13"], $("#awardsTitle"), '$!{houseOtherModel.awardsTitle}');
 
-            initIndicatorInfo(data["14"], $("#soldierMeritorious"));
+            initIndicatorInfo(data["14"], $("#soldierMeritorious"), '$!{houseOtherModel.soldierMeritorious}');
         });
 
         //初始化省份信息
-        regionChange(0, "moveProvince");
+        regionChange(0, "moveProvince", '$!{houseMoveModel.moveProvince}');
 
         $("#moveProvince").on("change",
             function () {
-                regionChange($("#moveProvince").val(), "moveCity");
+                regionChange($("#moveProvince").val(), "moveCity", '$!{houseMoveModel.moveCity}');
             }
         ).change();
         $("#moveCity").on("change",
             function () {
-                regionChange($("#moveCity").val(), "moveRegion");
+                regionChange($("#moveCity").val(), "moveRegion", '$!{houseMoveModel.moveRegion}');
             }
         ).change();
 
@@ -717,10 +707,10 @@
         });
 
         //初始化迁入户籍登记机关
-        initOfficeInfo(0, $("#registeredOffice"));
+        initOfficeInfo(0, $("#registeredOffice"), '$!{houseMoveModel.registeredOffice}');
 
         $("#registeredOffice").on("change", function () {
-            initOfficeInfo($(this).val(), $("#registeredRegion"));
+            initOfficeInfo($(this).val(), $("#registeredRegion"), '$!{houseMoveModel.registeredRegion}');
         }).change();
 
         $("#marriageStatus").on("change", function() {
@@ -762,9 +752,9 @@
                 $("#sonNumber").removeAttr("disabled");
             } else if(haveSon == 2) {
                 $("#sonNumber").attr("disabled", "disabled");
-                $("#sonNumber").val('');
+                $("#sonNumber").val('0');
             }
-        });
+        }).change();
 
         //验证身份证号信息
         $("#idNumber").on("blur", function(){
@@ -781,6 +771,10 @@
 
         //验证表单信息
         registerValidateForm();
+
+        if('${addFlag}' == 'false') {
+            initIdentityInfo();
+        }
     });
 
     /**
@@ -837,6 +831,7 @@
         var houseRelationshipInfos = [];
         //初始化家庭关系信息
         $(".houseRelationship").each(function () {
+            var id = $(this).find("input[name=id]").val();
             var relationship = $(this).find("select[name=relationship]").val();
             var name = $(this).find("input[name=name]").val();
             var idNumber = $(this).find("input[name=idNumber]").val();
@@ -844,6 +839,7 @@
             var cultureDegree = $(this).find("input[name=cultureDegree]").val();
 
             var houseRelationship = {
+                "id": id,
                 "relationship": relationship,
                 "name": name,
                 "idNumber": idNumber,
@@ -864,8 +860,12 @@
         var captcha = $("input[name=captcha]").val();
 
         var identityInfoJson = JSON.stringify(identityInfo);
+        var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
+        if('${addFlag}' == 'false') {
+            url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
+        }
 
-        postResultData("${rc.contextPath}/identityInfo/addIdentityInfo", {"identityInfoJson": identityInfoJson, "captcha": captcha}, function(data){
+        postResultData(url, {"identityInfoJson": identityInfoJson, "captcha": captcha}, function(data){
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
@@ -879,7 +879,7 @@
      *
      * @param regionId
      */
-    function regionChange(regionId, changeRegion) {
+    function regionChange(regionId, changeRegion, defaultVal) {
         if (regionId == 0 && changeRegion != "moveProvince") {
             return;
         }
@@ -888,12 +888,16 @@
             $("#moveRegion").html('<option value="0">请选择</option>');
         }
 
-        getResultData("${rc.contextPath}/region/child/regions/" + regionId, {}, function(data){
+        getSyncResultData("${rc.contextPath}/region/child/regions/" + regionId, {}, function(data){
             var html = [];
             html.push('<option value="0">请选择</option>');
             if (data != undefined) {
                 for (var i = 0; i < data.length; i++) {
-                    html.push('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                    var selected = '';
+                    if(defaultVal != '' && defaultVal == data[i].id) {
+                        selected = 'selected';
+                    }
+                    html.push('<option value="' + data[i].id + '" '+ selected +'>' + data[i].name + '</option>');
                 }
             }
             $("#" + changeRegion).html(html.join(''));
@@ -904,7 +908,7 @@
     /**
      * 初始化评分选项信息
      */
-    function initIndicatorInfo(indicatorInfo, field) {
+    function initIndicatorInfo(indicatorInfo, field, defaultVal) {
         if(indicatorInfo == undefined) {
             field.html('');
         }
@@ -916,9 +920,12 @@
         var arr = new Array();
         for(var i=0; i<indicatorItems.length; i++) {
             var selected = '';
-            if(indicatorItems[i].content == '无') {
+            if(defaultVal == '' && indicatorItems[i].content == '无') {
+                selected = " selected ";
+            } else if(defaultVal != '' && indicatorItems[i].id == defaultVal){
                 selected = " selected ";
             }
+
             arr.push('<option value="'+ indicatorItems[i].id +'" ' + selected + '>'+ indicatorItems[i].content +'</option>');
         }
 
@@ -929,13 +936,17 @@
      * 初始化迁入登记机关
      *
      */
-    function initOfficeInfo(officeId, field) {
-        getResultData("${rc.contextPath}/office/getOffices", {"parentId": officeId}, function (data) {
+    function initOfficeInfo(officeId, field, defaultVal) {
+        getSyncResultData("${rc.contextPath}/office/getOffices", {"parentId": officeId}, function (data) {
             var offices = data;
             var officeArr = new Array();
             for (var i = 0; i < offices.length; i++) {
                 var office = offices[i];
-                officeArr.push('<option value="' + office["id"] + '">' + office["name"] + '</option>');
+                var selected = '';
+                if(defaultVal != '' && defaultVal == office["id"]) {
+                    selected = 'selected';
+                }
+                officeArr.push('<option value="' + office["id"] + '" '+ selected +'>' + office["name"] + '</option>');
             }
             field.html(officeArr.join(''));
         });
@@ -1233,6 +1244,23 @@
                 }
             }
         });
+    }
+
+    //初始化申请人信息
+    function initIdentityInfo() {
+        //户籍迁移信息
+        $("#houseNature").val('${houseMoveModel.houseNature}');
+        $("#settledNature").val('${houseMoveModel.settledNature}');
+        $("#region").val('${houseMoveModel.region}');
+        $("#marriageStatus").val('${houseMoveModel.marriageStatus}');
+
+        //其他信息
+        $("#politicalStatus").val('${houseOtherModel.politicalStatus}');
+        $("#degree").val('${houseOtherModel.degree}');
+
+
+        //职业资格证书
+        $("#jobTitleLevel").val('${houseProfessionModel.jobTitleLevel}');
     }
 
 </script>

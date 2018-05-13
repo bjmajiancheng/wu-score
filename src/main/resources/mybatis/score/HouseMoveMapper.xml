@@ -99,8 +99,9 @@
 	        <if test="marriageStatus != null">marriage_status = #{marriageStatus, jdbcType=INTEGER} ,</if>
 	        <if test="haveSon != null">have_son = #{haveSon, jdbcType=INTEGER} ,</if>
 	        <if test="sonNumber != null">son_number = #{sonNumber, jdbcType=INTEGER} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
-        WHERE 
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
+		WHERE
 	        id = #{id} 
     </update>
 

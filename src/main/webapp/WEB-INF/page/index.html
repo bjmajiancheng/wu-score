@@ -64,10 +64,10 @@
                         <td>{identityInfo.reservaionDateStr}</td>
                         <td>
                             {\#if identityInfo.reservationStatus == 1}
-                            <span class="integral-table-btn integral-table-btn1 edit">编辑</span>
+                            <span class="integral-table-btn integral-table-btn1 edit" onclick="editIdentityInfo({identityInfo.id})">编辑</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 6 || identityInfo.reservationStatus == 9 || identityInfo.reservationStatus == 10 || identityInfo.reservationStatus == 11}
-                            <span class="integral-table-btn integral-table-btn2 view">查看</span>
+                            <span class="integral-table-btn integral-table-btn2 view" onclick="evaluationView({identityInfo.id})">查看</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 6}
                             <span class="integral-table-btn integral-table-btn2" onclick="reservationLocation({identityInfo.id})">申请审核</span>
@@ -172,6 +172,23 @@
      */
     function autoTest(id) {
         window.open("${rc.contextPath}/identityInfo/autoEvaluation/"+id+".html");
+    }
+
+    /**
+     * 查看自助评测信息
+     * @param id
+     */
+    function evaluationView(id) {
+        window.open("${rc.contextPath}/identityInfo/evaluationView/"+id+".html");
+    }
+
+    /**
+     * 修改申请人信息
+     *
+     * @param id
+     */
+    function editIdentityInfo(id) {
+        window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
     }
 </script>
 

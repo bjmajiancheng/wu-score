@@ -36,26 +36,26 @@
                 <table class="integral-table border-add integral-cont-table" style="text-align:left;">
                     #foreach($indicatorModel in $indicatorModels)
                     <tr class="indicatorModelTr">
-                        <td width="15%">$indicatorModel.name</td>
-                        <td indicator-id="$indicatorModel.id" style="padding-left:10px;">
-                            <input type="hidden" name="indexNum" value="$indicatorModel.indexNum" />
+                        <td width="15%">${indicatorModel.name}</td>
+                        <td indicator-id="${indicatorModel.id}" style="padding-left:10px;">
+                            <input type="hidden" name="indexNum" value="${indicatorModel.indexNum}" />
                             #if($indicatorModel.itemType == 0)
                                 #foreach($indicatorItem in $indicatorModel.indicatorItems)
-                                    <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$indicatorItem.id" name="indicator_item_$indicatorModel.id" value="$indicatorItem.id"
-                                           #if($indicatorModel.disabled ==1) disabled #end #if($indicatorItem.checked == 1) checked="checked" #end/>
-                                    <label for="indicator_item_$indicatorItem.id">$indicatorItem.content ($indicatorItem.score 分) &nbsp;&nbsp;&nbsp;</label>
+                                    <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$!{indicatorItem.id}" name="indicator_item_$!{indicatorModel.id}" value="$!{indicatorItem.id}"
+                                           #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
+                                    <label for="indicator_item_$!{indicatorItem.id}">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
                                     </span>
                                 #end
-                            #elseif($indicatorModel.itemType == 1)
-                                #if($indicatorModel.indexNum == 4)
+                            #elseif(${indicatorModel.itemType} == 1)
+                                #if(${indicatorModel.indexNum} == 4)
                                     基本养老保险&nbsp;&nbsp;&nbsp;<input type="number" name="pensionMonth"/>(月)<br/>
                                     基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth"/>(月)<br/>
                                     基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth"/>(月)<br/>
                                     基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth"/>(月)<br/>
                                     基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth"/>(月)
-                                #elseif($indicatorModel.indexNum == 5)
+                                #elseif(${indicatorModel.indexNum} == 5)
                                     公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth"/>(月)
-                                #elseif($indicatorModel.indexNum == 7)
+                                #elseif(${indicatorModel.indexNum} == 7)
                                     请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear"/>(年)
                                 #end
                             #end
@@ -95,21 +95,85 @@
     $(function () {
         //提交事件
         $("#submit").on("click", function () {
-            var formInfo = getFormInfo();
 
-            debugger;
-            postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"indicatorView": JSON.stringify(formInfo)}, function (data) {
-                layer.msg('自助测评成功!!', {
-                    time: 1000
-                }, function(){
-                    window.close();
+            var validateFlag = validateForm();
+            if(validateFlag) {
+                var formInfo = getFormInfo();
+
+                var captcha = $("input[name=captcha]").val();
+                postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"indicatorView": JSON.stringify(formInfo), "captcha": captcha}, function (data) {
+                    layer.msg('自助测评成功!!', {
+                        time: 1000
+                    }, function(){
+                        window.close();
+                    });
                 });
-            });
+            }
+
         });
+
+        //验证表单信息
+        function validateForm() {
+            var pensionMonth = $.trim($("input[name=pensionMonth]").val());
+            var medicalMonth = $.trim($("input[name=medicalMonth]").val());
+            var unemploymentMonth = $.trim($("input[name=unemploymentMonth]").val());
+            var workInjuryMonth = $.trim($("input[name=workInjuryMonth]").val());
+            var fertilityMonth = $.trim($("input[name=fertilityMonth]").val());
+            var fundMonth = $.trim($("input[name=fundMonth]").val());
+            var liveYear = $.trim($("input[name=liveYear]").val());
+
+            var validFlag = true;
+            //验证文本信息
+            $("tr.indicatorModelTr").each(function(){
+                var indicatorName = $(this).find("td").eq(0).text();
+                var inputTd = $(this).find("td").eq(1);
+                if(inputTd.find("input[type=radio]").length > 0) {
+                    var itemName = inputTd.find("input[type=radio]").attr("name");
+                    if(! $("input[name="+ itemName +"]:checked").val()) {
+                        validFlag = false;
+                        layer.msg("请选择" + indicatorName+"信息");
+                        return false;
+                    }
+                }
+            });
+            if(!validFlag) {
+                return false;
+            }
+
+            if(pensionMonth == '') {
+                layer.msg("请输入基本养老保险");
+                return false;
+            }
+            if(medicalMonth == '') {
+                layer.msg("请输入基本医疗保险");
+                return false;
+            }
+            if(unemploymentMonth == '') {
+                layer.msg("请输入基本失业保险");
+                return false;
+            }
+            if(workInjuryMonth == '') {
+                layer.msg("请输入基本工伤保险");
+                return false;
+            }
+            if(fertilityMonth == '') {
+                layer.msg("请输入基本生育保险");
+                return false;
+            }
+            if(fundMonth == '') {
+                layer.msg("请输入公积金");
+                return false;
+            }
+            if(liveYear == '') {
+                layer.msg("请输入居住年限");
+                return false;
+            }
+
+            return true;
+        }
 
         //获取表单数据信息
         function getFormInfo() {
-
             var indicatorArr = new Array();
             $(".indicatorModelTr").each(function(){
                 var $indicatorTd = $(this).find("td").eq(1);

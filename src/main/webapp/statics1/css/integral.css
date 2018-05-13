@@ -250,6 +250,10 @@ html {
     margin-left: 50px;
 }
 
+.ml75 {
+    margin-left: 75px;
+}
+
 .ml105 {
     margin-left: 105px !important;
 }
@@ -278,8 +282,28 @@ html {
     width: 300px;
 }
 
+.w325 {
+    width: 325px;
+}
+
+.w350 {
+    width: 350px;
+}
+
 .w450 {
     width: 450px;
+}
+
+.w518 {
+    width: 518px;
+}
+
+.w600 {
+    width: 600px;
+}
+
+.w750 {
+    width: 750px;
 }
 
 table tr .tdleft {

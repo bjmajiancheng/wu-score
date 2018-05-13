@@ -101,7 +101,8 @@
 	        <if test="detention != null">detention = #{detention, jdbcType=INTEGER} ,</if>
 	        <if test="penalty != null">penalty = #{penalty, jdbcType=INTEGER} ,</if>
 	        <if test="awardsTitle != null">awards_title = #{awardsTitle, jdbcType=INTEGER} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
         WHERE 
 	        id = #{id} 
     </update>

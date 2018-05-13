@@ -31,6 +31,8 @@ public class PersonBatchScoreResultModel implements Serializable {
 
     private String indicatorName;//"指标名称"
 
+    private Integer indicatorItemId;//"选择选项ID"
+
     private Integer personId;//"申请人ID"
 
     private String personName;//"申请人"
@@ -83,6 +85,14 @@ public class PersonBatchScoreResultModel implements Serializable {
 
     public String getIndicatorName() {
         return this.indicatorName;
+    }
+
+    public Integer getIndicatorItemId() {
+        return indicatorItemId;
+    }
+
+    public void setIndicatorItemId(Integer indicatorItemId) {
+        this.indicatorItemId = indicatorItemId;
     }
 
     public void setPersonId(Integer personId) {

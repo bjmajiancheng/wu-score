@@ -42,14 +42,13 @@ public class IAttachmentFileBiz {
      * @return
      * @throws IOException
      */
-    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem)
-            throws IOException {
+    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem) throws IOException {
         Date currDate = new Date();
 
-        String savePath = uploadFolder + ShiroUtils.getCurrUserName() + "/" + DateUtil
+        String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
                 .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
-        String downloadPath = request.getContextPath() + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+        String downloadPath = request.getContextPath() + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
                 .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
         File targetFile = new File(savePath);
@@ -75,15 +74,6 @@ public class IAttachmentFileBiz {
         int count = attachmentService.insert(attachmentModel);
 
         return attachmentModel;
-        /*AttachmentFileModel attachmentFile = new AttachmentFileModel();
-        attachmentFile.setFileName(fileName);
-        attachmentFile.setDownloadPath(downloadPath + newFileName);
-        attachmentFile.setFilePath(savePath + newFileName);
-        attachmentFile.setIsSystem(isSystem);
-        attachmentFile.setCtime(new Date());
-
-        int count = attachmentFileService.insert(attachmentFile);
-        return attachmentFile;*/
     }
 
 }

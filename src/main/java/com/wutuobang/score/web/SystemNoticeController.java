@@ -29,6 +29,7 @@ import com.wutuobang.score.service.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author davdian
@@ -69,6 +70,31 @@ public class SystemNoticeController {
     }
 
     /**
+     * 获取详细信息
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/detailPage", method = RequestMethod.GET)
+    public ModelAndView detailPage(HttpServletRequest request, @RequestParam("id") Integer id) {
+        if (id == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+        try {
+            ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
+
+            mv.addObject("systemNotice", systemNoticeService.getById(id));
+
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+    }
+
+    /**
      * 获取相关政策列表页面
      *
      * @param request
@@ -97,8 +123,10 @@ public class SystemNoticeController {
      * @return
      */
     @RequestMapping("/systemNotice.html")
-    public String systemNotice(HttpServletRequest request) {
-        return "system/systemNotice.html";
+    public ModelAndView systemNotice(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
+        mv.addObject("systemNotice", systemNoticeService.getLastSystemNotice());
+        return mv;
     }
 
 }

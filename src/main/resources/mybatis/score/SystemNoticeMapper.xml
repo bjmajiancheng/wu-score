@@ -110,6 +110,11 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="getLastSystemNotice" resultMap="SystemNotice">
+		SELECT <include refid="columns"/> FROM t_system_notice
+		WHERE type = 3 ORDER BY id DESC LIMIT 1
+	</select>
 	
 </mapper>
 

@@ -55,7 +55,8 @@
 	        <if test="idNumber != null">id_number = #{idNumber, jdbcType=VARCHAR} ,</if>
 	        <if test="isRemove != null">is_remove = #{isRemove, jdbcType=INTEGER} ,</if>
 	        <if test="cultureDegree != null">culture_degree = #{cultureDegree, jdbcType=VARCHAR} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
         WHERE 
 	        id = #{id} 
     </update>
@@ -125,6 +126,19 @@
 			(#{item.identityInfoId}, #{item.relationship}, #{item.name}, #{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})
 		</foreach>
 	</insert>
+
+	<delete id="delByIdentityInfoId">
+		DELETE FROM t_house_relationship
+		WHERE identity_info_id = #{identityInfoId}
+	</delete>
+
+	<delete id="delIds">
+		DELETE FROM t_house_relationship
+		WHERE id IN
+		<foreach collection="ids" item="item" open="(" separator="," close=")">
+			#{item.id}
+		</foreach>
+	</delete>
 	
 </mapper>
 

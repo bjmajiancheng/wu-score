@@ -129,7 +129,6 @@ public class IndicatorServiceImpl implements IIndicatorService {
         if (CollectionUtils.isNotEmpty(indicatorModels)) {
             for (IndicatorModel indicatorModel : indicatorModels) {
                 List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
-                boolean flag = false;
 
                 switch (indicatorModel.getIndexNum()) {
                     case 1:
@@ -141,11 +140,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                             int maxAge = NumberUtil.getInteger(ageArr[1]);
                             if (age >= minAge && age <= maxAge) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                indicatorModel.setDisabled(1);
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
 
                         break;
@@ -155,11 +152,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == cultureDegree) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                indicatorModel.setDisabled(1);
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
                         break;
                     case 3:
@@ -168,11 +163,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobLevel) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                indicatorModel.setDisabled(1);
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
                         break;
                     case 4:
@@ -189,11 +182,8 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobType) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
                         break;
                     case 9:
@@ -210,11 +200,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == awardsTitle) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                indicatorModel.setDisabled(1);
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
                         break;
                     case 14:
@@ -223,11 +211,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == soldierMeritorious) {
                                 indicatorItem.setChecked(1);
-                                flag = true;
+                                indicatorModel.setDisabled(1);
+                                break;
                             }
-                        }
-                        if (flag) {
-                            indicatorModel.setDisabled(1);
                         }
                         break;
                     case 15:

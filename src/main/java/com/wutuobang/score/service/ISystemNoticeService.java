@@ -38,4 +38,11 @@ public interface ISystemNoticeService{
 	 * @return
      */
 	public PageData<SystemNoticeModel> findPage(Integer type, Integer pageNo);
+
+	/**
+	 * 获取最新一条重要通知信息
+	 *
+	 * @return
+     */
+	public SystemNoticeModel getLastSystemNotice();
 }

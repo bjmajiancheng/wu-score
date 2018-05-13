@@ -44,4 +44,20 @@ public interface IHouseRelationshipService{
 	 * @return
      */
 	public List<HouseRelationshipModel> getByIdentityInfoId(Integer identityInfoId);
+
+	/**
+	 * 删除申请人家庭关系信息
+	 *
+	 * @param identityInfoId
+	 * @return
+     */
+	public int delByIdentityInfoId(Integer identityInfoId);
+
+	/**
+	 * 根据id集合 删除家庭关系信息
+	 *
+	 * @param ids
+	 * @return
+     */
+	public int delByIds(List<Integer> ids);
 }

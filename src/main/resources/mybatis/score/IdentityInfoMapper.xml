@@ -66,16 +66,10 @@
 	        union_approve_status_2  ,
 	        police_approve_status  ,
 	        renshe_accept_status  ,
-	        cancel_status  ,
-	        accept_number  ,
 	        accept_address_id  ,
 	        accept_address  ,
 	        c_time  ,
-	        u_time  ,
-	        result_status  ,
-	        reservation_date  ,
-	        reservation_m  ,
-	        score
+	        u_time
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -96,16 +90,10 @@
         	#{unionApproveStatus2, jdbcType=INTEGER} ,
         	#{policeApproveStatus, jdbcType=INTEGER} ,
         	#{rensheAcceptStatus, jdbcType=INTEGER} ,
-        	#{cancelStatus, jdbcType=INTEGER} ,
-        	#{acceptNumber, jdbcType=VARCHAR} ,
         	#{acceptAddressId, jdbcType=INTEGER} ,
         	#{acceptAddress, jdbcType=VARCHAR} ,
         	#{ctime, jdbcType=TIMESTAMP} ,
-        	#{utime, jdbcType=TIMESTAMP} ,
-        	#{resultStatus, jdbcType=INTEGER} ,
-        	#{reservationDate, jdbcType=DATE} ,
-        	#{reservationM, jdbcType=INTEGER} ,
-        	#{score, jdbcType=DECIMAL}
+        	#{utime, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
@@ -190,6 +178,9 @@
 			<if test="companyId != null">
 				AND company_id = #{companyId}
 			</if>
+			<if test="notId != null">
+				AND id != #{notId}
+			</if>
 	    </where>
 	</sql>
 	 
@@ -204,10 +195,10 @@
     <select id="findPage" resultMap="IdentityInfo">
     	SELECT <include refid="columns"/> FROM t_identity_info
 		<include refid="findWhere"/>
-		LIMIT #{start}, #{pageSize}
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
+		LIMIT #{start}, #{pageSize}
     </select>
 
 	

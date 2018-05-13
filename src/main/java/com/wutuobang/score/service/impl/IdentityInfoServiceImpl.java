@@ -91,6 +91,7 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         if (pageCount < 0) {
             return new PageData<IdentityInfoModel>();
         }
+        param.put("sortColumns", "id ASC");
 
         List<IdentityInfoModel> identityInfos = identityInfoDao.findPage(param);
 

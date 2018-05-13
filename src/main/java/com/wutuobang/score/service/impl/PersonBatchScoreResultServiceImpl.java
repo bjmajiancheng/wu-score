@@ -17,65 +17,94 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.wutuobang.score.model.PersonBatchScoreResultModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 @Service("personBatchScoreResultService")
-public class PersonBatchScoreResultServiceImpl implements IPersonBatchScoreResultService{
-	@Autowired
-	private IPersonBatchScoreResultDao personBatchScoreResultDao;
+public class PersonBatchScoreResultServiceImpl implements IPersonBatchScoreResultService {
 
-	public int insert(PersonBatchScoreResultModel personBatchScoreResult) {
-		if(personBatchScoreResult == null) {
-			return 0;
-		}
-		return personBatchScoreResultDao.insert(personBatchScoreResult);
-	}
-	
-	public int update(PersonBatchScoreResultModel personBatchScoreResult) {
-		if(personBatchScoreResult == null) {
-			return 0;
-		}
-		return personBatchScoreResultDao.update(personBatchScoreResult);
-	}
-	
-	public PersonBatchScoreResultModel getById(Integer id) {
-		if(id == null) {
-			return null;
-		}
-		return personBatchScoreResultDao.getById(id);
-	}
+    @Autowired
+    private IPersonBatchScoreResultDao personBatchScoreResultDao;
 
-	public int removeById(Integer id) {
-		if(id == null) {
-			return 0;
-		}
-		return personBatchScoreResultDao.delete(id);
-	}	
+    public int insert(PersonBatchScoreResultModel personBatchScoreResult) {
+        if (personBatchScoreResult == null) {
+            return 0;
+        }
+        return personBatchScoreResultDao.insert(personBatchScoreResult);
+    }
 
-	public List<PersonBatchScoreResultModel> find(Map<String, Object> param) {
-		return personBatchScoreResultDao.find(param);
-	}
+    public int update(PersonBatchScoreResultModel personBatchScoreResult) {
+        if (personBatchScoreResult == null) {
+            return 0;
+        }
+        return personBatchScoreResultDao.update(personBatchScoreResult);
+    }
 
-	/**
-	 * 申请人评分详细信息
-	 *
-	 * @param personBatchScoreResults
-	 * @return
-	 */
-	public int batchInsert(List<PersonBatchScoreResultModel> personBatchScoreResults) {
-		if(CollectionUtils.isEmpty(personBatchScoreResults)) {
-			return 0;
-		}
+    public PersonBatchScoreResultModel getById(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return personBatchScoreResultDao.getById(id);
+    }
 
-		return personBatchScoreResultDao.batchInsert(personBatchScoreResults);
-	}
-	
+    public int removeById(Integer id) {
+        if (id == null) {
+            return 0;
+        }
+        return personBatchScoreResultDao.delete(id);
+    }
+
+    public List<PersonBatchScoreResultModel> find(Map<String, Object> param) {
+        return personBatchScoreResultDao.find(param);
+    }
+
+    /**
+     * 申请人评分详细信息
+     *
+     * @param personBatchScoreResults
+     * @return
+     */
+    public int batchInsert(List<PersonBatchScoreResultModel> personBatchScoreResults) {
+        if (CollectionUtils.isEmpty(personBatchScoreResults)) {
+            return 0;
+        }
+
+        return personBatchScoreResultDao.batchInsert(personBatchScoreResults);
+    }
+
+    /**
+     * 根据申请人获取申请人评测信息
+     *
+     * @param identityInfoId
+     * @return
+     */
+    public Map<Integer, PersonBatchScoreResultModel> findMapByIdentityInfoId(Integer identityInfoId) {
+        if (identityInfoId == null) {
+            return Collections.emptyMap();
+        }
+
+        List<PersonBatchScoreResultModel> scoreResultModels = this
+                .find(Collections.singletonMap("personId", (Object) identityInfoId));
+        if (CollectionUtils.isEmpty(scoreResultModels)) {
+            return Collections.emptyMap();
+        }
+
+        Map<Integer, PersonBatchScoreResultModel> scoreResultModelMap = new HashMap<Integer, PersonBatchScoreResultModel>(
+                scoreResultModels.size());
+        for (PersonBatchScoreResultModel scoreResultModel : scoreResultModels) {
+            scoreResultModelMap.put(scoreResultModel.getIndicatorId(), scoreResultModel);
+        }
+
+        return scoreResultModelMap;
+    }
+
 }

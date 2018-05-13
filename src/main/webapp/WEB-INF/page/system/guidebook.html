@@ -31,9 +31,9 @@
         <!-- 二级title -->
         <div class="integral-grey-title-bar title-bar2">
             <div class="title-bar-head title-bar-blzn">办理指南</div>
-            <a href="">更多
+            <!--<a href="">更多
                 <div class="title-bar-after"> </div>
-            </a>
+            </a>-->
         </div>
         <!-- 政策表格 -->
         <div id="app">
@@ -44,7 +44,7 @@
                     <tr>
                         <td>{guidebook.author}</td>
                         <td>
-                            <a href="">{guidebook.title}</a>
+                            <a href="${rc.contextPath}/systemNotice/detailPage?id={guidebook.id}">{guidebook.title}</a>
                         </td>
                     </tr>
                     {/list}

@@ -20,6 +20,8 @@ public class IndicatorItemView implements Serializable {
 
     private BigDecimal scoreValue;//得分
 
+    private String scoreDetail;//评测详情
+
     public Integer getIndicatorId() {
         return indicatorId;
     }
@@ -58,5 +60,13 @@ public class IndicatorItemView implements Serializable {
 
     public void setScoreValue(BigDecimal scoreValue) {
         this.scoreValue = scoreValue;
+    }
+
+    public String getScoreDetail() {
+        return scoreDetail;
+    }
+
+    public void setScoreDetail(String scoreDetail) {
+        this.scoreDetail = scoreDetail;
     }
 }

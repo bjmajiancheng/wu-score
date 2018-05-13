@@ -37,4 +37,12 @@ public interface IPersonBatchScoreResultService{
 	 * @return
      */
 	public int batchInsert(List<PersonBatchScoreResultModel> personBatchScoreResults);
+
+	/**
+	 * 根据申请人获取申请人评测信息
+	 *
+	 * @param identityInfoId
+	 * @return
+     */
+	public Map<Integer, PersonBatchScoreResultModel> findMapByIdentityInfoId(Integer identityInfoId);
 }

@@ -79,7 +79,7 @@ public class IdentityInfoController {
     private IBasicConfService basicConfService;
 
     @Autowired
-    private IdentityInfoBiz addIdentityInfo;
+    private IdentityInfoBiz identityInfoBiz;
 
     /**
      * 前往新增用户页面
@@ -87,8 +87,11 @@ public class IdentityInfoController {
      * @return
      */
     @RequestMapping(value = "/applicationAdd.html", method = RequestMethod.GET)
-    public String toAddIdentityInfo() {
-        return "application/applicationAdd.html";
+    public ModelAndView toAddIdentityInfo() {
+        ModelAndView mv = new ModelAndView("application/applicationAdd.html");
+
+        mv.addObject("addFlag", true);
+        return mv;
     }
 
     /**
@@ -122,7 +125,6 @@ public class IdentityInfoController {
         }
 
         try {
-
             CompanyInfoModel currUser = ShiroUtils.getUserEntity();
 
             //获取当前批次信息
@@ -142,8 +144,58 @@ public class IdentityInfoController {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
 
+            boolean addFlag = identityInfoBiz.addIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
-            boolean addFlag = addIdentityInfo.addIdentityInfo(identityInfoModel, batchConfModel, currUser);
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 更新申请人信息
+     *
+     * @param request
+     * @param identityInfoJson
+     * @param captcha
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateIdentityInfo", method = RequestMethod.POST)
+    public ResultParam updateIdentityInfo(HttpServletRequest request,
+            @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
+        if (StringUtils.isEmpty(identityInfoJson)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
+            return ResultParam.CAPTCHA_ERROR_RESULT;
+        }
+
+        try {
+            CompanyInfoModel currUser = ShiroUtils.getUserEntity();
+
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+            if (batchConfModel == null) {
+                return ResultParam.error("当前没有落户批次信息,请根据落户指标时间再修改申请人!!");
+            }
+
+            //申请人信息
+            IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
+
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("batchId", batchConfModel.getId());
+            param.put("idNumber", identityInfoModel.getIdNumber());
+            param.put("notId", identityInfoModel.getId());
+            List<IdentityInfoModel> identityInfoModels = identityInfoService.find(param);
+            if (CollectionUtils.isNotEmpty(identityInfoModels)) {
+                return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
+            }
+
+            boolean updateFlag = identityInfoBiz.updateIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
@@ -222,7 +274,7 @@ public class IdentityInfoController {
     }
 
     /**
-     * 自助评测信息
+     * 自助评测接口
      *
      * @param request
      * @param indicatorViewStr
@@ -231,9 +283,14 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/autoEvaluation", method = RequestMethod.POST)
     public ResultParam autoEvaluation(HttpServletRequest request,
-            @RequestParam("indicatorView") String indicatorViewStr) {
+            @RequestParam("indicatorView") String indicatorViewStr, @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(indicatorViewStr)) {
             return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if (!captcha.equalsIgnoreCase(kaptcha)) {
+            return ResultParam.CAPTCHA_ERROR_RESULT;
         }
 
         //基本设置信息
@@ -242,153 +299,113 @@ public class IdentityInfoController {
             return ResultParam.error("请联系管理员配置测评信息");
         }
 
-        Date currDate = new Date();
-
-        /**
-         * 1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
-         * 9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
-         **/
         try {
             IndicatorView indicatorView = JSON.parseObject(indicatorViewStr, IndicatorView.class);
-            IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
 
-            List<PersonBatchScoreResultModel> toAddScoreResults = new ArrayList<PersonBatchScoreResultModel>();
-
-            Map<Integer, IndicatorModel> indicatorModelMap = indicatorService.getAllMapIndicator();
-
-            if (CollectionUtils.isNotEmpty(indicatorView.getIndicatorItemList())) {
-                //初始化评测信息
-                for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
-                    IndicatorModel indicatorModel = indicatorModelMap.get((int) indicatorItemView.getIndicatorId());
-                    if (indicatorModel != null) {
-                        if (indicatorItemView.getIndexNum() == 4) {
-                            //参加社会保险按险种计分。缴费不满60个月的，每年最高积12分，
-                            //其中：参加基本养老保险（4分），参加基本医疗保险、失业保险、工伤保险、生育保险（各2分）；
-                            //缴费满60个月的，自满60个月的下一月起，每年最高积18分，
-                            //其中：参加基本养老保险（6分），参加基本医疗保险、失业保险、工伤保险、生育保险（各3分）。
-                            int pensionScore = 0;
-                            if (indicatorView.getPensionMonth() >= 60) {
-                                pensionScore = indicatorView.getPensionMonth() / 2;
-                            } else {
-                                pensionScore = indicatorView.getPensionMonth() / 3;
-                            }
-                            int medicalScore = 0;
-                            if (indicatorView.getMedicalMonth() >= 60) {
-                                medicalScore = indicatorView.getMedicalMonth() / 4;
-                            } else {
-                                medicalScore = indicatorView.getMedicalMonth() / 6;
-                            }
-                            int unemploymentScore = 0;
-                            if (indicatorView.getUnemploymentMonth() >= 60) {
-                                unemploymentScore = indicatorView.getUnemploymentMonth() / 4;
-                            } else {
-                                unemploymentScore = indicatorView.getUnemploymentMonth() / 6;
-                            }
-                            int workInjuryScore = 0;
-                            if (indicatorView.getWorkInjuryMonth() >= 60) {
-                                workInjuryScore = indicatorView.getWorkInjuryMonth() / 4;
-                            } else {
-                                workInjuryScore = indicatorView.getWorkInjuryMonth() / 6;
-                            }
-                            int fertilityScore = 0;
-                            if (indicatorView.getFertilityMonth() >= 60) {
-                                fertilityScore = indicatorView.getFertilityMonth() / 4;
-                            } else {
-                                fertilityScore = indicatorView.getFertilityMonth() / 6;
-                            }
-                            int totalScore =
-                                    pensionScore + medicalScore + unemploymentScore + workInjuryScore + fertilityScore;
-
-                            indicatorItemView.setScoreValue(new BigDecimal(totalScore));
-                            continue;
-                        } else if (indicatorItemView.getIndexNum() == 5) {
-                            //参加住房公积金的每年积2分。
-                            int fundScore = indicatorView.getFundMonth() / 6;
-                            indicatorItemView.setScoreValue(new BigDecimal(fundScore));
-                            continue;
-                        } else if (indicatorItemView.getIndexNum() == 7) {
-                            indicatorItemView.setScoreValue(new BigDecimal(indicatorView.getLiveYear() * 6));
-                            continue;
-                        }
-
-                        List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
-                        if (CollectionUtils.isEmpty(indicatorItems)) {
-                            continue;
-                        }
-
-                        for (IndicatorItemModel indicatorItemModel : indicatorItems) {
-                            if ((int) indicatorItemModel.getId() == indicatorItemView.getIndicatorItemId()) {
-                                indicatorItemView.setScoreValue(new BigDecimal(indicatorItemModel.getScore()));
-                            }
-                        }
-
-                        indicatorItemView.setIndicatorName(indicatorModel.getName());
-                    }
-                }
-
-                for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
-                    PersonBatchScoreResultModel personBatchScoreResult = new PersonBatchScoreResultModel(
-                            indicatorItemView.getIndicatorId(), indicatorItemView.getIndicatorName(),
-                            indicatorItemView.getScoreValue());
-                    toAddScoreResults.add(personBatchScoreResult);
-                }
-            }
-
-            BigDecimal totalDecimal = new BigDecimal(0);
-            //初始化分数结果信息
-            if (CollectionUtils.isNotEmpty(toAddScoreResults)) {
-                for (PersonBatchScoreResultModel scoreResult : toAddScoreResults) {
-                    scoreResult.setBatchId(identityInfoModel.getBatchId());
-                    scoreResult.setPersonId(identityInfoModel.getId());
-                    scoreResult.setPersonName(identityInfoModel.getName());
-                    scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
-                    scoreResult.setCtime(currDate);
-
-                    if (scoreResult.getScoreValue() == null) {
-                        scoreResult.setScoreValue(BigDecimal.ZERO);
-                    }
-                    totalDecimal = totalDecimal.add(scoreResult.getScoreValue());
-                }
-
-                personBatchScoreResultService.batchInsert(toAddScoreResults);
-            }
-
-            //自助测评通过
-            if (totalDecimal.compareTo(basicConfModel.getSelfTestScoreLine()) >= 0) {
-                IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
-                updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
-                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_6);
-                updateIdentityInfo.setScore(totalDecimal);
-                identityInfoService.update(updateIdentityInfo);
-                //记录状态日志信息
-                DictModel dictModel = dictService
-                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_6);
-                if (dictModel != null) {
-                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
-                            dictModel, "自助测评通过, 测评分数为:" + totalDecimal.toString());
-                    personBatchStatusRecordService.insert(recordModel);
-                }
-            } else {
-                IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
-                updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
-                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_5);
-                identityInfoService.update(updateIdentityInfo);
-
-                //记录状态日志信息
-                DictModel dictModel = dictService
-                        .findByAliasAndValue("reservationStatus", Constant.reservationStatus_5);
-                if (dictModel != null) {
-                    PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
-                            dictModel, "自助测评未通过, 测评分数为:" + totalDecimal.toString());
-                    personBatchStatusRecordService.insert(recordModel);
-                }
-            }
+            //自助评测信息
+            boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel);
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
             e.printStackTrace();
 
             return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+
+    }
+
+    /**
+     * 查看评测信息
+     *
+     * @param request
+     * @param identityInfoId
+     * @return
+     */
+    @RequestMapping("/evaluationView/{identityInfoId}.html")
+    public ModelAndView evaluationView(HttpServletRequest request,
+            @PathVariable("identityInfoId") Integer identityInfoId) {
+        ModelAndView mv = new ModelAndView("evaluation/evaluationView.html");
+        if (identityInfoId == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+        try {
+
+            IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+            initIdentityInfoAttrs(identityInfo);
+
+            Map<Integer, PersonBatchScoreResultModel> scoreResultMap = personBatchScoreResultService
+                    .findMapByIdentityInfoId(identityInfoId);
+
+            List<IndicatorModel> indicatorModels = indicatorService.getAllIndicators();
+            /*indicatorService.initIndicatorView(identityInfo, indicatorModels);*/
+            //初始化预览自助评测信息
+            if (CollectionUtils.isNotEmpty(indicatorModels)) {
+                for (IndicatorModel indicatorModel : indicatorModels) {
+                    PersonBatchScoreResultModel scoreResultModel = scoreResultMap.get((int) indicatorModel.getId());
+
+                    //文本框值
+                    if (scoreResultModel.getIndicatorItemId() == 0) {
+                        String scoreDetail = scoreResultModel.getScoreDetail();
+                        if (StringUtils.isNotEmpty(scoreDetail)) {
+                            indicatorModel.setScoreDetailMap(JSON.parseObject(scoreDetail, Map.class));
+                        }
+                        continue;
+                    }
+
+                    List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
+                    if (CollectionUtils.isNotEmpty(indicatorItems)) {
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if ((int) indicatorItem.getId() == scoreResultModel.getIndicatorItemId()) {
+                                indicatorItem.setChecked(1);
+                                indicatorModel.setDisabled(1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            mv.addObject("indicatorModels", indicatorModels);
+            mv.addObject("identityInfo", identityInfo);
+
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+    }
+
+    /**
+     * 跳转到修改申请人信息页面
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/editIdentityInfo/{id}.html")
+    public ModelAndView editIdentityInfo(HttpServletRequest request, @PathVariable("id") Integer id) {
+        if (id == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+        ModelAndView mv = new ModelAndView("application/applicationAdd.html");
+
+        try {
+
+            IdentityInfoModel identityInfo = identityInfoService.getById(id);
+            initIdentityInfoAttrs(identityInfo);
+
+            mv.addObject("identityInfo", identityInfo);
+            mv.addObject("houseMoveModel", identityInfo.getHouseMoveModel());
+            mv.addObject("houseRelationshipList", identityInfo.getHouseRelationshipModelList());
+            mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());
+            mv.addObject("houseProfessionModel", identityInfo.getHouseProfessionModel());
+            mv.addObject("addFlag", false);
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
         }
 
     }

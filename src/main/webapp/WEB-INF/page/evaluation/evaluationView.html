@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>自助评测</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+    <!-- 左部导航 -->
+    <!-- </script> -->
+    <!-- 中间二级导航 -->
+
+    <!-- 内容展示区 -->
+    <div class="integral-cont">
+
+        <!-- 自助测评信息 -->
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head">居住证积分</div>
+            <div class="title-bar-after">自助测评</div>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title border-bottom">
+            自助测评信息
+        </div>
+        <!--1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
+         9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信-->
+        <form id="autoEvaluation">
+            <input type="hidden" name="identityInfoId" value="${identityInfo.id}">
+            <div class="integral-cont-table-wrap">
+                <table class="integral-table border-add integral-cont-table" style="text-align:left;">
+                    #foreach($indicatorModel in $indicatorModels)
+                    <tr class="indicatorModelTr">
+                        <td width="15%">${indicatorModel.name}</td>
+                        <td indicator-id="${indicatorModel.id}" style="padding-left:10px;">
+                            <input type="hidden" name="indexNum" value="${indicatorModel.indexNum}" />
+                            #if(${indicatorModel.itemType} == 0)
+                            #foreach(${indicatorItem} in ${indicatorModel.indicatorItems})
+                                #if(${indicatorItem.checked} == 1)
+                                    <span><input class="input_radio indicator_item" type="radio" id="indicator_item_${indicatorItem.id}" name="indicator_item_${indicatorModel.id}" value="${indicatorItem.id}"
+                                                 #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
+                                    <label for="indicator_item_${indicatorItem.id}">${indicatorItem.content} (${indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
+                                    </span>
+                                #end
+                            #end
+                            #elseif(${indicatorModel.itemType} == 1)
+                            #if(${indicatorModel.indexNum} == 4)
+                            基本养老保险&nbsp;&nbsp;&nbsp;<input type="number" name="pensionMonth" value="$!{indicatorModel.scoreDetailMap.pensionMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.pensionMonth.get(1)} 分)<br/>
+                            基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth" value="$!{indicatorModel.scoreDetailMap.medicalMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.medicalMonth.get(1)} 分)<br/>
+                            基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth" value="$!{indicatorModel.scoreDetailMap.unemploymentMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.unemploymentMonth.get(1)} 分)<br/>
+                            基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth" value="$!{indicatorModel.scoreDetailMap.workInjuryMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.workInjuryMonth.get(1)} 分)<br/>
+                            基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth" value="$!{indicatorModel.scoreDetailMap.fertilityMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.fertilityMonth.get(1)} 分)
+                            #elseif(${indicatorModel.indexNum} == 5)
+                            公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth" value="$!{indicatorModel.scoreDetailMap.fundMonth.get(0)}" disabled/>(月) ($!{indicatorModel.scoreDetailMap.fundMonth.get(1)} 分)
+                            #elseif(${indicatorModel.indexNum} == 7)
+                            请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear" value="$!{indicatorModel.scoreDetailMap.liveYear.get(0)}" disabled/>(年) ($!{indicatorModel.scoreDetailMap.liveYear.get(1)} 分)
+                            #end
+                            #end
+                        </td>
+                    </tr>
+                    #end
+                </table>
+                <!-- 验证码和底部按钮 -->
+                <!--<table class="check-table">
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>验证码：
+                        </td>
+                        <td>
+                            <input class="integral-input w200" type="text" name="captcha">
+                            <div class="checkimg">
+                                <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="click_me">
+                            </div>
+                            <span class="click_me">看不清点我</span>
+                        </td>
+                    </tr>
+                </table>-->
+                <p>
+                    &nbsp;
+                </p>
+                <!-- 保存按钮 -->
+                <div class="integral-bottom-btn-group">
+                   <!-- <div class="interal-main-btn big-btn m15" id="submit">提交</div>-->
+                    <div class="interal-main-btn big-btn ml50" id="cancel">关闭</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function () {
+
+    });
+</script>
+
+</html>
+

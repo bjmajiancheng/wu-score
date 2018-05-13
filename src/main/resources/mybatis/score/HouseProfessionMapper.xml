@@ -67,7 +67,8 @@
 	        <if test="certificateCode != null">certificate_code = #{certificateCode, jdbcType=VARCHAR} ,</if>
 	        <if test="jobLevel != null">job_level = #{jobLevel, jdbcType=INTEGER} ,</if>
 	        <if test="jobType != null">job_type = #{jobType, jdbcType=INTEGER} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
         WHERE 
 	        id = #{id} 
     </update>

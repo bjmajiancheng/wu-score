@@ -44,6 +44,8 @@ public class IndicatorModel implements Serializable {
     private List<IndicatorItemModel> indicatorItems = new ArrayList<IndicatorItemModel>();//指标选项信息
 
     private int disabled = 0;//不可选择
+
+    private Map<String, Object> scoreDetailMap;//评分详情
     //自定义属性 END
 
     public void setId(Integer id) {
@@ -132,6 +134,14 @@ public class IndicatorModel implements Serializable {
 
     public void setDisabled(int disabled) {
         this.disabled = disabled;
+    }
+
+    public Map<String, Object> getScoreDetailMap() {
+        return scoreDetailMap;
+    }
+
+    public void setScoreDetailMap(Map<String, Object> scoreDetailMap) {
+        this.scoreDetailMap = scoreDetailMap;
     }
 }
 

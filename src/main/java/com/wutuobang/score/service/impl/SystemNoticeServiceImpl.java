@@ -98,4 +98,13 @@ public class SystemNoticeServiceImpl implements ISystemNoticeService {
         return pageData;
     }
 
+    /**
+     * 获取最新一条重要通知信息
+     *
+     * @return
+     */
+    public SystemNoticeModel getLastSystemNotice() {
+        return systemNoticeDao.getLastSystemNotice();
+    }
+
 }

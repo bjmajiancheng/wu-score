@@ -45,5 +45,12 @@ public interface ISystemNoticeDao {
 	 * @return
      */
 	public List<SystemNoticeModel> findPage(Map<String, Object> param);
+
+	/**
+	 * 获取最新一条重要通知信息
+	 *
+	 * @return
+	 */
+	public SystemNoticeModel getLastSystemNotice();
 	
 }
