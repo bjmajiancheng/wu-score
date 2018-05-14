@@ -171,6 +171,11 @@ public class Constant {
     public static final int policeApproveStatus_4 = 4;
 
     /**
+     * 人社受理状态:默认值
+     */
+    public static final int rensheAcceptStatus_0 = 0;
+
+    /**
      * 人社受理状态:待审核
      */
     public static final int rensheAcceptStatus_1 = 1;

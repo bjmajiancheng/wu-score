@@ -1,4 +1,4 @@
-package com.wutuobang.score;
+package com.wutuobang.score.biz;
 
 import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.utils.ResultParam;
@@ -42,22 +42,10 @@ public class IdentityInfoBiz {
     private IRegionService regionService;
 
     @Autowired
-    private IBatchConfService batchConfService;
-
-    @Autowired
     private IIndicatorService indicatorService;
 
     @Autowired
-    private IIndicatorItemService indicatorItemService;
-
-    @Autowired
     private IPersonBatchScoreResultService personBatchScoreResultService;
-
-    @Autowired
-    private IAcceptAddressService acceptAddressService;
-
-    @Autowired
-    private IAcceptDateConfService acceptDateConfService;
 
     @Autowired
     private IPersonBatchStatusRecordService personBatchStatusRecordService;
@@ -66,7 +54,7 @@ public class IdentityInfoBiz {
     private IDictService dictService;
 
     @Autowired
-    private IBasicConfService basicConfService;
+    private IIndicatorSelfTestResultService indicatorSelfTestResultService;
 
     /**
      * 新增申请人信息
@@ -91,7 +79,7 @@ public class IdentityInfoBiz {
             identityInfoModel.setUnionApproveStatus1(Constant.unionApproveStatus1_0);//公安预审状态
             identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
             identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_1);//公安前置预审状态
-            identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_1);//人社受理状态
+            identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_0);//人社受理状态:默认值
             identityInfoModel.setAcceptNumber(StringUtils.EMPTY);
             identityInfoModel.setAcceptAddressId(0);
             identityInfoModel.setAcceptAddress(StringUtils.EMPTY);
@@ -287,7 +275,7 @@ public class IdentityInfoBiz {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-    public boolean autoEvaluation(IndicatorView indicatorView, BasicConfModel basicConfModel) throws Exception {
+    public boolean autoEvaluation(IndicatorView indicatorView, BasicConfModel basicConfModel, CompanyInfoModel currUser) throws Exception {
         /**
          * 1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
          * 9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
@@ -297,7 +285,7 @@ public class IdentityInfoBiz {
 
         IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
 
-        List<PersonBatchScoreResultModel> toAddScoreResults = new ArrayList<PersonBatchScoreResultModel>();
+        List<IndicatorSelfTestResultModel> toAddScoreResults = new ArrayList<IndicatorSelfTestResultModel>();
 
         Map<Integer, IndicatorModel> indicatorModelMap = indicatorService.getAllMapIndicator();
 
@@ -385,40 +373,40 @@ public class IdentityInfoBiz {
             }
 
             for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
-                PersonBatchScoreResultModel personBatchScoreResult = new PersonBatchScoreResultModel(
-                        indicatorItemView.getIndicatorId(), indicatorItemView.getIndicatorName(),
-                        indicatorItemView.getScoreValue());
-                if (StringUtils.isNotEmpty(indicatorItemView.getScoreDetail())) {
-                    personBatchScoreResult.setScoreDetail(indicatorItemView.getScoreDetail());
-                } else {
-                    personBatchScoreResult.setScoreDetail(StringUtils.EMPTY);
-                }
                 if (indicatorItemView.getIndicatorItemId() == null) {
-                    personBatchScoreResult.setIndicatorItemId(0);
-                } else {
-                    personBatchScoreResult.setIndicatorItemId(indicatorItemView.getIndicatorItemId());
+                    indicatorItemView.setIndicatorItemId(0);
                 }
-                toAddScoreResults.add(personBatchScoreResult);
+
+                IndicatorSelfTestResultModel indicatorSelfTestResult = new IndicatorSelfTestResultModel(
+                        indicatorItemView.getIndicatorId(), indicatorItemView.getIndicatorItemId(),
+                        indicatorItemView.getIndicatorName(), indicatorItemView.getScoreValue());
+
+                if (StringUtils.isNotEmpty(indicatorItemView.getScoreDetail())) {
+                    indicatorSelfTestResult.setScoreDetail(indicatorItemView.getScoreDetail());
+                } else {
+                    indicatorSelfTestResult.setScoreDetail(StringUtils.EMPTY);
+                }
+
+                toAddScoreResults.add(indicatorSelfTestResult);
             }
         }
 
         BigDecimal totalDecimal = new BigDecimal(0);
         //初始化分数结果信息
         if (CollectionUtils.isNotEmpty(toAddScoreResults)) {
-            for (PersonBatchScoreResultModel scoreResult : toAddScoreResults) {
-                scoreResult.setBatchId(identityInfoModel.getBatchId());
-                scoreResult.setPersonId(identityInfoModel.getId());
-                scoreResult.setPersonName(identityInfoModel.getName());
-                scoreResult.setPersonIdNum(identityInfoModel.getIdNumber());
-                scoreResult.setCtime(currDate);
+            for (IndicatorSelfTestResultModel selfTestResult : toAddScoreResults) {
+                selfTestResult.setBatchId(identityInfoModel.getBatchId());
+                selfTestResult.setPersonId(identityInfoModel.getId());
+                selfTestResult.setCreateTime(currDate);
+                selfTestResult.setAddUser(String.valueOf(currUser.getId()));
 
-                if (scoreResult.getScoreValue() == null) {
-                    scoreResult.setScoreValue(BigDecimal.ZERO);
+                if (selfTestResult.getScoreValue() == null) {
+                    selfTestResult.setScoreValue(BigDecimal.ZERO);
                 }
-                totalDecimal = totalDecimal.add(scoreResult.getScoreValue());
+                totalDecimal = totalDecimal.add(selfTestResult.getScoreValue());
             }
 
-            personBatchScoreResultService.batchInsert(toAddScoreResults);
+            indicatorSelfTestResultService.batchInsert(toAddScoreResults);
         }
 
         //自助测评通过

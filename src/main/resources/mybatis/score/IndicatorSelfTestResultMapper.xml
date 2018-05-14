@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IIndicatorSelfTestResultDao">
+
+    <resultMap id="IndicatorSelfTestResult" type="com.wutuobang.score.model.IndicatorSelfTestResultModel">
+        <result property="id" column="id"/>
+        <result property="batchId" column="batch_id"/>
+        <result property="personId" column="person_id"/>
+        <result property="indicatorId" column="indicator_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="itemValue" column="item_value"/>
+        <result property="scoreValue" column="score_value"/>
+        <result property="scoreDetail" column="score_detail"/>
+        <result property="createTime" column="create_time"/>
+        <result property="addUser" column="add_user"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,batch_id ,person_id ,indicator_id ,item_id ,item_value ,score_value ,score_detail ,create_time ,add_user 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+    <![CDATA[
+        INSERT INTO t_indicator_self_test_result (
+	        id  ,
+	        batch_id  ,
+	        person_id  ,
+	        indicator_id  ,
+	        item_id  ,
+	        item_value  ,
+	        score_value  ,
+	        score_detail  ,
+	        create_time  ,
+	        add_user  
+        ) VALUES (
+        	#{id, jdbcType=INTEGER} ,
+        	#{batchId, jdbcType=INTEGER} ,
+        	#{personId, jdbcType=INTEGER} ,
+        	#{indicatorId, jdbcType=INTEGER} ,
+        	#{itemId, jdbcType=INTEGER} ,
+        	#{itemValue, jdbcType=VARCHAR} ,
+        	#{scoreValue, jdbcType=DECIMAL} ,
+        	#{scoreDetail, jdbcType=VARCHAR} ,
+        	#{createTime, jdbcType=TIMESTAMP} ,
+        	#{addUser, jdbcType=VARCHAR} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_indicator_self_test_result SET
+	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
+	        <if test="personId != null">person_id = #{personId, jdbcType=INTEGER} ,</if>
+	        <if test="indicatorId != null">indicator_id = #{indicatorId, jdbcType=INTEGER} ,</if>
+	        <if test="itemId != null">item_id = #{itemId, jdbcType=INTEGER} ,</if>
+	        <if test="itemValue != null">item_value = #{itemValue, jdbcType=VARCHAR} ,</if>
+	        <if test="scoreValue != null">score_value = #{scoreValue, jdbcType=DECIMAL} ,</if>
+	        <if test="scoreDetail != null">score_detail = #{scoreDetail, jdbcType=VARCHAR} ,</if>
+	        <if test="createTime != null">create_time = #{createTime, jdbcType=TIMESTAMP} ,</if>
+	        <if test="addUser != null">add_user = #{addUser, jdbcType=VARCHAR} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_indicator_self_test_result WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="IndicatorSelfTestResult">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_indicator_self_test_result 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="itemValue != null">
+				AND item_value = #{itemValue}
+			</if>
+			<if test="scoreDetail != null">
+				AND score_detail = #{scoreDetail}
+			</if>
+			<if test="addUser != null">
+				AND add_user = #{addUser}
+			</if>
+			<if test="personId != null">
+				AND person_id = #{personId}
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_indicator_self_test_result <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="IndicatorSelfTestResult">
+    	SELECT <include refid="columns"/> FROM t_indicator_self_test_result 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="IndicatorSelfTestResult">
+	    SELECT <include refid="columns"/> FROM t_indicator_self_test_result 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	<insert id="batchInsert">
+		INSERT INTO t_indicator_self_test_result(batch_id, person_id, indicator_id, item_id, item_value, score_value, score_detail, create_time, add_user)
+		VALUES
+        <foreach collection="selfTestResults" item="item" separator=",">
+			(#{item.batchId}, #{item.personId}, #{item.indicatorId}, #{item.itemId}, #{item.itemValue}, #{item.scoreValue}, #{item.scoreDetail}, #{item.createTime}, #{item.addUser})
+		</foreach>
+	</insert>
+	
+</mapper>
+

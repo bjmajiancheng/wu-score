@@ -4,11 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
-import com.wutuobang.score.IdentityInfoBiz;
+import com.wutuobang.score.biz.IdentityInfoBiz;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
-import com.wutuobang.score.view.IndicatorItemView;
 import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -16,14 +15,10 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -58,12 +53,6 @@ public class IdentityInfoController {
     private IIndicatorService indicatorService;
 
     @Autowired
-    private IIndicatorItemService indicatorItemService;
-
-    @Autowired
-    private IPersonBatchScoreResultService personBatchScoreResultService;
-
-    @Autowired
     private IAcceptAddressService acceptAddressService;
 
     @Autowired
@@ -80,6 +69,9 @@ public class IdentityInfoController {
 
     @Autowired
     private IdentityInfoBiz identityInfoBiz;
+
+    @Autowired
+    private IIndicatorSelfTestResultService indicatorSelfTestResultService;
 
     /**
      * 前往新增用户页面
@@ -300,10 +292,12 @@ public class IdentityInfoController {
         }
 
         try {
+            CompanyInfoModel currUser = ShiroUtils.getUserEntity();
+
             IndicatorView indicatorView = JSON.parseObject(indicatorViewStr, IndicatorView.class);
 
             //自助评测信息
-            boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel);
+            boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel, currUser);
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
@@ -334,19 +328,20 @@ public class IdentityInfoController {
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
             initIdentityInfoAttrs(identityInfo);
 
-            Map<Integer, PersonBatchScoreResultModel> scoreResultMap = personBatchScoreResultService
+            Map<Integer, IndicatorSelfTestResultModel> selfTestResultMap = indicatorSelfTestResultService
                     .findMapByIdentityInfoId(identityInfoId);
 
             List<IndicatorModel> indicatorModels = indicatorService.getAllIndicators();
-            /*indicatorService.initIndicatorView(identityInfo, indicatorModels);*/
+
             //初始化预览自助评测信息
             if (CollectionUtils.isNotEmpty(indicatorModels)) {
                 for (IndicatorModel indicatorModel : indicatorModels) {
-                    PersonBatchScoreResultModel scoreResultModel = scoreResultMap.get((int) indicatorModel.getId());
+                    IndicatorSelfTestResultModel selfTestResultModel = selfTestResultMap
+                            .get((int) indicatorModel.getId());
 
                     //文本框值
-                    if (scoreResultModel.getIndicatorItemId() == 0) {
-                        String scoreDetail = scoreResultModel.getScoreDetail();
+                    if (selfTestResultModel.getItemId() == 0) {
+                        String scoreDetail = selfTestResultModel.getScoreDetail();
                         if (StringUtils.isNotEmpty(scoreDetail)) {
                             indicatorModel.setScoreDetailMap(JSON.parseObject(scoreDetail, Map.class));
                         }
@@ -356,7 +351,7 @@ public class IdentityInfoController {
                     List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
                     if (CollectionUtils.isNotEmpty(indicatorItems)) {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
-                            if ((int) indicatorItem.getId() == scoreResultModel.getIndicatorItemId()) {
+                            if ((int) indicatorItem.getId() == selfTestResultModel.getItemId()) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
                                 break;
