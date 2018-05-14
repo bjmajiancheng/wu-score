@@ -26,11 +26,13 @@
             layer.confirm('是否要关闭当前页？', {
                 btn: ['是','否'] //按钮
             }, function(index){
-                var refer = document.referrer;
-                if(refer) {
-                    window.location.href=refer;
-                } else {
+                if(history.length == 1) {//跳转页面
+                    if(window.opener.component) {
+                        window.opener.component.load();
+                    }
                     window.close();
+                } else {
+                    history.go(-1);
                 }
             }, function(index){
                 layer.close(index);

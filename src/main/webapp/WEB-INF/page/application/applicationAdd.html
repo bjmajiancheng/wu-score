@@ -869,6 +869,7 @@
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
+                window.opener.component.load();
                 window.close();
             });
         });

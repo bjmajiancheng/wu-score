@@ -105,6 +105,7 @@
                     layer.msg('自助测评成功!!', {
                         time: 1000
                     }, function(){
+                        window.opener.component.load();
                         window.close();
                     });
                 });
