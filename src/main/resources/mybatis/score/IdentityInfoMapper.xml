@@ -66,8 +66,6 @@
 	        union_approve_status_2  ,
 	        police_approve_status  ,
 	        renshe_accept_status  ,
-	        accept_address_id  ,
-	        accept_address  ,
 	        c_time  ,
 	        u_time
         ) VALUES (
@@ -90,8 +88,6 @@
         	#{unionApproveStatus2, jdbcType=INTEGER} ,
         	#{policeApproveStatus, jdbcType=INTEGER} ,
         	#{rensheAcceptStatus, jdbcType=INTEGER} ,
-        	#{acceptAddressId, jdbcType=INTEGER} ,
-        	#{acceptAddress, jdbcType=VARCHAR} ,
         	#{ctime, jdbcType=TIMESTAMP} ,
         	#{utime, jdbcType=TIMESTAMP}
         )

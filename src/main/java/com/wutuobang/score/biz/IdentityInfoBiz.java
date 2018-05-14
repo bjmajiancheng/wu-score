@@ -78,13 +78,8 @@ public class IdentityInfoBiz {
             identityInfoModel.setHallStatus(Constant.hallStatus_0);//预约大厅状态
             identityInfoModel.setUnionApproveStatus1(Constant.unionApproveStatus1_0);//公安预审状态
             identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
-            identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_1);//公安前置预审状态
+            identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_0);//公安前置预审状态
             identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_0);//人社受理状态:默认值
-            identityInfoModel.setAcceptNumber(StringUtils.EMPTY);
-            identityInfoModel.setAcceptAddressId(0);
-            identityInfoModel.setAcceptAddress(StringUtils.EMPTY);
-            identityInfoModel.setReservationM(0);
-            identityInfoModel.setScore(BigDecimal.ZERO);
             identityInfoModel.setCtime(currDate);
             identityInfoModel.setUtime(currDate);
 

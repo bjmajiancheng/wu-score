@@ -151,6 +151,11 @@ public class Constant {
     public static final int hallStatus_8 = 8;
 
     /**
+     * 公安前置审核状态:默认
+     */
+    public static final int policeApproveStatus_0 = 0;
+
+    /**
      * 公安前置审核状态:待审核
      */
     public static final int policeApproveStatus_1 = 1;
