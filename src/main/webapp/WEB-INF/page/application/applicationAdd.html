@@ -36,7 +36,7 @@
         <!-- 表单主体部分  用table实现布局 -->
         <div class="integral-cont-table-wrap">
             <form class="identityInfoForm" id="identityInfoForm">
-                <input type="hidden" name="id" value="$!{identityInfo.id}" />
+                <input type="hidden" name="id" value="$!{identityInfo.id}" id="identityInfoId"/>
                 <table class="integral-cont-table">
                     <tr>
                         <td class="color-red"></span>身份证号：</td>
@@ -761,7 +761,7 @@
             if($.trim($(this).val()) == '') {
                 return false;
             }
-            postResultData("${rc.contextPath}/identityInfo/validIdNumber", {"idNumber":$(this).val()}, function(data){
+            postResultData("${rc.contextPath}/identityInfo/validIdNumber", {"idNumber":$(this).val(), "identityInfoId": $("#identityInfoId").val()}, function(data){
                 if(data.validFlag == false) {
                     layer.msg('每期身份必须唯一, 请修改身份证信息!!');
                 }

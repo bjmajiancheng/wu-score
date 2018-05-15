@@ -125,6 +125,11 @@ public class IdentityInfoController {
                 return ResultParam.error("当前没有落户批次信息,请根据落户指标时间填写申请人!!");
             }
 
+            BasicConfModel basicConfModel = basicConfService.findLastConf();
+            if (basicConfModel == null) {
+                return ResultParam.error("当前没有基本设置信息, 请联系管理员配置基本设置信息!!");
+            }
+
             //申请人信息
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
 
@@ -136,6 +141,7 @@ public class IdentityInfoController {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
 
+            identityInfoModel.setAutoTestNum(basicConfModel.getSelfTestLimit());
             boolean addFlag = identityInfoBiz.addIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
             return ResultParam.SUCCESS_RESULT;
@@ -288,7 +294,7 @@ public class IdentityInfoController {
         //基本设置信息
         BasicConfModel basicConfModel = basicConfService.findLastConf();
         if (basicConfModel == null) {
-            return ResultParam.error("请联系管理员配置测评信息");
+            return ResultParam.error("请联系管理员配置测评信息!!");
         }
 
         try {
@@ -296,10 +302,19 @@ public class IdentityInfoController {
 
             IndicatorView indicatorView = JSON.parseObject(indicatorViewStr, IndicatorView.class);
 
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
+            if (identityInfoModel.getAutoTestNum() == 0) {
+                return ResultParam.error("您本期已没有自助评测机会,请下期再进行评测!!");
+            }
+
             //自助评测信息
             boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel, currUser);
-
-            return ResultParam.SUCCESS_RESULT;
+            if (evaluationFlag) {
+                return new ResultParam(ResultParam.SUCCESS, "您已通过测评!!");
+            } else {
+                return new ResultParam(ResultParam.SUCCESS,
+                        "您未通过测评, 您还有" + (identityInfoModel.getAutoTestNum() - 1) + "次测评机会!!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -553,7 +568,8 @@ public class IdentityInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/validIdNumber", method = RequestMethod.POST)
-    public ResultParam validIdNumber(HttpServletRequest request, @RequestParam("idNumber") String idNumber) {
+    public ResultParam validIdNumber(HttpServletRequest request, @RequestParam("idNumber") String idNumber,
+            @RequestParam("identityInfoId") Integer identityInfoId) {
         if (StringUtils.isEmpty(idNumber)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -565,6 +581,9 @@ public class IdentityInfoController {
             Map<String, Object> param = new HashMap<String, Object>();
             param.put("idNumber", idNumber);
             param.put("batchId", batchConfModel.getId());
+            if (identityInfoId != null) {
+                param.put("notId", identityInfoId);
+            }
             List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
 
             return new ResultParam(ResultParam.SUCCESS_RESULT,

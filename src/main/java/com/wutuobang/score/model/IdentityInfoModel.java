@@ -85,6 +85,8 @@ public class IdentityInfoModel implements Serializable {
     private Integer reservationM;//"上午，下午"
 
     private BigDecimal score;//自测分数
+
+    private Integer autoTestNum;//"自助评测限制次数"
     //columns END
 
     //自定义属性 START
@@ -329,6 +331,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setScore(BigDecimal score) {
         this.score = score;
+    }
+
+    public Integer getAutoTestNum() {
+        return autoTestNum;
+    }
+
+    public void setAutoTestNum(Integer autoTestNum) {
+        this.autoTestNum = autoTestNum;
     }
 
     public HouseMoveModel getHouseMoveModel() {

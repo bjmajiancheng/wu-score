@@ -92,6 +92,7 @@ public class IdentityInfoBiz {
                     identityInfoModel.setRegionName(regionModel.getName());
                 }
             }
+
             identityInfoService.insert(identityInfoModel);
 
             //记录状态日志信息
@@ -404,10 +405,11 @@ public class IdentityInfoBiz {
             indicatorSelfTestResultService.batchInsert(toAddScoreResults);
         }
 
+        IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+        updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
+        updateIdentityInfo.setAutoTestNum(1);
         //自助测评通过
         if (totalDecimal.compareTo(basicConfModel.getSelfTestScoreLine()) >= 0) {
-            IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
-            updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_6);
             updateIdentityInfo.setScore(totalDecimal);
             identityInfoService.update(updateIdentityInfo);
@@ -418,9 +420,8 @@ public class IdentityInfoBiz {
                         dictModel, "自助测评通过, 测评分数为:" + totalDecimal.toString());
                 personBatchStatusRecordService.insert(recordModel);
             }
+            return true;
         } else {
-            IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
-            updateIdentityInfo.setId(indicatorView.getIdentityInfoId());
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_5);
             identityInfoService.update(updateIdentityInfo);
 
@@ -431,12 +432,7 @@ public class IdentityInfoBiz {
                         dictModel, "自助测评未通过, 测评分数为:" + totalDecimal.toString());
                 personBatchStatusRecordService.insert(recordModel);
             }
+            return false;
         }
-
-        /*if(true) {
-            throw new Exception("123");
-        }*/
-
-        return true;
     }
 }

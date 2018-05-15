@@ -63,16 +63,16 @@
                         <td>{identityInfo.regionName}</td>
                         <td>{identityInfo.reservaionDateStr}</td>
                         <td>
-                            {\#if identityInfo.reservationStatus == 1}
+                            {\#if identityInfo.reservationStatus == 1 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum > 0)}
                             <span class="integral-table-btn integral-table-btn1 edit" onclick="editIdentityInfo({identityInfo.id})">编辑</span>
                             {/if}
-                            {\#if identityInfo.reservationStatus == 6 || identityInfo.reservationStatus == 9 || identityInfo.reservationStatus == 10 || identityInfo.reservationStatus == 11}
+                            {\#if identityInfo.reservationStatus == 6 || identityInfo.reservationStatus == 9 || identityInfo.reservationStatus == 10 || identityInfo.reservationStatus == 11 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum == 0)}
                             <span class="integral-table-btn integral-table-btn2 view" onclick="evaluationView({identityInfo.id})">查看</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 6}
                             <span class="integral-table-btn integral-table-btn2" onclick="reservationLocation({identityInfo.id})">申请审核</span>
                             {/if}
-                            {\#if identityInfo.reservationStatus == 1}
+                            {\#if identityInfo.reservationStatus == 1 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum > 0)}
                             <span class="integral-table-btn integral-table-btn2" onclick="autoTest({identityInfo.id})">测评</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 10}
