@@ -124,8 +124,15 @@
             if(queryStr == undefined) {
                 queryStr = "";
             }
+            //loading层
+            var index = layer.load(1, {
+                shade: [0.2,'#000'] //0.1透明度的白色背景
+            });
+
             var pageCount = list(1, queryStr);
             showPage(pageCount);
+
+            layer.close(index);
         }
     });
 
@@ -189,6 +196,19 @@
      */
     function editIdentityInfo(id) {
         window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+    }
+
+    /**
+     * 取消预约
+     *
+     * @param id
+     */
+    function cancalReservation(id) {
+        //取消预约
+        postResult("${rc.contextPath}/identityInfo/cancalReservation", {"id": id}, function(data){
+            component.load();
+            layer.alert(data.message);
+        });
     }
 </script>
 

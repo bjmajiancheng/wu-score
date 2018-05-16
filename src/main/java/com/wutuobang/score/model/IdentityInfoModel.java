@@ -87,6 +87,8 @@ public class IdentityInfoModel implements Serializable {
     private BigDecimal score;//自测分数
 
     private Integer autoTestNum;//"自助评测限制次数"
+
+    private Integer reservationTime;//"剩余可预约次数"
     //columns END
 
     //自定义属性 START
@@ -99,6 +101,8 @@ public class IdentityInfoModel implements Serializable {
     private HouseProfessionModel houseProfessionModel;//职业资格证书信息
 
     private String reservaionDateStr;//预约日期
+
+    private Integer reservationDateNull;//设置预约时间为空
     //自定义属性 END
 
     public Integer getId() {
@@ -341,6 +345,14 @@ public class IdentityInfoModel implements Serializable {
         this.autoTestNum = autoTestNum;
     }
 
+    public Integer getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(Integer reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
     public HouseMoveModel getHouseMoveModel() {
         return houseMoveModel;
     }
@@ -392,6 +404,14 @@ public class IdentityInfoModel implements Serializable {
         }
 
         return this.getSex() == 1 ? "男" : "女";
+    }
+
+    public Integer getReservationDateNull() {
+        return reservationDateNull;
+    }
+
+    public void setReservationDateNull(Integer reservationDateNull) {
+        this.reservationDateNull = reservationDateNull;
     }
 }
 

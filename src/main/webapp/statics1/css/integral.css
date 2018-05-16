@@ -1169,6 +1169,7 @@ html {
 }
 
 .appointment-box.active {
+    background-color: rgba(0, 255, 0, 0.99);
     border: 2px solid #FFF8A6;
 }
 /* 名额充足 */

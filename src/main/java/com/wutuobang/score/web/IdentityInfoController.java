@@ -2,6 +2,7 @@ package com.wutuobang.score.web;
 
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
+import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.biz.IdentityInfoBiz;
@@ -515,6 +516,10 @@ public class IdentityInfoController {
                 return ResultParam.error("受理时间选择异常,请重新选择");
             }
 
+            if (identityInfoModel.getReservationTime() <= 0) {
+                return ResultParam.error("该申请人已预约多次, 本期不可预约!!");
+            }
+
             int count = 0;
             //更新预约名额
             if (reservaionM == 1) {
@@ -542,6 +547,7 @@ public class IdentityInfoController {
             String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel);
             updateIdentityInfo.setAcceptNumber(acceptNumber);
             updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
+            updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime() - 1);
 
             identityInfoService.update(updateIdentityInfo);
 
@@ -588,6 +594,69 @@ public class IdentityInfoController {
 
             return new ResultParam(ResultParam.SUCCESS_RESULT,
                     Collections.singletonMap("validFlag", CollectionUtils.isEmpty(identityInfos)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 取消预约
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/cancalReservation", method = RequestMethod.POST)
+    public ResultParam cancalReservation(HttpServletRequest request, @RequestParam("id") Integer id) {
+        if (id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+            //申请人信息
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+
+            if (identityInfoModel.getReservationDate() == null) {
+                return ResultParam.error("申请人未预约,请确认申请人是否已预约!!");
+            }
+
+            Date currDate = new Date();
+
+            Date reservationDate = identityInfoModel.getReservationDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(reservationDate);
+            if (identityInfoModel.getReservationM() == 1) {//上午
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+            } else if (identityInfoModel.getReservationM() == 2) {//下午
+                calendar.set(Calendar.HOUR_OF_DAY, 12);
+            }
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+            IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+            updateIdentityInfo.setId(id);
+            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
+            updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
+            updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
+            updateIdentityInfo.setReservationM(0);
+            updateIdentityInfo.setReservationDateNull(1);
+            updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
+            //可预约状态
+            boolean reservationFlag = true;
+            //预约日期 比 当前日期 小24小时
+            if (currDate.compareTo(calendar.getTime()) >= 0) {
+                reservationFlag = false;
+                updateIdentityInfo.setReservationTime(updateIdentityInfo.getReservationTime() - 1);
+            } /*else {//预约日期 比 当前日期 大24小时
+                updateIdentityInfo.setReservationTime(1);
+            }*/
+
+            int count = identityInfoService.update(updateIdentityInfo);
+
+            return ResultParam.ok("取消预约成功, " + (updateIdentityInfo.getReservationTime() == 1 ?
+                    "此申请人本期还可以预约一次!!" :
+                    "此申请人本期不可再预约!!"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;

@@ -82,6 +82,7 @@ public class IdentityInfoBiz {
             identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_0);//人社受理状态:默认值
             identityInfoModel.setCtime(currDate);
             identityInfoModel.setUtime(currDate);
+            identityInfoModel.setReservationTime(2);
 
             if (identityInfoModel.getHouseMoveModel() != null) {
                 Integer region = identityInfoModel.getHouseMoveModel().getRegion();
