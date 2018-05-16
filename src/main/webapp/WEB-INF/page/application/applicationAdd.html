@@ -869,8 +869,12 @@
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
-                window.opener.component.load();
-                window.close();
+                if(window.opener.component) {
+                    window.opener.component.load();
+                    window.close();
+                } else {
+                    history.go(-1);
+                }
             });
         });
     }

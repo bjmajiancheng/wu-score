@@ -98,15 +98,18 @@
         $("#submit").on("click", function () {
 
             var validateFlag = validateForm();
+
             if(validateFlag) {
                 var formInfo = getFormInfo();
 
                 var captcha = $("input[name=captcha]").val();
-                postResultData("${rc.contextPath}/identityInfo/autoEvaluation", {"indicatorView": JSON.stringify(formInfo), "captcha": captcha}, function (data) {
+                postResult("${rc.contextPath}/identityInfo/autoEvaluation", {"indicatorView": JSON.stringify(formInfo), "captcha": captcha}, function (data) {
                     layer.msg(data.message, {
                         time: 1000
                     }, function(){
-                        window.opener.component.load();
+                        if(window.opener.component) {
+                            window.opener.component.load();
+                        }
                         window.close();
                     });
                 });

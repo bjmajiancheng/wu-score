@@ -79,7 +79,7 @@
                             <span class="integral-table-btn integral-table-btn2" onclick="reservationTime({identityInfo.id})">预约时间</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 11}
-                            <span class="integral-table-btn integral-table-btn2 cancalReservation">取消预约</span>
+                            <span class="integral-table-btn integral-table-btn2" onclick="cancalReservation({identityInfo.id})">取消预约</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 10}
                             <span class="integral-table-btn integral-table-btn2 print">打印</span>

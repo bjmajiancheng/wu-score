@@ -160,8 +160,15 @@ public class IndicatorServiceImpl implements IIndicatorService {
                     case 3:
                         int jobLevel = houseProfession.getJobLevel();
 
+
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobLevel) {
+                                indicatorItem.setChecked(1);
+                                indicatorModel.setDisabled(1);
+                                break;
+                            }
+
+                            if(jobLevel == 0 && indicatorItem.getScore() == 0) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
                                 break;
@@ -182,6 +189,13 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobType) {
                                 indicatorItem.setChecked(1);
+                                indicatorModel.setDisabled(1);
+                                break;
+                            }
+
+                            if(jobType == 0 && indicatorItem.getScore() == 0) {
+                                indicatorItem.setChecked(1);
+                                indicatorModel.setDisabled(1);
                                 break;
                             }
                         }
