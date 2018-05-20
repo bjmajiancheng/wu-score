@@ -23,10 +23,9 @@
 	    ]]>
 	</sql>
 	
-    <insert id="insert" >
+    <insert id="insert" useGeneratedKeys="true" keyProperty="attachmentId">
     <![CDATA[
         INSERT INTO d_attachment (
-	        attachment_id  ,
 	        attachment_name  ,
 	        attachment_type  ,
 	        attachment_suffix  ,
@@ -35,7 +34,6 @@
 	        attachment_size  ,
 	        upload_login_name  
         ) VALUES (
-        	#{attachmentId, jdbcType=INTEGER} ,
         	#{attachmentName, jdbcType=VARCHAR} ,
         	#{attachmentType, jdbcType=INTEGER} ,
         	#{attachmentSuffix, jdbcType=VARCHAR} ,
@@ -92,6 +90,12 @@
 			</if>
 			<if test="uploadLoginName != null">
 				AND upload_login_name = #{uploadLoginName}
+			</if>
+			<if test="ids != null">
+				AND attachment_id IN
+				<foreach collection="ids" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
 			</if>
 	    </where>
 	</sql>

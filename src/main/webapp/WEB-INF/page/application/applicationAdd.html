@@ -677,7 +677,7 @@
             $(form).ajaxSubmit(function (result) {
                 var obj = JSON.parse(result);
                 if (!obj.code) {
-                    $("input[name=id_card_positive]").val(obj.data);
+                    $("input[name=id_card_positive]").val(obj.data.attachmentUrl);
                 } else {
                     layer.msg(obj.msg);
                 }
@@ -699,7 +699,7 @@
             $(form).ajaxSubmit(function (result) {
                 var obj = JSON.parse(result);
                 if (!obj.code) {
-                    $("input[name=id_card_opposite]").val(obj.data);
+                    $("input[name=id_card_opposite]").val(obj.data.attachmentUrl);
                 } else {
                     layer.msg(obj.msg);
                 }

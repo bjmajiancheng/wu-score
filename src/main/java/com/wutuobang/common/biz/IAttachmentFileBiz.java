@@ -42,7 +42,7 @@ public class IAttachmentFileBiz {
      * @return
      * @throws IOException
      */
-    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem) throws IOException {
+    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem, int attachmentType) throws IOException {
         Date currDate = new Date();
 
         String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
@@ -66,7 +66,7 @@ public class IAttachmentFileBiz {
 
         AttachmentModel attachmentModel = new AttachmentModel();
         attachmentModel.setAttachmentName(fileName);
-        attachmentModel.setAttachmentType(0);
+        attachmentModel.setAttachmentType(attachmentType);
         attachmentModel.setAttachmentSuffix(fileExt);
         attachmentModel.setAttachmentPath(savePath + newFileName);
         attachmentModel.setAttachmentUrl(downloadPath + newFileName);

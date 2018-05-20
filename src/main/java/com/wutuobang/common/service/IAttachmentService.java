@@ -27,4 +27,11 @@ public interface IAttachmentService {
 	public int removeById(Integer value);
 
 	public List<AttachmentModel> find(Map<String, Object> param);
+
+	/**
+	 * 根据文件id集合获取文件信息
+	 *
+	 * @return
+     */
+	public Map<Integer, AttachmentModel> findMapByIds(List<Integer> ids);
 }

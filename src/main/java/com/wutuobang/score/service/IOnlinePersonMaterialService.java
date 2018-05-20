@@ -37,4 +37,12 @@ public interface IOnlinePersonMaterialService{
 	 * @return
      */
 	public List<OnlinePersonMaterialModel> getByPersonId(Integer personId);
+
+	/**
+	 * 批量新增申请人信息
+	 *
+	 * @param onlinePersonMaterialModels
+	 * @return
+     */
+	public int batchInsert(List<OnlinePersonMaterialModel> onlinePersonMaterialModels);
 }

@@ -38,6 +38,10 @@ public class MaterialInfoModel implements Serializable {
 
 	private String templateImg;//"模板图片"
 	//columns END
+
+	//自定义属性START
+	private OnlinePersonMaterialModel onlinePersonMaterial;
+	//自定义属性END
 		
 	public void setId(Integer id) {
 		this.id = id;
@@ -101,6 +105,14 @@ public class MaterialInfoModel implements Serializable {
 
 	public void setTemplateImg(String templateImg) {
 		this.templateImg = templateImg;
+	}
+
+	public OnlinePersonMaterialModel getOnlinePersonMaterial() {
+		return onlinePersonMaterial;
+	}
+
+	public void setOnlinePersonMaterial(OnlinePersonMaterialModel onlinePersonMaterial) {
+		this.onlinePersonMaterial = onlinePersonMaterial;
 	}
 }
 

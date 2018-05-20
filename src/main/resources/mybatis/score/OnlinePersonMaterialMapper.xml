@@ -9,6 +9,7 @@
         <result property="id" column="id"/>
         <result property="personId" column="person_id"/>
         <result property="batchId" column="batch_id"/>
+		<result property="materialInfoId" column="material_info_id"/>
         <result property="materialId" column="material_id"/>
         <result property="materialName" column="material_name"/>
         <result property="materialUri" column="material_uri"/>
@@ -19,7 +20,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,person_id ,batch_id ,material_id ,material_name ,material_uri ,status ,c_time 
+        id ,person_id ,batch_id , material_info_id,material_id ,material_name ,material_uri ,status ,c_time
 	    ]]>
 	</sql>
 	
@@ -29,6 +30,7 @@
 	        id  ,
 	        person_id  ,
 	        batch_id  ,
+	        material_info_id  ,
 	        material_id  ,
 	        material_name  ,
 	        material_uri  ,
@@ -38,6 +40,7 @@
         	#{id, jdbcType=INTEGER} ,
         	#{personId, jdbcType=INTEGER} ,
         	#{batchId, jdbcType=INTEGER} ,
+        	#{materialInfoId, jdbcType=INTEGER}
         	#{materialId, jdbcType=INTEGER} ,
         	#{materialName, jdbcType=VARCHAR} ,
         	#{materialUri, jdbcType=VARCHAR} ,
@@ -51,12 +54,14 @@
         UPDATE t_online_person_material SET
 	        <if test="personId != null">person_id = #{personId, jdbcType=INTEGER} ,</if>
 	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
+			<if test="materialInfoId != null">material_info_id = #{materialInfoId, jdbcType=INTEGER} ,</if>
 	        <if test="materialId != null">material_id = #{materialId, jdbcType=INTEGER} ,</if>
 	        <if test="materialName != null">material_name = #{materialName, jdbcType=VARCHAR} ,</if>
 	        <if test="materialUri != null">material_uri = #{materialUri, jdbcType=VARCHAR} ,</if>
 	        <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} </if>
-        WHERE 
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			id = #{id}
+		WHERE
 	        id = #{id} 
     </update>
 
@@ -114,6 +119,14 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<insert id="batchInsert">
+		INSERT INTO t_online_person_material(person_id, batch_id, material_info_id, material_id, material_name, material_uri, status, c_time)
+		VALUES
+		<foreach collection="onlinePersonMaterialModels" item="item" separator=",">
+			(#{item.personId}, #{item.batchId}, #{item.materialInfoId}, #{item.materialId}, #{item.materialName}, #{item.materialUri}, #{item.status}, #{item.ctime})
+		</foreach>
+	</insert>
 	
 </mapper>
 

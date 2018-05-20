@@ -56,10 +56,44 @@ public class FileUploadController {
             }
 
             AttachmentModel attachmentFile = attachmentFileBiz
-                    .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO);
+                    .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO, 0);
 
-            ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!",
-                    attachmentFile.getAttachmentUrl());
+            ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!", attachmentFile);
+            writer.println(JSON.toJSONString(param));
+
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("系统异常, 请稍后重试!!");
+            return;
+        }
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/fileUpload/updateFile", method = RequestMethod.POST)
+    public void updateFile(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(value = "file", required = true) MultipartFile file) throws IOException {
+
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
+
+        PrintWriter writer = response.getWriter();
+        try {
+            if (file == null || file.isEmpty()) {
+                writer.println(JSON.toJSONString(ResultParam.error("请选择文件!!!")));
+                return;
+            }
+
+            AttachmentModel attachmentFile = attachmentFileBiz
+                    .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO, 1);
+
+            ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "文件上传成功!!", attachmentFile);
             writer.println(JSON.toJSONString(param));
 
             return;

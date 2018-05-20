@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,6 +76,20 @@ public class OnlinePersonMaterialServiceImpl implements IOnlinePersonMaterialSer
 		}
 
 		return this.find(Collections.singletonMap("personId", (Object)personId));
+	}
+
+	/**
+	 * 批量新增申请人信息
+	 *
+	 * @param onlinePersonMaterialModels
+	 * @return
+	 */
+	public int batchInsert(List<OnlinePersonMaterialModel> onlinePersonMaterialModels) {
+		if(CollectionUtils.isEmpty(onlinePersonMaterialModels)) {
+			return 0;
+		}
+
+		return onlinePersonMaterialDao.batchInsert(onlinePersonMaterialModels);
 	}
 	
 }

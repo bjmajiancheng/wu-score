@@ -28,6 +28,8 @@ public class OnlinePersonMaterialModel implements Serializable {
 
 	private Integer batchId;//"批次ID"
 
+	private Integer materialInfoId;//"材料信息Id"
+
 	private Integer materialId;//"材料ID"
 
 	private String materialName;//"材料名称"
@@ -37,7 +39,6 @@ public class OnlinePersonMaterialModel implements Serializable {
 	private Integer status;//"材料状态"
 
 	private Date ctime;//"创建时间"
-
 	//columns END
 		
 	public void setId(Integer id) {
@@ -63,7 +64,15 @@ public class OnlinePersonMaterialModel implements Serializable {
 	public Integer getBatchId() {
 		return this.batchId;
 	}
-		
+
+	public Integer getMaterialInfoId() {
+		return materialInfoId;
+	}
+
+	public void setMaterialInfoId(Integer materialInfoId) {
+		this.materialInfoId = materialInfoId;
+	}
+
 	public void setMaterialId(Integer materialId) {
 		this.materialId = materialId;
 	}
@@ -102,12 +111,6 @@ public class OnlinePersonMaterialModel implements Serializable {
 
 	public Date getCtime() {
 		return this.ctime;
-	}
-
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
 	}
 }
 
