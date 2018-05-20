@@ -13,12 +13,13 @@
         <result property="addUser" column="add_user"/>
         <result property="titleId" column="title_id"/>
         <result property="title" column="title"/>
+		<result property="templateImg" column="template_img" />
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,name ,note ,create_time ,add_user ,title_id ,title 
+        id ,name ,note ,create_time ,add_user ,title_id ,title ,template_img
 	    ]]>
 	</sql>
 	
@@ -31,7 +32,8 @@
 	        create_time  ,
 	        add_user  ,
 	        title_id  ,
-	        title  
+	        title  ,
+	        template_img
         ) VALUES (
         	#{id, jdbcType=INTEGER} ,
         	#{name, jdbcType=VARCHAR} ,
@@ -39,7 +41,8 @@
         	#{createTime, jdbcType=TIMESTAMP} ,
         	#{addUser, jdbcType=VARCHAR} ,
         	#{titleId, jdbcType=INTEGER} ,
-        	#{title, jdbcType=VARCHAR} 
+        	#{title, jdbcType=VARCHAR} ,
+        	#{templateImg, jdbcType=VARCHAR}
         )
     ]]>
     </insert>
@@ -51,7 +54,9 @@
 	        <if test="createTime != null">create_time = #{createTime, jdbcType=TIMESTAMP} ,</if>
 	        <if test="addUser != null">add_user = #{addUser, jdbcType=VARCHAR} ,</if>
 	        <if test="titleId != null">title_id = #{titleId, jdbcType=INTEGER} ,</if>
-	        <if test="title != null">title = #{title, jdbcType=VARCHAR} </if>
+			<if test="title != null">title = #{title, jdbcType=VARCHAR} ,</if>
+			<if test="templateImg != null">template_img = #{templateImg, jdbcType=VARCHAR} ,</if>
+			id = #{id}
         WHERE 
 	        id = #{id} 
     </update>
@@ -74,18 +79,18 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="name != null">
-						AND name = #{name}
-					</if>
-					<if test="note != null">
-						AND note = #{note}
-					</if>
-					<if test="addUser != null">
-						AND add_user = #{addUser}
-					</if>
-					<if test="title != null">
-						AND title = #{title}
-					</if>
+			<if test="name != null">
+				AND name = #{name}
+			</if>
+			<if test="note != null">
+				AND note = #{note}
+			</if>
+			<if test="addUser != null">
+				AND add_user = #{addUser}
+			</if>
+			<if test="title != null">
+				AND title = #{title}
+			</if>
 	    </where>
 	</sql>
 	 

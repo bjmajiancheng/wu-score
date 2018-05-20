@@ -72,6 +72,9 @@
                             {\#if identityInfo.reservationStatus == 6}
                             <span class="integral-table-btn integral-table-btn2" onclick="reservationLocation({identityInfo.id})">申请审核</span>
                             {/if}
+                            {\#if identityInfo.reservationStatus == 6}
+                            <span class="integral-table-btn integral-table-btn2" onclick="uploadFile({identityInfo.id})">材料上传</span>
+                            {/if}
                             {\#if identityInfo.reservationStatus == 1 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum > 0)}
                             <span class="integral-table-btn integral-table-btn2" onclick="autoTest({identityInfo.id})">测评</span>
                             {/if}
@@ -209,6 +212,15 @@
             component.load();
             layer.alert(data.message);
         });
+    }
+
+    /**
+     * 材料上传
+     *
+     * @param id
+     */
+    function uploadFile(id) {
+        window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
     }
 </script>
 

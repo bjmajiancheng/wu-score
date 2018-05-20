@@ -100,7 +100,7 @@
                     <tr>
                         <td class="color-red">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>
-                            <input class="integral-input w450" type="text" id="age" name="age" value="$!{identityInfo.age}">
+                            <input class="integral-input w450" type="number" id="age" name="age" value="$!{identityInfo.age}">
                         </td>
                     </tr>
                     <tr>
@@ -782,6 +782,19 @@
      */
     function submit() {
         var formInfo = getFormInfo();
+
+        postResultData(url, formInfo, function(data){
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+                if(window.opener.component) {
+                    window.opener.component.load();
+                    window.close();
+                } else {
+                    history.go(-1);
+                }
+            });
+        });
     }
 
     /**
@@ -789,6 +802,21 @@
      */
     function submitAndContinue() {
         var formInfo = getFormInfo();
+
+        postResultData(url, formInfo, function(data){
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+                window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
+
+                if(window.opener.component) {
+                    window.opener.component.load();
+                    window.close();
+                } else {
+                    history.go(-1);
+                }
+            });
+        });
     }
 
     /**
@@ -865,18 +893,9 @@
             url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
         }
 
-        postResultData(url, {"identityInfoJson": identityInfoJson, "captcha": captcha}, function(data){
-            layer.msg('保存成功!!', {
-                time: 1000
-            }, function () {
-                if(window.opener.component) {
-                    window.opener.component.load();
-                    window.close();
-                } else {
-                    history.go(-1);
-                }
-            });
-        });
+        var formData = {"identityInfoJson": identityInfoJson, "captcha": captcha};
+
+        return formData;
     }
 
     /**

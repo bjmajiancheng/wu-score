@@ -36,6 +36,7 @@ public class MaterialInfoModel implements Serializable {
 
 	private String title;//"材料标题"
 
+	private String templateImg;//"模板图片"
 	//columns END
 		
 	public void setId(Integer id) {
@@ -94,10 +95,12 @@ public class MaterialInfoModel implements Serializable {
 		return this.title;
 	}
 
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
+	public String getTemplateImg() {
+		return templateImg;
+	}
+
+	public void setTemplateImg(String templateImg) {
+		this.templateImg = templateImg;
 	}
 }
 

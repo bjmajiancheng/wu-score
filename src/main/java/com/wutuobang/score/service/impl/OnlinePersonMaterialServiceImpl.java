@@ -62,5 +62,19 @@ public class OnlinePersonMaterialServiceImpl implements IOnlinePersonMaterialSer
 	public List<OnlinePersonMaterialModel> find(Map<String, Object> param) {
 		return onlinePersonMaterialDao.find(param);
 	}
+
+	/**
+	 * 根据申请人id获取上传资料信息
+	 *
+	 * @param personId
+	 * @return
+	 */
+	public List<OnlinePersonMaterialModel> getByPersonId(Integer personId) {
+		if(personId == null) {
+			return Collections.emptyList();
+		}
+
+		return this.find(Collections.singletonMap("personId", (Object)personId));
+	}
 	
 }

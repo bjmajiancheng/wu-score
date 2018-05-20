@@ -78,12 +78,15 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="materialName != null">
-						AND material_name = #{materialName}
-					</if>
-					<if test="materialUri != null">
-						AND material_uri = #{materialUri}
-					</if>
+			<if test="materialName != null">
+				AND material_name = #{materialName}
+			</if>
+			<if test="materialUri != null">
+				AND material_uri = #{materialUri}
+			</if>
+			<if test="personId != null">
+				AND person_id = #{personId}
+			</if>
 	    </where>
 	</sql>
 	 

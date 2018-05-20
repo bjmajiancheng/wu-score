@@ -29,4 +29,12 @@ public interface IOnlinePersonMaterialService{
 	public int removeById(Integer value);
 
 	public List<OnlinePersonMaterialModel> find(Map<String, Object> param);
+
+	/**
+	 * 根据申请人id获取上传资料信息
+	 *
+	 * @param personId
+	 * @return
+     */
+	public List<OnlinePersonMaterialModel> getByPersonId(Integer personId);
 }

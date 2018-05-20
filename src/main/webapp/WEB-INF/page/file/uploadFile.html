@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<title>申请人材料上传</title>
+#parse("common/header.html")
+</head>
+
+<body>
+<!-- banner和title部分 -->
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+    <div class="integral-cont">
+        <!-- 申请人材料上传 -->
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head title-bar-cjwt">申请人材料上传</div>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title">
+            申请人材料上传
+        </div>
+        <!-- 政策表格 -->
+        <table class="integral-table">
+            <tbody>
+            <tr>
+                <th>材料清单</th>
+                <th>操作</th>
+                <th>上传查看</th>
+                <th>模板样式</th>
+            </tr>
+            #foreach(${materialInfo} in ${materialInfos})
+            <tr>
+                <td>${materialInfo.name}</td>
+                <td><span class="integral-table-btn td_upload integral-table-btn2">上传</span>
+                    <input class="upload_input" type="file">
+                </td>
+                <td><a class="integral-table-btn integral-table-btn2">查看</a></td>
+                <td><a class="integral-table-btn integral-table-btn2 viewTemplate" herf="javascript:void(0);" templateImg="$!{materialInfo.templateImg}">查看模板</a></td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+
+        <!-- 验证码和底部按钮 -->
+        <table class="check-table">
+            <tr>
+                <td>
+                    <span class="color-red">*</span>验证码：
+                </td>
+                <td>
+                    <input class="integral-input w200" type="text" name="captcha">
+                    <div class="checkimg">
+                        <img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="click_me">
+                    </div>
+                    <span class="click_me">看不清点我</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 保存按钮 -->
+        <div class="integral-bottom-btn-group mt150">
+            <div class="interal-main-btn big-btn m15" id="save">保存</div>
+            <div class="interal-main-btn big-btn interal-main-btn2 ml50" id="cancel">返回</div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function(){
+        //页面层-自定义
+
+        $(".viewTemplate").on("click", function(){
+            var templateImg = $(this).attr("templateImg");
+
+            if(templateImg != '') {
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    shadeClose: true,
+                    skin: 'yourclass',
+                    content: '<img src="'+templateImg+'"/>'
+                });
+            } else {
+                layer.msg("该材料没有模板,请通知管理员进行上传!!");
+            }
+        });
+    });
+</script>
+
+</html>
