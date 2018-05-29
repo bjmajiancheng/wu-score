@@ -46,6 +46,7 @@
                                            #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
                                     <label for="indicator_item_$!{indicatorItem.id}">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
                                     </span>
+                                    <br/>
                                 #end
                             #elseif(${indicatorModel.itemType} == 1)
                                 #if(${indicatorModel.indexNum} == 4)
@@ -107,10 +108,14 @@
                     layer.msg(data.message, {
                         time: 1000
                     }, function(){
-                        if(window.opener.component) {
-                            window.opener.component.load();
+                        if(data.message == '您已通过测评!!') {
+                            window.location.href = "${rc.contextPath}/materialInfo/updateFile/"+$("input[name=identityInfoId]").val()+".html";
+                        } else {
+                            if(window.opener.component) {
+                                window.opener.component.load();
+                            }
+                            window.close();
                         }
-                        window.close();
                     });
                 });
             }
