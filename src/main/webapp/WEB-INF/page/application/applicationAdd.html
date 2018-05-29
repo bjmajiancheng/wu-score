@@ -782,6 +782,10 @@
      */
     function submit() {
         var formInfo = getFormInfo();
+        var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
+        if('${addFlag}' == 'false') {
+            url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
+        }
 
         postResultData(url, formInfo, function(data){
             layer.msg('保存成功!!', {
@@ -802,6 +806,11 @@
      */
     function submitAndContinue() {
         var formInfo = getFormInfo();
+
+        var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
+        if('${addFlag}' == 'false') {
+            url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
+        }
 
         postResultData(url, formInfo, function(data){
             layer.msg('保存成功!!', {
@@ -888,10 +897,6 @@
         var captcha = $("input[name=captcha]").val();
 
         var identityInfoJson = JSON.stringify(identityInfo);
-        var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
-        if('${addFlag}' == 'false') {
-            url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
-        }
 
         var formData = {"identityInfoJson": identityInfoJson, "captcha": captcha};
 
