@@ -275,6 +275,25 @@
       <artifactId>freemarker</artifactId>
       <version>${freemarker-version}</version>
     </dependency>
+
+    <!-- web service所需jar包 -->
+    <dependency>
+      <groupId>com.alibaba.csb.sdk</groupId>
+      <artifactId>ws-client</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>axis</groupId>
+      <artifactId>axis</artifactId>
+      <version>1.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.axis</groupId>
+      <artifactId>axis-jaxrpc</artifactId>
+      <version>1.4</version>
+    </dependency>
   </dependencies>
 
   <profiles>
