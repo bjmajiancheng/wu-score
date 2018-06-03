@@ -43,7 +43,7 @@
 	        review_time  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_identity_period_review_seq.nextval ,
         	#{applyType, jdbcType=INTEGER} ,
         	#{applyReason, jdbcType=INTEGER} ,
         	#{applyRemark, jdbcType=VARCHAR} ,

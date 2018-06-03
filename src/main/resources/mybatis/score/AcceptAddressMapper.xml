@@ -25,7 +25,7 @@
 	        address  ,
 	        address_detail  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_accept_address_seq.nextval ,
         	#{address, jdbcType=VARCHAR} ,
         	#{addressDetail, jdbcType=VARCHAR} 
         )

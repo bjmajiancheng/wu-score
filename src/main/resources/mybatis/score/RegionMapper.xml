@@ -27,7 +27,7 @@
 	        parent_id  ,
 	        level  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_region_seq.nextval ,
         	#{name, jdbcType=VARCHAR} ,
         	#{parentId, jdbcType=INTEGER} ,
         	#{level, jdbcType=INTEGER} 

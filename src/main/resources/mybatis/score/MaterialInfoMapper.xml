@@ -35,7 +35,7 @@
 	        title  ,
 	        template_img
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_material_info_seq.nextval ,
         	#{name, jdbcType=VARCHAR} ,
         	#{note, jdbcType=VARCHAR} ,
         	#{createTime, jdbcType=TIMESTAMP} ,

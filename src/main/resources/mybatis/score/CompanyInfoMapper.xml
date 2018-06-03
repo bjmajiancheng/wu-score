@@ -43,7 +43,7 @@
 	        remark  ,
 	        create_time
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_company_info_seq.nextval ,
         	#{userName, jdbcType=VARCHAR} ,
         	#{password, jdbcType=VARCHAR} ,
         	#{companyName, jdbcType=VARCHAR} ,

@@ -55,7 +55,7 @@
 	        status  ,
 	        process  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_batch_conf_seq.nextval ,
         	#{batchName, jdbcType=VARCHAR} ,
         	#{batchNumber, jdbcType=VARCHAR} ,
         	#{applyBegin, jdbcType=DATE} ,
@@ -159,9 +159,9 @@
     </select>
 
 	<select id="getBatchInfoByDate" resultMap="BatchConf">
-		SELECT <include refid="columns"/> FROM t_batch_conf
+		SELECT * FROM (SELECT <include refid="columns"/> FROM t_batch_conf
 		where status = 1
-		order by id desc limit 1
+		order by id desc ) WHERE ROWNUM=1
 	</select>
 
 </mapper>

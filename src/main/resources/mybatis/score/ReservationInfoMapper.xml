@@ -55,7 +55,7 @@
 	        socore_status  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_reservation_info_seq.nextval ,
         	#{periodId, jdbcType=INTEGER} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{registerCode, jdbcType=VARCHAR} ,

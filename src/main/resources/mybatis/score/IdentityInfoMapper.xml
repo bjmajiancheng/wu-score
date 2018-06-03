@@ -73,7 +73,7 @@
 	        auto_test_num  ,
 	        reservation_time
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_identity_info_seq.nextval ,
         	#{idNumber, jdbcType=VARCHAR} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{companyId, jdbcType=INTEGER} ,
@@ -203,7 +203,6 @@
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
-		LIMIT #{start}, #{pageSize}
     </select>
 
 	

@@ -16,6 +16,7 @@ import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.score.model.CompanyInfoModel;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,15 +86,16 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
             param.put("queryStr", "%" + queryStr + "%");
         }
 
-        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
-        param.put("pageSize", CommonConstant.PAGE_SIZE);
+        /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);*/
         int pageCount = identityInfoDao.findPageCount(param);
         if (pageCount < 0) {
             return new PageData<IdentityInfoModel>();
         }
         param.put("sortColumns", "id ASC");
 
-        List<IdentityInfoModel> identityInfos = identityInfoDao.findPage(param);
+        List<IdentityInfoModel> identityInfos = identityInfoDao
+                .findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
 
         PageData<IdentityInfoModel> identityInfoPageData = new PageData<IdentityInfoModel>();
         identityInfoPageData.setData(identityInfos);
@@ -113,7 +115,8 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
             return "";
         }
 
-        String acceptNumber = "00000000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
+        String acceptNumber =
+                "00000000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
         acceptNumber = acceptNumber.substring(acceptNumber.length() - 8, acceptNumber.length());
 
         return acceptNumber;

@@ -39,7 +39,7 @@
 	        create_time  ,
 	        add_user  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_self_test_result_seq.nextval ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{personId, jdbcType=INTEGER} ,
         	#{indicatorId, jdbcType=INTEGER} ,
@@ -127,10 +127,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_indicator_self_test_result(batch_id, person_id, indicator_id, item_id, item_value, score_value, score_detail, create_time, add_user)
+		INSERT INTO t_indicator_self_test_result(id, batch_id, person_id, indicator_id, item_id, item_value, score_value, score_detail, create_time, add_user)
 		VALUES
         <foreach collection="selfTestResults" item="item" separator=",">
-			(#{item.batchId}, #{item.personId}, #{item.indicatorId}, #{item.itemId}, #{item.itemValue}, #{item.scoreValue}, #{item.scoreDetail}, #{item.createTime}, #{item.addUser})
+			(t_self_test_result_seq.nextval, #{item.batchId}, #{item.personId}, #{item.indicatorId}, #{item.itemId}, #{item.itemValue}, #{item.scoreValue}, #{item.scoreDetail}, #{item.createTime}, #{item.addUser})
 		</foreach>
 	</insert>
 	

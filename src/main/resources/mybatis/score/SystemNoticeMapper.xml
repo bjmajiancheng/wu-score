@@ -31,7 +31,7 @@
 	        author  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_system_notice_seq.nextval ,
         	#{title, jdbcType=VARCHAR} ,
         	#{content, jdbcType=VARCHAR} ,
         	#{type, jdbcType=INTEGER} ,

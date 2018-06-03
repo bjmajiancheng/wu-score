@@ -57,7 +57,7 @@
 	        son_number  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_house_move_seq.nextval ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{moveProvince, jdbcType=INTEGER} ,
         	#{moveCity, jdbcType=INTEGER} ,

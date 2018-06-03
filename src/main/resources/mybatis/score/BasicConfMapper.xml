@@ -33,7 +33,7 @@
 	        publish_day  ,
 	        notice_day  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_basic_conf_seq.nextval ,
         	#{selfTestScoreLine, jdbcType=DECIMAL} ,
         	#{selfTestLimit, jdbcType=INTEGER} ,
         	#{appointmentLimit, jdbcType=INTEGER} ,

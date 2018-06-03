@@ -31,7 +31,7 @@
 	        is_commit  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_identity_period_file_seq.nextval ,
         	#{periodId, jdbcType=INTEGER} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{fileId, jdbcType=INTEGER} ,

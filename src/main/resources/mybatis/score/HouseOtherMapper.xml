@@ -38,6 +38,7 @@
     <insert id="insert" >
     <![CDATA[
         INSERT INTO t_house_other (
+        	id ,
 	        identity_info_id  ,
 	        applicant_type  ,
 	        political_status  ,
@@ -58,6 +59,7 @@
 	        awards_title  ,
 	        c_time  
         ) VALUES (
+        	t_house_other_seq.nextval  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{applicantType, jdbcType=INTEGER} ,
         	#{politicalStatus, jdbcType=INTEGER} ,

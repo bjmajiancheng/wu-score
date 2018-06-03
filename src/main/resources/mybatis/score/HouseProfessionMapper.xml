@@ -41,7 +41,7 @@
 	        job_type  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_house_profession_seq.nextval ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{professionType, jdbcType=INTEGER} ,
         	#{jobTitleLevel, jdbcType=INTEGER} ,

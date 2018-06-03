@@ -285,12 +285,10 @@
                             <td>
                                 <input class="table_add_input" type="text" name="idNumber" value="$!{houseRelationship.idNumber}">
                             </td>
-                            <td>
-                                <input type="radio" name="isRemove" value="1" id="radio11" #if(${houseRelationship.isRemove} == 1) checked #end>
-                                <label for="radio11">是</label>
-                                <input class="m15" type="radio" name="isRemove" value="2" id="radio12" #if(${houseRelationship.isRemove} == 2) checked #end>
-                                <label for="radio12">否</label>
-                            </td>
+                            <td><input type="radio" name="isRemove${velocityCount}" value="1" id="isRemove1${velocityCount}" #if(${houseRelationship.isRemove} == 1) checked #end>
+                                <label for="isRemove1${velocityCount}">是</label>
+                                <input class="m15" type="radio" name="isRemove${velocityCount}" value="2" id="isRemove2${velocityCount}" #if(${houseRelationship.isRemove} == 2) checked #end>
+                                <label for="isRemove2${velocityCount}">否</label></td>
                             <td>
                                 <input class="table_add_input" type="text" name="cultureDegree" value="$!{houseRelationship.cultureDegree}">
                             </td>
@@ -564,7 +562,7 @@
 </body>
 <script type="text/javascript" src="${rc.contextPath}/$static.curr_ver()/js/jquery.form.min.js"></script>
 <script type="text/javascript">
-    var relation_idx = 1;
+    var relation_idx = $("tr.houseRelationship").length+1;
 
     $(function () {
 
@@ -639,8 +637,8 @@
                 html.push('</td>');
                 html.push('<td><input class="table_add_input" type="text" name="name"></td>');
                 html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
-                html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove' + relation_idx + '_yes"><label for="isRemove' + relation_idx + '_yes">是</label>');
-                html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove' + relation_idx + '_no"><label for="isRemove' + relation_idx + '_no">否</label></td>');
+                html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove1' + relation_idx + '_yes"><label for="isRemove1' + relation_idx + '_yes">是</label>');
+                html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove2' + relation_idx + '_no"><label for="isRemove2' + relation_idx + '_no">否</label></td>');
                 html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
                 html.push('</tr>');
                 $(".houseRelationships").append(html.join(''));
@@ -782,6 +780,10 @@
      */
     function submit() {
         var formInfo = getFormInfo();
+        if(formInfo == false) {
+            return false;
+        }
+
         var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
         if('${addFlag}' == 'false') {
             url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
@@ -806,6 +808,9 @@
      */
     function submitAndContinue() {
         var formInfo = getFormInfo();
+        if(formInfo == false) {
+            return false;
+        }
 
         var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
         if('${addFlag}' == 'false') {
@@ -845,6 +850,44 @@
             validateFlag = false;
         }
 
+        $(".houseRelationship").each(function () {
+            var relationship = $(this).find("select[name=relationship]").val();
+            var name = $(this).find("input[name=name]").val();
+            var idNumber = $(this).find("input[name=idNumber]").val();
+            var isRemove = $(this).find("input[type=radio]:checked").val();
+            var cultureDegree = $(this).find("input[name=cultureDegree]").val();
+
+            if($.trim(name) == '') {
+                layer.msg("请填写姓名。");
+                $(this).find("input[name=name]").focus();
+                validateFlag = false;
+                return false;
+            }
+
+            var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            if(!pattern.test(idNumber)) {
+                layer.msg("身份证格式不正确。");
+                $(this).find("input[name=idNumber]").focus();
+                validateFlag = false;
+                return false;
+            }
+
+            debugger;
+            if(!isRemove) {
+                layer.msg("请填写是否随迁。");
+                $(this).find("input[name=isRemove]").focus();
+                validateFlag = false;
+                return false;
+            }
+
+            if($.trim(cultureDegree) == '') {
+                layer.msg("请填写文化程度。");
+                $(this).find("input[name=cultureDegree]").focus();
+                validateFlag = false;
+                return false;
+            }
+        });
+
         if(!validateFlag) {
             return false;
         }
@@ -872,7 +915,7 @@
             var relationship = $(this).find("select[name=relationship]").val();
             var name = $(this).find("input[name=name]").val();
             var idNumber = $(this).find("input[name=idNumber]").val();
-            var isRemove = $(this).find("input[type=radio]").val();
+            var isRemove = $(this).find("input[type=radio]:checked").val();
             var cultureDegree = $(this).find("input[name=cultureDegree]").val();
 
             var houseRelationship = {

@@ -41,7 +41,7 @@
 	        score_detail  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_score_result_seq.nextval ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{indicatorId, jdbcType=INTEGER} ,
         	#{indicatorName, jdbcType=VARCHAR} ,
@@ -134,10 +134,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_person_batch_score_result(batch_id, indicator_id, indicator_name, indicator_item_id, person_id, person_name,
+		INSERT INTO t_person_batch_score_result(id, batch_id, indicator_id, indicator_name, indicator_item_id, person_id, person_name,
 	        person_id_num, score_value, score_detail, c_time) VALUES
 	    <foreach collection="personBatchScoreResults" item="item" separator=",">
-			(#{item.batchId}, #{item.indicatorId}, #{item.indicatorName}, #{item.indicatorItemId}, #{item.personId}, #{item.personName}, #{item.personIdNum}, #{item.scoreValue},
+			(t_score_result_seq.id, #{item.batchId}, #{item.indicatorId}, #{item.indicatorName}, #{item.indicatorItemId}, #{item.personId}, #{item.personName}, #{item.personIdNum}, #{item.scoreValue},
 			#{item.scoreDetail}, #{item.ctime})
 		</foreach>
 	</insert>

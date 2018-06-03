@@ -39,7 +39,7 @@
 	        status_time  ,
 	        status_reason  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_status_record_seq.nextval ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{personId, jdbcType=INTEGER} ,
         	#{personIdNumber, jdbcType=VARCHAR} ,
@@ -130,10 +130,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_person_batch_status_record(batch_id, person_id, person_id_number, status_dict_alias, status_type_desc, status_int,
+		INSERT INTO t_person_batch_status_record(id, batch_id, person_id, person_id_number, status_dict_alias, status_type_desc, status_int,
 	        status_str, status_time, status_reason) VALUES
 	  	<foreach collection="personBatchStatusRecords" item="item" separator=",">
-			(#{item.batchId}, #{item.personId}, #{item.personIdNumber}, #{item.statusDictAlias}, #{item.statusTypeDesc}, #{item.statusInt},
+			(t_status_record_seq.nextval, #{item.batchId}, #{item.personId}, #{item.personIdNumber}, #{item.statusDictAlias}, #{item.statusTypeDesc}, #{item.statusInt},
 			#{item.statusStr}, #{item.statusTime}, #{item.statusReason})
 		</foreach>
 	</insert>

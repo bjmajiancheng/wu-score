@@ -31,7 +31,7 @@
 	        value  ,
 	        sort  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	d_dict_seq.nextval ,
         	#{alias, jdbcType=VARCHAR} ,
         	#{aliasName, jdbcType=VARCHAR} ,
         	#{text, jdbcType=VARCHAR} ,

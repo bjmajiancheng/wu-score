@@ -37,7 +37,7 @@
 	        create_time  ,
 	        add_user  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_indicator_seq.nextval ,
         	#{category, jdbcType=VARCHAR} ,
         	#{indexNum, jdbcType=INTEGER} ,
         	#{name, jdbcType=VARCHAR} ,

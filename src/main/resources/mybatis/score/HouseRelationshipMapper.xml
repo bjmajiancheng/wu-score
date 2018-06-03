@@ -35,7 +35,7 @@
 	        culture_degree  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_house_relationship_seq.nextval ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{relationship, jdbcType=VARCHAR} ,
         	#{name, jdbcType=VARCHAR} ,
@@ -120,10 +120,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_house_relationship(identity_info_id, relationship, name, id_number, is_remove, culture_degree)
+		INSERT INTO t_house_relationship(id, identity_info_id, relationship, name, id_number, is_remove, culture_degree)
 		VALUES
 		<foreach collection="houseRelationships" item="item" separator=",">
-			(#{item.identityInfoId}, #{item.relationship}, #{item.name}, #{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})
+			(t_house_relationship_seq.nextval, #{item.identityInfoId}, #{item.relationship}, #{item.name}, #{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})
 		</foreach>
 	</insert>
 

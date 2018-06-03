@@ -37,7 +37,7 @@
 	        status  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_online_person_material_seq.nextval ,
         	#{personId, jdbcType=INTEGER} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{materialInfoId, jdbcType=INTEGER}
@@ -121,10 +121,10 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_online_person_material(person_id, batch_id, material_info_id, material_id, material_name, material_uri, status, c_time)
+		INSERT INTO t_online_person_material(id, person_id, batch_id, material_info_id, material_id, material_name, material_uri, status, c_time)
 		VALUES
 		<foreach collection="onlinePersonMaterialModels" item="item" separator=",">
-			(#{item.personId}, #{item.batchId}, #{item.materialInfoId}, #{item.materialId}, #{item.materialName}, #{item.materialUri}, #{item.status}, #{item.ctime})
+			(t_online_person_material_seq.nextval, #{item.personId}, #{item.batchId}, #{item.materialInfoId}, #{item.materialId}, #{item.materialName}, #{item.materialUri}, #{item.status}, #{item.ctime})
 		</foreach>
 	</insert>
 	

@@ -39,7 +39,7 @@
 	        review_reason_id  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_identity_score_seq.nextval ,
         	#{identityPeriodId, jdbcType=INTEGER} ,
         	#{questionNo, jdbcType=INTEGER} ,
         	#{questionId, jdbcType=INTEGER} ,

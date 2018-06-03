@@ -27,7 +27,7 @@
 	        answer  ,
 	        c_time  
         ) VALUES (
-        	#{id, jdbcType=INTEGER} ,
+        	t_common_question_seq.nextval ,
         	#{question, jdbcType=VARCHAR} ,
         	#{answer, jdbcType=VARCHAR} ,
         	#{ctime, jdbcType=TIMESTAMP} 
