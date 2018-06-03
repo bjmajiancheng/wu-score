@@ -14,6 +14,7 @@ import java.util.Set;
 
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,15 +77,15 @@ public class CommonQuestionServiceImpl implements ICommonQuestionService {
      */
     public PageData<CommonQuestionModel> findPage(Integer pageNo) {
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
-        param.put("pageSize", CommonConstant.PAGE_SIZE);
+        /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);*/
         int pageCount = this.commonQuestionDao.findPageCount(param);
 
         if (pageCount == 0) {
             return new PageData<CommonQuestionModel>();
         }
 
-        List<CommonQuestionModel> commonQuestions = this.commonQuestionDao.findPage(param);
+        List<CommonQuestionModel> commonQuestions = this.commonQuestionDao.findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
 
         PageData<CommonQuestionModel> pageData = new PageData<CommonQuestionModel>();
         pageData.setData(commonQuestions);

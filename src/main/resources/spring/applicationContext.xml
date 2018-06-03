@@ -15,4 +15,11 @@
     <context:component-scan base-package="com.wutuobang" />
 
     <context:annotation-config />
+
+    <bean id="aliClientApi" class="com.wutuobang.common.api.AliClientApi" init-method="init">
+        <property name="apiName" value="${client.apiName}"/>
+        <property name="apiVersion" value="${client.apiVersion}"/>
+        <property name="ak" value="${client.ak}"/>
+        <property name="sk" value="${client.sk}"/>
+    </bean>
 </beans>

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.*;
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author  davdian
@@ -44,6 +45,6 @@ public interface ICommonQuestionDao {
 	 * @param param
 	 * @return
      */
-	public List<CommonQuestionModel> findPage(Map<String, Object> param);
+	public List<CommonQuestionModel> findPage(Map<String, Object> param, RowBounds rowBounds);
 	
 }

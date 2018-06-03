@@ -104,8 +104,11 @@
 
 
     <select id="findLastConf" resultMap="BasicConf">
-        SELECT <include refid="columns"/> FROM t_basic_conf
+        SELECT * FROM (
+        SELECT
+        <include refid="columns"/> FROM t_basic_conf
         ORDER BY id DESC
+        ) resultSet WHERE ROWNUM=1;
     </select>
 	
 </mapper>

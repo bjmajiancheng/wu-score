@@ -96,7 +96,6 @@
     <select id="findPage" resultMap="SystemNotice">
     	SELECT <include refid="columns"/> FROM t_system_notice
 		<include refid="findWhere"/>
-		LIMIT #{start}, #{pageSize}
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
@@ -112,8 +111,8 @@
     </select>
 
 	<select id="getLastSystemNotice" resultMap="SystemNotice">
-		SELECT <include refid="columns"/> FROM t_system_notice
-		WHERE type = 3 ORDER BY id DESC LIMIT 1
+		SELECT * FROM (SELECT <include refid="columns"/> FROM t_system_notice WHERE type = 3 ORDER BY id DESC)
+		resultSet WHERE ROWNUM=1
 	</select>
 	
 </mapper>

@@ -14,6 +14,7 @@ import java.util.Set;
 
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,15 +83,15 @@ public class SystemNoticeServiceImpl implements ISystemNoticeService {
 
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("type", type);
-        param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
-        param.put("pageSize", CommonConstant.PAGE_SIZE);
+        /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
+        param.put("pageSize", CommonConstant.PAGE_SIZE);*/
 
         int pageCount = systemNoticeDao.findPageCount(param);
         if (pageCount == 0) {
             return new PageData<SystemNoticeModel>();
         }
 
-        List<SystemNoticeModel> systemNotices = systemNoticeDao.findPage(param);
+        List<SystemNoticeModel> systemNotices = systemNoticeDao.findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
         PageData<SystemNoticeModel> pageData = new PageData<SystemNoticeModel>();
         pageData.setData(systemNotices);
         pageData.setRecordsTotal(pageCount);

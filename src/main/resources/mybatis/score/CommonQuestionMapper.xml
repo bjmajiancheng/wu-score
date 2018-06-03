@@ -82,7 +82,6 @@
     <select id="findPage" resultMap="CommonQuestion">
     	SELECT <include refid="columns"/> FROM t_common_question
 		<include refid="findWhere"/>
-		LIMIT #{start}, #{pageSize}
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
