@@ -28,15 +28,22 @@ public class AliClientApi {
             Service service = new Service();
             //构造封装Call对象
             this.call = AxisCallWrapper.createCallWrapper(service, ak, sk, apiName, apiVersion);
+
+
+            this.execute();
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 执行测试方法
+     *
+     * @return
+     */
     public String execute() {
-        //或者使用WSParams进行参数设置
-        // 然后，使用封装Call对象进行方法调用
-        call.setTargetEndpointAddress("http://localhost:9081/PING/vcsb.ws/ws2ws");
+        //使用封装Call对象进行方法调用
+        call.setTargetEndpointAddress("http://172.30.1.59:9081/PING/vcsb.ws/ws2ws");
         call.setOperationName(new QName("http://hc.wsprocess.csb.alibaba.com/", "ping"));
 
         call.addParameter("arg0", // 设置要传递的参数
