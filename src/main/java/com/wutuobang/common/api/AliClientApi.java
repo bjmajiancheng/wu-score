@@ -25,12 +25,10 @@ public class AliClientApi {
 
     public void init() {
         try{
-            Service service = new Service();
+            /*Service service = new Service();
             //构造封装Call对象
-            this.call = AxisCallWrapper.createCallWrapper(service, ak, sk, apiName, apiVersion);
+            this.call = AxisCallWrapper.createCallWrapper(service, ak, sk, apiName, apiVersion);*/
 
-
-            this.execute();
         } catch(Exception e) {
             e.printStackTrace();
         }

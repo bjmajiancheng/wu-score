@@ -108,7 +108,7 @@
         SELECT
         <include refid="columns"/> FROM t_basic_conf
         ORDER BY id DESC
-        ) resultSet WHERE ROWNUM=1;
+        ) resultSet WHERE ROWNUM=1
     </select>
 	
 </mapper>
