@@ -55,7 +55,7 @@ public class RegionModel implements Serializable {
 	public Integer getParentId() {
 		return this.parentId;
 	}
-		
+
 	public void setLevel(Integer level) {
 		this.level = level;
 	}

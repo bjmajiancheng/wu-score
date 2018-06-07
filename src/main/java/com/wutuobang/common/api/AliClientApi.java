@@ -43,8 +43,11 @@ public class AliClientApi {
      */
     public String execute() {
         //使用封装Call对象进行方法调用
-        call.setTargetEndpointAddress("http://172.30.1.59:9081/PING/vcsb.ws/ws2ws");
-        call.setOperationName(new QName("http://hc.wsprocess.csb.alibaba.com/", "ping"));
+        //call.setTargetEndpointAddress("http://172.30.1.59:9081/PING/vcsb.ws/ws2ws");
+        //call.setOperationName(new QName("http://hc.wsprocess.csb.alibaba.com/", "ping"));
+
+        call.setTargetEndpointAddress("http://172.30.1.59:9081/juZhuZhengJiFen/1.0.0/ws2ws");
+        call.setOperationName(new QName("http://service.webinterface.yzym.si.sl.neusoft.com/", "ping"));
 
         call.addParameter("arg0", // 设置要传递的参数
                 org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);

@@ -9,13 +9,13 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="parentId" column="parent_id"/>
-        <result property="level" column="level"/>
+        <result property="level" column="region_level"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,name ,parent_id ,level 
+        id ,name ,parent_id ,region_level
 	    ]]>
 	</sql>
 	
@@ -25,7 +25,7 @@
 	        id  ,
 	        name  ,
 	        parent_id  ,
-	        level  
+	        region_level
         ) VALUES (
         	t_region_seq.nextval ,
         	#{name, jdbcType=VARCHAR} ,
@@ -39,7 +39,7 @@
         UPDATE t_region SET
 	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
 	        <if test="parentId != null">parent_id = #{parentId, jdbcType=INTEGER} ,</if>
-	        <if test="level != null">level = #{level, jdbcType=INTEGER} </if>
+	        <if test="level != null">region_level = #{level, jdbcType=INTEGER} </if>
         WHERE 
 	        id = #{id} 
     </update>
