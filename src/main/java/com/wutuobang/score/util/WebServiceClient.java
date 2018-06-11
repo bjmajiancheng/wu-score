@@ -32,16 +32,16 @@ public class WebServiceClient {
         Service service = Service.create(serviceName);
         service.addPort(portName, SOAPBinding.SOAP11HTTP_BINDING, apiName);
         Dispatch<SOAPMessage> dispatch = service.createDispatch(portName, SOAPMessage.class, Service.Mode.MESSAGE);
-        String req = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n"
-                + "xmlns:ser=\"http://service.webinterface.yzym.si.sl.neusoft.com/\">\n" + "   <soapenv:Header/>\n"
-                + "   <soapenv:Body>\n" + "      <ser:RsResidentJFRDBusinessRev>\n" + "         <!--ticket:-->\n"
-                + "         <ser:arg0>NEUSERVICE_GGFW_TICKET_12</ser:arg0>\n" + "         <!--buzzNumb:-->\n"
-                + "         <ser:arg1>TJZSYL_JFRDXT_002</ser:arg1>\n" + "         <!--sender:-->\n"
-                + "         <ser:arg2>JFRDXT</ser:arg2>\n" + "         <!--reciver:-->\n"
+        String req = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://service.webinterface.yzym.si.sl.neusoft.com/\">\n"
+                + "   <soapenv:Header/>\n" + "   <soapenv:Body>\n" + "      <ser:RsResidentJFRDBusinessRev>\n"
+                + "         <!--ticket:-->\n" + "         <ser:arg0>NEUSERVICE_GGFW_TICKET_12</ser:arg0>\n"
+                + "         <!--buzzNumb:-->\n" + "         <ser:arg1>TJZSYL_JFRDXT_001</ser:arg1>\n"
+                + "         <!--sender:-->\n" + "         <ser:arg2>JFRDXT</ser:arg2>\n" + "         <!--reciver:-->\n"
                 + "         <ser:arg3>TJZSYL</ser:arg3>\n" + "         <!--operatorName:-->\n"
-                + "         <ser:arg4>网上预审操作员</ser:arg4>\n" + "         <!--content:-->\n"
-                + "         <ser:arg5><![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ROOT><QUERY_PRAMS><idNumber>449581890311122</idNumber><partnerIdNnumber></partnerIdNnumber><lessThan35></lessThan35><canAdd></canAdd> <busType>2</busType></QUERY_PRAMS></ROOT>]]></ser:arg5>\n"
+                + "         <ser:arg4>经办人校验测试操作员</ser:arg4>\n" + "         <!--content:-->\n"
+                + "         <ser:arg5><![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ROOT><QUERY_PRAMS><idNumber>12010719660201662X</idNumber><busType>1</busType></QUERY_PRAMS></ROOT>]]></ser:arg5>\n"
                 + "      </ser:RsResidentJFRDBusinessRev>\n" + "   </soapenv:Body>\n" + "</soapenv:Envelope>";
+
         InputStream is = new ByteArrayInputStream(req.getBytes());
         SOAPMessage request = MessageFactory.newInstance().createMessage(null, is);
         dispatch = WSClientSDK.bind(dispatch, ak, sk, "juZhuZhengJiFen", apiVersion);
