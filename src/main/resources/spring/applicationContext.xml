@@ -16,7 +16,7 @@
 
     <context:annotation-config />
 
-    <bean id="aliClientApi" class="com.wutuobang.common.api.AliClientApi" init-method="init">
+    <bean id="webServiceClient" class="com.wutuobang.score.util.WebServiceClient" init-method="init">
         <property name="apiName" value="${client.apiName}"/>
         <property name="apiVersion" value="${client.apiVersion}"/>
         <property name="ak" value="${client.ak}"/>
