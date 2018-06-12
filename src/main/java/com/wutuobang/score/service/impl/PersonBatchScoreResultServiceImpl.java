@@ -78,7 +78,12 @@ public class PersonBatchScoreResultServiceImpl implements IPersonBatchScoreResul
             return 0;
         }
 
-        return personBatchScoreResultDao.batchInsert(personBatchScoreResults);
+        int count = 0;
+        for(PersonBatchScoreResultModel personBatchScoreResult : personBatchScoreResults) {
+            count += this.insert(personBatchScoreResult);
+        }
+
+        return count;
     }
 
     /**

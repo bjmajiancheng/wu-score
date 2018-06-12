@@ -78,7 +78,11 @@ public class HouseRelationshipServiceImpl implements IHouseRelationshipService {
             return 0;
         }
 
-        return houseRelationshipDao.batchInsert(houseRelationships);
+        int count = 0;
+        for(HouseRelationshipModel houseRelationship : houseRelationships) {
+            count += this.insert(houseRelationship);
+        }
+        return count;
     }
 
     /**

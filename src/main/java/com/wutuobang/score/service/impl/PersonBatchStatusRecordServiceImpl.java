@@ -75,7 +75,11 @@ public class PersonBatchStatusRecordServiceImpl implements IPersonBatchStatusRec
 			return 0;
 		}
 
-		return personBatchStatusRecordDao.batchInsert(personBatchStatusRecords);
+		int count = 0;
+		for(PersonBatchStatusRecordModel personBatchStatusRecord : personBatchStatusRecords) {
+			count += this.insert(personBatchStatusRecord);
+		}
+		return count;
 	}
 	
 }

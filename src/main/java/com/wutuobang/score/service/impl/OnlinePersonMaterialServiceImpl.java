@@ -89,7 +89,11 @@ public class OnlinePersonMaterialServiceImpl implements IOnlinePersonMaterialSer
 			return 0;
 		}
 
-		return onlinePersonMaterialDao.batchInsert(onlinePersonMaterialModels);
+		int count = 0;
+		for(OnlinePersonMaterialModel onlinePersonMaterialModel : onlinePersonMaterialModels) {
+			count += this.insert(onlinePersonMaterialModel);
+		}
+		return count;
 	}
 	
 }

@@ -78,7 +78,12 @@ public class IndicatorSelfTestResultServiceImpl implements IIndicatorSelfTestRes
             return 0;
         }
 
-        return indicatorSelfTestResultDao.batchInsert(selfTestResults);
+        int count = 0;
+        for(IndicatorSelfTestResultModel selfTestResult : selfTestResults) {
+            count += indicatorSelfTestResultDao.insert(selfTestResult);
+        }
+
+        return count;
     }
 
     /**
