@@ -22,7 +22,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_identity_period_file_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -34,7 +34,7 @@
 	        is_commit  ,
 	        c_time  
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{periodId, jdbcType=INTEGER} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{fileId, jdbcType=INTEGER} ,

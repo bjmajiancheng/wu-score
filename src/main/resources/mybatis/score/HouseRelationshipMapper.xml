@@ -24,7 +24,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_house_relationship_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -38,7 +38,7 @@
 	        culture_degree  ,
 	        c_time  
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{relationship, jdbcType=VARCHAR} ,
         	#{name, jdbcType=VARCHAR} ,

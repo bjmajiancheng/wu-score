@@ -34,7 +34,7 @@
 	</sql>
 
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_batch_conf_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -58,7 +58,7 @@
 	        status  ,
 	        process  
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{batchName, jdbcType=VARCHAR} ,
         	#{batchNumber, jdbcType=VARCHAR} ,
         	#{applyBegin, jdbcType=DATE} ,

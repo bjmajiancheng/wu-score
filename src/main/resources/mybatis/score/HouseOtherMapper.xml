@@ -36,7 +36,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_house_other_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -62,7 +62,7 @@
 	        awards_title  ,
 	        c_time  
         ) VALUES (
-        	${id}  ,
+        	${k_id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{applicantType, jdbcType=INTEGER} ,
         	#{politicalStatus, jdbcType=INTEGER} ,

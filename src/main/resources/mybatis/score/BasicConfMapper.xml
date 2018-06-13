@@ -23,7 +23,7 @@
 	</sql>
 	
     <insert id="insert" >
-        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+        <selectKey keyProperty="k_id" resultType="int" order="BEFORE">
             select t_basic_conf_seq.NEXTVAL from dual
         </selectKey>
     <![CDATA[
@@ -36,7 +36,7 @@
 	        publish_day  ,
 	        notice_day  
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{selfTestScoreLine, jdbcType=DECIMAL} ,
         	#{selfTestLimit, jdbcType=INTEGER} ,
         	#{appointmentLimit, jdbcType=INTEGER} ,

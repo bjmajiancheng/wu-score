@@ -24,7 +24,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_material_info_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -38,7 +38,7 @@
 	        title  ,
 	        template_img
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{name, jdbcType=VARCHAR} ,
         	#{note, jdbcType=VARCHAR} ,
         	#{createTime, jdbcType=TIMESTAMP} ,

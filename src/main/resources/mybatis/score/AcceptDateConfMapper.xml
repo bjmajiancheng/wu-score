@@ -25,7 +25,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_accept_date_conf_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -40,7 +40,7 @@
 	        am_remaining_count  ,
 	        pm_remaining_count  
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{addressId, jdbcType=INTEGER} ,
         	#{acceptDate, jdbcType=DATE} ,

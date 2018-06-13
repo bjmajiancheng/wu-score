@@ -28,7 +28,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
 			select t_company_info_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -46,7 +46,7 @@
 	        remark  ,
 	        create_time
         ) VALUES (
-        	${id} ,
+        	${k_id} ,
         	#{userName, jdbcType=VARCHAR} ,
         	#{password, jdbcType=VARCHAR} ,
         	#{companyName, jdbcType=VARCHAR} ,
