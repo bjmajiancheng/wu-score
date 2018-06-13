@@ -168,3 +168,7 @@ function postSyncResultData(url, data, callback) {
         }
     });
 }
+
+function funtothree(v){
+    window.open(v);
+}
