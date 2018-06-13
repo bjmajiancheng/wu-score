@@ -24,6 +24,9 @@
 	</sql>
 	
     <insert id="insert" useGeneratedKeys="true" keyProperty="attachmentId">
+		<selectKey keyProperty="attachmentId" resultType="int" order="BEFORE">
+			select d_attachment_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO d_attachment (
         	attachment_id  ,
@@ -35,7 +38,7 @@
 	        attachment_size  ,
 	        upload_login_name  
         ) VALUES (
-        	d_attachment_seq.nextval ,
+        	${attachmentId} ,
         	#{attachmentName, jdbcType=VARCHAR} ,
         	#{attachmentType, jdbcType=INTEGER} ,
         	#{attachmentSuffix, jdbcType=VARCHAR} ,

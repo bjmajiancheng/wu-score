@@ -80,7 +80,7 @@
         </table>
         <div class="integral-bottom-btn-group">
             <div class="interal-main-btn big-btn m15 submit">确定预约</div>
-            <div class="interal-main-btn big-btn ml50 close">关闭</div>
+            <div class="interal-main-btn big-btn ml50" id="cancel">关闭</div>
         </div>
     </div>
 </div>
@@ -90,9 +90,6 @@
 </body>
 <script type="text/javascript">
     $(function(){
-        $(".close").on("click", function(){
-            window.close();
-        });
 
         $(".submit").on("click", function(){
             var $appointmentBox = $(".active");

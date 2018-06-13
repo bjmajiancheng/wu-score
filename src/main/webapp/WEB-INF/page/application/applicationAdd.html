@@ -797,7 +797,7 @@
                     window.opener.component.load();
                     window.close();
                 } else {
-                    history.go(-1);
+                    window.close();
                 }
             });
         });
@@ -827,7 +827,8 @@
                     window.opener.component.load();
                     window.close();
                 } else {
-                    history.go(-1);
+                    //history.go(-1);
+                    window.close();
                 }
             });
         });

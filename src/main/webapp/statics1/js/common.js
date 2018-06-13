@@ -129,7 +129,7 @@ function postResult(url, data, callback) {
         success: function(result){
             layer.close(index);
 
-            if(result.code){//查询失败
+            if(result.code){//失败
                 layer.alert(result.message);
 
                 if($("input[name=captcha]").length > 0) {

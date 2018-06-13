@@ -198,7 +198,9 @@
      * @param id
      */
     function editIdentityInfo(id) {
-        window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+        postResult("${rc.contextPath}/identityInfo/validateAutoTest/"+id+".html", {}, function(data) {
+            window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+        });
     }
 
     /**

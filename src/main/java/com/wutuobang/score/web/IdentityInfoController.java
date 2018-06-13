@@ -304,6 +304,11 @@ public class IdentityInfoController {
             IndicatorView indicatorView = JSON.parseObject(indicatorViewStr, IndicatorView.class);
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
+
+            if(identityInfoModel.getReservationStatus() == 6) {
+                return ResultParam.error("您自助测评已通过, 不能再次测评!!");
+            }
+
             if (identityInfoModel.getAutoTestNum() == 0) {
                 return ResultParam.error("您本期已没有自助评测机会,请下期再进行评测!!");
             }
@@ -660,6 +665,34 @@ public class IdentityInfoController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 验证自助测评
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/validateAutoTest/{id}", method = RequestMethod.POST)
+    public ResultParam vdalidateAutoTest(HttpServletRequest request, @PathVariable("id") Integer id) {
+        if(id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try{
+
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+            if(identityInfoModel.getReservationStatus() == 6) {
+                return ResultParam.error("您自助测评已通过, 不能再次测评!!");
+            }
+
+            return ResultParam.SUCCESS_RESULT;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return ResultParam.SUCCESS_RESULT;
         }
     }
 
