@@ -20,7 +20,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_office_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -30,7 +30,7 @@
 	        parent_id  ,
 	        region_level
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{name, jdbcType=VARCHAR} ,
         	#{parentId, jdbcType=INTEGER} ,
         	#{level, jdbcType=INTEGER} 

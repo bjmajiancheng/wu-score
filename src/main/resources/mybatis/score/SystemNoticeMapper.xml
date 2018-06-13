@@ -22,7 +22,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_system_notice_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -34,7 +34,7 @@
 	        author  ,
 	        c_time  
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{title, jdbcType=VARCHAR} ,
         	#{content, jdbcType=VARCHAR} ,
         	#{type, jdbcType=INTEGER} ,

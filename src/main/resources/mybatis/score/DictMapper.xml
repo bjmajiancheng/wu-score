@@ -22,7 +22,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select d_dict_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -34,7 +34,7 @@
 	        value  ,
 	        sort  
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{alias, jdbcType=VARCHAR} ,
         	#{aliasName, jdbcType=VARCHAR} ,
         	#{text, jdbcType=VARCHAR} ,

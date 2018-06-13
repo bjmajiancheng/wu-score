@@ -20,7 +20,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_common_question_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -30,7 +30,7 @@
 	        answer  ,
 	        c_time  
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{question, jdbcType=VARCHAR} ,
         	#{answer, jdbcType=VARCHAR} ,
         	#{ctime, jdbcType=TIMESTAMP} 

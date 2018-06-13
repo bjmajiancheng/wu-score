@@ -27,7 +27,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_score_result_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -44,7 +44,7 @@
 	        score_detail  ,
 	        c_time  
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{indicatorId, jdbcType=INTEGER} ,
         	#{indicatorName, jdbcType=VARCHAR} ,

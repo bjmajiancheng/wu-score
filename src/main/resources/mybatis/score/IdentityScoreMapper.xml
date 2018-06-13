@@ -26,7 +26,7 @@
 	</sql>
 	
     <insert id="insert" >
-		<selectKey keyProperty="k_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_identity_score_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
@@ -42,7 +42,7 @@
 	        review_reason_id  ,
 	        c_time  
         ) VALUES (
-        	${k_id} ,
+        	${id} ,
         	#{identityPeriodId, jdbcType=INTEGER} ,
         	#{questionNo, jdbcType=INTEGER} ,
         	#{questionId, jdbcType=INTEGER} ,
