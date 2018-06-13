@@ -28,6 +28,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_company_info_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_company_info (
 	        id  ,
@@ -43,7 +46,7 @@
 	        remark  ,
 	        create_time
         ) VALUES (
-        	t_company_info_seq.nextval ,
+        	${id} ,
         	#{userName, jdbcType=VARCHAR} ,
         	#{password, jdbcType=VARCHAR} ,
         	#{companyName, jdbcType=VARCHAR} ,

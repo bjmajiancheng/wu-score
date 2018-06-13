@@ -27,6 +27,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_house_profession_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_house_profession (
 	        id  ,
@@ -41,7 +44,7 @@
 	        job_type  ,
 	        c_time  
         ) VALUES (
-        	t_house_profession_seq.nextval ,
+        	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{professionType, jdbcType=INTEGER} ,
         	#{jobTitleLevel, jdbcType=INTEGER} ,

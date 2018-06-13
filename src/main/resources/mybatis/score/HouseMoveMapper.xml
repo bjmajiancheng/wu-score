@@ -35,6 +35,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_house_move_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_house_move (
 	        id  ,
@@ -57,7 +60,7 @@
 	        son_number  ,
 	        c_time  
         ) VALUES (
-        	t_house_move_seq.nextval ,
+        	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{moveProvince, jdbcType=INTEGER} ,
         	#{moveCity, jdbcType=INTEGER} ,

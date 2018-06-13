@@ -19,13 +19,16 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_accept_address_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_accept_address (
 	        id  ,
 	        address  ,
 	        address_detail  
         ) VALUES (
-        	t_accept_address_seq.nextval ,
+        	${id} ,
         	#{address, jdbcType=VARCHAR} ,
         	#{addressDetail, jdbcType=VARCHAR} 
         )

@@ -26,6 +26,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="attachmentId">
     <![CDATA[
         INSERT INTO d_attachment (
+        	attachment_id  ,
 	        attachment_name  ,
 	        attachment_type  ,
 	        attachment_suffix  ,
@@ -34,6 +35,7 @@
 	        attachment_size  ,
 	        upload_login_name  
         ) VALUES (
+        	d_attachment_seq.nextval ,
         	#{attachmentName, jdbcType=VARCHAR} ,
         	#{attachmentType, jdbcType=INTEGER} ,
         	#{attachmentSuffix, jdbcType=VARCHAR} ,

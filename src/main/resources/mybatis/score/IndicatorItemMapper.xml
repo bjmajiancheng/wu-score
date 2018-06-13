@@ -23,6 +23,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_indicator_item_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_indicator_item (
 	        id  ,
@@ -33,7 +36,7 @@
 	        create_time  ,
 	        add_user  
         ) VALUES (
-        	t_indicator_item_seq.nextval ,
+        	${id} ,
         	#{indicatorId, jdbcType=INTEGER} ,
         	#{content, jdbcType=VARCHAR} ,
         	#{score, jdbcType=INTEGER} ,

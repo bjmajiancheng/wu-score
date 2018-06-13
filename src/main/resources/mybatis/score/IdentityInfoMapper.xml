@@ -47,7 +47,10 @@
 	</sql>
 	
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-    <![CDATA[
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_identity_info_seq.NEXTVAL from dual
+		</selectKey>
+		<![CDATA[
         INSERT INTO t_identity_info (
 	        id  ,
 	        id_number  ,
@@ -73,7 +76,7 @@
 	        auto_test_num  ,
 	        reservation_time
         ) VALUES (
-        	t_identity_info_seq.nextval ,
+        	${id} ,
         	#{idNumber, jdbcType=VARCHAR} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{companyId, jdbcType=INTEGER} ,

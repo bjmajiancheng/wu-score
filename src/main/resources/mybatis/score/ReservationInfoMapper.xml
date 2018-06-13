@@ -34,6 +34,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_reservation_info_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_reservation_info (
 	        id  ,
@@ -55,7 +58,7 @@
 	        socore_status  ,
 	        c_time  
         ) VALUES (
-        	t_reservation_info_seq.nextval ,
+        	${id} ,
         	#{periodId, jdbcType=INTEGER} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{registerCode, jdbcType=VARCHAR} ,

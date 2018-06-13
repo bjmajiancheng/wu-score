@@ -26,6 +26,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_identity_score_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_identity_score (
 	        id  ,
@@ -39,7 +42,7 @@
 	        review_reason_id  ,
 	        c_time  
         ) VALUES (
-        	t_identity_score_seq.nextval ,
+        	${id} ,
         	#{identityPeriodId, jdbcType=INTEGER} ,
         	#{questionNo, jdbcType=INTEGER} ,
         	#{questionId, jdbcType=INTEGER} ,

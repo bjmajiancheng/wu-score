@@ -26,6 +26,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_self_test_result_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_indicator_self_test_result (
 	        id  ,
@@ -39,7 +42,7 @@
 	        create_time  ,
 	        add_user  
         ) VALUES (
-        	t_self_test_result_seq.nextval ,
+        	${id} ,
         	#{batchId, jdbcType=INTEGER} ,
         	#{personId, jdbcType=INTEGER} ,
         	#{indicatorId, jdbcType=INTEGER} ,

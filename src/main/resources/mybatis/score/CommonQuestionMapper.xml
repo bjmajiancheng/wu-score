@@ -20,6 +20,9 @@
 	</sql>
 	
     <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_common_question_seq.NEXTVAL from dual
+		</selectKey>
     <![CDATA[
         INSERT INTO t_common_question (
 	        id  ,
@@ -27,7 +30,7 @@
 	        answer  ,
 	        c_time  
         ) VALUES (
-        	t_common_question_seq.nextval ,
+        	${id} ,
         	#{question, jdbcType=VARCHAR} ,
         	#{answer, jdbcType=VARCHAR} ,
         	#{ctime, jdbcType=TIMESTAMP} 

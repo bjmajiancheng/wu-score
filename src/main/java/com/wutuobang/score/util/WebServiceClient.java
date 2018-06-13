@@ -29,6 +29,9 @@ public class WebServiceClient {
     private String sk;
 
     public void init() throws Exception {
+        if(true) {
+            return ;
+        }
         String ns = "http://service.webinterface.yzym.si.sl.neusoft.com/";
         QName serviceName = new QName(ns, "NeuWebService");
         QName portName = new QName(ns, "NeuWebServicePortType");
