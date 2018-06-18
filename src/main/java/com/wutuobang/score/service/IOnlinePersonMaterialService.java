@@ -45,4 +45,20 @@ public interface IOnlinePersonMaterialService{
 	 * @return
      */
 	public int batchInsert(List<OnlinePersonMaterialModel> onlinePersonMaterialModels);
+
+	/**
+	 * 根据申请人删除上传资料信息
+	 *
+	 * @param personId
+	 * @return
+     */
+	public int deleteByPersonId(int personId);
+
+	/**
+	 * 根据id集合删除用户上传资料
+	 *
+	 * @param ids
+	 * @return
+     */
+	public int delByIds(List<Integer> ids);
 }

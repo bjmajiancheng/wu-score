@@ -87,6 +87,9 @@
                             {\#if identityInfo.reservationStatus == 10}
                             <span class="integral-table-btn integral-table-btn2 print">打印</span>
                             {/if}
+                            {\#if identityInfo.reservationStatus == 8}
+                            <span>审核中</span>
+                            {/if}
                         </td>
                     </tr>
                     {/list}

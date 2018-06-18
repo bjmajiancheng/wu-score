@@ -43,7 +43,7 @@
         	${id} ,
         	#{personId, jdbcType=INTEGER} ,
         	#{batchId, jdbcType=INTEGER} ,
-        	#{materialInfoId, jdbcType=INTEGER}
+        	#{materialInfoId, jdbcType=INTEGER},
         	#{materialId, jdbcType=INTEGER} ,
         	#{materialName, jdbcType=VARCHAR} ,
         	#{materialUri, jdbcType=VARCHAR} ,
@@ -130,6 +130,19 @@
 			(t_online_person_material_seq.nextval, #{item.personId}, #{item.batchId}, #{item.materialInfoId}, #{item.materialId}, #{item.materialName}, #{item.materialUri}, #{item.status}, #{item.ctime})
 		</foreach>
 	</insert>
+
+	<delete id="deleteByPersonId">
+		DELETE FROM t_online_person_material where person_id = #{personId}
+	</delete>
+
+	<delete id="delByIds">
+		DELETE FROM t_online_person_material
+		where id IN
+		<foreach collection="ids" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+
+	</delete>
 	
 </mapper>
 

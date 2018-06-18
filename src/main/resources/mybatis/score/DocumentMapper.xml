@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IDocumentDao">
+
+    <resultMap id="Document" type="com.wutuobang.score.model.DocumentModel">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,name ,url 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+	<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		select t_document_seq.NEXTVAL from dual
+	</selectKey>
+    <![CDATA[
+        INSERT INTO t_document (
+	        id  ,
+	        name  ,
+	        url  
+        ) VALUES (
+        	${id} ,
+        	#{name, jdbcType=VARCHAR} ,
+        	#{url, jdbcType=VARCHAR} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_document SET
+	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
+	        <if test="url != null">url = #{url, jdbcType=VARCHAR} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_document WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="Document">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_document 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+			<if test="name != null">
+				AND name = #{name}
+			</if>
+			<if test="url != null">
+				AND url = #{url}
+			</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_document <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="Document">
+    	SELECT <include refid="columns"/> FROM t_document 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="Document">
+	    SELECT <include refid="columns"/> FROM t_document 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+

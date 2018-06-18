@@ -30,6 +30,7 @@
                 <th>操作</th>
                 <th>上传查看</th>
                 <th>模板样式</th>
+                <th>删除</th>
             </tr>
             #foreach(${materialInfo} in ${materialInfos})
             <tr class="materialInfoTr">
@@ -50,6 +51,9 @@
                 </td>
                 <td><a class="integral-table-btn integral-table-btn2 viewTemplate" herf="javascript:void(0);"
                        templateImg="$!{materialInfo.templateImg}">查看模板</a></td>
+                <td>
+                    <a class="integral-table-btn integral-table-btn2 deleteFile">删除</a>
+                </td>
             </tr>
             #end
             </tbody>
@@ -115,6 +119,7 @@
 
             var file = _this.clone();
 
+            debugger;
             $(file).attr('name', 'file');
             $(form).append(file);
 
@@ -144,6 +149,17 @@
             window.open($(this).attr("uri"));
         });
 
+        /**
+         *  删除按钮
+         */
+        $(".deleteFile").on("click", function() {
+            var $tr = $(this).parents("tr.materialInfoTr");
+            $tr.find("input[name=materialId]").val('');
+            $tr.find("span.attachmentName").text('');
+            $tr.find(".viewFile").attr("uri", '');
+
+        });
+
         //保存申请人材料信息
         $("#save").on("click", function () {
             //材料信息封装
@@ -153,7 +169,9 @@
                 var materialInfoId = $(this).find("input[name=materialInfoId]").val();
                 var materialId = $(this).find("input[name=materialId]").val();
 
-                materialInfoArr.push({"id": id, "materialInfoId": materialInfoId, "materialId": materialId});
+                if(materialId != '') {
+                    materialInfoArr.push({"id": id, "materialInfoId": materialInfoId, "materialId": materialId});
+                }
             });
 
             var materialInfoJson = JSON.stringify(materialInfoArr);

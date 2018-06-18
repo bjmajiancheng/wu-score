@@ -130,7 +130,21 @@ public class MaterialInfoController {
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
 
+            if (CollectionUtils.isEmpty(onlinePersonMaterials)) {
+                int delCount = onlinePersonMaterialService.deleteByPersonId(identityInfoId);
+            }
+
             if (CollectionUtils.isNotEmpty(onlinePersonMaterials)) {
+                //用户已上传的材料信息
+                List<OnlinePersonMaterialModel> beforeMaterialModels = onlinePersonMaterialService
+                        .getByPersonId(identityInfoId);
+
+                Map<Integer, OnlinePersonMaterialModel> beforeMaterialMap = new HashMap<Integer, OnlinePersonMaterialModel>();
+                for(OnlinePersonMaterialModel beforeMaterialModel : beforeMaterialModels) {
+                    beforeMaterialMap.put(beforeMaterialModel.getId(), beforeMaterialModel);
+                }
+
+
                 List<Integer> materialIds = new ArrayList<Integer>(onlinePersonMaterials.size());
                 for (OnlinePersonMaterialModel onlinePersonMaterial : onlinePersonMaterials) {
                     if (onlinePersonMaterial.getMaterialId() != null && !materialIds
@@ -143,6 +157,7 @@ public class MaterialInfoController {
 
                 List<OnlinePersonMaterialModel> toAddOnlinePersonMaterials = new ArrayList<OnlinePersonMaterialModel>();
                 List<OnlinePersonMaterialModel> toUpdateOnlinePersonMaterials = new ArrayList<OnlinePersonMaterialModel>();
+
                 for (OnlinePersonMaterialModel onlinePersonMaterial : onlinePersonMaterials) {
                     onlinePersonMaterial.setPersonId(identityInfoModel.getId());
                     onlinePersonMaterial.setBatchId(identityInfoModel.getBatchId());
@@ -159,6 +174,8 @@ public class MaterialInfoController {
                         toAddOnlinePersonMaterials.add(onlinePersonMaterial);
                     } else {
                         toUpdateOnlinePersonMaterials.add(onlinePersonMaterial);
+
+                        beforeMaterialMap.remove(onlinePersonMaterial.getId());
                     }
                 }
 
@@ -170,6 +187,11 @@ public class MaterialInfoController {
                     for (OnlinePersonMaterialModel onlinePersonMaterial : toUpdateOnlinePersonMaterials) {
                         updateCount += onlinePersonMaterialService.update(onlinePersonMaterial);
                     }
+                }
+
+                List<Integer> delIds = new ArrayList<Integer>(beforeMaterialMap.keySet());
+                if(CollectionUtils.isNotEmpty(delIds)) {
+                    int delCount = onlinePersonMaterialService.delByIds(delIds);
                 }
             }
 

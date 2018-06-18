@@ -23,7 +23,7 @@
         <!-- 示例title 面包屑导航 -->
         <div class="integral-grey-title-bar">
             <div class="title-bar-head title-bar-xiazai">表格下载</div>
-            <p class="interal-main-btn mr20 fr mt10">返回</p>
+            <!--<p class="interal-main-btn mr20 fr mt10">返回</p>-->
         </div>
         <!-- 内容描述title -->
         <div class="integral-desc-title">
@@ -33,21 +33,31 @@
         <!-- 二级title -->
         <div class="integral-grey-title-bar title-bar2">
             <div class="title-bar-head title-bar-xiazai">表格下载</div>
-            <a href="">更多
+            <!--<a href="">更多
                 <div class="title-bar-after"> </div>
-            </a>
+            </a>-->
         </div>
         <!-- 政策表格 -->
-        <table class="integral-table no_border">
-            <tbody>
-            <tr>
-                <td class="tdleft">天津市居住证申请表</td>
-                <td>
-                    <a class="down_btn" href="">下载</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="app">
+            <script type="text/regular" id="rows">
+                <table class="integral-table no_border">
+                    <tbody>
+                    {#list documents as document}
+                    <tr>
+                        <td class="tdleft">{document.name}</td>
+                        <td>
+                            <a class="down_btn" href="{document.url}" target="_blank">下载</a>
+                        </td>
+                    </tr>
+                    {/list}
+                    </tbody>
+                </table>
+            </script>
+        </div>
+
+
+        <!-- 分页器插件 -->
+        <div class="integral-paging-device-wrap2 m-style"></div>
     </div>
 </div>
 
@@ -57,6 +67,9 @@
 <script type="text/javascript">
     $(function(){
         currPage("fileDown");
+
+        component.load();
+        component.$inject('#app');
     });
 
     //利用Regular构建你的app吧
@@ -66,31 +79,37 @@
 
     // initialize component then $inject to #app's  bottom
     var component = new rowsRegular({
-        data: {guidebooks: []},
+        data: {documents: []},
         load: function(data){
-            $.ajax({
-                type: "POST",
-                url: "${rc.contextPath}/systemNotice/list",
-                data: {"type": 2},
-                dataType: "json",
-                success: function(result){
-                    var resultData = result.data;
-                    if(result.code == 0){//登录成功
-                        component.data.guidebooks = resultData.data;
-                        component.$update();
-
-                        $(".integral-paging-device-wrap2").pagination({pageCount: resultData.recordsTotal});
-                    }else{
-                        layer.alert(result.message);
-                    }
-                }
-            });
+            var pageCount = list(1);
+            showPage(pageCount);
         }
     });
 
-    component.load();
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent());
+        pageInfo.setPageCount(pageCount);
+    }
 
-    component.$inject('#app');
+    /**
+     * 分页列表信息
+     * @param page_index
+     */
+    function list(page_index) {
+        var pageCount = 0;
+        postSyncResultData("${rc.contextPath}/attachmentFile/list", {"pageNo": page_index}, function(result){
+            component.data.documents = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
 </script>
 
 </html>

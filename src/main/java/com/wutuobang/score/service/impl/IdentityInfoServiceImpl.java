@@ -92,7 +92,7 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         if (pageCount < 0) {
             return new PageData<IdentityInfoModel>();
         }
-        param.put("sortColumns", "id ASC");
+        param.put("sortColumns", "id DESC");
 
         List<IdentityInfoModel> identityInfos = identityInfoDao
                 .findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));

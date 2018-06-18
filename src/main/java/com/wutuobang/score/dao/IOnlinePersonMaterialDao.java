@@ -42,4 +42,20 @@ public interface IOnlinePersonMaterialDao {
     public int batchInsert(
             @Param("onlinePersonMaterialModels") List<OnlinePersonMaterialModel> onlinePersonMaterialModels);
 
+    /**
+     * 根据申请人删除上传资料信息
+     *
+     * @param personId
+     * @return
+     */
+    public int deleteByPersonId(@Param("personId") int personId);
+
+    /**
+     * 根据id集合删除用户上传资料
+     *
+     * @param ids
+     * @return
+     */
+    public int delByIds(@Param("ids") List<Integer> ids);
+
 }
