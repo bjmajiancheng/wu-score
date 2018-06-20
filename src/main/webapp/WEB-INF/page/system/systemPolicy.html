@@ -41,7 +41,7 @@
                 {#list systemPolicys as systemPolicy}
                 <tr>
                     <td>{systemPolicy.author}</td>
-                    <td><a href="${rc.contextPath}/systemNotice/detailPage?id={systemPolicy.id}">{systemPolicy.title}</a></td>
+                    <td><a class="underline" href="${rc.contextPath}/systemNotice/detailPage?id={systemPolicy.id}">{systemPolicy.title}</a></td>
                     <td>{systemPolicy.ctime}</td>
                 </tr>
                 {/list}

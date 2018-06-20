@@ -34,6 +34,9 @@ public class FileUploadController {
     @Value("${data.upload.path}")
     private String uploadFolder;
 
+    @Value("${data.download.path}")
+    private String downloadUri;
+
     /**
      * 上传图片
      *

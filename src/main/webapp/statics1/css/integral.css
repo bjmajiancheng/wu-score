@@ -157,6 +157,11 @@ a:hover {
     text-decoration: underline;
 }
 
+a.underline {
+    text-decoration: underline;
+    color: #4788FB;
+}
+
 img {
     border: none;
     vertical-align: middle;

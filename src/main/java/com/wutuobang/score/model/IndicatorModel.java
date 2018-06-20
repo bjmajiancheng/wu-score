@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * @author davdian
  * @version 1.0
- * @since 1.0
+ * @since 1.0IndicatorModel
  */
 public class IndicatorModel implements Serializable {
 

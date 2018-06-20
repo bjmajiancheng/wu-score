@@ -143,6 +143,40 @@ function postResult(url, data, callback) {
 }
 
 /**
+ * 通过post方式获取数据信息
+ * @param url
+ * @param data
+ * @param callback
+ */
+function postSyncResult(url, data, callback) {
+    //loading层
+    var index = layer.load(1, {
+        shade: [0.2,'#000'] //0.1透明度的白色背景
+    });
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        dataType: "json",
+        async: false,
+        success: function(result){
+            layer.close(index);
+
+            if(result.code){//失败
+                layer.alert(result.message);
+
+                if($("input[name=captcha]").length > 0) {
+                    refreshCode();
+                }
+            }else{
+                callback(result);
+            }
+        }
+    });
+}
+
+/**
  * 通过同步post方式获取数据信息
  * @param url
  * @param data

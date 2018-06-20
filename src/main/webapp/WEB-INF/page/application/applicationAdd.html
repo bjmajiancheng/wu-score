@@ -155,7 +155,7 @@
                         <td class="color-red">现户口性质：</td>
                         <td>
                             <select name="houseNature" id="houseNature">
-                                <option value="0">请选择</option>
+                                <!--<option value="0">请选择</option>-->
                                 <option value="1">未落常住户口</option>
                                 <option value="2">非农业家庭户口</option>
                                 <option value="3">农业家庭户口</option>
@@ -169,7 +169,7 @@
                             </select>
                             <span class="integral-td-title ml50">落户性质：</span>
                             <select name="settledNature" id="settledNature">
-                                <option value="0">请选择</option>
+                                <!--<option value="0">请选择</option>-->
                                 <option value="1">本单位集体户口</option>
                                 <option value="2">非本单位集体户口</option>
                                 <option value="3">家庭户口</option>
@@ -789,18 +789,23 @@
             url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
         }
 
-        postResultData(url, formInfo, function(data){
+        var flag = false;
+        postSyncResultData(url, formInfo, function(data){
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
-                if(window.opener.component) {
-                    window.opener.component.load();
-                    window.close();
-                } else {
-                    window.close();
-                }
+                flag = true;
             });
         });
+
+        if(flag) {
+            if(window.opener && window.opener.component) {
+                window.opener.component.load();
+                window.close();
+            } else {
+                window.close();
+            }
+        }
     }
 
     /**
@@ -817,21 +822,26 @@
             url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
         }
 
-        postResultData(url, formInfo, function(data){
+        var flag = false;
+        postSyncResultData(url, formInfo, function(data){
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
-                window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
-
-                if(window.opener.component) {
-                    window.opener.component.load();
-                    window.close();
-                } else {
-                    //history.go(-1);
-                    window.close();
-                }
+                flag = true;
             });
         });
+
+        if(flag) {
+            window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
+
+            if(window.opener && window.opener.component) {
+                window.opener.component.load();
+                window.close();
+            } else {
+                //history.go(-1);
+                window.close();
+            }
+        }
     }
 
     /**

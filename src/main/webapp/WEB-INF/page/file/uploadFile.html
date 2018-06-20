@@ -154,9 +154,18 @@
          */
         $(".deleteFile").on("click", function() {
             var $tr = $(this).parents("tr.materialInfoTr");
-            $tr.find("input[name=materialId]").val('');
-            $tr.find("span.attachmentName").text('');
-            $tr.find(".viewFile").attr("uri", '');
+
+            layer.confirm('是否要删除上传文件？', {
+                btn: ['是','否'] //按钮
+            }, function(index){
+                $tr.find("input[name=materialId]").val('');
+                $tr.find("span.attachmentName").text('');
+                $tr.find(".viewFile").attr("uri", '');
+
+                layer.close(index);
+            }, function(index){
+                layer.close(index);
+            });
 
         });
 

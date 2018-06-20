@@ -201,9 +201,14 @@
      * @param id
      */
     function editIdentityInfo(id) {
-        postResult("${rc.contextPath}/identityInfo/validateAutoTest/"+id+".html", {}, function(data) {
-            window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+        var flag = false;
+        postSyncResult("${rc.contextPath}/identityInfo/validateAutoTest/"+id+".html", {}, function(data) {
+            flag = true;
         });
+
+        if(flag) {
+            window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+        }
     }
 
     /**

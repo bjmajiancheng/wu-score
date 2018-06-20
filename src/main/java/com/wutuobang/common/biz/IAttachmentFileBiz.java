@@ -34,6 +34,9 @@ public class IAttachmentFileBiz {
     @Value("${data.upload.path}")
     private String uploadFolder;
 
+    @Value("${data.download.path}")
+    private String downloadUri;
+
     /**
      * 上传文件
      *
@@ -42,14 +45,21 @@ public class IAttachmentFileBiz {
      * @return
      * @throws IOException
      */
-    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem, int attachmentType) throws IOException {
+    public AttachmentModel uploadFile(HttpServletRequest request, MultipartFile file, int isSystem, int attachmentType)
+            throws IOException {
         Date currDate = new Date();
 
         String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
                 .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
-        String downloadPath = request.getContextPath() + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
-                .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+        /*String downloadPath = request.getContextPath() + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+                .DateToString(currDate, DateStyle.YYYYMMDD) + "/";*/
+
+        String path = request.getContextPath();
+        String downloadPath =
+                request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+                        + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+                        .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
         File targetFile = new File(savePath);
         if (!targetFile.exists()) {
