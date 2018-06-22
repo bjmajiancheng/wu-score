@@ -27,10 +27,10 @@
 	
     <insert id="insert" >
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
-			select t_status_record_seq.NEXTVAL from dual
+			select t_pb_status_record_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
-        INSERT INTO t_person_batch_status_record (
+        INSERT INTO t_pb_status_record (
 	        id  ,
 	        batch_id  ,
 	        person_id  ,
@@ -57,7 +57,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE t_person_batch_status_record SET
+        UPDATE t_pb_status_record SET
 	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
 	        <if test="personId != null">person_id = #{personId, jdbcType=INTEGER} ,</if>
 	        <if test="personIdNumber != null">person_id_number = #{personIdNumber, jdbcType=VARCHAR} ,</if>
@@ -73,7 +73,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM t_person_batch_status_record WHERE
+        DELETE FROM t_pb_status_record WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -81,7 +81,7 @@
     <select id="getById" resultMap="PersonBatchStatusRecord">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM t_person_batch_status_record 
+	        FROM t_pb_status_record
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -108,7 +108,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM t_person_batch_status_record <include refid="findWhere"/>    
+        SELECT count(*) FROM t_pb_status_record <include refid="findWhere"/>
     </select>
     
     <!--
@@ -116,7 +116,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="PersonBatchStatusRecord">
-    	SELECT <include refid="columns"/> FROM t_person_batch_status_record 
+    	SELECT <include refid="columns"/> FROM t_pb_status_record
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -125,7 +125,7 @@
 
 	
 	<select id="find" resultMap="PersonBatchStatusRecord">
-	    SELECT <include refid="columns"/> FROM t_person_batch_status_record 
+	    SELECT <include refid="columns"/> FROM t_pb_status_record
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -133,7 +133,7 @@
     </select>
 
 	<insert id="batchInsert">
-		INSERT INTO t_person_batch_status_record(id, batch_id, person_id, person_id_number, status_dict_alias, status_type_desc, status_int,
+		INSERT INTO t_pb_status_record(id, batch_id, person_id, person_id_number, status_dict_alias, status_type_desc, status_int,
 	        status_str, status_time, status_reason) VALUES
 	  	<foreach collection="personBatchStatusRecords" item="item" separator=",">
 			(t_status_record_seq.nextval, #{item.batchId}, #{item.personId}, #{item.personIdNumber}, #{item.statusDictAlias}, #{item.statusTypeDesc}, #{item.statusInt},
