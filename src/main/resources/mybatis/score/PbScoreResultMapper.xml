@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IPbScoreResultDao">
+
+    <resultMap id="PbScoreResult" type="com.wutuobang.score.model.PbScoreResultModel">
+        <result property="id" column="id"/>
+        <result property="batchId" column="batch_id"/>
+        <result property="indicatorId" column="indicator_id"/>
+        <result property="indicatorName" column="indicator_name"/>
+        <result property="indicatorTimeId" column="indicator_time_id"/>
+        <result property="personId" column="person_id"/>
+        <result property="personName" column="person_name"/>
+        <result property="personIdNum" column="person_id_num"/>
+        <result property="scoreValue" column="score_value"/>
+        <result property="scoreDetail" column="score_detail"/>
+        <result property="ctime" column="c_time"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id ,batch_id ,indicator_id ,indicator_name ,indicator_time_id ,person_id ,person_name ,person_id_num ,score_value ,score_detail ,c_time 
+	    ]]>
+	</sql>
+	
+    <insert id="insert" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_pb_score_result_seq.NEXTVAL from dual
+		</selectKey>
+    <![CDATA[
+        INSERT INTO t_pb_score_result (
+	        id  ,
+	        batch_id  ,
+	        indicator_id  ,
+	        indicator_name  ,
+	        indicator_time_id  ,
+	        person_id  ,
+	        person_name  ,
+	        person_id_num  ,
+	        score_value  ,
+	        score_detail  ,
+	        c_time  
+        ) VALUES (
+        	${id} ,
+        	#{batchId, jdbcType=INTEGER} ,
+        	#{indicatorId, jdbcType=INTEGER} ,
+        	#{indicatorName, jdbcType=VARCHAR} ,
+        	#{indicatorTimeId, jdbcType=INTEGER} ,
+        	#{personId, jdbcType=INTEGER} ,
+        	#{personName, jdbcType=VARCHAR} ,
+        	#{personIdNum, jdbcType=VARCHAR} ,
+        	#{scoreValue, jdbcType=INTEGER} ,
+        	#{scoreDetail, jdbcType=VARCHAR} ,
+        	#{ctime, jdbcType=DATE} 
+        )
+    ]]>
+    </insert>
+
+    <update id="update" >
+        UPDATE t_pb_score_result SET
+	        <if test="batchId != null">batch_id = #{batchId, jdbcType=INTEGER} ,</if>
+	        <if test="indicatorId != null">indicator_id = #{indicatorId, jdbcType=INTEGER} ,</if>
+	        <if test="indicatorName != null">indicator_name = #{indicatorName, jdbcType=VARCHAR} ,</if>
+	        <if test="indicatorTimeId != null">indicator_time_id = #{indicatorTimeId, jdbcType=INTEGER} ,</if>
+	        <if test="personId != null">person_id = #{personId, jdbcType=INTEGER} ,</if>
+	        <if test="personName != null">person_name = #{personName, jdbcType=VARCHAR} ,</if>
+	        <if test="personIdNum != null">person_id_num = #{personIdNum, jdbcType=VARCHAR} ,</if>
+	        <if test="scoreValue != null">score_value = #{scoreValue, jdbcType=INTEGER} ,</if>
+	        <if test="scoreDetail != null">score_detail = #{scoreDetail, jdbcType=VARCHAR} ,</if>
+	        <if test="ctime != null">c_time = #{ctime, jdbcType=DATE} </if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_pb_score_result WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="PbScoreResult">
+	    SELECT <include refid="columns"/>
+	    <![CDATA[
+	        FROM t_pb_score_result 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+    </select>
+
+	<sql id="findWhere">
+	    <where>
+					<if test="indicatorName != null">
+						AND indicator_name = #{indicatorName}
+					</if>
+					<if test="personName != null">
+						AND person_name = #{personName}
+					</if>
+					<if test="personIdNum != null">
+						AND person_id_num = #{personIdNum}
+					</if>
+					<if test="scoreDetail != null">
+						AND score_detail = #{scoreDetail}
+					</if>
+	    </where>
+	</sql>
+	 
+    <select id="findPageCount" resultType="int">
+        SELECT count(*) FROM t_pb_score_result <include refid="findWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="PbScoreResult">
+    	SELECT <include refid="columns"/> FROM t_pb_score_result 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+	<select id="find" resultMap="PbScoreResult">
+	    SELECT <include refid="columns"/> FROM t_pb_score_result 
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+	
+</mapper>
+
