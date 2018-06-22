@@ -53,7 +53,7 @@
                                      onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardPositive}" != "") style="display: none;" #end >
                                 <img class="preview" id="preview" alt="" name="pic" width="152" height="100"
                                      #if("$!{identityInfo.idCardPositive}"=="") style="display:none;" #end src="$!{identityInfo.idCardPositive}"/>
-                                <input name="idcard1" type="file" class="upload_input"
+                                <input name="idcard1" type="file" class="upload_input" accept="image/*"
                                        onchange="integral.change(this)"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
                                 <div class="title_idcard" style="display:none;">身份证正面</div>
@@ -66,7 +66,7 @@
                                      onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardOpposite}" != "") style="display: none;" #end alt="">
                                 <img class="preview" id="back" alt="" name="pic" width="152" height="100"
                                      #if("$!{identityInfo.idCardOpposite}"=="") style="display:none;" #end src="$!{identityInfo.idCardOpposite}"/>
-                                <input name="idcard2" type="file" class="upload_input"
+                                <input name="idcard2" type="file" class="upload_input" accept="image/*"
                                        onchange="integral.change(this)"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
                                 <div class="title_idcard" style="display:none;">身份证反面</div>

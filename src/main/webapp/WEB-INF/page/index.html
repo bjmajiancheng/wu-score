@@ -90,6 +90,9 @@
                             {\#if identityInfo.reservationStatus == 8}
                             <span>审核中</span>
                             {/if}
+                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
+                            <span>待补件</span>
+                            {/if}
                         </td>
                     </tr>
                     {/list}
