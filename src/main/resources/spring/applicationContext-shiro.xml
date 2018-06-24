@@ -53,6 +53,7 @@
                 /attachmentFile/**=anon
                 /commonQuestion/**=anon
                 /systemNotice/**=anon
+                /pbScoreResult/**=anon
                 /**=authc
             </value>
         </property>
