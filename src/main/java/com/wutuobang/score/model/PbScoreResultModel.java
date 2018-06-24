@@ -30,7 +30,7 @@ public class PbScoreResultModel implements Serializable {
 
 	private String indicatorName;//"指标名称"
 
-	private Integer indicatorTimeId;//"指标选项id"
+	private Integer indicatorItemId;//"指标选项id"
 
 	private Integer personId;//"申请人id"
 
@@ -78,12 +78,12 @@ public class PbScoreResultModel implements Serializable {
 		return this.indicatorName;
 	}
 		
-	public void setIndicatorTimeId(Integer indicatorTimeId) {
-		this.indicatorTimeId = indicatorTimeId;
+	public void setIndicatorItemId(Integer indicatorItemId) {
+		this.indicatorItemId = indicatorItemId;
 	}
 
-	public Integer getIndicatorTimeId() {
-		return this.indicatorTimeId;
+	public Integer getIndicatorItemId() {
+		return this.indicatorItemId;
 	}
 		
 	public void setPersonId(Integer personId) {
