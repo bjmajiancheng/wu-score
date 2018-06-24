@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.model.BatchConfModel;
+import com.wutuobang.score.model.CompanyInfoModel;
 import com.wutuobang.score.model.IdentityInfoModel;
 import com.wutuobang.score.view.SearchScoreView;
 import org.apache.commons.lang.StringUtils;
@@ -51,6 +52,9 @@ public class PbScoreResultController {
     @Autowired
     private IBatchConfService batchConfService;
 
+    @Autowired
+    private ICompanyInfoService companyInfoService;
+
     /**
      * 跳转到积分查询页面
      *
@@ -84,14 +88,18 @@ public class PbScoreResultController {
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
+            if (batchConfModel.getProcess() != 2) {
+                /*return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());*/
+            }
+
             Map<String, Object> param = new HashMap<String, Object>();
-            if(StringUtils.isNotEmpty(searchScoreView.getAcceptNumber())) {
+            if (StringUtils.isNotEmpty(searchScoreView.getAcceptNumber())) {
                 param.put("acceptNumber", searchScoreView.getAcceptNumber());
             }
-            if(StringUtils.isNotEmpty(searchScoreView.getUserName())) {
+            if (StringUtils.isNotEmpty(searchScoreView.getUserName())) {
                 param.put("userName", "%" + searchScoreView.getUserName() + "%");
             }
-            if(StringUtils.isNotEmpty(searchScoreView.getIdCardNumber())) {
+            if (StringUtils.isNotEmpty(searchScoreView.getIdCardNumber())) {
                 param.put("idNumber", searchScoreView.getIdCardNumber());
             }
             param.put("batchId", batchConfModel.getId());
@@ -113,7 +121,7 @@ public class PbScoreResultController {
      */
     @RequestMapping(value = "/detail/{identityInfoId}.html", method = RequestMethod.GET)
     public ModelAndView detail(HttpServletRequest request, @PathVariable("identityInfoId") Integer identityInfoId) {
-        if(identityInfoId == null) {
+        if (identityInfoId == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
         }
         ModelAndView mv = new ModelAndView("scoreResult/scoreDetail.html");
@@ -122,6 +130,11 @@ public class PbScoreResultController {
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
             if (identityInfo == null) {
                 return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+            }
+
+            CompanyInfoModel companyInfo = companyInfoService.getById(identityInfo.getCompanyId());
+            if (companyInfo != null) {
+                identityInfo.setCompanyName(companyInfo.getCompanyName());
             }
 
             List<PbScoreResultModel> pbScoreResults = pbScoreResultService.getByPersonId(identityInfoId);
@@ -141,7 +154,7 @@ public class PbScoreResultController {
      * @param request
      * @return
      */
-    @RequestMapping(value="/publicityList.html")
+    @RequestMapping(value = "/publicityList.html")
     public String publicityList(HttpServletRequest request) {
         return "scoreResult/publicityList.html";
     }

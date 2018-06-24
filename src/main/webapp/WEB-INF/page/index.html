@@ -87,7 +87,27 @@
                             {\#elseif identityInfo.reservationStatus == 10}
                                 <span>联合预审通过</span>
                             {\#elseif identityInfo.reservationStatus == 11}
-                                <span>预约成功</span>
+                                {\#if identityInfo.hallStatus == 0}
+                                    <!--<span>公安前置预审待审核</span>-->
+                                    <span>预约成功</span>
+                                {\#elseif identityInfo.hallStatus == 1}
+                                    <span>公安前置预审不通过</span>
+                                {\#elseif identityInfo.hallStatus == 2}
+                                    <span>公安前置预审通过</span>
+                                {\#elseif identityInfo.hallStatus == 3}
+                                    <span>人社受理待审核</span>
+                                {\#elseif identityInfo.hallStatus == 4}
+                                    <span>人社受理不通过</span>
+                                {\#elseif identityInfo.hallStatus == 5}
+                                    <span>人社正式受理通过</span>
+                                {\#elseif identityInfo.hallStatus == 6}
+                                    <span>人社汇总发布</span>
+                                {\#elseif identityInfo.hallStatus == 7}
+                                    <span>分数已核算</span>
+                                {\#elseif identityInfo.hallStatus == 8}
+                                    <span>资格已取消</span>
+                                {/if}
+                                <!--<span>预约成功</span>-->
                             {/if}
                             {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
                             <span>待补件</span>
@@ -117,6 +137,9 @@
                             {/if}
                             {\#if identityInfo.reservationStatus == 10}
                             <span class="integral-table-btn integral-table-btn2 print">打印</span>
+                            {/if}
+                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
+                            <span class="integral-table-btn integral-table-btn2" onclick="reUpload({identityInfo.id})">重新上传材料</span>
                             {/if}
                         </td>
                     </tr>
@@ -258,6 +281,14 @@
      * @param id
      */
     function uploadFile(id) {
+        window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
+    }
+
+    /**
+     * 重新上传材料
+     * @param id
+     */
+    function reUpload(id) {
         window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
     }
 </script>
