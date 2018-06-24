@@ -16,51 +16,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.wutuobang.score.model.PbScoreResultModel;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 @Service("pbScoreResultService")
-public class PbScoreResultServiceImpl implements IPbScoreResultService{
-	@Autowired
-	private IPbScoreResultDao pbScoreResultDao;
+public class PbScoreResultServiceImpl implements IPbScoreResultService {
 
-	public int insert(PbScoreResultModel pbScoreResult) {
-		if(pbScoreResult == null) {
-			return 0;
-		}
-		return pbScoreResultDao.insert(pbScoreResult);
-	}
-	
-	public int update(PbScoreResultModel pbScoreResult) {
-		if(pbScoreResult == null) {
-			return 0;
-		}
-		return pbScoreResultDao.update(pbScoreResult);
-	}
-	
-	public PbScoreResultModel getById(Integer id) {
-		if(id == null) {
-			return null;
-		}
-		return pbScoreResultDao.getById(id);
-	}
+    @Autowired
+    private IPbScoreResultDao pbScoreResultDao;
 
-	public int removeById(Integer id) {
-		if(id == null) {
-			return 0;
-		}
-		return pbScoreResultDao.delete(id);
-	}	
+    public int insert(PbScoreResultModel pbScoreResult) {
+        if (pbScoreResult == null) {
+            return 0;
+        }
+        return pbScoreResultDao.insert(pbScoreResult);
+    }
 
-	public List<PbScoreResultModel> find(Map<String, Object> param) {
-		return pbScoreResultDao.find(param);
-	}
-	
+    public int update(PbScoreResultModel pbScoreResult) {
+        if (pbScoreResult == null) {
+            return 0;
+        }
+        return pbScoreResultDao.update(pbScoreResult);
+    }
+
+    public PbScoreResultModel getById(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return pbScoreResultDao.getById(id);
+    }
+
+    public int removeById(Integer id) {
+        if (id == null) {
+            return 0;
+        }
+        return pbScoreResultDao.delete(id);
+    }
+
+    public List<PbScoreResultModel> find(Map<String, Object> param) {
+        return pbScoreResultDao.find(param);
+    }
+
+    /**
+     * 根据申请人id查询信息
+     *
+     * @param personId
+     * @return
+     */
+    public List<PbScoreResultModel> getByPersonId(Integer personId) {
+        if (personId == null) {
+            return Collections.emptyList();
+        }
+
+        return this.find(Collections.singletonMap("personId", (Object) personId));
+    }
+
 }

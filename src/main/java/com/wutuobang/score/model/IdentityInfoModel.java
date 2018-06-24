@@ -103,6 +103,8 @@ public class IdentityInfoModel implements Serializable {
     private String reservaionDateStr;//预约日期
 
     private Integer reservationDateNull;//设置预约时间为空
+
+    private String companyName;//公司名称
     //自定义属性 END
 
     public Integer getId() {
@@ -412,6 +414,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setReservationDateNull(Integer reservationDateNull) {
         this.reservationDateNull = reservationDateNull;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
 

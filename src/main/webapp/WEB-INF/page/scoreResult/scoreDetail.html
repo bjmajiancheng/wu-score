@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>积分查询</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+    <!-- 左部导航 -->
+    #parse("common/lefter.html")
+    <!-- </script> -->
+    <!-- 中间二级导航 -->
+
+    <!-- 内容展示区 -->
+    <div class="integral-cont">
+
+        <!-- 积分查询 -->
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head">积分查询</div>
+            <p class="interal-main-btn mr20 fr mt10" id="cancalList">返回</p>
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title">
+            积分查询
+        </div>
+        <!-- 积分详情 -->
+        <table class="integral-cont-table" style="margin-left:10px;">
+            <tr>
+                <td width="25%">登记编号: $!{identityInfo.acceptNumber}</td>
+                <td width="25%">姓名: ${identityInfo.name}</td>
+                <td width="25%">性别:
+                    #if(${identityInfo.sex} == 1)
+                        男
+                    #elseif(${identityInfo.sex} == 2)
+                        女
+                    #end
+                </td>
+                <td width="25%">身份证号: ${identityInfo.idNumber}</td>
+            </tr>
+            <tr>
+                <td>单位名称: ${identityInfo.companyId}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="color-red" colspan="4">此申请人不予积分落户</td>
+            </tr>
+            <tr>
+                <td colspan="4">不予落户原因: </td>
+            </tr>
+        </table>
+
+        <div style="clear: both;"></div>
+        <table class="integral-table">
+            <tr>
+                <th colspan="3"><front style="color:#0000FF">打分指标列表</front></th>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <th>指标项</th>
+                <th>分数</th>
+            </tr>
+            <tbody>
+            #foreach (${pbScoreResult} in ${pbScoreResults})
+            <tr>
+                <td>${velocityCount}</td>
+                <td>${pbScoreResult.indicatorName}</td>
+                <td>${pbScoreResult.scoreValue}</td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function(){
+        currPage("searchScore");
+
+        //返回列表
+        $("#cancalList").on("click", function(){
+            window.location.href = "${rc.contextPath}/pbScoreResult/searchScore.html";
+        });
+    });
+
+</script>
+
+</html>
+

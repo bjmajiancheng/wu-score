@@ -93,18 +93,21 @@
 
 	<sql id="findWhere">
 	    <where>
-					<if test="indicatorName != null">
-						AND indicator_name = #{indicatorName}
-					</if>
-					<if test="personName != null">
-						AND person_name = #{personName}
-					</if>
-					<if test="personIdNum != null">
-						AND person_id_num = #{personIdNum}
-					</if>
-					<if test="scoreDetail != null">
-						AND score_detail = #{scoreDetail}
-					</if>
+			<if test="indicatorName != null">
+				AND indicator_name = #{indicatorName}
+			</if>
+			<if test="personName != null">
+				AND person_name = #{personName}
+			</if>
+			<if test="personIdNum != null">
+				AND person_id_num = #{personIdNum}
+			</if>
+			<if test="scoreDetail != null">
+				AND score_detail = #{scoreDetail}
+			</if>
+			<if test="personId != null">
+				AND person_id = #{personId}
+			</if>
 	    </where>
 	</sql>
 	 

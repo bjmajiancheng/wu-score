@@ -49,6 +49,7 @@
                         <th>性别</th>
                         <th>拟定户地</th>
                         <th>预约日期</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     {#list identityInfos as identityInfo }
@@ -62,6 +63,14 @@
                         <td>{identityInfo.sexStr}</td>
                         <td>{identityInfo.regionName}</td>
                         <td>{identityInfo.reservaionDateStr}</td>
+                        <td>
+                            {\#if identityInfo.reservationStatus == 8}
+                            <span>审核中</span>
+                            {/if}
+                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
+                            <span>待补件</span>
+                            {/if}
+                        </td>
                         <td>
                             {\#if identityInfo.reservationStatus == 1 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum > 0)}
                             <span class="integral-table-btn integral-table-btn1 edit" onclick="editIdentityInfo({identityInfo.id})">编辑</span>
@@ -86,12 +95,6 @@
                             {/if}
                             {\#if identityInfo.reservationStatus == 10}
                             <span class="integral-table-btn integral-table-btn2 print">打印</span>
-                            {/if}
-                            {\#if identityInfo.reservationStatus == 8}
-                            <span>审核中</span>
-                            {/if}
-                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
-                            <span>待补件</span>
                             {/if}
                         </td>
                     </tr>

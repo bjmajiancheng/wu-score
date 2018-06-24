@@ -44,6 +44,15 @@ public interface IIdentityInfoService {
             Integer pageNo);
 
     /**
+     * 获取积分查询信息
+     *
+     * @param param
+     * @param pageNo
+     * @return
+     */
+    public PageData<IdentityInfoModel> findPage(Map<String, Object> param, Integer pageNo);
+
+    /**
      * 生成受理编号
      *
      * @param identityInfoModel

@@ -15,6 +15,7 @@ import java.util.Set;
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.score.model.CompanyInfoModel;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
 
     @Autowired
     private IIdentityInfoDao identityInfoDao;
+
+    @Autowired
+    private ICompanyInfoService companyInfoService;
 
     public int insert(IdentityInfoModel identityInfo) {
         if (identityInfo == null) {
@@ -89,7 +93,7 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
         param.put("pageSize", CommonConstant.PAGE_SIZE);*/
         int pageCount = identityInfoDao.findPageCount(param);
-        if (pageCount < 0) {
+        if (pageCount <= 0) {
             return new PageData<IdentityInfoModel>();
         }
         param.put("sortColumns", "id DESC");
@@ -102,6 +106,48 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         identityInfoPageData.setRecordsTotal(pageCount);
 
         return identityInfoPageData;
+    }
+
+    /**
+     * 获取积分查询信息
+     *
+     * @param param
+     * @param pageNo
+     * @return
+     */
+    public PageData<IdentityInfoModel> findPage(Map<String, Object> param, Integer pageNo) {
+        int pageCount = identityInfoDao.findPageCount(param);
+        if (pageCount <= 0) {
+            return new PageData<IdentityInfoModel>();
+        }
+
+        param.put("sortColumns", "id DESC");
+        List<IdentityInfoModel> identityInfos = identityInfoDao
+                .findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
+
+        if(CollectionUtils.isNotEmpty(identityInfos)) {
+            List<Integer> companyIds = new ArrayList<Integer>();
+            for(IdentityInfoModel identityInfo : identityInfos) {
+                if(!companyIds.contains(identityInfo.getCompanyId())) {
+                    companyIds.add(identityInfo.getCompanyId());
+                }
+            }
+
+            Map<Integer, CompanyInfoModel> companyInfoMap = companyInfoService.getMapByIds(companyIds);
+            for(IdentityInfoModel identityInfo : identityInfos) {
+                CompanyInfoModel companyInfo = companyInfoMap.get(identityInfo.getCompanyId());
+                if (companyInfo != null) {
+                    identityInfo.setCompanyName(companyInfo.getCompanyName());
+                }
+            }
+        }
+
+
+        PageData<IdentityInfoModel> pageData = new PageData<IdentityInfoModel>();
+        pageData.setData(identityInfos);
+        pageData.setRecordsTotal(pageCount);
+
+        return pageData;
     }
 
     /**

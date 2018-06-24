@@ -29,4 +29,12 @@ public interface IPbScoreResultService{
 	public int removeById(Integer value);
 
 	public List<PbScoreResultModel> find(Map<String, Object> param);
+
+	/**
+	 * 根据申请人id查询信息
+	 *
+	 * @param personId
+	 * @return
+     */
+	public List<PbScoreResultModel> getByPersonId(Integer personId);
 }

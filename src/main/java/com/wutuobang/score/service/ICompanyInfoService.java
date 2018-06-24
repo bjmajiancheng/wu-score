@@ -37,4 +37,12 @@ public interface ICompanyInfoService{
 	 * @return
      */
 	public CompanyInfoModel queryByUserName(String userName);
+
+	/**
+	 * 获取公司map信息
+	 *
+	 * @param ids
+	 * @return
+     */
+	public Map<Integer, CompanyInfoModel> getMapByIds(List<Integer> ids);
 }

@@ -79,12 +79,35 @@ public class CompanyInfoServiceImpl implements ICompanyInfoService {
             return null;
         }
 
-        List<CompanyInfoModel> companyInfos = this.find(Collections.singletonMap("userName", (Object)userName));
+        List<CompanyInfoModel> companyInfos = this.find(Collections.singletonMap("userName", (Object) userName));
 
         if (CollectionUtils.isNotEmpty(companyInfos)) {
             return companyInfos.get(0);
         }
         return null;
+    }
+
+    /**
+     * 获取公司map信息
+     *
+     * @param ids
+     * @return
+     */
+    public Map<Integer, CompanyInfoModel> getMapByIds(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyMap();
+        }
+
+        List<CompanyInfoModel> companyInfos = this.find(Collections.singletonMap("ids", (Object) ids));
+        Map<Integer, CompanyInfoModel> companyInfoMap = new HashMap<Integer, CompanyInfoModel>();
+
+        if (CollectionUtils.isNotEmpty(companyInfos)) {
+            for (CompanyInfoModel companyInfo : companyInfos) {
+                companyInfoMap.put(companyInfo.getId(), companyInfo);
+            }
+        }
+
+        return companyInfoMap;
     }
 
 }

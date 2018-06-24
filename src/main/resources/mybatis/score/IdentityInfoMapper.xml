@@ -189,6 +189,12 @@
 			<if test="notId != null">
 				AND id != #{notId}
 			</if>
+			<if test="userName != null">
+				AND name LIKE #{userName}
+			</if>
+			<if test="acceptNumber != null">
+				AND accept_number = #{acceptNumber}
+			</if>
 	    </where>
 	</sql>
 	 

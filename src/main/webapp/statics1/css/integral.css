@@ -831,6 +831,26 @@ html {
     margin: 14px 15px 0 10px;
 }
 
+.interal-tab-title-input1>div,
+.interal-tab-title-input1>input {
+    float: left;
+}
+
+.interal-tab-title-input1 {
+    height: 51px;
+    border-top: 1px solid #E1E1E1;
+    padding-left: 20px;
+}
+
+.interal-tab-title-input1>input {
+    width: 150px;
+    height: 25px;
+    background: #F5F6FA;
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+    margin: 14px 15px 0 10px;
+}
+
 .interal-input-title {
     font-size: 12px;
     height: 17px;

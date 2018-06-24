@@ -125,6 +125,12 @@
 			<if test="remark != null">
 				AND remark = #{remark}
 			</if>
+			<if test="ids != null">
+				AND id IN
+				<foreach collection="ids" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 	    </where>
 	</sql>
 	 

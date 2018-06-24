@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>积分查询</title>
+    #parse("common/header.html")
+</head>
+
+<body>
+#parse("common/banner.html")
+
+<!-- 主体部分 -->
+<div class="integral-main-box">
+
+    <!-- 左部导航 -->
+    #parse("common/lefter.html")
+    <!-- </script> -->
+    <!-- 中间二级导航 -->
+
+    <!-- 内容展示区 -->
+    <div class="integral-cont">
+
+        <!-- 积分查询 -->
+        <!-- 示例title 面包屑导航 -->
+        <div class="integral-grey-title-bar">
+            <div class="title-bar-head">积分查询</div>
+            <!--<p class="interal-main-btn mr20 fr mt10">返回</p>-->
+        </div>
+        <!-- 内容描述title -->
+        <div class="integral-desc-title">
+            积分查询
+        </div>
+        <!-- 政策表格 -->
+        <script type="text/regular" id="rows">
+            <div class="interal-tab-title-input1">
+                <div class="interal-input-title">登记编号</div>
+                <input type="text" name="acceptNumber" />
+                <div class="interal-input-title">用户名称</div>
+                <input type="text" name="userName" />
+                <div class="interal-input-title">身份证号</div>
+                <input type="text" name="idCardNumber" />
+
+                <div class="interal-input-btn" on-click={this.load()}>查询</div>
+            </div>
+
+            <table class="integral-table">
+                <tr>
+                    <th>序号</th>
+                    <th>登记编号</th>
+                    <th>单位名称</th>
+                    <th>姓名</th>
+                    <th>身份证号</th>
+                    <th>性别</th>
+                    <th>操作</th>
+                </tr>
+                <tbody>
+                {#list identityInfos as identityInfo}
+                <tr>
+                    <td>{identityInfo_index + 1}</td>
+                    <td>{identityInfo.acceptNumber}</td>
+                    <td>{identityInfo.companyName}</td>
+                    <td>{identityInfo.name}</td>
+                    <td>{identityInfo.idNumber}</td>
+                    <td>
+                        {identityInfo.sexStr}
+                    </td>
+                    <td>
+                        <span class="integral-table-btn integral-table-btn1 detail" onclick="showDetail({identityInfo.id})">详情</span>
+                    </td>
+                </tr>
+                {/list}
+                </tbody>
+            </table>
+        </script>
+        <div id="app">
+        </div>
+        <!-- 分页器插件 -->
+        <div class="integral-paging-device-wrap2 m-style"></div>
+    </div>
+</div>
+
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+<script type="text/javascript">
+    $(function(){
+        currPage("searchScore");
+
+        component.load();
+        component.$inject('#app');
+    });
+
+    //利用Regular构建你的app吧
+    var rowsRegular = Regular.extend({
+        template: '#rows'
+    });
+
+    // initialize component then $inject to #app's  bottom
+    var component = new rowsRegular({
+        data: {identityInfos: []},
+        load: function(data){
+
+            var pageCount = list(1);
+            showPage(pageCount);
+        }
+    });
+
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent());
+        pageInfo.setPageCount(pageCount);
+    }
+
+    /**
+     * 分页列表信息
+     * @param page_index
+     */
+    function list(page_index) {
+        var pageCount = 0;
+
+        var acceptNumber = $("input[name=acceptNumber]").val();
+        var userName = $("input[name=userName]").val();
+        var idCardNumber = $("input[name=idCardNumber]").val();
+
+        var searchParam = JSON.stringify({"acceptNumber": acceptNumber, "userName": userName, "idCardNumber":idCardNumber, "pageNo": page_index});
+        getSyncResultData("${rc.contextPath}/pbScoreResult/list", {"searchParam": searchParam}, function(result){
+            component.data.identityInfos = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
+
+    /**
+     * 评分详情
+     *
+     * @param id
+     */
+    function showDetail(id) {
+        window.open("${rc.contextPath}/pbScoreResult/detail/"+id+".html");
+    }
+</script>
+
+</html>
+
