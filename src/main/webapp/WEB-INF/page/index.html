@@ -65,7 +65,29 @@
                         <td>{identityInfo.reservaionDateStr}</td>
                         <td>
                             {\#if identityInfo.reservationStatus == 8}
-                            <span>审核中</span>
+                                <span>审核中</span>
+                            {\#elseif identityInfo.reservationStatus == 0}
+                                <span>信息未填写</span>
+                            {\#elseif identityInfo.reservationStatus == 1}
+                                <span>信息已保存</span>
+                            {\#elseif identityInfo.reservationStatus == 2}
+                                <span>信息已提交</span>
+                            {\#elseif identityInfo.reservationStatus == 3}
+                                <span>材料已上传</span>
+                            {\#elseif identityInfo.reservationStatus == 4}
+                                <span>自助测评补测</span>
+                            {\#elseif identityInfo.reservationStatus == 5}
+                                <span>自助测评不通过</span>
+                            {\#elseif identityInfo.reservationStatus == 6}
+                                <span>自助测评通过</span>
+                            {\#elseif identityInfo.reservationStatus == 7}
+                                <span>预约地点选择完成</span>
+                            {\#elseif identityInfo.reservationStatus == 9}
+                                <span>联合预审不通过</span>
+                            {\#elseif identityInfo.reservationStatus == 10}
+                                <span>联合预审通过</span>
+                            {\#elseif identityInfo.reservationStatus == 11}
+                                <span>预约成功</span>
                             {/if}
                             {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
                             <span>待补件</span>
