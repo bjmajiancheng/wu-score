@@ -89,7 +89,7 @@ public class PbScoreResultController {
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
             if (batchConfModel.getProcess() != 2) {
-                /*return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());*/
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
             }
 
             Map<String, Object> param = new HashMap<String, Object>();
