@@ -38,6 +38,8 @@ public class OnlinePersonMaterialModel implements Serializable {
 
 	private Integer status;//"材料状态"
 
+	private String reason;//失败原因
+
 	private Date ctime;//"创建时间"
 	//columns END
 		
@@ -104,7 +106,15 @@ public class OnlinePersonMaterialModel implements Serializable {
 	public Integer getStatus() {
 		return this.status;
 	}
-		
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
 	}

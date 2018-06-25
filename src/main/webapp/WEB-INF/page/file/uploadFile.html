@@ -42,8 +42,10 @@
                 <td>
                     <span class="attachmentName">$!{materialInfo.onlinePersonMaterial.materialName}</span>
                     <input type="hidden" name="materialId" value="$!{materialInfo.onlinePersonMaterial.materialId}"/>
+                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
                     <span class="integral-table-btn td_upload integral-table-btn2">上传</span>
                     <input class="upload_input" type="file" name="updateFile" accept="image/*" />
+                    #end
                 </td>
                 <td>
                     <a class="integral-table-btn integral-table-btn2 viewFile" href="javascript:void(0);"
@@ -52,7 +54,13 @@
                 <td><a class="integral-table-btn integral-table-btn2 viewTemplate" herf="javascript:void(0);"
                        templateImg="$!{materialInfo.templateImg}">查看模板</a></td>
                 <td>
+                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
                     <a class="integral-table-btn integral-table-btn2 deleteFile">删除</a>
+                    #end
+
+                    #if($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1)
+                    <a class="integral-table-btn integral-table-btn2 " href="javascript:void(0);" onclick="showReason('$!{materialInfo.onlinePersonMaterial.reason}')">失败原因</a>
+                    #end
                 </td>
             </tr>
             #end
@@ -203,6 +211,17 @@
 
         });
     });
+
+    /**
+     * 展示失败原因
+     **/
+    function showReason(reason) {
+        if(reason) {
+            layer.msg(reason);
+        } else {
+            layer.msg('失败原因为空!!!');
+        }
+    }
 
 
     function imgShow(outerdiv, innerdiv, bigimg, templateImg) {

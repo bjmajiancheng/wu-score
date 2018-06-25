@@ -14,13 +14,14 @@
         <result property="materialName" column="material_name"/>
         <result property="materialUri" column="material_uri"/>
         <result property="status" column="status"/>
+		<result property="reason" column="reason"/>
         <result property="ctime" column="c_time"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,person_id ,batch_id , material_info_id,material_id ,material_name ,material_uri ,status ,c_time
+        id ,person_id ,batch_id , material_info_id,material_id ,material_name ,material_uri ,status ,reason, c_time
 	    ]]>
 	</sql>
 	
@@ -38,6 +39,7 @@
 	        material_name  ,
 	        material_uri  ,
 	        status  ,
+	        reason  ,
 	        c_time  
         ) VALUES (
         	${id} ,
@@ -48,6 +50,7 @@
         	#{materialName, jdbcType=VARCHAR} ,
         	#{materialUri, jdbcType=VARCHAR} ,
         	#{status, jdbcType=INTEGER} ,
+        	#{reason, jdbcType=VARCHAR},
         	#{ctime, jdbcType=TIMESTAMP} 
         )
     ]]>
@@ -61,7 +64,8 @@
 	        <if test="materialId != null">material_id = #{materialId, jdbcType=INTEGER} ,</if>
 	        <if test="materialName != null">material_name = #{materialName, jdbcType=VARCHAR} ,</if>
 	        <if test="materialUri != null">material_uri = #{materialUri, jdbcType=VARCHAR} ,</if>
-	        <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
+			<if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
+			<if test="reason != null">reason = #{reason, jdbcType=VARCHAR} ,</if>
 	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
 			id = #{id}
 		WHERE

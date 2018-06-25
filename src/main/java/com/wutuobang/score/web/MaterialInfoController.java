@@ -93,7 +93,15 @@ public class MaterialInfoController {
                 }
             }
 
-            mv.addObject("identityInfo", identityInfoService.getById(identityInfoId));
+            //判断当前状态是否是重新上传材料
+            IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+            if (identityInfo.getUnionApproveStatus1() == 4 || identityInfo.getUnionApproveStatus2() == 4
+                    || identityInfo.getPoliceApproveStatus() == 2 || identityInfo.getRensheAcceptStatus() == 2) {
+                mv.addObject("reUpload", 1);
+            } else {
+                mv.addObject("reUpload", 0);
+            }
+            mv.addObject("identityInfo", identityInfo);
             mv.addObject("materialInfos", materialInfos);
 
             return mv;
@@ -140,10 +148,9 @@ public class MaterialInfoController {
                         .getByPersonId(identityInfoId);
 
                 Map<Integer, OnlinePersonMaterialModel> beforeMaterialMap = new HashMap<Integer, OnlinePersonMaterialModel>();
-                for(OnlinePersonMaterialModel beforeMaterialModel : beforeMaterialModels) {
+                for (OnlinePersonMaterialModel beforeMaterialModel : beforeMaterialModels) {
                     beforeMaterialMap.put(beforeMaterialModel.getId(), beforeMaterialModel);
                 }
-
 
                 List<Integer> materialIds = new ArrayList<Integer>(onlinePersonMaterials.size());
                 for (OnlinePersonMaterialModel onlinePersonMaterial : onlinePersonMaterials) {
@@ -190,7 +197,7 @@ public class MaterialInfoController {
                 }
 
                 List<Integer> delIds = new ArrayList<Integer>(beforeMaterialMap.keySet());
-                if(CollectionUtils.isNotEmpty(delIds)) {
+                if (CollectionUtils.isNotEmpty(delIds)) {
                     int delCount = onlinePersonMaterialService.delByIds(delIds);
                 }
             }
