@@ -54,6 +54,7 @@
                 /commonQuestion/**=anon
                 /systemNotice/**=anon
                 /pbScoreResult/**=anon
+                /shopPic/**=anon
                 /**=authc
             </value>
         </property>

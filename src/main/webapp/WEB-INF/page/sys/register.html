@@ -264,7 +264,7 @@
         var patrn = /^[0-9A-Z]+$/;//18位校验及大写校验
 
         if ((Code.length != 18) || (patrn.test(Code) == false)){
-            layer.alert("不是有效的统一社会信用编码！");
+            layer.alert("不是有效的统一社会信用代码！");
             return false;
         } else{
             var Ancode; //统一社会信用代码的每一个值
@@ -294,7 +294,7 @@
 
             var checkcode = Code.substring(17, 18);
             if (logiccheckcode != checkcode){
-                layer.alert("不是有效的统一社会信用编码！");
+                layer.alert("不是有效的统一社会信用代码！");
                 return false;
             }
         }
