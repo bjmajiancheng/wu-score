@@ -43,6 +43,6 @@ public class SmsUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        send("13717689765", "陈国俊的天津市居住证积分预约已经取消成功！");
+        send("13717689765", "系统提示：您的验证码为：1234，有效期为5分钟，请勿向他人提供收到的信息。");
     }
 }

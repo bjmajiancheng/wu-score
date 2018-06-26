@@ -178,7 +178,7 @@
 				AND nation = #{nation}
 			</if>
 			<if test="queryStr != null">
-				AND name LIKE #{queryStr}
+				AND (name LIKE #{queryStr} OR id_number LIKE #{queryStr})
 			</if>
 			<if test="batchId != null">
 				AND batch_id = #{batchId}
