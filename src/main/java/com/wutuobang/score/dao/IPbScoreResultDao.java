@@ -29,5 +29,13 @@ public interface IPbScoreResultDao {
 	public int delete(@Param("id") Integer id);
 	
 	public List<PbScoreResultModel> find(Map<String, Object> param);
+
+	/**
+	 * 获取当前批次名单公示信息
+	 *
+	 * @param batchId
+	 * @return
+	 */
+	public List<PbScoreResultModel> findCurrBatch(@Param("batchId") Integer batchId);
 	
 }

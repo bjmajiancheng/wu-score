@@ -2,6 +2,8 @@ package com.wutuobang.score.web;
 
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
+import com.wutuobang.common.constant.CommonConstant;
+import com.wutuobang.common.message.SmsUtil;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
@@ -305,7 +307,9 @@ public class IdentityInfoController {
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(indicatorView.getIdentityInfoId());
 
-            if(identityInfoModel.getReservationStatus() == 6) {
+            HouseOtherModel houseOtherModel = houseOtherService.getByIdentityInfoId(indicatorView.getIdentityInfoId());
+
+            if (identityInfoModel.getReservationStatus() == 6) {
                 return ResultParam.error("您自助测评已通过, 不能再次测评!!");
             }
 
@@ -316,6 +320,16 @@ public class IdentityInfoController {
             //自助评测信息
             boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel, currUser);
             if (evaluationFlag) {
+                if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
+                    SmsUtil.send(currUser.getOperatorMobile(),
+                            String.format(CommonConstant.AUTOEVALUATIONPASS_MESSAGE, currUser.getOperator()));
+                }
+
+                if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
+                    SmsUtil.send(houseOtherModel.getSelfPhone(),
+                            String.format(CommonConstant.AUTOEVALUATIONPASS_MESSAGE, identityInfoModel.getName()));
+                }
+
                 return new ResultParam(ResultParam.SUCCESS, "您已通过测评!!");
             } else {
                 return new ResultParam(ResultParam.SUCCESS,
@@ -659,6 +673,19 @@ public class IdentityInfoController {
 
             int count = identityInfoService.update(updateIdentityInfo);
 
+            CompanyInfoModel currUser = ShiroUtils.getUserEntity();
+            HouseOtherModel houseOtherModel = houseOtherService.getByIdentityInfoId(identityInfoModel.getId());
+
+            if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
+                SmsUtil.send(currUser.getOperatorMobile(),
+                        String.format(CommonConstant.ADDAPPLICATION_OPERATOR_MESSAGE, currUser.getOperator()));
+            }
+
+            if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
+                SmsUtil.send(houseOtherModel.getSelfPhone(),
+                        String.format(CommonConstant.ADDAPPLICATION_OPERATOR_MESSAGE, identityInfoModel.getName()));
+            }
+
             return ResultParam.ok("取消预约成功, " + (updateIdentityInfo.getReservationTime() == 1 ?
                     "此申请人本期还可以预约一次!!" :
                     "此申请人本期不可再预约!!"));
@@ -678,19 +705,19 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/validateAutoTest/{id}", method = RequestMethod.POST)
     public ResultParam vdalidateAutoTest(HttpServletRequest request, @PathVariable("id") Integer id) {
-        if(id == null) {
+        if (id == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
 
-        try{
+        try {
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
-            if(identityInfoModel.getReservationStatus() == 6) {
+            if (identityInfoModel.getReservationStatus() == 6) {
                 return ResultParam.error("您自助测评已通过, 不能再次测评!!");
             }
 
             return ResultParam.SUCCESS_RESULT;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SUCCESS_RESULT;
         }

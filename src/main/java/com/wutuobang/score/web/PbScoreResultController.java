@@ -20,6 +20,8 @@ import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.CompanyInfoModel;
 import com.wutuobang.score.model.IdentityInfoModel;
 import com.wutuobang.score.view.SearchScoreView;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -157,6 +159,70 @@ public class PbScoreResultController {
     @RequestMapping(value = "/publicityList.html")
     public String publicityList(HttpServletRequest request) {
         return "scoreResult/publicityList.html";
+    }
+
+    /**
+     * 获取名单公示列表数据
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/publicityList")
+    public ResultParam publicityListData(HttpServletRequest request, @RequestParam("searchParam") String searchParam) {
+        if (StringUtils.isEmpty(searchParam)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        Map<String, Object> param = JSON.parseObject(searchParam, Map.class);
+        try {
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+
+            if (MapUtils.isEmpty(param) || param.get("queryStr") == null || StringUtils
+                    .isEmpty((String) param.get("queryStr"))) {
+                List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
+
+                return new ResultParam(ResultParam.SUCCESS_RESULT, pbScoreResults);
+            }
+
+            List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
+            if (CollectionUtils.isNotEmpty(identityInfos)) {
+                List<Integer> personIds = new ArrayList<Integer>(identityInfos.size());
+
+                for (IdentityInfoModel identityInfo : identityInfos) {
+                    personIds.add(identityInfo.getId());
+                }
+
+                Map<String, Object> pbScoreResultParam = new HashMap<String, Object>();
+                pbScoreResultParam.put("batchId", batchConfModel.getId());
+                pbScoreResultParam.put("personIds", personIds);
+                List<PbScoreResultModel> pbScoreResults = pbScoreResultService.find(param);
+
+                Map<Integer, PbScoreResultModel> pbScoreResultMap = new HashMap<Integer, PbScoreResultModel>();
+                for(PbScoreResultModel pbScoreResult : pbScoreResults) {
+                    PbScoreResultModel tmpScoreResult = pbScoreResultMap.get(pbScoreResult.getPersonId());
+                    if(tmpScoreResult == null) {
+                        pbScoreResultMap.put(pbScoreResult.getPersonId(), pbScoreResult);
+                        continue;
+                    }
+
+                    tmpScoreResult.setScoreValue(tmpScoreResult.getScoreValue() + pbScoreResult.getScoreValue());
+                }
+                List<PbScoreResultModel> finalPbScoreResult = new ArrayList<PbScoreResultModel>(personIds.size());
+                for(int personId : pbScoreResultMap.keySet()) {
+                    finalPbScoreResult.add(pbScoreResultMap.get(personId));
+                }
+
+
+                return new ResultParam(ResultParam.SUCCESS_RESULT, finalPbScoreResult);
+            }
+
+            return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
     }
 
 }

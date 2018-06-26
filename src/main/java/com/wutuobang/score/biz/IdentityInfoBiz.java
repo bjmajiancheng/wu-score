@@ -1,6 +1,8 @@
 package com.wutuobang.score.biz;
 
 import com.alibaba.fastjson.JSON;
+import com.wutuobang.common.constant.CommonConstant;
+import com.wutuobang.common.message.SmsUtil;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
@@ -148,6 +150,16 @@ public class IdentityInfoBiz {
                 houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
             }
             houseProfessionService.insert(houseProfessionModel);
+        }
+
+        if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
+            SmsUtil.send(currUser.getOperatorMobile(),
+                    String.format(CommonConstant.ADDAPPLICATION_APPLICANT_MESSAGE, currUser.getOperator()));
+        }
+
+        if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
+            SmsUtil.send(houseOtherModel.getSelfPhone(),
+                    String.format(CommonConstant.ADDAPPLICATION_APPLICANT_MESSAGE, identityInfoModel.getName()));
         }
 
         return true;

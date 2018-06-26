@@ -30,6 +30,35 @@
         </div>
         <!-- 名单公示 -->
 
+        <script type="text/regular" id="rows">
+            <div class="interal-tab-title-input1">
+                <div class="interal-input-title">名单查询</div>
+                <input type="text" name="queryStr" placeholder="按照登记编号、身份证号和姓名进行查询" style="width: 280px;"/>
+
+                <div class="interal-input-btn" on-click={this.load()}>查询</div>
+            </div>
+
+            <table class="integral-table">
+                <tr>
+                    <th>姓名</th>
+                    <th>身份证号</th>
+                    <th>总积分</th>
+                </tr>
+                <tbody>
+                {#list identityInfos as identityInfo}
+                <tr>
+                    <td>{identityInfo.personName}</td>
+                    <td>{identityInfo.personIdNum}</td>
+                    <td>{identityInfo.scoreValue}</td>
+                </tr>
+                {/list}
+                </tbody>
+            </table>
+        </script>
+        <div id="app">
+        </div>
+        <!-- 分页器插件 --><!--
+        <div class="integral-paging-device-wrap2 m-style"></div>-->
 
     </div>
 </div>
@@ -40,7 +69,54 @@
 <script type="text/javascript">
     $(function(){
         currPage("publicityList");
+
+        component.load();
+        component.$inject('#app');
     });
+
+    //利用Regular构建你的app吧
+    var rowsRegular = Regular.extend({
+        template: '#rows'
+    });
+
+    // initialize component then $inject to #app's  bottom
+    var component = new rowsRegular({
+        data: {identityInfos: []},
+        load: function(data){
+
+            var pageCount = list(1);
+            showPage(pageCount);
+        }
+    });
+
+    /**
+     * 分页callback
+     * @param page_index
+     * @param jq
+     */
+    function pageCallback(pageInfo) {
+        var pageCount = list(pageInfo.getCurrent());
+        pageInfo.setPageCount(pageCount);
+    }
+
+    /**
+     * 分页列表信息
+     * @param page_index
+     */
+    function list(page_index) {
+        var pageCount = 0;
+
+        var queryStr = $("input[name=queryStr]").val();
+
+        var searchParam = JSON.stringify({"queryStr": queryStr});
+        getSyncResultData("${rc.contextPath}/pbScoreResult/publicityList", {"searchParam": searchParam}, function(result){
+            component.data.identityInfos = result.data;
+            component.$update();
+            pageCount = result.pageCount;
+        });
+
+        return pageCount;
+    }
 
 </script>
 

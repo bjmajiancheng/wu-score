@@ -90,8 +90,7 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
             param.put("queryStr", "%" + queryStr + "%");
         }
 
-        /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
-        param.put("pageSize", CommonConstant.PAGE_SIZE);*/
+
         int pageCount = identityInfoDao.findPageCount(param);
         if (pageCount <= 0) {
             return new PageData<IdentityInfoModel>();

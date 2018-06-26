@@ -108,6 +108,15 @@
 			<if test="personId != null">
 				AND person_id = #{personId}
 			</if>
+			<if test="batchId != null">
+				AND batch_id = #{batchId}
+			</if>
+			<if test="personIds != null">
+				AND person_id IN
+				<foreach collection="personIds" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 	    </where>
 	</sql>
 	 
@@ -135,6 +144,18 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="findCurrBatch" resultMap="PbScoreResult">
+		select
+		  person_id,
+		  max(person_name) person_name ,
+		  max(person_id_num) person_id_num,
+		  nvl(sum(score_value),0) score_value
+		from t_pb_score_result
+		where batch_id=#{batchId}
+		group by person_id
+		order by score_value desc
+	</select>
 	
 </mapper>
 

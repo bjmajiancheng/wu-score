@@ -80,4 +80,18 @@ public class PbScoreResultServiceImpl implements IPbScoreResultService {
         return this.find(Collections.singletonMap("personId", (Object) personId));
     }
 
+    /**
+     * 获取当前批次名单公示信息
+     *
+     * @param batchId
+     * @return
+     */
+    public List<PbScoreResultModel> findCurrBatch(Integer batchId) {
+        if(batchId == null) {
+            return Collections.emptyList();
+        }
+
+        return pbScoreResultDao.findCurrBatch(batchId);
+    }
+
 }

@@ -37,4 +37,12 @@ public interface IPbScoreResultService{
 	 * @return
      */
 	public List<PbScoreResultModel> getByPersonId(Integer personId);
+
+	/**
+	 * 获取当前批次名单公示信息
+	 *
+	 * @param batchId
+	 * @return
+     */
+	public List<PbScoreResultModel> findCurrBatch(Integer batchId);
 }
