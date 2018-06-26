@@ -217,9 +217,15 @@
      **/
     function showReason(reason) {
         if(reason) {
-            layer.msg(reason);
+            layer.alert(reason, {
+                skin: 'layui-layer-lan'
+                ,closeBtn: 0
+            });
         } else {
-            layer.msg('失败原因为空!!!');
+            layer.alert('失败原因为空!!!', {
+                skin: 'layui-layer-lan'
+                ,closeBtn: 0
+            });
         }
     }
 

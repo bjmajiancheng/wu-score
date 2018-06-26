@@ -43,6 +43,6 @@ public class SmsUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        send("15321810621", "陈国俊的天津市居住证积分预约已经取消成功！");
+        send("13717689765", "陈国俊的天津市居住证积分预约已经取消成功！");
     }
 }

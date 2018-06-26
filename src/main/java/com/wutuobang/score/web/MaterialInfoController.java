@@ -200,6 +200,26 @@ public class MaterialInfoController {
                 if (CollectionUtils.isNotEmpty(delIds)) {
                     int delCount = onlinePersonMaterialService.delByIds(delIds);
                 }
+
+                //待补件功能修改
+                if (identityInfoModel.getUnionApproveStatus1() == 4 || identityInfoModel.getUnionApproveStatus2() == 4
+                        || identityInfoModel.getPoliceApproveStatus() == 2 || identityInfoModel.getRensheAcceptStatus() == 2) {
+                    IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
+                    updateIdentityInfo.setId(identityInfoModel.getId());
+                    if(identityInfoModel.getUnionApproveStatus1() == 4) {
+                        updateIdentityInfo.setUnionApproveStatus1(1);
+                    }
+                    if(identityInfoModel.getUnionApproveStatus2() == 4) {
+                        updateIdentityInfo.setUnionApproveStatus2(1);
+                    }
+                    if(identityInfoModel.getPoliceApproveStatus() == 2) {
+                        updateIdentityInfo.setPoliceApproveStatus(1);
+                    }
+                    if(identityInfoModel.getRensheAcceptStatus() == 2) {
+                        updateIdentityInfo.setRensheAcceptStatus(1);
+                    }
+                    identityInfoService.update(updateIdentityInfo);
+                }
             }
 
             return ResultParam.SUCCESS_RESULT;
