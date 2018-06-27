@@ -3,6 +3,7 @@ package com.wutuobang.common.controller;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.service.ISystemNoticeService;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -32,6 +34,9 @@ public class SysLoginController {
 
     @Autowired
     private Producer producer;
+
+    @Autowired
+    private ISystemNoticeService systemNoticeService;
 
     @RequestMapping("/captcha.jpg")
     public void captcha(HttpServletResponse response) throws ServletException, IOException {
@@ -94,8 +99,11 @@ public class SysLoginController {
      * @return
      */
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public String index() {
-        return "system/systemPolicy.html";
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
+        mv.addObject("systemNotice", systemNoticeService.getLastSystemNotice());
+        return mv;
+        /*return "redirect:systemNotice/systemNotice.html";*/
     }
 
     /**

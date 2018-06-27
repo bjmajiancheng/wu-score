@@ -58,6 +58,9 @@ public class IdentityInfoBiz {
     @Autowired
     private IIndicatorSelfTestResultService indicatorSelfTestResultService;
 
+    @Autowired
+    private CommonConstant commonConstant;
+
     /**
      * 新增申请人信息
      *
@@ -154,12 +157,12 @@ public class IdentityInfoBiz {
 
         if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
             SmsUtil.send(currUser.getOperatorMobile(),
-                    String.format(CommonConstant.ADDAPPLICATION_APPLICANT_MESSAGE, currUser.getOperator()));
+                    String.format(commonConstant.addapplicationApplicantMessage, currUser.getOperator()));
         }
 
         if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
             SmsUtil.send(houseOtherModel.getSelfPhone(),
-                    String.format(CommonConstant.ADDAPPLICATION_APPLICANT_MESSAGE, identityInfoModel.getName()));
+                    String.format(commonConstant.addapplicationApplicantMessage, identityInfoModel.getName()));
         }
 
         return true;
