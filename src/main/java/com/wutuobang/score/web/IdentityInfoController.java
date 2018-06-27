@@ -76,6 +76,9 @@ public class IdentityInfoController {
     @Autowired
     private IIndicatorSelfTestResultService indicatorSelfTestResultService;
 
+    @Autowired
+    private CommonConstant commonConstant;
+
     /**
      * 前往新增用户页面
      *
@@ -322,12 +325,12 @@ public class IdentityInfoController {
             if (evaluationFlag) {
                 if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
                     SmsUtil.send(currUser.getOperatorMobile(),
-                            String.format(CommonConstant.AUTOEVALUATIONPASS_MESSAGE, currUser.getOperator()));
+                            String.format(commonConstant.autoevaluationpassMessage, currUser.getOperator()));
                 }
 
                 if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
                     SmsUtil.send(houseOtherModel.getSelfPhone(),
-                            String.format(CommonConstant.AUTOEVALUATIONPASS_MESSAGE, identityInfoModel.getName()));
+                            String.format(commonConstant.autoevaluationpassMessage, identityInfoModel.getName()));
                 }
 
                 return new ResultParam(ResultParam.SUCCESS, "您已通过测评!!");
@@ -678,12 +681,12 @@ public class IdentityInfoController {
 
             if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
                 SmsUtil.send(currUser.getOperatorMobile(),
-                        String.format(CommonConstant.ADDAPPLICATION_OPERATOR_MESSAGE, currUser.getOperator()));
+                        String.format(commonConstant.addapplicationOperatorMessage, currUser.getOperator()));
             }
 
             if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
                 SmsUtil.send(houseOtherModel.getSelfPhone(),
-                        String.format(CommonConstant.ADDAPPLICATION_OPERATOR_MESSAGE, identityInfoModel.getName()));
+                        String.format(commonConstant.addapplicationOperatorMessage, identityInfoModel.getName()));
             }
 
             return ResultParam.ok("取消预约成功, " + (updateIdentityInfo.getReservationTime() == 1 ?
