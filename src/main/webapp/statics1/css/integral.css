@@ -406,6 +406,7 @@ html {
     overflow: hidden;
     margin: 10px auto;
     width: 1160px;
+    height: 700px;
 }
 
 .integral-main-box>div {
@@ -418,6 +419,7 @@ html {
     min-height: 200px;
     color: #333333;
     margin-right: 10px;
+    height:700px;
 }
 
 .integral-main-box .integral-user-info {
@@ -556,6 +558,7 @@ html {
     width: 950px;
     min-height: 200px;
     color: #333333;
+    height: 700px;
 }
 
 .integral-grey-title-bar {
@@ -981,7 +984,7 @@ html {
 
 .integral-footer {
     width: 100%;
-    height: 266px;
+    height: 215px;
     filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#4788FB, endColorStr=#4073DE);
     -ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#4788FB, endcolorstr=#4073DE, gradientType=0);
     /*IE8*/
