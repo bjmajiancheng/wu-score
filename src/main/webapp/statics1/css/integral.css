@@ -416,10 +416,9 @@ html {
 
 .integral-left-nav {
     width: 200px;
-    min-height: 200px;
+    min-height: 700px;
     color: #333333;
     margin-right: 10px;
-    height:700px;
 }
 
 .integral-main-box .integral-user-info {
@@ -556,9 +555,8 @@ html {
 
 .integral-cont {
     width: 950px;
-    min-height: 200px;
+    min-height: 700px;
     color: #333333;
-    height: 700px;
 }
 
 .integral-grey-title-bar {
