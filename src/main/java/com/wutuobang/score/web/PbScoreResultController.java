@@ -130,6 +130,10 @@ public class PbScoreResultController {
 
         try {
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+
+            BatchConfModel batchconfModel = batchConfService.getById(identityInfo.getBatchId());
+            Map<Integer, PbScoreResultModel> pbScoreResultMap = this.findAllMapPassScoreResult(batchconfModel);
+
             if (identityInfo == null) {
                 return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
             }
@@ -142,6 +146,8 @@ public class PbScoreResultController {
             List<PbScoreResultModel> pbScoreResults = pbScoreResultService.getByPersonId(identityInfoId);
             mv.addObject("identityInfo", identityInfo);
             mv.addObject("pbScoreResults", pbScoreResults);
+
+            mv.addObject("status", pbScoreResultMap.get(identityInfo.getId()) == null ? 0 : 1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,39 +189,24 @@ public class PbScoreResultController {
                     .isEmpty((String) param.get("queryStr"))) {
                 List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
 
-                return new ResultParam(ResultParam.SUCCESS_RESULT, pbScoreResults);
+                return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
             }
 
             List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
             if (CollectionUtils.isNotEmpty(identityInfos)) {
-                List<Integer> personIds = new ArrayList<Integer>(identityInfos.size());
+
+                List<PbScoreResultModel> finalPbScoreResult = new ArrayList<PbScoreResultModel>();
+
+                Map<Integer, PbScoreResultModel> allMapScoreResult = findAllMapPassScoreResult(batchConfModel);
 
                 for (IdentityInfoModel identityInfo : identityInfos) {
-                    personIds.add(identityInfo.getId());
-                }
-
-                Map<String, Object> pbScoreResultParam = new HashMap<String, Object>();
-                pbScoreResultParam.put("batchId", batchConfModel.getId());
-                pbScoreResultParam.put("personIds", personIds);
-                List<PbScoreResultModel> pbScoreResults = pbScoreResultService.find(param);
-
-                Map<Integer, PbScoreResultModel> pbScoreResultMap = new HashMap<Integer, PbScoreResultModel>();
-                for(PbScoreResultModel pbScoreResult : pbScoreResults) {
-                    PbScoreResultModel tmpScoreResult = pbScoreResultMap.get(pbScoreResult.getPersonId());
-                    if(tmpScoreResult == null) {
-                        pbScoreResultMap.put(pbScoreResult.getPersonId(), pbScoreResult);
-                        continue;
+                    if (allMapScoreResult.get(identityInfo.getId()) != null) {
+                        finalPbScoreResult.add(allMapScoreResult.get(identityInfo.getId()));
                     }
-
-                    tmpScoreResult.setScoreValue(tmpScoreResult.getScoreValue() + pbScoreResult.getScoreValue());
-                }
-                List<PbScoreResultModel> finalPbScoreResult = new ArrayList<PbScoreResultModel>(personIds.size());
-                for(int personId : pbScoreResultMap.keySet()) {
-                    finalPbScoreResult.add(pbScoreResultMap.get(personId));
                 }
 
-
-                return new ResultParam(ResultParam.SUCCESS_RESULT, finalPbScoreResult);
+                return new ResultParam(ResultParam.SUCCESS_RESULT,
+                        filterScoreResult(batchConfModel, finalPbScoreResult));
             }
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
@@ -223,6 +214,81 @@ public class PbScoreResultController {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
         }
+    }
+
+    /**
+     * 获取所有通过的人员信息
+     *
+     * @param batchConfModel
+     * @return
+     */
+    public List<PbScoreResultModel> findAllPassScoreResult(BatchConfModel batchConfModel) {
+        List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
+
+        return filterScoreResult(batchConfModel, pbScoreResults);
+    }
+
+    /**
+     * 获取所有通过的人员信息
+     *
+     * @param batchConfModel
+     * @return
+     */
+    public Map<Integer, PbScoreResultModel> findAllMapPassScoreResult(BatchConfModel batchConfModel) {
+        List<PbScoreResultModel> pbScoreResultModels = this.findAllPassScoreResult(batchConfModel);
+        Map<Integer, PbScoreResultModel> pbScoreResultMap = new HashMap<Integer, PbScoreResultModel>();
+        if (CollectionUtils.isNotEmpty(pbScoreResultModels)) {
+            for (PbScoreResultModel pbScoreResultModel : pbScoreResultModels) {
+                pbScoreResultMap.put(pbScoreResultModel.getPersonId(), pbScoreResultModel);
+            }
+        }
+
+        return pbScoreResultMap;
+    }
+
+    /**
+     * 过滤评分结果
+     *
+     * @param batchConfModel
+     * @param scoreResultModels
+     * @return
+     */
+    public List<PbScoreResultModel> filterScoreResult(BatchConfModel batchConfModel,
+            List<PbScoreResultModel> scoreResultModels) {
+        if (batchConfModel == null || CollectionUtils.isEmpty(scoreResultModels)) {
+            return Collections.emptyList();
+        }
+
+        Collections.sort(scoreResultModels, new Comparator<PbScoreResultModel>() {
+
+            @Override
+            public int compare(PbScoreResultModel o1, PbScoreResultModel o2) {
+                if (o1.getScoreValue() > o2.getScoreValue()) {
+                    return 1;
+                } else if (o1.getScoreValue() < o2.getScoreValue()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
+        List<PbScoreResultModel> finalScoreResults = new ArrayList<PbScoreResultModel>();
+        if (batchConfModel.getIndicatorType() == 1) {
+            for (PbScoreResultModel scoreResultModel : scoreResultModels) {
+                if (scoreResultModel.getScoreValue() >= batchConfModel.getIndicatorValue()) {
+                    finalScoreResults.add(scoreResultModel);
+                }
+            }
+        } else if (batchConfModel.getIndicatorType() == 0) {
+            int maxIndex = batchConfModel.getIndicatorValue();
+            if (maxIndex > scoreResultModels.size()) {
+                finalScoreResults.addAll(scoreResultModels);
+            } else {
+                finalScoreResults.addAll(scoreResultModels.subList(0, maxIndex - 1));
+            }
+        }
+
+        return finalScoreResults;
     }
 
 }

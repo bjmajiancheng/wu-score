@@ -50,7 +50,11 @@
                 <td></td>
             </tr>
             <tr>
-                <td class="color-red" colspan="4"><!--此申请人不予积分落户--></td>
+                <td class="color-red" colspan="4">
+                    #if(${status} == 0)
+                    此申请人不予积分落户
+                    #end
+                </td>
             </tr>
             <tr>
                 <td colspan="4">不予落户原因: </td>
