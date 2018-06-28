@@ -15,32 +15,25 @@ public class CommonConstant {
     public static final int PAGE_SIZE = 10;
 
     //1、企业账号中申请人添加、预约、取消预约、资料修改时，需要短信验证码
-    @Value("${application.message}")
-    public String applicationMessage;
+    public String applicationMessage = "系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。";
 
     //2、申请人自主测评通过后，短信通知申请人、经办人
-    @Value("${autoEvaluationPass.message}")
-    public String autoevaluationpassMessage;
+    public String autoevaluationpassMessage = "系统提示：%s，恭喜您已通过自主测评，下一步可以进行网上预约。";
 
     //3、申请人预约成功后，取消预约时需要经办人短信验证码
-    @Value("${reservation.message}")
-    public String reservationMessage;
+    public String reservationMessage = "系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。";
 
     //4、申请人信息添加成功、取消预约成功，短信通知申请人、经办人
-    @Value("${addApplication.applicant.message}")
-    public String addapplicationApplicantMessage;
+    public String addapplicationApplicantMessage = "系统提示：%s，您已成功添加申请人信息。";
 
     //4、申请人信息添加成功、取消预约成功，短信通知申请人、经办人
-    @Value("${addApplication.operator.message}")
-    public String addapplicationOperatorMessage;
+    public String addapplicationOperatorMessage = "系统提示：%s，您已成功取消预约。";
 
     //5、网上预审结果，短信反馈给申请人
-    @Value("${preReview.applicant.message}")
-    public String prereviewApplicantMessage;
+    public String prereviewApplicantMessage = "系统提示：%s，恭喜您已通过网上预审，下一步可以进行网上预约。";
 
     //5、网上预审结果，短信反馈给申请人
-    @Value("${preReview.operator.message}")
-    public String prereviewOperatorMessage;
+    public String prereviewOperatorMessage = "系统提示：%s，您的申请信息网上预审未通过。";
 
     public String getApplicationMessage() {
         return applicationMessage;
