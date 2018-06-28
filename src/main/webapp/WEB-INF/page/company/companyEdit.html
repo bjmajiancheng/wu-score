@@ -193,11 +193,11 @@
                     data: {"companyInfo" : JSON.stringify(companyInfo), "captcha" : captcha},
                     dataType: "json",
                     success: function(result){
-                        if(result.code == 0){//注册成功
+                        if(result.code){
                             layer.alert(result.message);
 
                             refreshCode();
-                        }else{
+                        }else{//注册成功
                             layer.alert("用人单位修改成功!!");
                         }
                     }

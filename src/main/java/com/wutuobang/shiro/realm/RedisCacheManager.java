@@ -104,7 +104,7 @@ public class RedisCacheManager implements CacheManager {
             if (key instanceof PrincipalCollection) {//此处很重要,如果key是登录凭证,那么这是访问用户的授权缓存;将登录凭证转为user对象,返回user的id属性做为hash key,否则会以user对象做为hash key,这样就不好清除指定用户的缓存了
                 PrincipalCollection pc = (PrincipalCollection) key;
                 CompanyInfoModel user = (CompanyInfoModel) pc.getPrimaryPrincipal();
-                return user.getId();
+                return user.getId().toString();
             }
 
             return key;
