@@ -79,6 +79,8 @@ public class FileUploadController {
     public void updateFile(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "file", required = true) MultipartFile file) throws IOException {
 
+        System.out.println("开始文件上传。。。。");
+
         response.reset();
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
@@ -95,6 +97,8 @@ public class FileUploadController {
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "文件上传成功!!", attachmentFile);
             writer.println(JSON.toJSONString(param));
+
+            System.out.println("result:" + JSON.toJSONString(param));
 
             return;
         } catch (Exception e) {
