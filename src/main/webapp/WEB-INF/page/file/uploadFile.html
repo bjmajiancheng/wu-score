@@ -123,14 +123,26 @@
             form.attr('method', 'post');
             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
             form.attr('enctype', 'multipart/form-data');
+            /*var file = $("input[name=updateFile]").clone();
+            $(file).attr('name', 'file');
+            $(form).append(file);
+
+            $('body').append(form);*/
+            var file = $("input[name=updateFile]").clone();
+            $(file).attr('name', 'file');
+            $(form).append(file);
+
+            $('body').append(form);
             var _this = $(this);
 
+            /*var _this = $(this);
             var file = _this.clone();
 
             $(file).attr('name', 'file');
             $(form).append(file);
 
-            $('body').append(form);
+            $('body').append(form);*/
+
             $(form).ajaxSubmit(function (result) {
                 var obj = JSON.parse(result);
                 if (!obj.code) {
