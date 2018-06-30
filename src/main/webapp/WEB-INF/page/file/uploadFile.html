@@ -121,8 +121,12 @@
             var form = $("<form>");
             form.attr('style', 'display:none');
             form.attr('method', 'post');
+            form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
+            form.attr('enctype', 'multipart/form-data');/*
+            form.attr('style', 'display:none');
+            form.attr('method', 'post');
             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');
+            form.attr('enctype', 'multipart/form-data');*/
             /*var file = $("input[name=updateFile]").clone();
             $(file).attr('name', 'file');
             $(form).append(file);
