@@ -121,7 +121,7 @@
             var form = $("<form>");
             form.attr('style', 'display:none');
             form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
+            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
             form.attr('enctype', 'multipart/form-data');/*
             form.attr('style', 'display:none');
             form.attr('method', 'post');
@@ -147,7 +147,22 @@
 
             $('body').append(form);*/
 
-            $(form).ajaxSubmit(function (result) {
+            $(form).ajaxSubmit({
+                success: function(data, status) {
+                    var result = data.replace(/<pre[^>]*>/gi, "").replace(/<\/pre>/gi, '');
+
+                    var obj = JSON.parse(result);
+                    if (!obj.code) {
+                        _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
+                        _this.parent('td').find("input[name=materialId]").val(obj.data.attachmentId);
+                        _this.parent('td').next().find("a.viewFile").attr("uri", obj.data.attachmentUrl);
+                    } else {
+                        layer.msg(obj.msg);
+                    }
+                }
+            });
+
+            /*$(form).ajaxSubmit(function (result) {
                 var obj = JSON.parse(result);
                 if (!obj.code) {
                     _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
@@ -156,7 +171,7 @@
                 } else {
                     layer.msg(obj.msg);
                 }
-            });
+            });*/
         });
 
 
