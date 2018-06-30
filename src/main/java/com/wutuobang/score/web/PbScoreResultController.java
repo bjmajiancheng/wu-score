@@ -192,6 +192,8 @@ public class PbScoreResultController {
                 return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
             }
 
+            String queryStr = (String) param.get("queryStr");
+            param.put("queryStr", "%"+queryStr+"%");
             List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
             if (CollectionUtils.isNotEmpty(identityInfos)) {
 
