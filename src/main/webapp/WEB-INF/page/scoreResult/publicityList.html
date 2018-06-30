@@ -110,9 +110,9 @@
 
         var searchParam = JSON.stringify({"queryStr": queryStr});
         getSyncResultData("${rc.contextPath}/pbScoreResult/publicityList", {"searchParam": searchParam}, function(result){
-            component.data.identityInfos = result.data;
+            component.data.identityInfos = result;
             component.$update();
-            pageCount = result.pageCount;
+            pageCount = result.length;
         });
 
         return pageCount;

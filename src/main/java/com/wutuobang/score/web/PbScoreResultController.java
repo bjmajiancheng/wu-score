@@ -264,9 +264,9 @@ public class PbScoreResultController {
             @Override
             public int compare(PbScoreResultModel o1, PbScoreResultModel o2) {
                 if (o1.getScoreValue() > o2.getScoreValue()) {
-                    return 1;
-                } else if (o1.getScoreValue() < o2.getScoreValue()) {
                     return -1;
+                } else if (o1.getScoreValue() < o2.getScoreValue()) {
+                    return 1;
                 }
                 return 0;
             }
