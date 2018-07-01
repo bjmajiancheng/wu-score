@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,11 +76,12 @@ public class FileUploadController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/fileUpload/updateFile", method = RequestMethod.POST)
-    public void updateFile(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "file", required = true) MultipartFile file) throws IOException {
+    @RequestMapping(value = "/fileUpload/updateFile", method = RequestMethod.POST, produces="text/plain")
+    public void updateFile(HttpServletRequest request, HttpServletResponse response/*,
+            @RequestParam(value = "file", required = true) MultipartFile file*/) throws IOException {
 
-        System.out.println("开始文件上传。。。。");
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("updateFile");
 
         response.reset();
         response.setCharacterEncoding("UTF-8");

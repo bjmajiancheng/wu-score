@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="cn">
-
+<html lang="en">
+<head>
 <title>申请人材料上传</title>
 #parse("common/header.html")
 </head>
@@ -44,7 +44,7 @@
                     <input type="hidden" name="materialId" value="$!{materialInfo.onlinePersonMaterial.materialId}"/>
                     #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
                     <span class="integral-table-btn td_upload integral-table-btn2">上传</span>
-                    <input class="upload_input" type="file" name="updateFile" accept="image/*" />
+                    <input class="upload_input" type="file" id="updateFile_${velocityCount}" name="updateFile" accept="image/*"/>
                     #end
                 </td>
                 <td>
@@ -118,20 +118,72 @@
 
         //身份证反面上传
         $("input[name=updateFile]").on("change", function () {
-            var form = $("<form>");
+            var obj = $(this).parent('td');
+
+            $.ajaxFileUpload({
+                url : '${rc.contextPath}/fileUpload/updateFile', //用于文件上传的服务器端请求地址
+                fileElementId : $(this).attr("id"), //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                type : 'post',
+                dataType : 'text', //返回值类型 一般设置为json
+                obj: obj,
+                success : function(result, status, obj) //服务器成功响应处理函数
+                {
+
+                    var _this = obj;
+                    var resultObj = JSON.parse(result);
+                    if (!resultObj.code) {
+                        _this.find("span.attachmentName").text(resultObj.data.attachmentName);
+                        _this.find("input[name=materialId]").val(resultObj.data.attachmentId);
+                        _this.next().find("a.viewFile").attr("uri", resultObj.data.attachmentUrl);
+                    } else {
+                        layer.msg(resultObj.msg);
+                    }
+
+                    var file_input = $('<input class="upload_input" type="file" id="'+ obj.find('.upload_input').attr("id") +'" name="updateFile" accept="image/*"/>');
+
+                    _this.find(".upload_input").replaceWith(file_input);
+                },
+                error : function(result, status, e)//服务器响应失败处理函数
+                {
+                    layer.msg("图片上传失败");
+                }
+            });
+
+            /*var form = $("<form>");
             form.attr('style', 'display:none');
             form.attr('method', 'post');
             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');/*
-            form.attr('style', 'display:none');
-            form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');*/
-            /*var file = $("input[name=updateFile]").clone();
+            form.attr('enctype', 'multipart/form-data');
+            var file = $("input[name=updateFile]").clone();
             $(file).attr('name', 'file');
             $(form).append(file);
 
-            $('body').append(form);*/
+            $('body').append(form);
+
+            $(form).ajaxSubmit(function (result) {
+                var obj = JSON.parse(result);
+                alert(result);
+                /!*if (!obj.code) {
+                    $("input[name=id_card_positive]").val(obj.data.attachmentUrl);
+                } else {
+                    layer.msg(obj.msg);
+                }*!/
+            });*/
+
+            /*var form = $("<form>");
+            form.attr('style', 'display:none');
+            form.attr('method', 'post');
+            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
+            form.attr('enctype', 'multipart/form-data');/!*
+            form.attr('style', 'display:none');
+            form.attr('method', 'post');
+            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
+            form.attr('enctype', 'multipart/form-data');*!/
+            /!*var file = $("input[name=updateFile]").clone();
+            $(file).attr('name', 'file');
+            $(form).append(file);
+
+            $('body').append(form);*!/
             var file = $("input[name=updateFile]").clone();
             $(file).attr('name', 'file');
             $(form).append(file);
@@ -139,13 +191,13 @@
             $('body').append(form);
             var _this = $(this);
 
-            /*var _this = $(this);
+            /!*var _this = $(this);
             var file = _this.clone();
 
             $(file).attr('name', 'file');
             $(form).append(file);
 
-            $('body').append(form);*/
+            $('body').append(form);*!/
 
             $(form).ajaxSubmit({
                 success: function(data, status) {
@@ -160,7 +212,7 @@
                         layer.msg(obj.msg);
                     }
                 }
-            });
+            });*/
 
             /*$(form).ajaxSubmit(function (result) {
                 var obj = JSON.parse(result);
