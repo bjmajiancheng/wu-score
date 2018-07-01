@@ -105,7 +105,6 @@
 <script type="text/javascript">
     $(function () {
         //页面层-自定义
-
         $(".viewTemplate").on("click", function () {
             var templateImg = $(this).attr("templateImg");
 
@@ -116,8 +115,7 @@
             }
         });
 
-        //身份证反面上传
-        $("input[name=updateFile]").on("change", function () {
+        var _updateFileChange = function () {
             var obj = $(this).parent('td');
 
             $.ajaxFileUpload({
@@ -139,9 +137,10 @@
                         layer.msg(resultObj.msg);
                     }
 
-                    var file_input = $('<input class="upload_input" type="file" id="'+ obj.find('.upload_input').attr("id") +'" name="updateFile" accept="image/*"/>');
-
-                    _this.find(".upload_input").replaceWith(file_input);
+                    var file_input = $('<input class="upload_input" type="file" id="'+ _this.find('.upload_input').attr("id") +'" name="updateFile" accept="image/*"/>');
+                    _this.find("input.upload_input").remove();
+                    file_input.on("change", _updateFileChange);
+                    file_input.appendTo( _this);
                 },
                 error : function(result, status, e)//服务器响应失败处理函数
                 {
@@ -150,81 +149,84 @@
             });
 
             /*var form = $("<form>");
-            form.attr('style', 'display:none');
-            form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');
-            var file = $("input[name=updateFile]").clone();
-            $(file).attr('name', 'file');
-            $(form).append(file);
+             form.attr('style', 'display:none');
+             form.attr('method', 'post');
+             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
+             form.attr('enctype', 'multipart/form-data');
+             var file = $("input[name=updateFile]").clone();
+             $(file).attr('name', 'file');
+             $(form).append(file);
 
-            $('body').append(form);
+             $('body').append(form);
 
-            $(form).ajaxSubmit(function (result) {
-                var obj = JSON.parse(result);
-                alert(result);
-                /!*if (!obj.code) {
-                    $("input[name=id_card_positive]").val(obj.data.attachmentUrl);
-                } else {
-                    layer.msg(obj.msg);
-                }*!/
-            });*/
+             $(form).ajaxSubmit(function (result) {
+             var obj = JSON.parse(result);
+             alert(result);
+             /!*if (!obj.code) {
+             $("input[name=id_card_positive]").val(obj.data.attachmentUrl);
+             } else {
+             layer.msg(obj.msg);
+             }*!/
+             });*/
 
             /*var form = $("<form>");
-            form.attr('style', 'display:none');
-            form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');/!*
-            form.attr('style', 'display:none');
-            form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
-            form.attr('enctype', 'multipart/form-data');*!/
-            /!*var file = $("input[name=updateFile]").clone();
-            $(file).attr('name', 'file');
-            $(form).append(file);
+             form.attr('style', 'display:none');
+             form.attr('method', 'post');
+             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
+             form.attr('enctype', 'multipart/form-data');/!*
+             form.attr('style', 'display:none');
+             form.attr('method', 'post');
+             form.attr('action', '${rc.contextPath}/fileUpload/updateFile');
+             form.attr('enctype', 'multipart/form-data');*!/
+             /!*var file = $("input[name=updateFile]").clone();
+             $(file).attr('name', 'file');
+             $(form).append(file);
 
-            $('body').append(form);*!/
-            var file = $("input[name=updateFile]").clone();
-            $(file).attr('name', 'file');
-            $(form).append(file);
+             $('body').append(form);*!/
+             var file = $("input[name=updateFile]").clone();
+             $(file).attr('name', 'file');
+             $(form).append(file);
 
-            $('body').append(form);
-            var _this = $(this);
+             $('body').append(form);
+             var _this = $(this);
 
-            /!*var _this = $(this);
-            var file = _this.clone();
+             /!*var _this = $(this);
+             var file = _this.clone();
 
-            $(file).attr('name', 'file');
-            $(form).append(file);
+             $(file).attr('name', 'file');
+             $(form).append(file);
 
-            $('body').append(form);*!/
+             $('body').append(form);*!/
 
-            $(form).ajaxSubmit({
-                success: function(data, status) {
-                    var result = data.replace(/<pre[^>]*>/gi, "").replace(/<\/pre>/gi, '');
+             $(form).ajaxSubmit({
+             success: function(data, status) {
+             var result = data.replace(/<pre[^>]*>/gi, "").replace(/<\/pre>/gi, '');
 
-                    var obj = JSON.parse(result);
-                    if (!obj.code) {
-                        _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
-                        _this.parent('td').find("input[name=materialId]").val(obj.data.attachmentId);
-                        _this.parent('td').next().find("a.viewFile").attr("uri", obj.data.attachmentUrl);
-                    } else {
-                        layer.msg(obj.msg);
-                    }
-                }
-            });*/
+             var obj = JSON.parse(result);
+             if (!obj.code) {
+             _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
+             _this.parent('td').find("input[name=materialId]").val(obj.data.attachmentId);
+             _this.parent('td').next().find("a.viewFile").attr("uri", obj.data.attachmentUrl);
+             } else {
+             layer.msg(obj.msg);
+             }
+             }
+             });*/
 
             /*$(form).ajaxSubmit(function (result) {
-                var obj = JSON.parse(result);
-                if (!obj.code) {
-                    _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
-                    _this.parent('td').find("input[name=materialId]").val(obj.data.attachmentId);
-                    _this.parent('td').next().find("a.viewFile").attr("uri", obj.data.attachmentUrl);
-                } else {
-                    layer.msg(obj.msg);
-                }
-            });*/
-        });
+             var obj = JSON.parse(result);
+             if (!obj.code) {
+             _this.parent('td').find("span.attachmentName").text(obj.data.attachmentName);
+             _this.parent('td').find("input[name=materialId]").val(obj.data.attachmentId);
+             _this.parent('td').next().find("a.viewFile").attr("uri", obj.data.attachmentUrl);
+             } else {
+             layer.msg(obj.msg);
+             }
+             });*/
+        };
+
+        //身份证反面上传
+        $("input[name=updateFile]").on("change", _updateFileChange);
 
 
         /**
