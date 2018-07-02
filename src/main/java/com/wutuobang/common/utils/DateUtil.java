@@ -273,18 +273,15 @@ public class DateUtil {
      */
     public static String intObj2FmtDateStr(Object obj, DateStyle dateStyle) {
         String res = "未知";
-        if (obj == null)
-            return res;
+        if (obj == null) return res;
 
         String intStr = obj.toString().trim();
-        if (StringUtils.isEmpty(intStr))
-            return res;
+        if (StringUtils.isEmpty(intStr)) return res;
 
         int seconds;
         try {
             seconds = Integer.valueOf(intStr);
-            if (seconds < 0)
-                return res;
+            if (seconds < 0) return res;
         } catch (ClassCastException e) {
             e.printStackTrace();
             return res;
@@ -368,8 +365,7 @@ public class DateUtil {
      * @param newDateStyle 新日期风格
      * @return 新日期字符串
      */
-    public static String StringToString(String date, DateStyle olddDteStyle,
-            DateStyle newDateStyle) {
+    public static String StringToString(String date, DateStyle olddDteStyle, DateStyle newDateStyle) {
         String dateString = null;
         if (olddDteStyle == null) {
             DateStyle style = getDateStyle(date);
@@ -651,35 +647,37 @@ public class DateUtil {
     public static String getDate(Date date) {
         return DateToString(date, DateStyle.YYYY_MM_DD);
     }
-    
+
     /**
-	 * 将指定格式的字符串转换为日期对象
-	 * @param date 待转换字符串
-	 * @param format 日期格式
-	 * @return 转换后日期对象
-	 * @see #getDate(String, String, Date)
-	 */
-	public static Date getDate(String date, String format) {
-		return getDate(date, format, null);
-	}
-    
+     * 将指定格式的字符串转换为日期对象
+     *
+     * @param date   待转换字符串
+     * @param format 日期格式
+     * @return 转换后日期对象
+     * @see #getDate(String, String, Date)
+     */
+    public static Date getDate(String date, String format) {
+        return getDate(date, format, null);
+    }
+
     /**
-	 * 将指定格式的字符串转换为日期对象
-	 * @param date 日期对象
-	 * @param format 日期格式
-	 * @param defVal 转换失败时的默认返回值
-	 * @return 转换后的日期对象
-	 */
-	public static Date getDate(String date, String format, Date defVal) {
-		if (StringUtils.isEmpty(date) || StringUtils.isEmpty(format)) return null;
-		Date d;
-		try {
-			d = new SimpleDateFormat(format).parse(date);
-		} catch (ParseException e) {
-			d = defVal;
-		}
-		return d;
-	}
+     * 将指定格式的字符串转换为日期对象
+     *
+     * @param date   日期对象
+     * @param format 日期格式
+     * @param defVal 转换失败时的默认返回值
+     * @return 转换后的日期对象
+     */
+    public static Date getDate(String date, String format, Date defVal) {
+        if (StringUtils.isEmpty(date) || StringUtils.isEmpty(format)) return null;
+        Date d;
+        try {
+            d = new SimpleDateFormat(format).parse(date);
+        } catch (ParseException e) {
+            d = defVal;
+        }
+        return d;
+    }
 
     /**
      * 获取日期的时间。默认HH:mm:ss格式。失败返回null。
@@ -788,13 +786,11 @@ public class DateUtil {
      * @param dateStyle
      * @return
      */
-    public static List<String> getDatesOfDayBetweenDates(Date start, Date end,
-            DateStyle dateStyle) {
+    public static List<String> getDatesOfDayBetweenDates(Date start, Date end, DateStyle dateStyle) {
         if (start.after(end)) {
             return null;
         }
-        if (dateStyle == null)
-            dateStyle = DateStyle.YYYY_MM_DD_HH_MM_SS;
+        if (dateStyle == null) dateStyle = DateStyle.YYYY_MM_DD_HH_MM_SS;
         List<String> list = new ArrayList<String>();
         int interval = getIntervalDays(start, end);
         interval = Math.abs(interval);
@@ -813,8 +809,7 @@ public class DateUtil {
      * @param dateStyle
      * @return
      */
-    public static List<String> getDatesOfDayBetweenDates(String start, String end,
-            DateStyle dateStyle) {
+    public static List<String> getDatesOfDayBetweenDates(String start, String end, DateStyle dateStyle) {
         return getDatesOfDayBetweenDates(StringToDate(start), StringToDate(end), dateStyle);
     }
 
@@ -836,13 +831,11 @@ public class DateUtil {
         return getMonthFirstDay(new Date());
     }
 
-    public static List<String> getDatesOfMonthBetweenDates(Date start, Date end,
-            DateStyle dateStyle) {
+    public static List<String> getDatesOfMonthBetweenDates(Date start, Date end, DateStyle dateStyle) {
         if (start.after(end)) {
             return null;
         }
-        if (dateStyle == null)
-            dateStyle = DateStyle.YYYY_MM_DD;
+        if (dateStyle == null) dateStyle = DateStyle.YYYY_MM_DD;
         List<String> list = new ArrayList<String>();
         do {
             Calendar cal = Calendar.getInstance();
@@ -855,8 +848,7 @@ public class DateUtil {
         return list;
     }
 
-    public static List<String> getDatesOfMonthBetweenDates(String start, String end,
-            DateStyle dateStyle) {
+    public static List<String> getDatesOfMonthBetweenDates(String start, String end, DateStyle dateStyle) {
         return getDatesOfMonthBetweenDates(StringToDate(start), StringToDate(end), dateStyle);
     }
 
@@ -875,9 +867,10 @@ public class DateUtil {
         long hour = seconds % (24 * 3600) / 3600;
         long minute = seconds % 3600 / 60;
         long second = seconds % 60 / 60;
-        return (day > 0 ? (day + "天") : "") + (hour > 0 ? (hour + "小时") : "") + (minute > 0 ?
-                (minute + "分钟") :
-                "") + (second > 0 ? (second + "秒") : "");
+        return (day > 0 ? (day + "天") : "") + (hour > 0 ? (hour + "小时") : "") + (minute > 0 ? (minute + "分钟") : "") + (
+                second > 0 ?
+                        (second + "秒") :
+                        "");
     }
 
     public static Date getToday() {
@@ -912,6 +905,7 @@ public class DateUtil {
 
     /**
      * 获取今天最晚时间信息; 23:59:59
+     *
      * @return
      */
     public static int getTodayLastTime() {
@@ -935,13 +929,13 @@ public class DateUtil {
         yestoday.set(Calendar.MILLISECOND, 0);
         return yestoday.getTime();
     }
+
     /**
-     * 
-    * @Title: getNextDayZeroTime  
-    * @Description: 获得明晨零点的时间
-    * @param @return    设定文件  
-    * @return Date    返回类型  
-    * @throws
+     * @param @return 设定文件
+     * @return Date    返回类型
+     * @throws
+     * @Title: getNextDayZeroTime
+     * @Description: 获得明晨零点的时间
      */
     public static Date getNextDayZeroTime() {
         Calendar cal = Calendar.getInstance();
@@ -951,17 +945,34 @@ public class DateUtil {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         cal.add(Calendar.DAY_OF_MONTH, 1);
-        return  cal.getTime();
+        return cal.getTime();
     }
-    
+
     /**
-     * 
-    * @Title: getTheDayZeroTime  
-    * @Description: 获取指定时间当日凌晨时间
-    * @param @param time
-    * @param @return    设定文件  
-    * @return Date    返回类型  
-    * @throws
+     * @param @return 设定文件
+     * @return Date    返回类型
+     * @throws
+     * @Title: getNextDayZeroTime
+     * @Description: 获得指定时间明晨零点的时间
+     */
+    public static Date getNextDayZeroTime(Date data) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        return cal.getTime();
+    }
+
+    /**
+     * @param @param  time
+     * @param @return 设定文件
+     * @return Date    返回类型
+     * @throws
+     * @Title: getTheDayZeroTime
+     * @Description: 获取指定时间当日凌晨时间
      */
     public static Date getTheDayZeroTime(long time) {
         Calendar cal = Calendar.getInstance();
@@ -971,16 +982,34 @@ public class DateUtil {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         cal.add(Calendar.DAY_OF_MONTH, 0);
-        return  cal.getTime();
+        return cal.getTime();
     }
-    
+
     /**
-     * 
-    * @Title: getNextYearMonth  
-    * @Description: 获取下个月份，格式为yyyyMM
-    * @param @return    设定文件  
-    * @return String    返回类型  
-    * @throws
+     * @param @param  time
+     * @param @return 设定文件
+     * @return Date    返回类型
+     * @throws
+     * @Title: getTheDayZeroTime
+     * @Description: 获取指定时间当日凌晨时间
+     */
+    public static Date getTheDayZeroTime(Date data) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.DAY_OF_MONTH, 0);
+        return cal.getTime();
+    }
+
+    /**
+     * @param @return 设定文件
+     * @return String    返回类型
+     * @throws
+     * @Title: getNextYearMonth
+     * @Description: 获取下个月份，格式为yyyyMM
      */
     public static String getNextYearMonth() {
         Calendar current = Calendar.getInstance();
@@ -988,25 +1017,28 @@ public class DateUtil {
         DateFormat format = new SimpleDateFormat("yyyyMM");
         return format.format(current.getTime());
     }
-    
-    
-    /** 付款时间格式化 **/
+
+    /**
+     * 付款时间格式化
+     **/
     public static final String PAY_TIME_FMT = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 十位时间戳转指定格日期格式字符串
+     *
      * @param seconds 10位时间戳
      * @param format  格式化字符串
-     * @return 没做参数校验,若传入参数不正确,返回莫名数据
+     * @return 没做参数校验, 若传入参数不正确, 返回莫名数据
      */
     public static String stamp2str(int seconds, String format) {
-        if(StringUtils.isBlank(format)) format = "yyyy-MM-dd HH:mm:ss";
+        if (StringUtils.isBlank(format)) format = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(new Date((long) seconds * 1000));
     }
 
     /**
      * 获得服务器当前时间
+     *
      * @return 10位时间戳
      */
     public static int currentSec() {
@@ -1015,6 +1047,7 @@ public class DateUtil {
 
     /**
      * 获取当前时间的月份第一天
+     *
      * @param date
      * @return
      */
@@ -1031,6 +1064,7 @@ public class DateUtil {
 
     /**
      * 获取当前时间的月份最后一天
+     *
      * @param date
      * @return
      */
@@ -1047,6 +1081,7 @@ public class DateUtil {
 
     /**
      * 获取下月的第一天时间戳信息
+     *
      * @param date
      * @return
      */
@@ -1064,6 +1099,7 @@ public class DateUtil {
 
     /**
      * 获取下月的最后时刻时间戳信息
+     *
      * @param date
      * @return
      */
@@ -1081,6 +1117,7 @@ public class DateUtil {
 
     /**
      * 获取下月的特定天时间戳信息
+     *
      * @param date
      * @return
      */
@@ -1088,7 +1125,7 @@ public class DateUtil {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.MONTH, 1);
-        cal.set(Calendar.DAY_OF_MONTH, day-1);
+        cal.set(Calendar.DAY_OF_MONTH, day - 1);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
@@ -1098,6 +1135,7 @@ public class DateUtil {
 
     /**
      * 根据日期获取下月时间
+     *
      * @param date
      * @return
      */
@@ -1110,6 +1148,7 @@ public class DateUtil {
 
     /**
      * 获取昨天凌晨0:00:00日期时间戳
+     *
      * @param date
      * @return
      */
@@ -1121,11 +1160,12 @@ public class DateUtil {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        return (int)(cal.getTimeInMillis()/1000);
+        return (int) (cal.getTimeInMillis() / 1000);
     }
 
     /**
      * 获取昨天最晚时间戳信息; 23:59:59
+     *
      * @param date
      * @return
      */
@@ -1136,11 +1176,12 @@ public class DateUtil {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        return (int)(cal.getTimeInMillis()/1000) - 1;
+        return (int) (cal.getTimeInMillis() / 1000) - 1;
     }
 
     /**
      * 获取昨天凌晨0:00:00日期时间
+     *
      * @param date
      * @return
      */
@@ -1157,6 +1198,7 @@ public class DateUtil {
 
     /**
      * 获取昨天最晚时间信息; 23:59:59
+     *
      * @param date
      * @return
      */
@@ -1179,8 +1221,8 @@ public class DateUtil {
     public static String currDayStamp() {
         return IntToDateString(currentSec(), DateStyle.YYYYMMDD);
     }
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
 
 
         /*Date date = StringToDate("2016-11-16 03:00:00", DateStyle.YYYY_MM_DD_HH_MM_SS);
@@ -1213,11 +1255,10 @@ public class DateUtil {
         Calendar ca = Calendar.getInstance();
         ca.setTime(date);
         ca.add(Calendar.DAY_OF_MONTH, -1);
-        System.out.println(IntToDateString((int)(DateUtil.getMonthFirstDayStamp(ca.getTime())/1000),
+        System.out.println(IntToDateString((int) (DateUtil.getMonthFirstDayStamp(ca.getTime()) / 1000),
                 DateStyle.YYYY_MM_DD_HH_MM_SS));
-        System.out.println(IntToDateString((int)(DateUtil.getMonthLastDayStamp(ca.getTime())/1000),
+        System.out.println(IntToDateString((int) (DateUtil.getMonthLastDayStamp(ca.getTime()) / 1000),
                 DateStyle.YYYY_MM_DD_HH_MM_SS));
-
 
     }
 }

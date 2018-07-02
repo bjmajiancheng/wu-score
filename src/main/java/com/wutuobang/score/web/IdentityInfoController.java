@@ -268,7 +268,16 @@ public class IdentityInfoController {
 
             ModelAndView mv = new ModelAndView("evaluation/autoEvaluation.html");
 
-            mv.addObject("indicatorModels", indicatorModels);
+            List<IndicatorModel> finalIndicators = new ArrayList<IndicatorModel>();
+            if (CollectionUtils.isNotEmpty(indicatorModels)) {
+                for (IndicatorModel indicatorModel : indicatorModels) {
+                    if (indicatorModel.getIndexNum() != 16) {
+                        finalIndicators.add(indicatorModel);
+                    }
+                }
+            }
+
+            mv.addObject("indicatorModels", finalIndicators);
             mv.addObject("identityInfo", identityInfo);
             return mv;
         } catch (Exception e) {
@@ -376,6 +385,7 @@ public class IdentityInfoController {
                 for (IndicatorModel indicatorModel : indicatorModels) {
                     IndicatorSelfTestResultModel selfTestResultModel = selfTestResultMap
                             .get((int) indicatorModel.getId());
+                    if(selfTestResultModel == null) continue;
 
                     //文本框值
                     if (selfTestResultModel.getItemId() == 0) {
@@ -399,7 +409,16 @@ public class IdentityInfoController {
                 }
             }
 
-            mv.addObject("indicatorModels", indicatorModels);
+            List<IndicatorModel> finalIndicators = new ArrayList<IndicatorModel>();
+            if (CollectionUtils.isNotEmpty(indicatorModels)) {
+                for (IndicatorModel indicatorModel : indicatorModels) {
+                    if (indicatorModel.getIndexNum() != 16) {
+                        finalIndicators.add(indicatorModel);
+                    }
+                }
+            }
+
+            mv.addObject("indicatorModels", finalIndicators);
             mv.addObject("identityInfo", identityInfo);
 
             return mv;

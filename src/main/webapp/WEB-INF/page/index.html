@@ -85,7 +85,11 @@
                             {\#elseif identityInfo.reservationStatus == 9}
                                 <span>联合预审不通过</span>
                             {\#elseif identityInfo.reservationStatus == 10}
+                                {\#if identityInfo.reservationTime > 0}
                                 <span>联合预审通过</span>
+                                {\#elseif identityInfo.reservationTime <= 0}
+                                <span>取消预约超限</span>
+                                {/if}
                             {\#elseif identityInfo.reservationStatus == 11}
                                 {\#if identityInfo.hallStatus == 0}
                                     <!--<span>公安前置预审待审核</span>-->
@@ -112,7 +116,9 @@
                                 <!--<span>预约成功</span>-->
                             {/if}
                             {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
-                            <span>待补件</span>
+                                {\#if identityInfo.reservationStatus != 9}
+                                    <span>待补件</span>
+                                {/if}
                             {/if}
                         </td>
                         <td>

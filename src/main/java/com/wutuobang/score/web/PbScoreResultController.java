@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.model.BatchConfModel;
@@ -90,6 +91,16 @@ public class PbScoreResultController {
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
+            long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
+            long endTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishEnd()).getTime();
+            if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
+                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
+                        .isEmpty(searchScoreView.getUserName()) && StringUtils
+                        .isEmpty(searchScoreView.getIdCardNumber())) {
+                    return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
+                }
+            }
+
             if (batchConfModel.getProcess() != 2) {
                 return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
             }
@@ -99,7 +110,7 @@ public class PbScoreResultController {
                 param.put("acceptNumber", searchScoreView.getAcceptNumber());
             }
             if (StringUtils.isNotEmpty(searchScoreView.getUserName())) {
-                param.put("userName", "%" + searchScoreView.getUserName() + "%");
+                param.put("userName", searchScoreView.getUserName());
             }
             if (StringUtils.isNotEmpty(searchScoreView.getIdCardNumber())) {
                 param.put("idNumber", searchScoreView.getIdCardNumber());
@@ -185,6 +196,13 @@ public class PbScoreResultController {
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
+            long startTimeStamp = DateUtil.getTheDayZeroTime(batchConfModel.getNoticeBegin()).getTime();
+            long endTimeStamp = DateUtil.getNextDayZeroTime(batchConfModel.getNoticeEnd()).getTime();
+
+            if (System.currentTimeMillis() < startTimeStamp || System.currentTimeMillis() > endTimeStamp) {
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
+            }
+
             if (MapUtils.isEmpty(param) || param.get("queryStr") == null || StringUtils
                     .isEmpty((String) param.get("queryStr"))) {
                 List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
@@ -193,7 +211,7 @@ public class PbScoreResultController {
             }
 
             String queryStr = (String) param.get("queryStr");
-            param.put("queryStr", "%"+queryStr+"%");
+            param.put("queryStr", "%" + queryStr + "%");
             List<IdentityInfoModel> identityInfos = identityInfoService.find(param);
             if (CollectionUtils.isNotEmpty(identityInfos)) {
 
