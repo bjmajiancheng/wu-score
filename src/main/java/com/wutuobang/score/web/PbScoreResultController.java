@@ -93,13 +93,13 @@ public class PbScoreResultController {
 
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishEnd()).getTime();
-            /*if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
+            if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
                 if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
                         .isEmpty(searchScoreView.getUserName()) && StringUtils
                         .isEmpty(searchScoreView.getIdCardNumber())) {
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
                 }
-            }*/
+            }
 
             if (batchConfModel.getProcess() != 2) {
                 return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
