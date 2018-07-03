@@ -85,6 +85,7 @@ public class IdentityInfoBiz {
             identityInfoModel.setUnionApproveStatus2(Constant.unionApproveStatus2_0);//人社预审状态
             identityInfoModel.setPoliceApproveStatus(Constant.policeApproveStatus_0);//公安前置预审状态
             identityInfoModel.setRensheAcceptStatus(Constant.rensheAcceptStatus_0);//人社受理状态:默认值
+            identityInfoModel.setCancelStatus(0);//取消状态:默认值
             identityInfoModel.setCtime(currDate);
             identityInfoModel.setUtime(currDate);
             identityInfoModel.setReservationTime(2);
