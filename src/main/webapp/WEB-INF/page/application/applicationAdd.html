@@ -791,6 +791,7 @@
 
         var flag = false;
         postSyncResultData(url, formInfo, function(data){
+            flag = true;
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
@@ -799,12 +800,14 @@
         });
 
         if(flag) {
-            if(window.opener && window.opener.component) {
+            window.location.href = "${rc.contextPath}/identityInfo/index.html";
+
+            /*if(window.opener && window.opener.component) {
                 window.opener.component.load();
                 window.close();
             } else {
                 window.close();
-            }
+            }*/
         }
     }
 
@@ -824,6 +827,7 @@
 
         var flag = false;
         postSyncResultData(url, formInfo, function(data){
+            flag = true;
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
@@ -834,13 +838,15 @@
         if(flag) {
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
 
-            if(window.opener && window.opener.component) {
+            window.location.href = "${rc.contextPath}/identityInfo/index.html";
+
+            /*if(window.opener && window.opener.component) {
                 window.opener.component.load();
                 window.close();
             } else {
                 //history.go(-1);
                 window.close();
-            }
+            }*/
         }
     }
 
@@ -883,7 +889,6 @@
                 return false;
             }
 
-            debugger;
             if(!isRemove) {
                 layer.msg("请填写是否随迁。");
                 $(this).find("input[name=isRemove]").focus();
