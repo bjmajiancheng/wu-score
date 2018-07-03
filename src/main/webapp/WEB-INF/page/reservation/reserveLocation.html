@@ -120,16 +120,20 @@
 
             var requestData = {"acceptAddressId": $("#acceptAddress").val(), "identityInfoId": $("#identityInfoId").val(),
                 "captcha":$("#captcha").val()};
+            var flag = false;
             postResult("${rc.contextPath}/identityInfo/reserveLocation", requestData, function(data){
+                flag = true;
                 layer.msg('预约地点成功!!', {
                     time: 1000
                 }, function(){
-                    if(window.opener.component) {
+                    /*if(window.opener.component) {
                         window.opener.component.load();
                     }
-                    window.close();
+                    window.close();*/
+                    window.location.href = "${rc.contextPath}/identityInfo/index.html";
                 });
             });
+
         });
     });
 </script>

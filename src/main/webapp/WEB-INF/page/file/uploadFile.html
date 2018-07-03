@@ -277,23 +277,25 @@
 
             var materialInfoJson = JSON.stringify(materialInfoArr);
 
+            var flag = false;
             postResultData("${rc.contextPath}/materialInfo/saveMaterialInfo", {
                 "materialInfo": materialInfoJson,
                 "identityInfoId": $("#identityInfoId").val(),
                 "captcha": $("input[name=captcha]").val()
             }, function () {
+                flag = true;
                 layer.msg('保存成功!!', {
                     time: 1000
                 }, function () {
-                    if(window.opener.component) {
+                    /*if(window.opener.component) {
                         window.opener.component.load();
                         window.close();
                     } else {
                         window.close();
-                    }
+                    }*/
+                    window.location.href = "${rc.contextPath}/identityInfo/index.html";
                 });
             });
-
         });
     });
 

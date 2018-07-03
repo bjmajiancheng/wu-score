@@ -112,14 +112,15 @@
                 var requestData = {"reservaionDateId": reservaionDateId, "reservaionM": reservaionM,
                     "identityInfoId": $("#identityInfoId").val(), "captcha":captcha};
 
-                postSyncResultData("${rc.contextPath}/identityInfo/reserveDate", requestData, function(data){
+                postResultData("${rc.contextPath}/identityInfo/reserveDate", requestData, function(data){
                     layer.msg('预约时间成功!!', {
                         time: 1000
                     }, function(){
-                        if(window.opener.component) {
+                        /*if(window.opener.component) {
                             window.opener.component.load();
                         }
-                        window.close();
+                        window.close();*/
+                        window.location.href = "${rc.contextPath}/identityInfo/index.html";
                     });
                 });
             });
