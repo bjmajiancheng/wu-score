@@ -92,7 +92,7 @@ public class PbScoreResultController {
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
-            long endTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishEnd()).getTime();
+            long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
             if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
                 if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
                         .isEmpty(searchScoreView.getUserName()) && StringUtils
