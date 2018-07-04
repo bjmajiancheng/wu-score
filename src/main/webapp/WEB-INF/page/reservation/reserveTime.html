@@ -116,11 +116,11 @@
                     layer.msg('预约时间成功!!', {
                         time: 1000
                     }, function(){
-                        /*if(window.opener.component) {
+                        if(window.opener && window.opener.component) {
                             window.opener.component.load();
                         }
-                        window.close();*/
-                        window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                        window.close();
+                        /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
                     });
                 });
             });

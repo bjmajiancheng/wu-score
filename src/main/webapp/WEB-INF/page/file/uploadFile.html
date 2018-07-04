@@ -287,13 +287,13 @@
                 layer.msg('保存成功!!', {
                     time: 1000
                 }, function () {
-                    /*if(window.opener.component) {
+                    if(window.opener && window.opener.component) {
                         window.opener.component.load();
                         window.close();
                     } else {
                         window.close();
-                    }*/
-                    window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                    }
+                    /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
                 });
             });
         });

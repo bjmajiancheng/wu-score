@@ -28,7 +28,7 @@
                 btn: ['是','否'] //按钮
             }, function(index){
                 if(history.length == 1) {//跳转页面
-                    if(window.opener.component) {
+                    if(window.opener && window.opener.component) {
                         window.opener.component.load();
                     }
                     window.close();

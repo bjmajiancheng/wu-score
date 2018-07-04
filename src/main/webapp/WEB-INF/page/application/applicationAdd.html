@@ -792,22 +792,23 @@
         var flag = false;
         postSyncResultData(url, formInfo, function(data){
             flag = true;
-            layer.msg('保存成功!!', {
-                time: 1000
-            }, function () {
-                flag = true;
-            });
         });
 
         if(flag) {
-            window.location.href = "${rc.contextPath}/identityInfo/index.html";
+            /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
 
-            /*if(window.opener && window.opener.component) {
-                window.opener.component.load();
-                window.close();
-            } else {
-                window.close();
-            }*/
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+
+                if(window.opener && window.opener.component) {
+                    window.opener.component.load();
+                    window.close();
+                } else {
+                    window.close();
+                }
+
+            });
         }
     }
 
@@ -828,25 +829,24 @@
         var flag = false;
         postSyncResultData(url, formInfo, function(data){
             flag = true;
-            layer.msg('保存成功!!', {
-                time: 1000
-            }, function () {
-                flag = true;
-            });
         });
 
         if(flag) {
-            window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+                window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
 
-            window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
 
-            /*if(window.opener && window.opener.component) {
-                window.opener.component.load();
-                window.close();
-            } else {
-                //history.go(-1);
-                window.close();
-            }*/
+                if(window.opener && window.opener.component) {
+                    window.opener.component.load();
+                    window.close();
+                } else {
+                    //history.go(-1);
+                    window.close();
+                }
+            });
         }
     }
 
