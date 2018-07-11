@@ -117,8 +117,8 @@
                     <props>
                         <prop key="kaptcha.border">no</prop>
                         <prop key="kaptcha.textproducer.font.color">black</prop>
-                        <prop key="kaptcha.textproducer.char.space">5</prop>
-                        <prop key="kaptcha.textproducer.char.length">3</prop>
+                        <prop key="kaptcha.textproducer.char.space">3</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
                         <prop key="kaptcha.textproducer.char.string">1234567890</prop>
                         <prop key="kaptcha.textproducer.font.size">40</prop>
                     </props>
