@@ -8,13 +8,15 @@
     <resultMap id="HouseProfession" type="com.wutuobang.score.model.HouseProfessionModel">
         <result property="id" column="id"/>
         <result property="identityInfoId" column="identity_info_id"/>
-        <result property="professionType" column="profession_type"/>
+		<result property="professionType" column="profession_type"/>
+		<result property="professionTitle" column="profession_title"/>
         <result property="jobTitleLevel" column="job_title_level"/>
         <result property="jobPosition" column="job_position"/>
         <result property="issuingAuthority" column="issuing_authority"/>
         <result property="issuingDate" column="issuing_date"/>
         <result property="certificateCode" column="certificate_code"/>
         <result property="jobLevel" column="job_level"/>
+		<result property="jobName" column="job_name"/>
         <result property="jobType" column="job_type"/>
         <result property="ctime" column="c_time"/>
     </resultMap>
@@ -22,7 +24,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,identity_info_id ,profession_type ,job_title_level ,job_position ,issuing_authority ,issuing_date ,certificate_code ,job_level ,job_type ,c_time 
+        id ,identity_info_id ,profession_type ,profession_title ,job_title_level ,job_position ,issuing_authority ,issuing_date ,certificate_code ,job_level , job_name,job_type ,c_time
 	    ]]>
 	</sql>
 	
@@ -35,24 +37,28 @@
 	        id  ,
 	        identity_info_id  ,
 	        profession_type  ,
+	        profession_title  ,
 	        job_title_level  ,
 	        job_position  ,
 	        issuing_authority  ,
 	        issuing_date  ,
 	        certificate_code  ,
 	        job_level  ,
+	        job_name  ,
 	        job_type  ,
 	        c_time  
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
         	#{professionType, jdbcType=INTEGER} ,
+        	#{professionTitle, jdbcType=INTEGER} ,
         	#{jobTitleLevel, jdbcType=INTEGER} ,
         	#{jobPosition, jdbcType=VARCHAR} ,
         	#{issuingAuthority, jdbcType=VARCHAR} ,
         	#{issuingDate, jdbcType=VARCHAR} ,
         	#{certificateCode, jdbcType=VARCHAR} ,
         	#{jobLevel, jdbcType=INTEGER} ,
+        	#{jobName, jdbcType=INTEGER} ,
         	#{jobType, jdbcType=INTEGER} ,
         	#{ctime, jdbcType=TIMESTAMP} 
         )
@@ -62,13 +68,15 @@
     <update id="update" >
         UPDATE t_house_profession SET
 	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
-	        <if test="professionType != null">profession_type = #{professionType, jdbcType=INTEGER} ,</if>
+			<if test="professionType != null">profession_type = #{professionType, jdbcType=INTEGER} ,</if>
+			<if test="professionTitle != null">profession_title = #{professionTitle, jdbcType=INTEGER} ,</if>
 	        <if test="jobTitleLevel != null">job_title_level = #{jobTitleLevel, jdbcType=INTEGER} ,</if>
 	        <if test="jobPosition != null">job_position = #{jobPosition, jdbcType=VARCHAR} ,</if>
 	        <if test="issuingAuthority != null">issuing_authority = #{issuingAuthority, jdbcType=VARCHAR} ,</if>
 	        <if test="issuingDate != null">issuing_date = #{issuingDate, jdbcType=VARCHAR} ,</if>
 	        <if test="certificateCode != null">certificate_code = #{certificateCode, jdbcType=VARCHAR} ,</if>
-	        <if test="jobLevel != null">job_level = #{jobLevel, jdbcType=INTEGER} ,</if>
+			<if test="jobLevel != null">job_level = #{jobLevel, jdbcType=INTEGER} ,</if>
+			<if test="jobName != null">job_name = #{jobName, jdbcType=INTEGER} ,</if>
 	        <if test="jobType != null">job_type = #{jobType, jdbcType=INTEGER} ,</if>
 	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
 			id = #{id}

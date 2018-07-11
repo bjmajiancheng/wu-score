@@ -106,7 +106,65 @@
                     <tr>
                         <td class="color-red">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="nation" id="nation" value="$!{identityInfo.nation}">
+                            <!--<input class="integral-input w450" type="text" name="nation" id="nation" value="$!{identityInfo.nation}">-->
+                            <select name="nation" id="nation" style="width:125px;">
+                                <option value="汉族">汉族</option>
+                                <option value="蒙古族">蒙古族</option>
+                                <option value="回族">回族</option>
+                                <option value="藏族">藏族</option>
+                                <option value="维吾尔族">维吾尔族</option>
+                                <option value="苗族">苗族</option>
+                                <option value="彝族">彝族</option>
+                                <option value="壮族">壮族</option>
+                                <option value="布依族">布依族</option>
+                                <option value="朝鲜族">朝鲜族</option>
+                                <option value="满族">满族</option>
+                                <option value="侗族">侗族</option>
+                                <option value="瑶族">瑶族</option>
+                                <option value="白族">白族</option>
+                                <option value="土家族">土家族</option>
+                                <option value="哈尼族">哈尼族</option>
+                                <option value="哈萨克族">哈萨克族</option>
+                                <option value="傣族">傣族</option>
+                                <option value="黎族">黎族</option>
+                                <option value="傈僳族">傈僳族</option>
+                                <option value="佤族">佤族</option>
+                                <option value="畲族">畲族</option>
+                                <option value="高山族">高山族</option>
+                                <option value="拉祜族">拉祜族</option>
+                                <option value="水族">水族</option>
+                                <option value="东乡族">东乡族</option>
+                                <option value="纳西族">纳西族</option>
+                                <option value="景颇族">景颇族</option>
+                                <option value="柯尔克孜族">柯尔克孜族</option>
+                                <option value="土族">土族</option>
+                                <option value="达斡尔族">达斡尔族</option>
+                                <option value="仫佬族">仫佬族</option>
+                                <option value="羌族">羌族</option>
+                                <option value="布朗族">布朗族</option>
+                                <option value="撒拉族">撒拉族</option>
+                                <option value="毛难族">毛难族</option>
+                                <option value="仡佬族">仡佬族</option>
+                                <option value="锡伯族">锡伯族</option>
+                                <option value="阿昌族">阿昌族</option>
+                                <option value="普米族">普米族</option>
+                                <option value="塔吉克族">塔吉克族</option>
+                                <option value="怒族">怒族</option>
+                                <option value="乌孜别克族">乌孜别克族</option>
+                                <option value="俄罗斯族">俄罗斯族</option>
+                                <option value="鄂温克族">鄂温克族</option>
+                                <option value="崩龙族">崩龙族</option>
+                                <option value="保安族">保安族</option>
+                                <option value="裕固族">裕固族</option>
+                                <option value="京族">京族</option>
+                                <option value="塔塔尔族">塔塔尔族</option>
+                                <option value="独龙族">独龙族</option>
+                                <option value="鄂伦春族">鄂伦春族</option>
+                                <option value="赫哲族">赫哲族</option>
+                                <option value="门巴族">门巴族</option>
+                                <option value="珞巴族">珞巴族</option>
+                                <option value="基诺族">基诺族</option>
+                            </select>
                         </td>
                     </tr>
                 </table>
@@ -195,16 +253,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">证明收件人：</td>
+                        <td class="color-red">收件人：</td>
                         <td>
-                            <input class="integral-input w200" placeholder="户口准予迁入证明快递收件人" type="text" name="witness"
+                            <input class="integral-input w200" placeholder="户口准予迁入收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
                             <span class="integral-td-title ml75">电话：</span>
                             <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone" value="$!{houseMoveModel.witnessPhone}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">证明收件地址：</td>
+                        <td class="color-red">邮寄地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress" value="$!{houseMoveModel.witnessAddress}">
                         </td>
@@ -324,7 +382,7 @@
                             <input class="input_radio ml30" type="radio" name="applicantType" value="3" id="radio15" #if(${houseOtherModel.applicantType} == 3) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="radio15">个体商户</label>
                             <input class="input_radio ml30" type="radio" name="applicantType" value="4" id="radio151" #if(${houseOtherModel.applicantType} == 4) checked #end>
-                            &nbsp;&nbsp;&nbsp;<label for="radio151">事业单位</label>
+                            &nbsp;&nbsp;&nbsp;<label for="radio151">机关事业单位</label>
                         </td>
                     </tr>
                     <tr>
@@ -488,9 +546,71 @@
                             <label for="radio18">具有职业资格</label>
                         </td>
                     </tr>
-                    <tr class="professionType_2">
-                        <td class="color-red">职称级别：</td>
+                    <tr class="professionType_2 color-red">
+                        <td>专业名称：</td>
                         <td>
+                            <select name="professionTitle" id="professionTitle">
+                                <option value="1">出版专业技术人员职业资格</option>
+                                <option value="2">出入境检疫处理人员资格</option>
+                                <option value="3">船员资格（含船员、渔业船员）</option>
+                                <option value="4">导游资格</option>
+                                <option value="5">法律职业资格</option>
+                                <option value="6">翻译专业资格</option>
+                                <option value="7">房地产估价师</option>
+                                <option value="8">房地产经纪专业人员职业资格</option>
+                                <option value="9">工程咨询（投资）专业技术人员职业资格</option>
+                                <option value="10">公路水运工程试验检测专业技术人员职业资格</option>
+                                <option value="11">广播电视播音员、主持人资格</option>
+                                <option value="12">航空人员资格</option>
+                                <option value="13">护士执业资格</option>
+                                <option value="14">环境影响评价工程师</option>
+                                <option value="15">会计从业资格</option>
+                                <option value="16">会计专业技术资格</option>
+                                <option value="17">机动车检测维修专业技术人员职业资格</option>
+                                <option value="18">计算机技术与软件专业技术资格</option>
+                                <option value="19">监理工程师</option>
+                                <option value="20">建造师</option>
+                                <option value="21">教师资格</option>
+                                <option value="22">经济专业技术资格</option>
+                                <option value="23">勘察设计注册工程师</option>
+                                <option value="24">民用核安全设备无损检验人员资格</option>
+                                <option value="25">民用核设施操纵人员资格</option>
+                                <option value="26">母婴保健技术服务人员资格</option>
+                                <option value="27">拍卖师</option>
+                                <option value="28">认证人员职业资格</option>
+                                <option value="29">社会工作者职业资格</option>
+                                <option value="30">审计专业技术资格</option>
+                                <option value="31">兽医资格</option>
+                                <option value="32">水利工程质量检测员资格</option>
+                                <option value="33">税务师</option>
+                                <option value="34">特种设备检验、检测人员资格认定</option>
+                                <option value="35">通信专业技术人员职业资格</option>
+                                <option value="36">统计专业技术资格</option>
+                                <option value="37">土地登记代理专业人员职业资格</option>
+                                <option value="38">卫生专业技术资格</option>
+                                <option value="39">文物保护工程从业资格</option>
+                                <option value="40">新闻记者职业资格</option>
+                                <option value="41">演出经纪人员资格</option>
+                                <option value="42">医生资格</option>
+                                <option value="43">银行业专业人员职业资格</option>
+                                <option value="44">造价工程师</option>
+                                <option value="45">证券期货业从业人员资格</option>
+                                <option value="46">执业药师</option>
+                                <option value="47">中国委托公证人资格（香港、澳门）</option>
+                                <option value="48">注册安全工程师</option>
+                                <option value="49">注册测绘师</option>
+                                <option value="50">注册城乡规划师</option>
+                                <option value="51">注册核安全工程师</option>
+                                <option value="52">注册会计师</option>
+                                <option value="53">注册计量师</option>
+                                <option value="54">注册建筑师</option>
+                                <option value="55">注册设备监理师</option>
+                                <option value="56">注册消防工程师</option>
+                                <option value="57">注册验船师</option>
+                                <option value="58">专利代理人</option>
+                                <option value="59">资产评估师</option>
+                            </select>
+                            <span class="integral-td-title ml50">职称级别：</span>
                             <select name="jobTitleLevel" id="jobTitleLevel">
                                 <option value="1">初级职称</option>
                                 <option value="2">中级职称</option>
@@ -498,14 +618,24 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="professionType_2 color-red">
+                    <!--<tr class="professionType_2 color-red">
+                        <td>职称级别：</td>
+                        <td>
+                            <select name="jobTitleLevel" id="jobTitleLevel">
+                                <option value="1">初级职称</option>
+                                <option value="2">中级职称</option>
+                                <option value="3">高级职称</option>
+                            </select>
+                        </td>
+                    </tr>-->
+                    <!--<tr class="professionType_2 color-red">
                         <td>职位：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="jobPosition" id="jobPosition" value="$!{houseProfessionModel.jobPosition}">
                             <span class="integral-td-title ml50">发证机关：</span>
                             <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr class="professionType_2 color-red">
                         <td>发证日期：</td>
                         <td>
@@ -519,8 +649,414 @@
                         <td>
                             <select name="jobLevel" id="jobLevel">
                             </select>
+                            <span class="integral-td-title ml50">职业名称：</span>
+                            <select name="jobName" id="jobName">
+                                <option value="1">消防设施操作员</option>
+                                <option value="2">焊工</option>
+                                <option value="3">家畜繁殖员</option>
+                                <option value="4">游泳救生员</option>
+                                <option value="5">社会体育指导员</option>
+                                <option value="6">轨道列车司机</option>
+                                <option value="7">设备点检员</option>
+                                <option value="8">电工</option>
+                                <option value="9">锅炉设备检修工</option>
+                                <option value="10">变电设备检修工</option>
+                                <option value="11">工程机械维修工</option>
+                                <option value="12">起重装卸机械操作工</option>
+                                <option value="13">电梯安装维修工</option>
+                                <option value="14">制冷空调系统安装维修工</option>
+                                <option value="15">筑路工</option>
+                                <option value="16">桥隧工</option>
+                                <option value="17">防水工</option>
+                                <option value="18">电力电缆安装运维工</option>
+                                <option value="19">砌筑工</option>
+                                <option value="20">混凝土工</option>
+                                <option value="21">钢筋工</option>
+                                <option value="22">架子工</option>
+                                <option value="23">水生产处理工</option>
+                                <option value="24">工业废水处理工</option>
+                                <option value="25">工业气体生产工</option>
+                                <option value="26">工业废气治理工</option>
+                                <option value="27">压缩机操作工</option>
+                                <option value="28">锅炉运行值班员</option>
+                                <option value="29">发电集控值班员</option>
+                                <option value="30">变配电运行值班员</option>
+                                <option value="31">继电保护员</option>
+                                <option value="32">燃气轮机值班员</option>
+                                <option value="33">锅炉操作工</option>
+                                <option value="34">钟表及计时仪器制造工</option>
+                                <option value="35">广电和通信设备电子装接工</option>
+                                <option value="36">广电和通信设备调试工</option>
+                                <option value="37">计算机及外部设备装配调试员</option>
+                                <option value="38">液晶显示器件制造工</option>
+                                <option value="39">半导体芯片制造工</option>
+                                <option value="40">半导体分立器件和集成电路装调工</option>
+                                <option value="41">电子产品制版工</option>
+                                <option value="42">印制电路制作工</option>
+                                <option value="43">电线电缆制造工</option>
+                                <option value="44">变压器互感器制造工</option>
+                                <option value="45">高低压电器及成套设备装配工</option>
+                                <option value="46">汽车装调工</option>
+                                <option value="47">矫形器装配工</option>
+                                <option value="48">假肢装配工</option>
+                                <option value="49">机床装调维修工</option>
+                                <option value="50">模具工</option>
+                                <option value="51">铸造工</option>
+                                <option value="52">锻造工</option>
+                                <option value="53">金属热处理工</option>
+                                <option value="54">车工</option>
+                                <option value="55">铣工</option>
+                                <option value="56">钳工</option>
+                                <option value="57">磨工</option>
+                                <option value="58">冲压工</option>
+                                <option value="59">电切削工</option>
+                                <option value="60">硬质合金成型工</option>
+                                <option value="61">硬质合金烧结工</option>
+                                <option value="62">硬质合金精加工工</option>
+                                <option value="63">轧制原料工</option>
+                                <option value="64">金属轧制工</option>
+                                <option value="65">金属材热处理工</option>
+                                <option value="66">金属材精整工</option>
+                                <option value="67">金属挤压工</option>
+                                <option value="68">铸轧工</option>
+                                <option value="69">氧化铝制取工</option>
+                                <option value="70">铝电解工</option>
+                                <option value="71">重冶火法冶炼工</option>
+                                <option value="72">电解精炼工</option>
+                                <option value="73">重冶湿法冶炼工</option>
+                                <option value="74">炼钢原料工</option>
+                                <option value="75">炼钢工</option>
+                                <option value="76">高炉原料工</option>
+                                <option value="77">高炉炼铁工</option>
+                                <option value="78">高炉运转工</option>
+                                <option value="79">井下支护工</option>
+                                <option value="80">矿山救护工</option>
+                                <option value="81">陶瓷原料准备工</option>
+                                <option value="82">陶瓷烧成工</option>
+                                <option value="83">陶瓷装饰工</option>
+                                <option value="84">玻璃纤维及制品工</option>
+                                <option value="85">玻璃钢制品工</option>
+                                <option value="86">水泥生产工</option>
+                                <option value="87">石膏制品生产工</option>
+                                <option value="88">水泥混凝土制品工</option>
+                                <option value="89">药物制剂工</option>
+                                <option value="90">中药炮制工</option>
+                                <option value="91">涂料生产工</option>
+                                <option value="92">染料生产工</option>
+                                <option value="93">农药生产工</option>
+                                <option value="94">合成氨生产工</option>
+                                <option value="95">尿素生产工</option>
+                                <option value="96">硫酸生产工</option>
+                                <option value="97">硝酸生产工</option>
+                                <option value="98">纯碱生产工</option>
+                                <option value="99">烧碱生产工</option>
+                                <option value="100">无机化学反应生产工</option>
+                                <option value="101">有机合成工</option>
+                                <option value="102">化工总控工</option>
+                                <option value="103">防腐蚀工</option>
+                                <option value="104">制冷工</option>
+                                <option value="105">炼焦煤制备工</option>
+                                <option value="106">炼焦工</option>
+                                <option value="107">景泰蓝制作工</option>
+                                <option value="108">手工木工</option>
+                                <option value="109">服装制版师</option>
+                                <option value="110">印染前处理工</option>
+                                <option value="111">印花工</option>
+                                <option value="112">印染后整理工</option>
+                                <option value="113">印染染化料配制工</option>
+                                <option value="114">纺织染色工</option>
+                                <option value="115">整经工</option>
+                                <option value="116">织布工</option>
+                                <option value="117">纺纱工</option>
+                                <option value="118">缫丝工</option>
+                                <option value="119">纺织纤维梳理工</option>
+                                <option value="120">并条工</option>
+                                <option value="121">酿酒师</option>
+                                <option value="122">品酒师</option>
+                                <option value="123">酒精酿造工</option>
+                                <option value="124">白酒酿造工</option>
+                                <option value="125">啤酒酿造工</option>
+                                <option value="126">黄酒酿造工</option>
+                                <option value="127">果露酒酿造工</option>
+                                <option value="128">评茶员</option>
+                                <option value="129">乳品评鉴师</option>
+                                <option value="130">制米工</option>
+                                <option value="131">制粉工</option>
+                                <option value="132">制油工</option>
+                                <option value="133">农作物植保员</option>
+                                <option value="134">动物疫病防治员</option>
+                                <option value="135">动物检疫检验员</option>
+                                <option value="136">水生物病害防治员</option>
+                                <option value="137">林业有害生物防治员</option>
+                                <option value="138">农机修理工</option>
+                                <option value="139">沼气工</option>
+                                <option value="140">农业技术员</option>
+                                <option value="141">助听器验配师</option>
+                                <option value="142">口腔修复体制作工</option>
+                                <option value="143">眼镜验光员</option>
+                                <option value="144">眼镜定配工</option>
+                                <option value="145">健康管理师</option>
+                                <option value="146">生殖健康咨询师</option>
+                                <option value="147">信息通信网络终端维修员</option>
+                                <option value="148">汽车维修工</option>
+                                <option value="149">保健调理师</option>
+                                <option value="150">美容师</option>
+                                <option value="151">美发师</option>
+                                <option value="152">孤残儿童护理员</option>
+                                <option value="153">育婴员</option>
+                                <option value="154">保育员</option>
+                                <option value="155">有害生物防制员</option>
+                                <option value="156">工业固体废物处理处置工</option>
+                                <option value="157">水文勘测工</option>
+                                <option value="158">河道修防工</option>
+                                <option value="159">水工闸门运行工</option>
+                                <option value="160">水工监测工</option>
+                                <option value="161">地勘钻探工</option>
+                                <option value="162">地质调查员</option>
+                                <option value="163">地勘掘进工</option>
+                                <option value="164">地质实验员</option>
+                                <option value="165">物探工</option>
+                                <option value="166">农产品食品检验员</option>
+                                <option value="167">纤维检验员</option>
+                                <option value="168">贵金属首饰与宝玉石检测员</option>
+                                <option value="169">机动车检测工</option>
+                                <option value="170">大地测量员</option>
+                                <option value="171">摄影测量员</option>
+                                <option value="172">地图绘制员</option>
+                                <option value="173">不动产测绘员</option>
+                                <option value="174">工程测量员</option>
+                                <option value="175">保安员</option>
+                                <option value="176">安检员</option>
+                                <option value="177">智能楼宇管理员</option>
+                                <option value="178">安全评价师</option>
+                                <option value="179">劳动关系协调员</option>
+                                <option value="180">企业人力资源管理师</option>
+                                <option value="181">中央空调系统运行操作员</option>
+                                <option value="182">信息通信网络运行管理员</option>
+                                <option value="183">广播电视天线工</option>
+                                <option value="184">有线广播电视机线员</option>
+                                <option value="185">信息通信网络机务员</option>
+                                <option value="186">信息通信网络线务员</option>
+                                <option value="187">中式烹调师</option>
+                                <option value="188">中式面点师</option>
+                                <option value="189">西式烹调师</option>
+                                <option value="190">西式面点师</option>
+                                <option value="191">茶艺师</option>
+                                <option value="192">（粮油）仓储管理员</option>
+                                <option value="193">民航乘务员</option>
+                                <option value="194">机场运行指挥员</option>
+                                <option value="195">机动车驾驶教练员</option>
+                                <option value="196">消防员</option>
+                                <option value="197">森林消防员</option>
+                                <option value="198">应急救援员</option>
+                            </select>
                         </td>
                     </tr>
+                    <!--<tr class="professionType_3 color-red">
+                        <td>职业名称：</td>
+                        <td>
+                            <select name="jobName" id="jobName">
+                                <option value="1">消防设施操作员</option>
+                                <option value="2">焊工</option>
+                                <option value="3">家畜繁殖员</option>
+                                <option value="4">游泳救生员</option>
+                                <option value="5">社会体育指导员</option>
+                                <option value="6">轨道列车司机</option>
+                                <option value="7">设备点检员</option>
+                                <option value="8">电工</option>
+                                <option value="9">锅炉设备检修工</option>
+                                <option value="10">变电设备检修工</option>
+                                <option value="11">工程机械维修工</option>
+                                <option value="12">起重装卸机械操作工</option>
+                                <option value="13">电梯安装维修工</option>
+                                <option value="14">制冷空调系统安装维修工</option>
+                                <option value="15">筑路工</option>
+                                <option value="16">桥隧工</option>
+                                <option value="17">防水工</option>
+                                <option value="18">电力电缆安装运维工</option>
+                                <option value="19">砌筑工</option>
+                                <option value="20">混凝土工</option>
+                                <option value="21">钢筋工</option>
+                                <option value="22">架子工</option>
+                                <option value="23">水生产处理工</option>
+                                <option value="24">工业废水处理工</option>
+                                <option value="25">工业气体生产工</option>
+                                <option value="26">工业废气治理工</option>
+                                <option value="27">压缩机操作工</option>
+                                <option value="28">锅炉运行值班员</option>
+                                <option value="29">发电集控值班员</option>
+                                <option value="30">变配电运行值班员</option>
+                                <option value="31">继电保护员</option>
+                                <option value="32">燃气轮机值班员</option>
+                                <option value="33">锅炉操作工</option>
+                                <option value="34">钟表及计时仪器制造工</option>
+                                <option value="35">广电和通信设备电子装接工</option>
+                                <option value="36">广电和通信设备调试工</option>
+                                <option value="37">计算机及外部设备装配调试员</option>
+                                <option value="38">液晶显示器件制造工</option>
+                                <option value="39">半导体芯片制造工</option>
+                                <option value="40">半导体分立器件和集成电路装调工</option>
+                                <option value="41">电子产品制版工</option>
+                                <option value="42">印制电路制作工</option>
+                                <option value="43">电线电缆制造工</option>
+                                <option value="44">变压器互感器制造工</option>
+                                <option value="45">高低压电器及成套设备装配工</option>
+                                <option value="46">汽车装调工</option>
+                                <option value="47">矫形器装配工</option>
+                                <option value="48">假肢装配工</option>
+                                <option value="49">机床装调维修工</option>
+                                <option value="50">模具工</option>
+                                <option value="51">铸造工</option>
+                                <option value="52">锻造工</option>
+                                <option value="53">金属热处理工</option>
+                                <option value="54">车工</option>
+                                <option value="55">铣工</option>
+                                <option value="56">钳工</option>
+                                <option value="57">磨工</option>
+                                <option value="58">冲压工</option>
+                                <option value="59">电切削工</option>
+                                <option value="60">硬质合金成型工</option>
+                                <option value="61">硬质合金烧结工</option>
+                                <option value="62">硬质合金精加工工</option>
+                                <option value="63">轧制原料工</option>
+                                <option value="64">金属轧制工</option>
+                                <option value="65">金属材热处理工</option>
+                                <option value="66">金属材精整工</option>
+                                <option value="67">金属挤压工</option>
+                                <option value="68">铸轧工</option>
+                                <option value="69">氧化铝制取工</option>
+                                <option value="70">铝电解工</option>
+                                <option value="71">重冶火法冶炼工</option>
+                                <option value="72">电解精炼工</option>
+                                <option value="73">重冶湿法冶炼工</option>
+                                <option value="74">炼钢原料工</option>
+                                <option value="75">炼钢工</option>
+                                <option value="76">高炉原料工</option>
+                                <option value="77">高炉炼铁工</option>
+                                <option value="78">高炉运转工</option>
+                                <option value="79">井下支护工</option>
+                                <option value="80">矿山救护工</option>
+                                <option value="81">陶瓷原料准备工</option>
+                                <option value="82">陶瓷烧成工</option>
+                                <option value="83">陶瓷装饰工</option>
+                                <option value="84">玻璃纤维及制品工</option>
+                                <option value="85">玻璃钢制品工</option>
+                                <option value="86">水泥生产工</option>
+                                <option value="87">石膏制品生产工</option>
+                                <option value="88">水泥混凝土制品工</option>
+                                <option value="89">药物制剂工</option>
+                                <option value="90">中药炮制工</option>
+                                <option value="91">涂料生产工</option>
+                                <option value="92">染料生产工</option>
+                                <option value="93">农药生产工</option>
+                                <option value="94">合成氨生产工</option>
+                                <option value="95">尿素生产工</option>
+                                <option value="96">硫酸生产工</option>
+                                <option value="97">硝酸生产工</option>
+                                <option value="98">纯碱生产工</option>
+                                <option value="99">烧碱生产工</option>
+                                <option value="100">无机化学反应生产工</option>
+                                <option value="101">有机合成工</option>
+                                <option value="102">化工总控工</option>
+                                <option value="103">防腐蚀工</option>
+                                <option value="104">制冷工</option>
+                                <option value="105">炼焦煤制备工</option>
+                                <option value="106">炼焦工</option>
+                                <option value="107">景泰蓝制作工</option>
+                                <option value="108">手工木工</option>
+                                <option value="109">服装制版师</option>
+                                <option value="110">印染前处理工</option>
+                                <option value="111">印花工</option>
+                                <option value="112">印染后整理工</option>
+                                <option value="113">印染染化料配制工</option>
+                                <option value="114">纺织染色工</option>
+                                <option value="115">整经工</option>
+                                <option value="116">织布工</option>
+                                <option value="117">纺纱工</option>
+                                <option value="118">缫丝工</option>
+                                <option value="119">纺织纤维梳理工</option>
+                                <option value="120">并条工</option>
+                                <option value="121">酿酒师</option>
+                                <option value="122">品酒师</option>
+                                <option value="123">酒精酿造工</option>
+                                <option value="124">白酒酿造工</option>
+                                <option value="125">啤酒酿造工</option>
+                                <option value="126">黄酒酿造工</option>
+                                <option value="127">果露酒酿造工</option>
+                                <option value="128">评茶员</option>
+                                <option value="129">乳品评鉴师</option>
+                                <option value="130">制米工</option>
+                                <option value="131">制粉工</option>
+                                <option value="132">制油工</option>
+                                <option value="133">农作物植保员</option>
+                                <option value="134">动物疫病防治员</option>
+                                <option value="135">动物检疫检验员</option>
+                                <option value="136">水生物病害防治员</option>
+                                <option value="137">林业有害生物防治员</option>
+                                <option value="138">农机修理工</option>
+                                <option value="139">沼气工</option>
+                                <option value="140">农业技术员</option>
+                                <option value="141">助听器验配师</option>
+                                <option value="142">口腔修复体制作工</option>
+                                <option value="143">眼镜验光员</option>
+                                <option value="144">眼镜定配工</option>
+                                <option value="145">健康管理师</option>
+                                <option value="146">生殖健康咨询师</option>
+                                <option value="147">信息通信网络终端维修员</option>
+                                <option value="148">汽车维修工</option>
+                                <option value="149">保健调理师</option>
+                                <option value="150">美容师</option>
+                                <option value="151">美发师</option>
+                                <option value="152">孤残儿童护理员</option>
+                                <option value="153">育婴员</option>
+                                <option value="154">保育员</option>
+                                <option value="155">有害生物防制员</option>
+                                <option value="156">工业固体废物处理处置工</option>
+                                <option value="157">水文勘测工</option>
+                                <option value="158">河道修防工</option>
+                                <option value="159">水工闸门运行工</option>
+                                <option value="160">水工监测工</option>
+                                <option value="161">地勘钻探工</option>
+                                <option value="162">地质调查员</option>
+                                <option value="163">地勘掘进工</option>
+                                <option value="164">地质实验员</option>
+                                <option value="165">物探工</option>
+                                <option value="166">农产品食品检验员</option>
+                                <option value="167">纤维检验员</option>
+                                <option value="168">贵金属首饰与宝玉石检测员</option>
+                                <option value="169">机动车检测工</option>
+                                <option value="170">大地测量员</option>
+                                <option value="171">摄影测量员</option>
+                                <option value="172">地图绘制员</option>
+                                <option value="173">不动产测绘员</option>
+                                <option value="174">工程测量员</option>
+                                <option value="175">保安员</option>
+                                <option value="176">安检员</option>
+                                <option value="177">智能楼宇管理员</option>
+                                <option value="178">安全评价师</option>
+                                <option value="179">劳动关系协调员</option>
+                                <option value="180">企业人力资源管理师</option>
+                                <option value="181">中央空调系统运行操作员</option>
+                                <option value="182">信息通信网络运行管理员</option>
+                                <option value="183">广播电视天线工</option>
+                                <option value="184">有线广播电视机线员</option>
+                                <option value="185">信息通信网络机务员</option>
+                                <option value="186">信息通信网络线务员</option>
+                                <option value="187">中式烹调师</option>
+                                <option value="188">中式面点师</option>
+                                <option value="189">西式烹调师</option>
+                                <option value="190">西式面点师</option>
+                                <option value="191">茶艺师</option>
+                                <option value="192">（粮油）仓储管理员</option>
+                                <option value="193">民航乘务员</option>
+                                <option value="194">机场运行指挥员</option>
+                                <option value="195">机动车驾驶教练员</option>
+                                <option value="196">消防员</option>
+                                <option value="197">森林消防员</option>
+                                <option value="198">应急救援员</option>
+                            </select>
+                        </td>
+                    </tr>-->
                     <tr class="professionType_3 color-red">
                         <td>工种：</td>
                         <td>
@@ -656,8 +1192,28 @@
         );
 
         //提交
-        $("#submit").on("click", submit);
-        $("#submitAndContinue").on("click", submitAndContinue);
+        $("#submit").on("click", function(){
+            //询问框
+            var index = layer.confirm('确定要保存申请人吗？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                submit();
+                layer.close(index);
+            }, function(){
+                layer.close(index);
+            });
+        });
+        $("#submitAndContinue").on("click", function(){
+            //询问框
+            var index = layer.confirm('确定要保存并继续录入申请人吗？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                submitAndContinue();
+                layer.close(index);
+            }, function(){
+                layer.close(index);
+            });
+        });
 
         //身份证正面上传
         $("input[name=idcard1]").on("change", function () {
@@ -781,6 +1337,7 @@
     function submit() {
         var formInfo = getFormInfo();
         if(formInfo == false) {
+            layer.msg("请正确填写申请人信息。");
             return false;
         }
 
@@ -818,6 +1375,7 @@
     function submitAndContinue() {
         var formInfo = getFormInfo();
         if(formInfo == false) {
+            layer.msg("请正确填写申请人信息。");
             return false;
         }
 
@@ -903,6 +1461,18 @@
                 return false;
             }
         });
+
+        //身份证验证(正面)
+        if($("input[name=id_card_positive]").val() == '') {
+            layer.msg("请上传身份证正面图片。");
+            return false;
+        }
+
+        //身份证验证(反面)
+        if($("input[name=id_card_opposite]").val() == '') {
+            layer.msg("请上传身份证反面图片。");
+            return false;
+        }
 
         if(!validateFlag) {
             return false;
@@ -1336,19 +1906,24 @@
 
     //初始化申请人信息
     function initIdentityInfo() {
+        //民族
+        $("#nation").val('$!{identityInfo.nation}');
+
         //户籍迁移信息
-        $("#houseNature").val('${houseMoveModel.houseNature}');
-        $("#settledNature").val('${houseMoveModel.settledNature}');
-        $("#region").val('${houseMoveModel.region}');
-        $("#marriageStatus").val('${houseMoveModel.marriageStatus}');
+        $("#houseNature").val('$!{houseMoveModel.houseNature}');
+        $("#settledNature").val('$!{houseMoveModel.settledNature}');
+        $("#region").val('$!{houseMoveModel.region}');
+        $("#marriageStatus").val('$!{houseMoveModel.marriageStatus}');
 
         //其他信息
-        $("#politicalStatus").val('${houseOtherModel.politicalStatus}');
-        $("#degree").val('${houseOtherModel.degree}');
+        $("#politicalStatus").val('$!{houseOtherModel.politicalStatus}');
+        $("#degree").val('$!{houseOtherModel.degree}');
 
 
         //职业资格证书
-        $("#jobTitleLevel").val('${houseProfessionModel.jobTitleLevel}');
+        $("#jobTitleLevel").val('$!{houseProfessionModel.jobTitleLevel}');
+        $("#professionTitle").val('$!{houseProfessionModel.professionTitle}');
+        $("#jobName").val('$!{houseProfessionModel.jobName}');
     }
 
 </script>

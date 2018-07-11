@@ -28,6 +28,8 @@ public class HouseProfessionModel implements Serializable {
 
 	private Integer professionType;//"职业资格项，1、无；2、具有职称；3、具有职业资格"
 
+	private Integer professionTitle;//专业名称
+
 	private Integer jobTitleLevel;//"职称级别，1、初级职称；2、中级职称；3、高级职称"
 
 	private String jobPosition;//"职位"
@@ -39,6 +41,8 @@ public class HouseProfessionModel implements Serializable {
 	private String certificateCode;//"证书编号"
 
 	private Integer jobLevel;//"职业资格级别,1、高级技师；2、技师；3、高级工；4、中级工；5、初级工"
+
+	private Integer jobName;//职业名称
 
 	private Integer jobType;//"工种"
 
@@ -69,7 +73,15 @@ public class HouseProfessionModel implements Serializable {
 	public Integer getProfessionType() {
 		return this.professionType;
 	}
-		
+
+	public Integer getProfessionTitle() {
+		return professionTitle;
+	}
+
+	public void setProfessionTitle(Integer professionTitle) {
+		this.professionTitle = professionTitle;
+	}
+
 	public void setJobTitleLevel(Integer jobTitleLevel) {
 		this.jobTitleLevel = jobTitleLevel;
 	}
@@ -114,6 +126,14 @@ public class HouseProfessionModel implements Serializable {
 		this.jobLevel = jobLevel;
 	}
 
+	public Integer getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(Integer jobName) {
+		this.jobName = jobName;
+	}
+
 	public Integer getJobLevel() {
 		return this.jobLevel;
 	}
@@ -132,12 +152,6 @@ public class HouseProfessionModel implements Serializable {
 
 	public Date getCtime() {
 		return this.ctime;
-	}
-
-	public Map<String, Object> getParam() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("", "");
-		return param;
 	}
 }
 
