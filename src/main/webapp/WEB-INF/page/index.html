@@ -235,7 +235,15 @@
      * @param id
      */
     function reservationLocation(id) {
-        window.open("${rc.contextPath}/reservation/reserveLocation/"+id+".html");
+        //询问框
+        var index = layer.confirm('确定要预约地点吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            window.open("${rc.contextPath}/reservation/reserveLocation/"+id+".html");
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     }
 
     /**
@@ -243,7 +251,15 @@
      * @param id
      */
     function reservationTime(id) {
-        window.open("${rc.contextPath}/reservation/reserveTime/"+id+".html");
+        //询问框
+        var index = layer.confirm('确定要预约时间吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            window.open("${rc.contextPath}/reservation/reserveTime/"+id+".html");
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     }
 
     /**
@@ -251,7 +267,15 @@
      * @param id
      */
     function autoTest(id) {
-        window.open("${rc.contextPath}/identityInfo/autoEvaluation/"+id+".html");
+        //询问框
+        var index = layer.confirm('确定要自助评测吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            window.open("${rc.contextPath}/identityInfo/autoEvaluation/"+id+".html");
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     }
 
     /**
@@ -274,7 +298,15 @@
         });
 
         if(flag) {
-            window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+            //询问框
+            var index = layer.confirm('确定要修改申请人信息吗？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                window.open("${rc.contextPath}/identityInfo/editIdentityInfo/"+id+".html");
+                layer.close(index);
+            }, function(){
+                layer.close(index);
+            });
         }
     }
 
@@ -284,11 +316,21 @@
      * @param id
      */
     function cancalReservation(id) {
-        //取消预约
-        postResult("${rc.contextPath}/identityInfo/cancalReservation", {"id": id}, function(data){
-            component.load();
-            layer.alert(data.message);
+        //询问框
+        var index = layer.confirm('确定要取消预约吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+
+            //取消预约
+            postResult("${rc.contextPath}/identityInfo/cancalReservation", {"id": id}, function(data){
+                component.load();
+                layer.alert(data.message);
+            });
+            layer.close(index);
+        }, function(){
+            layer.close(index);
         });
+
     }
 
     /**
@@ -297,7 +339,15 @@
      * @param id
      */
     function uploadFile(id) {
-        window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
+        //询问框
+        var index = layer.confirm('确定要上传材料吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     }
 
     /**
@@ -305,7 +355,15 @@
      * @param id
      */
     function reUpload(id) {
-        window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
+        //询问框
+        var index = layer.confirm('确定要重新上传材料吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            window.open("${rc.contextPath}/materialInfo/updateFile/"+id+".html");
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     }
 </script>
 

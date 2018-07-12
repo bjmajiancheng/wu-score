@@ -257,7 +257,7 @@
                         <td>
                             <input class="integral-input w200" placeholder="户口准予迁入收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
-                            <span class="integral-td-title ml75">电话：</span>
+                            <span class="integral-td-title ml75">手机号：</span>
                             <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone" value="$!{houseMoveModel.witnessPhone}">
                         </td>
                     </tr>
@@ -444,10 +444,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">单位电话：</td>
+                        <td class="color-red">单位座机电话：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="companyPhone" value="$!{houseOtherModel.companyPhone}">
-                            <span class="integral-td-title ml50">本人电话：</span>
+                            <span class="integral-td-title ml50">本人手机：</span>
                             <input class="integral-input w200" type="text" name="selfPhone" value="$!{houseOtherModel.selfPhone}">
                         </td>
                     </tr>
@@ -628,6 +628,14 @@
                             </select>
                         </td>
                     </tr>-->
+                    <tr class="professionType_2 color-red">
+                        <td>发证机关：</td>
+                        <td>
+                            <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
+                            <span class="integral-td-title ml50">发证日期：</span>
+                            <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate" value="$!{houseProfessionModel.issuingDate}">
+                        </td>
+                    </tr>
                     <!--<tr class="professionType_2 color-red">
                         <td>职位：</td>
                         <td>
@@ -637,11 +645,11 @@
                         </td>
                     </tr>-->
                     <tr class="professionType_2 color-red">
-                        <td>发证日期：</td>
+                        <td>证书编号：</td>
                         <td>
-                            <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate" value="$!{houseProfessionModel.issuingDate}">
-                            <span class="integral-td-title ml50">证书编号：</span>
                             <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode" value="$!{houseProfessionModel.certificateCode}">
+                            <!--<span class="integral-td-title ml50">证书编号：</span>
+                            <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode" value="$!{houseProfessionModel.certificateCode}">-->
                         </td>
                     </tr>
                     <tr class="professionType_3 color-red">
@@ -1320,6 +1328,39 @@
                     layer.msg('每期身份必须唯一, 请修改身份证信息!!');
                 }
             });
+
+
+            //初始化年龄和性别
+            var idNumber = $(this).val();
+            var strBirthday = "";
+            var len = idNumber.length;
+            var sexChar = 1;
+
+            if (len == 18) {
+                strBirthday = idNumber.substr(6, 4) + "-" + idNumber.substr(10, 2) + "-" + idNumber.substr(12, 2);
+                sexChar = idNumber.substr(17, 1);
+            }
+            if (len == 15) {
+                strBirthday = "19" + idNumber.substr(6, 2) + "-" + idNumber.substr(8, 2) + "-" + idNumber.substr(10, 2);
+                sexChar = idNumber.substr(14, 1);
+            }
+            var birthDate = new Date(strBirthday);
+            var nowDateTime = new Date();
+            var age = nowDateTime.getFullYear() - birthDate.getFullYear();
+            if (nowDateTime.getMonth() < birthDate.getMonth() || (nowDateTime.getMonth() == birthDate.getMonth() && nowDateTime.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            $("#birthday").val(strBirthday);
+            $("#age").val(age);
+
+            if(sexChar % 2 == 0) {
+                $("#female").prop("checked","checked");
+                $("input[name=sex]").val(2);
+            } else {
+                $("#male").prop("checked","checked");
+                $("input[name=sex]").val(1);
+            }
         });
 
 
@@ -1337,7 +1378,6 @@
     function submit() {
         var formInfo = getFormInfo();
         if(formInfo == false) {
-            layer.msg("请正确填写申请人信息。");
             return false;
         }
 
@@ -1375,7 +1415,6 @@
     function submitAndContinue() {
         var formInfo = getFormInfo();
         if(formInfo == false) {
-            layer.msg("请正确填写申请人信息。");
             return false;
         }
 
@@ -1439,12 +1478,27 @@
                 return false;
             }
 
-            var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-            if(!pattern.test(idNumber)) {
-                layer.msg("身份证格式不正确。");
-                $(this).find("input[name=idNumber]").focus();
-                validateFlag = false;
-                return false;
+            //身份证位数校验
+            if(relationship == '配偶') {
+                var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                if(!pattern.test(idNumber)) {
+                    layer.msg("身份证格式不正确。");
+                    $(this).find("input[name=idNumber]").focus();
+                    validateFlag = false;
+                    return false;
+                }
+
+                if(!validateIdNumber(idNumber)) {
+                    layer.msg("配偶身份证格式不正确。");
+                    $(this).find("input[name=idNumber]").focus();
+                    validateFlag = false;
+
+                    return false;
+                }
+            } else {
+                if(!idNumber) {
+                    $(this).find("input[name=idNumber]").val(' ');
+                }
             }
 
             if(!isRemove) {
@@ -1481,7 +1535,7 @@
         //验证职业资格证书信息
         var professionType = $('input:radio[name="professionType"]:checked').val();
         if(professionType == 2) {
-            if($.trim($("#jobPosition").val()) == '' || $.trim($("#issuingAuthority").val()) == '' || $.trim($("#issuingDate").val()) == '' || $.trim($("#certificateCode").val()) == '') {
+            if($.trim($("#issuingAuthority").val()) == '' || $.trim($("#issuingDate").val()) == '' || $.trim($("#certificateCode").val()) == '') {
                 layer.msg("请将职称信息填写完整");
                 validateFlag = false;
             }
@@ -1703,7 +1757,7 @@
                 },
                 witnessPhone: {
                     required: true,
-                    isPhone: true
+                    isMobile: true
                 },
                 witnessAddress: {
                     required: true,
@@ -1812,7 +1866,7 @@
                 },
                 selfPhone: {
                     required: true,
-                    isPhone: true
+                    isMobile: true
                 },
                 applicationDate: {
                     required: true
@@ -1865,10 +1919,10 @@
                     maxlength: 100
                 },
                 companyPhone: {
-                    required: "请输入单位电话"
+                    required: "请输入单位座机电话"
                 },
                 selfPhone: {
-                    required: "请输入本人电话"
+                    required: "请输入本人手机"
                 },
                 applicationDate: {
                     required: "请输入居住证申领日期"
@@ -1924,6 +1978,30 @@
         $("#jobTitleLevel").val('$!{houseProfessionModel.jobTitleLevel}');
         $("#professionTitle").val('$!{houseProfessionModel.professionTitle}');
         $("#jobName").val('$!{houseProfessionModel.jobName}');
+    }
+
+    //校验身份证号
+    function validateIdNumber(idNumber) {
+        if(idNumber.length == 18) {
+            var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+
+            var sum = 0;
+            for(var i=0; i<arr.length; i++){
+                sum += parseInt(idNumber.charAt(i)) * arr[i];
+            }
+            //2、用加出来和除以11，看余数，
+            var c = sum % 11;
+
+            //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+            var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+            var code = ch[c];
+            var last = idNumber.charAt(17);
+            last = last=='x' ? 'X': last;
+
+            return last == code;
+        }
+
+        return true;
     }
 
 </script>
