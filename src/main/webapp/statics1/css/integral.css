@@ -1136,6 +1136,11 @@ html {
     cursor: pointer;
 }
 
+.retrieve_passwd {
+    color: #3B77F5;
+    cursor: pointer;
+}
+
 .check-table {
     margin: 150px auto 70px;
 }

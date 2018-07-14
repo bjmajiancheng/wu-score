@@ -42,6 +42,8 @@ public class HouseMoveModel implements Serializable {
 
 	private String registeredOffice;//"迁入户籍登记机关"
 
+	private Integer registeredRegion;//"登记地区"
+
 	private String address;//"迁入地详细地址"
 
 	private String witness;//"证明人"
@@ -141,7 +143,15 @@ public class HouseMoveModel implements Serializable {
 	public String getRegisteredOffice() {
 		return this.registeredOffice;
 	}
-		
+
+	public Integer getRegisteredRegion() {
+		return registeredRegion;
+	}
+
+	public void setRegisteredRegion(Integer registeredRegion) {
+		this.registeredRegion = registeredRegion;
+	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}

@@ -93,9 +93,16 @@
                 </tr>
                 <tr>
                     <td>
-                        <span class="color-red">*</span>经办人：</td>
+                        <span class="color-red">*</span>经办人1：</td>
                     <td>
                         <input class="integral-input w450" id="operator" name="operator" placeholder="单位指定办理专员" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>经办人2：</td>
+                    <td>
+                        <input class="integral-input w450" id="operator2" name="operator2" placeholder="单位指定办理专员" type="text">
                     </td>
                 </tr>
                 <tr>
@@ -181,6 +188,10 @@
                     required: true,
                     maxlength: 10
                 },
+                operator2: {
+                    required: true,
+                    maxlength: 10
+                },
                 operatorMobile: {
                     required: true,
                     isMobile : true
@@ -217,7 +228,11 @@
                     required: "请输入单位联系电话"
                 },
                 operator: {
-                    required: "请输入经办人",
+                    required: "请输入经办人1",
+                    maxlength: "密码长度不能大于 10 个字母"
+                },
+                operator2: {
+                    required: "请输入经办人2",
                     maxlength: "密码长度不能大于 10 个字母"
                 },
                 operatorMobile: {

@@ -38,6 +38,8 @@ public class CompanyInfoModel implements Serializable {
 
 	private String operator;//"经办人姓名"
 
+	private String operator2;//"经办人2姓名"
+
 	private String operatorMobile;//"经办人联系手机"
 
 	private String operatorAddress;//"经办人联系地址"
@@ -111,7 +113,15 @@ public class CompanyInfoModel implements Serializable {
 	public String getOperator() {
 		return this.operator;
 	}
-		
+
+	public String getOperator2() {
+		return operator2;
+	}
+
+	public void setOperator2(String operator2) {
+		this.operator2 = operator2;
+	}
+
 	public void setOperatorMobile(String operatorMobile) {
 		this.operatorMobile = operatorMobile;
 	}

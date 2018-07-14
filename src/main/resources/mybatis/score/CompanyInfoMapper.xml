@@ -13,7 +13,8 @@
         <result property="companyType" column="company_type"/>
         <result property="societyCode" column="society_code"/>
         <result property="companyMobile" column="company_mobile"/>
-        <result property="operator" column="operator"/>
+		<result property="operator" column="operator"/>
+		<result property="operator2" column="operator2"/>
         <result property="operatorMobile" column="operator_mobile"/>
         <result property="operatorAddress" column="operator_address"/>
         <result property="remark" column="remark"/>
@@ -23,7 +24,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator ,operator_mobile ,operator_address ,remark ,create_time
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,create_time
 	    ]]>
 	</sql>
 	
@@ -41,6 +42,7 @@
 	        society_code  ,
 	        company_mobile  ,
 	        operator  ,
+	        operator2  ,
 	        operator_mobile  ,
 	        operator_address  ,
 	        remark  ,
@@ -54,6 +56,7 @@
         	#{societyCode, jdbcType=VARCHAR} ,
         	#{companyMobile, jdbcType=VARCHAR} ,
         	#{operator, jdbcType=VARCHAR} ,
+        	#{operator2, jdbcType=VARCHAR} ,
         	#{operatorMobile, jdbcType=VARCHAR} ,
         	#{operatorAddress, jdbcType=VARCHAR} ,
         	#{remark, jdbcType=VARCHAR} ,
@@ -70,7 +73,8 @@
 	        <if test="companyType != null">company_type = #{companyType, jdbcType=INTEGER} ,</if>
 	        <if test="societyCode != null">society_code = #{societyCode, jdbcType=VARCHAR} ,</if>
 	        <if test="companyMobile != null">company_mobile = #{companyMobile, jdbcType=VARCHAR} ,</if>
-	        <if test="operator != null">operator = #{operator, jdbcType=VARCHAR} ,</if>
+			<if test="operator != null">operator = #{operator, jdbcType=VARCHAR} ,</if>
+			<if test="operator2 != null">operator2 = #{operator2, jdbcType=VARCHAR} ,</if>
 	        <if test="operatorMobile != null">operator_mobile = #{operatorMobile, jdbcType=VARCHAR} ,</if>
 	        <if test="operatorAddress != null">operator_address = #{operatorAddress, jdbcType=VARCHAR} ,</if>
 	        <if test="remark != null">remark = #{remark, jdbcType=VARCHAR} ,</if>
