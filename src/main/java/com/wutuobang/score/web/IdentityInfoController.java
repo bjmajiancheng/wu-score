@@ -385,7 +385,7 @@ public class IdentityInfoController {
                 for (IndicatorModel indicatorModel : indicatorModels) {
                     IndicatorSelfTestResultModel selfTestResultModel = selfTestResultMap
                             .get((int) indicatorModel.getId());
-                    if(selfTestResultModel == null) continue;
+                    if (selfTestResultModel == null) continue;
 
                     //文本框值
                     if (selfTestResultModel.getItemId() == 0) {
@@ -499,6 +499,12 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_8);
             updateIdentityInfo.setUnionApproveStatus1(Constant.unionApproveStatus1_1);
             updateIdentityInfo.setUnionApproveStatus2(Constant.unionApproveStatus2_1);
+
+            //预约地点后, 设置公安预审过期时间、人社预审过期时间
+            Date currZeroTime = DateUtil.getTheDayZeroTime(new Date());
+            currZeroTime = DateUtil.addDay(currZeroTime, 8);
+            updateIdentityInfo.setUnionApprove1Et(currZeroTime);
+            updateIdentityInfo.setUnionApprove2Et(currZeroTime);
 
             identityInfoService.update(updateIdentityInfo);
 

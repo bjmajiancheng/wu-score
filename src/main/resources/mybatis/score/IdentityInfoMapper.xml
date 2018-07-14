@@ -136,6 +136,8 @@
 			<if test="autoTestNum != null">auto_test_num = auto_test_num - #{autoTestNum, jdbcType=INTEGER}, </if>
 			<if test="reservationTime != null">reservation_time = #{reservationTime, jdbcType=INTEGER}, </if>
 			<if test="reservationDateNull != null"> reservation_date = NULL ,</if>
+			<if test="unionApprove1Et != null">union_approve_1_et = #{unionApprove1Et, jdbcType=DATE},</if>
+			<if test="unionApprove2Et != null">union_approve_2_et = #{unionApprove2Et, jdbcType=DATE},</if>
 			id = #{id}
 		WHERE
 		id = #{id}

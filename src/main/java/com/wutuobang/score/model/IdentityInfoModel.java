@@ -89,6 +89,10 @@ public class IdentityInfoModel implements Serializable {
     private Integer autoTestNum;//"自助评测限制次数"
 
     private Integer reservationTime;//"剩余可预约次数"
+
+    private Date unionApprove1Et;//"公安预审过期时间"
+
+    private Date unionApprove2Et;//"人社预审过期时间"
     //columns END
 
     //自定义属性 START
@@ -353,6 +357,22 @@ public class IdentityInfoModel implements Serializable {
 
     public void setReservationTime(Integer reservationTime) {
         this.reservationTime = reservationTime;
+    }
+
+    public Date getUnionApprove1Et() {
+        return unionApprove1Et;
+    }
+
+    public void setUnionApprove1Et(Date unionApprove1Et) {
+        this.unionApprove1Et = unionApprove1Et;
+    }
+
+    public Date getUnionApprove2Et() {
+        return unionApprove2Et;
+    }
+
+    public void setUnionApprove2Et(Date unionApprove2Et) {
+        this.unionApprove2Et = unionApprove2Et;
     }
 
     public HouseMoveModel getHouseMoveModel() {
