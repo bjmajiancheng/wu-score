@@ -42,6 +42,10 @@ public class HouseOtherModel implements Serializable {
 
 	private String companyAddress;//"单位地址"
 
+	private String jobTitle;//"当前工作岗位"
+
+	private String jobContent;//"主要从事工作内容"
+
 	private String companyPhone;//"单位电话"
 
 	private String selfPhone;//"本人电话"
@@ -143,7 +147,23 @@ public class HouseOtherModel implements Serializable {
 	public String getCompanyAddress() {
 		return this.companyAddress;
 	}
-		
+
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+
+	public String getJobContent() {
+		return jobContent;
+	}
+
+	public void setJobContent(String jobContent) {
+		this.jobContent = jobContent;
+	}
+
 	public void setCompanyPhone(String companyPhone) {
 		this.companyPhone = companyPhone;
 	}

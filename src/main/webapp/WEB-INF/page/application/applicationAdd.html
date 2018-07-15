@@ -444,6 +444,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="color-red">当前工作岗位：</td>
+                        <td>
+                            <input class="integral-input w200" type="text" name="jobTitle" value="$!{houseOtherModel.jobTitle}">
+                            <span class="integral-td-title ml50">主要从事工作内容：</span>
+                            <input class="integral-input w200" type="text" name="jobContent" value="$!{houseOtherModel.jobContent}">
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="color-red">单位座机电话：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="companyPhone" value="$!{houseOtherModel.companyPhone}">
@@ -1860,6 +1868,14 @@
                     required: true,
                     maxlength: 100
                 },
+                jobTitle: {
+                    required: true,
+                    maxlength: 100
+                },
+                jobContent: {
+                    required: true,
+                    maxlength: 100
+                },
                 companyPhone: {
                     required: true,
                     isPhone: true
@@ -1916,6 +1932,14 @@
                 },
                 companyAddress: {
                     required: "请输入现单位地址",
+                    maxlength: 100
+                },
+                jobTitle: {
+                    required: "请输入当前工作岗位",
+                    maxlength: 100
+                },
+                jobContent: {
+                    required: "主要从事工作内容",
                     maxlength: 100
                 },
                 companyPhone: {

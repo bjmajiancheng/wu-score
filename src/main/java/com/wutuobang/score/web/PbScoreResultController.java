@@ -20,6 +20,7 @@ import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.CompanyInfoModel;
 import com.wutuobang.score.model.IdentityInfoModel;
+import com.wutuobang.score.util.IdNumberReplaceUtil;
 import com.wutuobang.score.view.SearchScoreView;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
@@ -94,8 +95,7 @@ public class PbScoreResultController {
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
             if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
-                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
-                        .isEmpty(searchScoreView.getUserName()) && StringUtils
+                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber())  && StringUtils
                         .isEmpty(searchScoreView.getIdCardNumber())) {
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
                 }
@@ -109,9 +109,9 @@ public class PbScoreResultController {
             if (StringUtils.isNotEmpty(searchScoreView.getAcceptNumber())) {
                 param.put("acceptNumber", searchScoreView.getAcceptNumber());
             }
-            if (StringUtils.isNotEmpty(searchScoreView.getUserName())) {
+            /*if (StringUtils.isNotEmpty(searchScoreView.getUserName())) {
                 param.put("userName", searchScoreView.getUserName());
-            }
+            }*/
             if (StringUtils.isNotEmpty(searchScoreView.getIdCardNumber())) {
                 param.put("idNumber", searchScoreView.getIdCardNumber());
             }
@@ -223,6 +223,8 @@ public class PbScoreResultController {
                     if (allMapScoreResult.get(identityInfo.getId()) != null) {
                         finalPbScoreResult.add(allMapScoreResult.get(identityInfo.getId()));
                     }
+
+                    identityInfo.setIdNumber(IdNumberReplaceUtil.replaceIdNumber(identityInfo.getIdNumber()));
                 }
 
                 return new ResultParam(ResultParam.SUCCESS_RESULT,

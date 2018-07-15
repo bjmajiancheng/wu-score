@@ -56,15 +56,15 @@
                                 #end
                             #elseif(${indicatorModel.itemType} == 1)
                                 #if(${indicatorModel.indexNum} == 4)
-                                    基本养老保险&nbsp;&nbsp;&nbsp;<input type="number" name="pensionMonth"/>(月)<br/>
-                                    基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth"/>(月)<br/>
-                                    基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth"/>(月)<br/>
-                                    基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth"/>(月)<br/>
-                                    基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth"/>(月)
+                                    基本养老保险&nbsp;&nbsp;&nbsp;<input type="number" name="pensionMonth" min="0"/>(月)<br/>
+                                    基本医疗保险&nbsp;&nbsp;&nbsp;<input type="number" name="medicalMonth" min="0"/>(月)<br/>
+                                    基本失业保险&nbsp;&nbsp;&nbsp;<input type="number" name="unemploymentMonth" min="0"/>(月)<br/>
+                                    基本工伤保险&nbsp;&nbsp;&nbsp;<input type="number" name="workInjuryMonth" min="0"/>(月)<br/>
+                                    基本生育保险&nbsp;&nbsp;&nbsp;<input type="number" name="fertilityMonth" min="0"/>(月)
                                 #elseif(${indicatorModel.indexNum} == 5)
-                                    公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth"/>(月)
+                                    公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth" min="0"/>(月)
                                 #elseif(${indicatorModel.indexNum} == 7)
-                                    请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear"/>(年)
+                                    请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear" min="0"/>(年)
                                 #end
                             #end
                         </td>
@@ -154,6 +154,19 @@
                 }
             });
             if(!validFlag) {
+                return false;
+            }
+
+            var numberValiFlag = true;
+            $("input[type=number]").each(function(){
+                var val = $(this).val();
+                if(val < 0) {
+                    $(this).focus();
+                    numberValiFlag = false;
+                }
+            });
+            if(!numberValiFlag) {
+                layer.msg("该输入框不能为负数");
                 return false;
             }
 

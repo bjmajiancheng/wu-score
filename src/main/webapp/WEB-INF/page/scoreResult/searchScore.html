@@ -34,8 +34,8 @@
             <div class="interal-tab-title-input1">
                 <div class="interal-input-title">登记编号</div>
                 <input type="text" name="acceptNumber" />
-                <div class="interal-input-title">用户名称</div>
-                <input type="text" name="userName" />
+                <!--<div class="interal-input-title">用户名称</div>
+                <input type="text" name="userName" />-->
                 <div class="interal-input-title">身份证号</div>
                 <input type="text" name="idCardNumber" />
 
@@ -122,10 +122,10 @@
         var pageCount = 0;
 
         var acceptNumber = $("input[name=acceptNumber]").val();
-        var userName = $("input[name=userName]").val();
+        /*var userName = $("input[name=userName]").val();*/
         var idCardNumber = $("input[name=idCardNumber]").val();
 
-        var searchParam = JSON.stringify({"acceptNumber": acceptNumber, "userName": userName, "idCardNumber":idCardNumber, "pageNo": page_index});
+        var searchParam = JSON.stringify({"acceptNumber": acceptNumber, "idCardNumber":idCardNumber, "pageNo": page_index});
         getSyncResultData("${rc.contextPath}/pbScoreResult/list", {"searchParam": searchParam}, function(result){
             component.data.identityInfos = result.data;
             component.$update();

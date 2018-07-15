@@ -14,7 +14,9 @@
         <result property="cultureDegree" column="culture_degree"/>
         <result property="degree" column="degree"/>
         <result property="profession" column="profession"/>
-        <result property="companyName" column="company_name"/>
+		<result property="companyName" column="company_name"/>
+		<result property="jobTitle" column="job_title"/>
+		<result property="jobContent" column="job_content"/>
         <result property="companyAddress" column="company_address"/>
         <result property="companyPhone" column="company_phone"/>
         <result property="selfPhone" column="self_phone"/>
@@ -31,7 +33,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time 
+        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content, company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time
 	    ]]>
 	</sql>
 	
@@ -50,6 +52,8 @@
 	        degree  ,
 	        profession  ,
 	        company_name  ,
+	        job_title  ,
+	        job_content  ,
 	        company_address  ,
 	        company_phone  ,
 	        self_phone  ,
@@ -71,6 +75,8 @@
         	#{degree, jdbcType=INTEGER} ,
         	#{profession, jdbcType=VARCHAR} ,
         	#{companyName, jdbcType=VARCHAR} ,
+        	#{jobTitle, jdbcType=VARCHAR} ,
+        	#{jobContent, jdbcType=VARCHAR} ,
         	#{companyAddress, jdbcType=VARCHAR} ,
         	#{companyPhone, jdbcType=VARCHAR} ,
         	#{selfPhone, jdbcType=VARCHAR} ,
@@ -95,7 +101,9 @@
 	        <if test="cultureDegree != null">culture_degree = #{cultureDegree, jdbcType=INTEGER} ,</if>
 	        <if test="degree != null">degree = #{degree, jdbcType=INTEGER} ,</if>
 	        <if test="profession != null">profession = #{profession, jdbcType=VARCHAR} ,</if>
-	        <if test="companyName != null">company_name = #{companyName, jdbcType=VARCHAR} ,</if>
+			<if test="companyName != null">company_name = #{companyName, jdbcType=VARCHAR} ,</if>
+			<if test="jobTitle != null">job_title = #{jobTitle, jdbcType=VARCHAR} ,</if>
+			<if test="jobContent != null">job_content = #{jobContent, jdbcType=VARCHAR} ,</if>
 	        <if test="companyAddress != null">company_address = #{companyAddress, jdbcType=VARCHAR} ,</if>
 	        <if test="companyPhone != null">company_phone = #{companyPhone, jdbcType=VARCHAR} ,</if>
 	        <if test="selfPhone != null">self_phone = #{selfPhone, jdbcType=VARCHAR} ,</if>
