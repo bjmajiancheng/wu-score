@@ -53,6 +53,9 @@
                 /sys/login=anon
                 /sys/register.html=anon
                 /companyInfo/register=anon
+                /companyInfo/retrievePasswd=anon
+                /companyInfo/validMsgCode=anon
+                /companyInfo/editPassword=anon
                 /captcha.jpg=anon
                 /index.html=anon
                 /systemNotice/**=anon

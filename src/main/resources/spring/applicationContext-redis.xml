@@ -7,6 +7,7 @@
     http://www.springframework.org/schema/context/spring-context-4.3.xsd"
        default-lazy-init="false">
 
+
     <!-- redis数据源 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!-- 最大空闲数 -->
@@ -20,20 +21,52 @@
         <!-- 返回连接时，检测连接是否成功 -->
         <property name="testOnBorrow" value="${redis.testOnBorrow}" />
     </bean>
+    <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.host}" />
+        <constructor-arg index="1" value="${redis.port}" type="int" />
+        <property name="password" value="${redis.password}"/>
+        <property name="connectionTimeout" value="${redis.timeout}"/>
+        <property name="soTimeout" value="3000"/>
+    </bean>
+    <bean id="jedisClient" class="com.wutuobang.common.client.ShardJedisClient">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <ref bean="jedisShardInfo" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+
 
     <!-- redis工具类 -->
-    <bean id="redisUtil" class="com.wutuobang.common.utils.RedisUtil" scope="singleton" init-method="poolInit">
+    <!--<bean id="redisUtil" class="com.wutuobang.common.utils.RedisUtil" scope="singleton" init-method="poolInit">
         <property name="jedisPoolConfig" ref="jedisPoolConfig" />
         <property name="host" value="${redis.host}" />
         <property name="port" value="${redis.port}" />
         <property name="timeout" value="${redis.timeout}" />
         <property name="password" value="${redis.password}" />
+    </bean>-->
+
+    <!-- redis数据源 -->
+    <bean id="jedisPoolConfig1" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大空闲数 -->
+        <property name="maxIdle" value="${redis.max_idle}" />
+        <!-- 最大空连接数 -->
+        <property name="maxTotal" value="${redis.max_active}" />
+        <!-- 最大等待时间 -->
+        <property name="maxWaitMillis" value="${redis.max_wait}" />
+        <!-- 连接超时时是否阻塞，false时报异常,ture阻塞直到超时, 默认true -->
+        <property name="blockWhenExhausted" value="${redis.blockWhenExhausted}" />
+        <!-- 返回连接时，检测连接是否成功 -->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
     </bean>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
-        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="poolConfig" ref="jedisPoolConfig1"/>
         <property name="usePool" value="true"/>
         <property name="timeout" value="${redis.timeout}" />
         <property name="password" value="${redis.password}" />

@@ -1,6 +1,5 @@
 package com.wutuobang.shiro.realm;
 
-import com.wutuobang.common.utils.RedisUtil;
 import com.wutuobang.score.model.CompanyInfoModel;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;

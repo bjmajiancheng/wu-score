@@ -73,6 +73,7 @@ public class RedisUtil {
             jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout);
         } catch (Exception e) {
             LOGGER.error("First create JedisPool error : " + e);
+            e.printStackTrace();
         }
     }
 
