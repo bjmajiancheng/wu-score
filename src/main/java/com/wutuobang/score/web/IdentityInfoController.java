@@ -274,6 +274,8 @@ public class IdentityInfoController {
                     if (indicatorModel.getIndexNum() != 16) {
                         finalIndicators.add(indicatorModel);
                     }
+
+
                 }
             }
 

@@ -121,6 +121,7 @@ public class IndicatorServiceImpl implements IIndicatorService {
         /** 申请人信息 */
         HouseOtherModel houseOtherModel = identityInfo.getHouseOtherModel();
         HouseProfessionModel houseProfession = identityInfo.getHouseProfessionModel();
+        HouseMoveModel houseMoveModel = identityInfo.getHouseMoveModel();
 
         /**
          * 1.年龄,2.受教育程度,3.专业技术、职业技能水平,4.社会保险,5.住房公积金,6.住房,7.在津连续居住年限,8.职业（工种）,
@@ -231,6 +232,28 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         }
                         break;
                     case 15:
+                        int region = houseMoveModel.getRegion();
+                        Map<String, IndicatorItemModel> indicatorItemMap = new HashMap<String, IndicatorItemModel>();
+                        for(IndicatorItemModel indicatorItem : indicatorItems) {
+                            indicatorItemMap.put(indicatorItem.getContent(), indicatorItem);
+                        }
+                        if(region == 33) {
+                            IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户滨海区");
+                            if(indicatorItem != null) {
+                                indicatorItem.setChecked(1);
+                            }
+                        } else if(region == 31 || region == 32 || region == 34 || region == 35 || region == 36) {
+                            IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户武清区、宝坻区、静海区、宁河区、蓟州区");
+                            if(indicatorItem != null) {
+                                indicatorItem.setChecked(1);
+                            }
+                        } else {
+                            IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户其他地区");
+                            if(indicatorItem != null) {
+                                indicatorItem.setChecked(1);
+                            }
+                        }
+                        indicatorModel.setDisabled(1);
                         break;
                 }
             }

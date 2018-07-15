@@ -1174,6 +1174,16 @@
         if('${addFlag}' == 'false') {
             initIdentityInfo();
         }
+
+        $("#cultureDegree").on("change", function(){
+            var cultureDegreeName = $(this).find("option:selected").text();
+            if(cultureDegreeName == '本科及以上学历') {
+                $("#degree").removeAttr("disabled");
+            } else {
+                $("#degree").attr("disabled", "disabled");
+                $("#degree").val(0);
+            }
+        }).change();
     });
 
     /**
