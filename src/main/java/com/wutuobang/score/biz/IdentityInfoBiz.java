@@ -266,9 +266,9 @@ public class IdentityInfoBiz {
             if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 3) {
                 houseProfessionModel.setJobTitleLevel(0);
                 houseProfessionModel.setJobPosition(StringUtils.EMPTY);
-                houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
+                /*houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
                 houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
-                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);*/
             }
             if (houseProfessionModel.getId() != null) {
                 houseProfessionService.update(houseProfessionModel);
