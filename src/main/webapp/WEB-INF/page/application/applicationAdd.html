@@ -305,7 +305,7 @@
                             <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon" #if(${houseMoveModel.haveSon} == 2) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="haveNoSon">无</label>
                             <span class="integral-td-title ml50">子女数量：</span>
-                            <input class="integral-input" type="number" placeholder="无子女数量可不填" name="sonNumber"
+                            <input class="integral-input" type="number" min="0" placeholder="无子女数量可不填" name="sonNumber"
                                    id="sonNumber" value="$!{houseMoveModel.sonNumber}" style="width:265px;">
                         </td>
                     </tr>
