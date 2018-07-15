@@ -43,14 +43,14 @@
                 </tr>
                 <tr>
                     <td>单位名称：</td>
-                    <td>$companyInfo.companyName</td>
+                    <td>$!{companyInfo.companyName}</td>
                 </tr>
                 <tr>
                     <td>单位类型：</td>
                     <td>
-                        #if($companyInfo.companyType == 1)
+                        #if($!{companyInfo.companyType} == 1)
                             企事业单位
-                        #else if($companyInfo.companyType == 2)
+                        #else if($!{companyInfo.companyType} == 2)
                             个体工商户
                         #end
                     </td>
@@ -63,23 +63,23 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>$companyInfo.societyCode</td>
+                    <td>$!{companyInfo.societyCode}</td>
                 </tr>
                 <tr>
                     <td>单位电话：</td>
-                    <td>$companyInfo.companyMobile</td>
+                    <td>$!{companyInfo.companyMobile}</td>
                 </tr>
                 <tr>
                     <td>经办人：</td>
-                    <td>$companyInfo.operator</td>
+                    <td>$!{companyInfo.operator}</td>
                 </tr>
                 <tr>
                     <td>联系手机：</td>
-                    <td>$companyInfo.operatorMobile</td>
+                    <td>$!{companyInfo.operatorMobile}</td>
                 </tr>
                 <tr>
                     <td>联系地址：</td>
-                    <td>$companyInfo.operatorAddress</td>
+                    <td>$!{companyInfo.operatorAddress}</td>
                 </tr>
             </table>
             <!-- 验证码和底部按钮 -->
