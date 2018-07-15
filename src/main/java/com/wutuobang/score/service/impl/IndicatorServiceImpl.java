@@ -131,6 +131,14 @@ public class IndicatorServiceImpl implements IIndicatorService {
             for (IndicatorModel indicatorModel : indicatorModels) {
                 List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
 
+
+                Map<String, IndicatorItemModel> indicatorItemMap = new HashMap<String, IndicatorItemModel>();
+                if(CollectionUtils.isNotEmpty(indicatorItems)) {
+                    for(IndicatorItemModel indicatorItem : indicatorItems) {
+                        indicatorItemMap.put(indicatorItem.getContent(), indicatorItem);
+                    }
+                }
+
                 switch (indicatorModel.getIndexNum()) {
                     case 1:
                         Integer age = identityInfo.getAge();
@@ -186,18 +194,27 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         break;
                     case 8:
                         int jobType = houseProfession.getJobType();
+                        int professionType = houseProfession.getProfessionType();
 
-                        for (IndicatorItemModel indicatorItem : indicatorItems) {
-                            if (indicatorItem.getId() == jobType) {
+                        if(professionType == 1 || professionType == 2) {
+                            IndicatorItemModel indicatorItem = indicatorItemMap.get("无");
+                            if(indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
-                                break;
                             }
+                        } else {
+                            for (IndicatorItemModel indicatorItem : indicatorItems) {
+                                if (indicatorItem.getId() == jobType) {
+                                    indicatorItem.setChecked(1);
+                                    indicatorModel.setDisabled(1);
+                                    break;
+                                }
 
-                            if(jobType == 0 && indicatorItem.getScore() == 0) {
-                                indicatorItem.setChecked(1);
-                                indicatorModel.setDisabled(1);
-                                break;
+                                if(jobType == 0 && indicatorItem.getScore() == 0) {
+                                    indicatorItem.setChecked(1);
+                                    indicatorModel.setDisabled(1);
+                                    break;
+                                }
                             }
                         }
                         break;
@@ -233,10 +250,6 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         break;
                     case 15:
                         int region = houseMoveModel.getRegion();
-                        Map<String, IndicatorItemModel> indicatorItemMap = new HashMap<String, IndicatorItemModel>();
-                        for(IndicatorItemModel indicatorItem : indicatorItems) {
-                            indicatorItemMap.put(indicatorItem.getContent(), indicatorItem);
-                        }
                         if(region == 33) {
                             IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户滨海区");
                             if(indicatorItem != null) {
