@@ -852,7 +852,7 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="color-red">
+                    <tr class="professionType_23 color-red">
                         <td>发证机关：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
@@ -868,7 +868,7 @@
                             <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
                         </td>
                     </tr>-->
-                    <tr class="color-red">
+                    <tr class="professionType_23 color-red">
                         <td>证书编号：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode" value="$!{houseProfessionModel.certificateCode}">
@@ -1103,12 +1103,15 @@
             if(professionType == 1) {//无
                 $("tr.professionType_2").hide();
                 $("tr.professionType_3").hide();
+                $("tr.professionType_23").hide();
             } else if(professionType == 2) {//具有职称
                 $("tr.professionType_2").show();
                 $("tr.professionType_3").hide();
+                $("tr.professionType_23").show();
             } else if(professionType == 3) {//具有职业资格
                 $("tr.professionType_2").hide();
                 $("tr.professionType_3").show();
+                $("tr.professionType_23").show();
             }
         }).change();
 
@@ -1348,28 +1351,30 @@
 
         //验证职业资格证书信息
         var professionType = $('input:radio[name="professionType"]:checked').val();
-        if($.trim($("#issuingAuthority").val()) == '') {
-            layer.msg("请填写发证机关。");
-            validateFlag = false;
-            return false;
-        }
-        if($.trim($("#issuingDate").val()) == '') {
-            layer.msg("请填写发证日期。");
-            validateFlag = false;
-            return false;
-        }
+        if(professionType != 1) {
+            if($.trim($("#issuingAuthority").val()) == '') {
+                layer.msg("请填写发证机关。");
+                validateFlag = false;
+                return false;
+            }
+            if($.trim($("#issuingDate").val()) == '') {
+                layer.msg("请填写发证日期。");
+                validateFlag = false;
+                return false;
+            }
 
-        if($.trim($("#certificateCode").val()) == '') {
-            layer.msg("请填写证书编号。");
-            validateFlag = false;
-            return false;
-        }
-        var reg = /^[0-9a-zA-Z]*$/g
-        var certificateCode = $.trim($("#certificateCode").val());
-        if(!reg.test(certificateCode)) {
-            layer.msg("证书编号只能包含数字和字母, 请重新输入。");
-            validateFlag = false;
-            return false;
+            if($.trim($("#certificateCode").val()) == '') {
+                layer.msg("请填写证书编号。");
+                validateFlag = false;
+                return false;
+            }
+            var reg = /^[0-9a-zA-Z]*$/g
+            var certificateCode = $.trim($("#certificateCode").val());
+            if(!reg.test(certificateCode)) {
+                layer.msg("证书编号只能包含数字和字母, 请重新输入。");
+                validateFlag = false;
+                return false;
+            }
         }
 
         if(!validateFlag) {
