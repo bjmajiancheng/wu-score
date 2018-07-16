@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by majiancheng on 2018/4/6.
@@ -42,8 +44,18 @@ public class FileUploadController {
      * @return
      */
     @RequestMapping(value = "/fileUpload/uploadImage", method = RequestMethod.POST)
-    public void uploadImages(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "file", required = true) MultipartFile file) throws IOException {
+    public void uploadImages(HttpServletRequest request, HttpServletResponse response/*,
+            @RequestParam(value = "file", required = true) MultipartFile file*/) throws IOException {
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = null;
+
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+        Set<String> fileNames = fileMap.keySet();
+        for(String fileName : fileNames){
+            file = fileMap.get(fileName);
+            break;
+        }
 
         response.reset();
         response.setCharacterEncoding("UTF-8");

@@ -53,8 +53,8 @@
                                      onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardPositive}" != "") style="display: none;" #end >
                                 <img class="preview" id="preview" alt="" name="pic" width="152" height="100"
                                      #if("$!{identityInfo.idCardPositive}"=="") style="display:none;" #end src="$!{identityInfo.idCardPositive}"/>
-                                <input name="idcard1" type="file" class="upload_input" accept="image/*"
-                                       onchange="integral.change(this)"/>
+                                <input id="idcard1" name="idcard1" type="file" class="upload_input" accept="image/*"
+                                       onchange="integral.change(this)" attr-inp="id_card_positive"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
                                 <div class="title_idcard" style="display:none;">身份证正面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
@@ -66,8 +66,8 @@
                                      onclick="integral.clickImg(this);" #if("$!{identityInfo.idCardOpposite}" != "") style="display: none;" #end alt="">
                                 <img class="preview" id="back" alt="" name="pic" width="152" height="100"
                                      #if("$!{identityInfo.idCardOpposite}"=="") style="display:none;" #end src="$!{identityInfo.idCardOpposite}"/>
-                                <input name="idcard2" type="file" class="upload_input" accept="image/*"
-                                       onchange="integral.change(this)"/>
+                                <input id="idcard2" name="idcard2" type="file" class="upload_input" accept="image/*"
+                                       onchange="integral.change(this)" attr-inp="id_card_opposite"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
                                 <div class="title_idcard" style="display:none;">身份证反面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
@@ -1027,8 +1027,41 @@
             });
         });
 
+        var _updateFileChange = function(){
+            var obj = $(this);
+
+            $.ajaxFileUpload({
+                url : '${rc.contextPath}/fileUpload/uploadImage', //用于文件上传的服务器端请求地址
+                fileElementId : $(this).attr("id"), //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                type : 'post',
+                dataType : 'text', //返回值类型 一般设置为json
+                obj: obj,
+                success : function(result, status, obj) //服务器成功响应处理函数
+                {
+
+                    var _this = obj;
+                    var resultObj = JSON.parse(result);
+                    if (!resultObj.code) {
+                        $("input[name="+ obj.attr("attr-inp") +"]").val(resultObj.data.attachmentUrl);
+                    } else {
+                        layer.msg(resultObj.msg);
+                    }
+
+                    /*var file_input = $('<input class="upload_input" type="file" id="'+ _this.find('.upload_input').attr("id") +'" name="'+ _this.find('.upload_input').attr("name") +'" accept="image/!*"/>');
+                    _this.find("input.upload_input").remove();
+                    file_input.on("change", _updateFileChange);
+                    file_input.appendTo( _this);*/
+                },
+                error : function(result, status, e)//服务器响应失败处理函数
+                {
+                    layer.msg("图片上传失败");
+                }
+            });
+        }
+
+        $("input[name=idcard1]").on("change", _updateFileChange);
         //身份证正面上传
-        $("input[name=idcard1]").on("change", function () {
+        /*$("input[name=idcard1]").on("change", function () {
             var form = $("<form>");
             form.attr('style', 'display:none');
             form.attr('method', 'post');
@@ -1048,29 +1081,10 @@
                     layer.msg(obj.msg);
                 }
             });
-        });
+        });*/
 
         //身份证反面上传
-        $("input[name=idcard2]").on("change", function () {
-            var form = $("<form>");
-            form.attr('style', 'display:none');
-            form.attr('method', 'post');
-            form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
-            form.attr('enctype', 'multipart/form-data');
-            var file = $("input[name=idcard2]").clone();
-            $(file).attr('name', 'file');
-            $(form).append(file);
-
-            $('body').append(form);
-            $(form).ajaxSubmit(function (result) {
-                var obj = JSON.parse(result);
-                if (!obj.code) {
-                    $("input[name=id_card_opposite]").val(obj.data.attachmentUrl);
-                } else {
-                    layer.msg(obj.msg);
-                }
-            });
-        });
+        $("input[name=idcard2]").on("change", _updateFileChange);
 
         //初始化迁入户籍登记机关
         initOfficeInfo(0, $("#registeredOffice"), '$!{houseMoveModel.registeredOffice}');
