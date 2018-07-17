@@ -21,6 +21,9 @@
         <div class="integral-desc-title">
             申请人材料上传
         </div>
+        <div class="integral-desc-title color-red" style="font-size: 14px;padding: 10px 0;">
+            温馨提示：目前上传材料只支持照片格式，大小不要超过1M
+        </div>
         <input type="hidden" name="identityInfoId" id="identityInfoId" value="$!{identityInfo.id}" />
         <!-- 政策表格 -->
         <table class="integral-table">
@@ -117,6 +120,20 @@
 
         var _updateFileChange = function () {
             var obj = $(this).parent('td');
+
+            var file = document.getElementById($(this).attr("id"));
+            var fileSize = 0;
+            var fileMaxSize = 1024;//1M
+            var filePath = file.value;
+            if(filePath) {
+                fileSize =file.files[0].size;
+                var size = fileSize / 1024;
+                if (size > fileMaxSize) {
+                    layer.alert("文件大小不能大于1M！");
+                    file.value = "";
+                    return false;
+                }
+            }
 
             $.ajaxFileUpload({
                 url : '${rc.contextPath}/fileUpload/updateFile', //用于文件上传的服务器端请求地址

@@ -141,17 +141,24 @@ public class IdentityInfoBiz {
         HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
         if (houseProfessionModel != null) {
             houseProfessionModel.setIdentityInfoId(identityInfoModel.getId());
-            if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 2) {
+            if(houseProfessionModel.getProfessionType() == 1) {
                 houseProfessionModel.setJobLevel(0);
                 houseProfessionModel.setJobType(0);
-            }
 
-            if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 3) {
                 houseProfessionModel.setJobTitleLevel(0);
                 houseProfessionModel.setJobPosition(StringUtils.EMPTY);
                 houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
                 houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
                 houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+            }
+            if (houseProfessionModel.getProfessionType() == 2) {
+                houseProfessionModel.setJobLevel(0);
+                houseProfessionModel.setJobType(0);
+            }
+
+            if (houseProfessionModel.getProfessionType() == 3) {
+                houseProfessionModel.setJobTitleLevel(0);
+                houseProfessionModel.setJobPosition(StringUtils.EMPTY);
             }
             houseProfessionService.insert(houseProfessionModel);
         }
