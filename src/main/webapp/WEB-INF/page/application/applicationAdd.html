@@ -619,7 +619,7 @@
                                 <option value="59">资产评估师</option>
                             </select>
                             <span class="integral-td-title ml50">职称级别：</span>
-                            <select name="jobTitleLevel" id="jobTitleLevel">
+                            <select name="jobTitleLevel" id="jobTitleLevel" onchange="showInfo()">
                                 <option value="1">初级职称</option>
                                 <option value="2">中级职称</option>
                                 <option value="3">高级职称</option>
@@ -640,7 +640,7 @@
                     <tr class="professionType_3 color-red">
                         <td>职业资格级别：</td>
                         <td>
-                            <select name="jobLevel" id="jobLevel">
+                            <select name="jobLevel" id="jobLevel" onchange="showInfo2()">
                             </select>
                             <span class="integral-td-title ml50">职业名称：</span>
                             <select name="jobName" id="jobName">
@@ -848,7 +848,7 @@
                     <tr class="professionType_3 color-red">
                         <td>工种：</td>
                         <td>
-                            <select name="jobType" id="jobType">
+                            <select name="jobType" id="jobType" onchange="showInfo3()">
                             </select>
                         </td>
                     </tr>
@@ -1122,6 +1122,8 @@
                 $("tr.professionType_2").show();
                 $("tr.professionType_3").hide();
                 $("tr.professionType_23").show();
+                //$("#showInfo").show();
+                //$("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
             } else if(professionType == 3) {//具有职业资格
                 $("tr.professionType_2").hide();
                 $("tr.professionType_3").show();
@@ -1868,6 +1870,68 @@
         }
 
         return true;
+    }
+
+    function showInfo(){
+        var val = $("#jobTitleLevel").val();
+        if(val=="2" || val=="3") {
+//            $("#showInfo").show();
+//            $("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
+            var index = layer.confirm('近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。', {
+                btn: ['确认'] //按钮
+            }, function(){
+                layer.close(index);
+            });
+        }else{
+//            $("#showInfo").hide();
+        }
+    }
+
+
+    function showInfo(){
+        var val = $("#jobLevel").val();
+        if(val=="19" || val=="20") {
+//            $("#showInfo").show();
+//            $("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
+            var index = layer.confirm('近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。', {
+                btn: ['确认'] //按钮
+            }, function(){
+                layer.close(index);
+            });
+        }else{
+//            $("#showInfo").hide();
+        }
+    }
+
+    function showInfo2(){
+        var val = $("#jobLevel").val();
+        if(val=="19" || val=="20") {
+//            $("#showInfo").show();
+//            $("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
+            var index = layer.confirm('近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。', {
+                btn: ['确认'] //按钮
+            }, function(){
+                layer.close(index);
+            });
+        }else{
+//            $("#showInfo").hide();
+        }
+    }
+
+    function showInfo3(){
+        var val = $("#jobType").val();
+        if(val=="27" || val=="28" || val=="29") {
+//            $("#showInfo").show();
+//            $("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
+            var index = layer.confirm('申请人申请职业（工种）紧缺程度积分的，其经确认的国家职业资格证书上所标明的职业（工种）应当与当年人力社保部门公布的天津市' +
+                                  '《职业市场需求程度及培训成本目录》中的职业（工种）名称一致，且与所在用人单位主营业务、营业执照批准经营范围、本人当前工作岗位职责相符。', {
+                btn: ['确认'] //按钮
+            }, function(){
+                layer.close(index);
+            });
+        }else{
+//            $("#showInfo").hide();
+        }
     }
 
 </script>
