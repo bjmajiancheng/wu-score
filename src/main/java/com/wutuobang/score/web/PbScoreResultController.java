@@ -95,7 +95,7 @@ public class PbScoreResultController {
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
             if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
-                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber())  && StringUtils
+                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
                         .isEmpty(searchScoreView.getIdCardNumber())) {
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
                 }
@@ -117,6 +117,10 @@ public class PbScoreResultController {
             }
             param.put("batchId", batchConfModel.getId());
             PageData<IdentityInfoModel> pageData = identityInfoService.findPage(param, searchScoreView.getPageNo());
+
+            for (IdentityInfoModel identityInfo : pageData.getData()) {
+                identityInfo.setIdNumber(IdNumberReplaceUtil.replaceIdNumber(identityInfo.getIdNumber()));
+            }
 
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {
@@ -207,6 +211,13 @@ public class PbScoreResultController {
                     .isEmpty((String) param.get("queryStr"))) {
                 List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
 
+                if (CollectionUtils.isNotEmpty(pbScoreResults)) {
+                    for (PbScoreResultModel pbScoreResult : pbScoreResults) {
+                        pbScoreResult
+                                .setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResult.getPersonIdNum()));
+                    }
+                }
+
                 return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
             }
 
@@ -220,11 +231,13 @@ public class PbScoreResultController {
                 Map<Integer, PbScoreResultModel> allMapScoreResult = findAllMapPassScoreResult(batchConfModel);
 
                 for (IdentityInfoModel identityInfo : identityInfos) {
-                    if (allMapScoreResult.get(identityInfo.getId()) != null) {
-                        finalPbScoreResult.add(allMapScoreResult.get(identityInfo.getId()));
-                    }
+                    PbScoreResultModel tmpScoreResult = allMapScoreResult.get(identityInfo.getId());
+                    if (tmpScoreResult != null) {
+                        tmpScoreResult
+                                .setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(tmpScoreResult.getPersonIdNum()));
 
-                    identityInfo.setIdNumber(IdNumberReplaceUtil.replaceIdNumber(identityInfo.getIdNumber()));
+                        finalPbScoreResult.add(tmpScoreResult);
+                    }
                 }
 
                 return new ResultParam(ResultParam.SUCCESS_RESULT,
