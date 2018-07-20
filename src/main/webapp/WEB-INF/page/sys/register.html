@@ -88,28 +88,68 @@
                     <td>
                         <span class="color-red">*</span>单位联系电话：</td>
                     <td>
-                        <input class="integral-input w450" id="companyMobile" name="companyMobile" placeholder="" type="text">
+                        <input class="integral-input w450" id="companyMobile" name="companyMobile" placeholder="请输入手机号" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <span class="color-red">提示：经办人的社保缴纳单位与申请人一致</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="color-red">*</span>经办人1：</td>
                     <td>
-                        <input class="integral-input w450" id="operator" name="operator" placeholder="经办人的社保缴纳单位与申请人一致" type="text">
+                        <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三" type="text">
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td></td>
+                    <td>
+                        <span class="color-red">*请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码</span>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>经办人1联系手机：</td>
+                    <td>
+                        <input class="integral-input w450" id="operatorMobile" name="operatorMobile" placeholder="请输入11位手机号码" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>经办人1身份证号：</td>
+                    <td>
+                        <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1" placeholder="请输入身份证号" type="text">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="color-red">*</span>经办人2：</td>
                     <td>
-                        <input class="integral-input w450" id="operator2" name="operator2" placeholder="经办人的社保缴纳单位与申请人一致" type="text">
+                        <input class="integral-input w450" id="operator2" name="operator2" placeholder="如：李四" type="text">
                     </td>
                 </tr>
+                <!--<tr>
+                    <td></td>
+                    <td>
+                        <span class="color-red">*请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码</span>
+                    </td>
+                </tr>-->
                 <tr>
                     <td>
-                        <span class="color-red">*</span>联系手机：</td>
+                        <span class="color-red">*</span>经办人2联系手机：</td>
                     <td>
-                        <input class="integral-input w450" id="operatorMobile" name="operatorMobile" placeholder="请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码" type="text">
+                        <input class="integral-input w450" id="operatorMobile2" name="operatorMobile2" placeholder="请输入11位手机号码" type="text">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <span class="color-red">*</span>经办人2身份证号：</td>
+                    <td>
+                        <input class="integral-input w450" id="idCardNumber_2" name="idCardNumber_2" placeholder="请输入身份证号" type="text">
                     </td>
                 </tr>
                 <tr>
@@ -149,10 +189,35 @@
 <script type="text/javascript">
 
     //点击注册按钮
+//    $("#register").on("click", function(){
+//        $("#companyForm").submit();
+//    });
+
+    //点击注册按钮，2018年7月18日，添加提示
     $("#register").on("click", function(){
-        $("#companyForm").submit();
+        //询问框
+        var index = layer.confirm('一旦注册成功，本期不可修改，确定要注册吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $("#companyForm").submit();
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
     });
 
+
+    $("#submitAndContinue").on("click", function(){
+        //询问框
+        var index = layer.confirm('确定要保存并继续录入申请人吗？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            submitAndContinue();
+            layer.close(index);
+        }, function(){
+            layer.close(index);
+        });
+    });
 
     $(function(){
         $("#companyForm").validate({
@@ -196,6 +261,18 @@
                     required: true,
                     isMobile : true
                 },
+                operatorMobile2: {
+                    required: true,
+                    isMobile : true
+                },
+                idCardNumber_1: {
+                    required: true,
+                    isIdCardNo : true
+                },
+                idCardNumber_2: {
+                    required: true,
+                    isIdCardNo : true
+                },
                 operatorAddress: {
                     maxlength: 100
                 }
@@ -228,15 +305,24 @@
                     required: "请输入单位联系电话"
                 },
                 operator: {
-                    required: "请输入经办人1",
+                    required: "经办人的社保缴纳单位与申请人一致",
                     maxlength: "密码长度不能大于 10 个字母"
                 },
                 operator2: {
-                    required: "请输入经办人2",
+                    required: "经办人的社保缴纳单位与申请人一致",
                     maxlength: "密码长度不能大于 10 个字母"
                 },
                 operatorMobile: {
                     required: "请输入联系手机"
+                },
+                operatorMobile2: {
+                    required: "请输入联系手机"
+                },
+                idCardNumber_1: {
+                    required: "请输入身份证号"
+                },
+                idCardNumber_2: {
+                    required: "请输入身份证号"
                 },
                 operatorAddress: {
                     required: "请输入联系地址",

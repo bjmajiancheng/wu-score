@@ -36,11 +36,17 @@ public class CompanyInfoModel implements Serializable {
 
 	private String companyMobile;//"单位联系电话"
 
-	private String operator;//"经办人姓名"
+	private String operator;//"经办人1姓名"
 
 	private String operator2;//"经办人2姓名"
 
-	private String operatorMobile;//"经办人联系手机"
+	private String operatorMobile;//"经办人1联系手机"
+
+	private String operatorMobile2;//"经办人2联系手机"
+
+	private String idCardNumber_1; // 经办人1身份证号
+
+	private String idCardNumber_2; // 经办人2身份证号
 
 	private String operatorAddress;//"经办人联系地址"
 
@@ -154,5 +160,28 @@ public class CompanyInfoModel implements Serializable {
 		return this.createTime;
 	}
 
+	public void setOperatorMobile2(String operatorMobile2) {
+		this.operatorMobile2 = operatorMobile2;
+	}
+
+	public void setIdCardNumber_1(String idCardNumber_1) {
+		this.idCardNumber_1 = idCardNumber_1;
+	}
+
+	public void setIdCardNumber_2(String idCardNumber_2) {
+		this.idCardNumber_2 = idCardNumber_2;
+	}
+
+	public String getOperatorMobile2() {
+		return operatorMobile2;
+	}
+
+	public String getIdCardNumber_1() {
+		return idCardNumber_1;
+	}
+
+	public String getIdCardNumber_2() {
+		return idCardNumber_2;
+	}
 }
 
