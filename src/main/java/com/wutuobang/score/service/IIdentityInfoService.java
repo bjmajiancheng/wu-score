@@ -8,6 +8,7 @@
 package com.wutuobang.score.service;
 
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.CompanyInfoModel;
 import com.wutuobang.score.model.IdentityInfoModel;
 
@@ -58,5 +59,5 @@ public interface IIdentityInfoService {
      * @param identityInfoModel
      * @return
      */
-    public String generAcceptNumber(IdentityInfoModel identityInfoModel);
+    public String generAcceptNumber(IdentityInfoModel identityInfoModel, BatchConfModel batchConfModel);
 }

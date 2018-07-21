@@ -12,8 +12,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.client.ShardJedisClient;
 import com.wutuobang.common.constant.CommonConstant;
+import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.score.constant.CacheConstant;
+import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.CompanyInfoModel;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,6 +46,9 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
 
     @Autowired
     private ICompanyInfoService companyInfoService;
+
+    @Autowired
+    private ShardJedisClient jedisClient;
 
     public int insert(IdentityInfoModel identityInfo) {
         if (identityInfo == null) {
@@ -90,7 +97,6 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
             param.put("queryStr", "%" + queryStr + "%");
         }
 
-
         int pageCount = identityInfoDao.findPageCount(param);
         if (pageCount <= 0) {
             return new PageData<IdentityInfoModel>();
@@ -124,23 +130,22 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
         List<IdentityInfoModel> identityInfos = identityInfoDao
                 .findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
 
-        if(CollectionUtils.isNotEmpty(identityInfos)) {
+        if (CollectionUtils.isNotEmpty(identityInfos)) {
             List<Integer> companyIds = new ArrayList<Integer>();
-            for(IdentityInfoModel identityInfo : identityInfos) {
-                if(!companyIds.contains(identityInfo.getCompanyId())) {
+            for (IdentityInfoModel identityInfo : identityInfos) {
+                if (!companyIds.contains(identityInfo.getCompanyId())) {
                     companyIds.add(identityInfo.getCompanyId());
                 }
             }
 
             Map<Integer, CompanyInfoModel> companyInfoMap = companyInfoService.getMapByIds(companyIds);
-            for(IdentityInfoModel identityInfo : identityInfos) {
+            for (IdentityInfoModel identityInfo : identityInfos) {
                 CompanyInfoModel companyInfo = companyInfoMap.get(identityInfo.getCompanyId());
                 if (companyInfo != null) {
                     identityInfo.setCompanyName(companyInfo.getCompanyName());
                 }
             }
         }
-
 
         PageData<IdentityInfoModel> pageData = new PageData<IdentityInfoModel>();
         pageData.setData(identityInfos);
@@ -151,20 +156,46 @@ public class IdentityInfoServiceImpl implements IIdentityInfoService {
 
     /**
      * 生成受理编号
+     * 生成规则:1、前两位是地区码10(市区)/29(滨海新区)+批次码5位 20181(前四位是年份第五位是期次,每年两期要么1 要么2)+顺序码5位
      *
      * @param identityInfoModel
      * @return
      */
-    public String generAcceptNumber(IdentityInfoModel identityInfoModel) {
+    public String generAcceptNumber(IdentityInfoModel identityInfoModel, BatchConfModel batchConfModel) {
         if (identityInfoModel == null) {
             return "";
         }
 
-        String acceptNumber =
-                "00000000" + String.format("%d%d", identityInfoModel.getBatchId(), identityInfoModel.getId());
-        acceptNumber = acceptNumber.substring(acceptNumber.length() - 8, acceptNumber.length());
+        StringBuffer sb = new StringBuffer();
+        Integer acceptAddressId = identityInfoModel.getAcceptAddressId();
+        if (acceptAddressId == 1) {
+            sb.append("10");
+        } else if (acceptAddressId == 2) {
+            sb.append("29");
+        } else {
+            sb.append("00");
+        }
 
-        return acceptNumber;
+        int year = DateUtil.getYear(new Date());
+        sb.append(year);
+
+        Date applyBeginDate = batchConfModel.getApplyBegin();
+        int month = DateUtil.getMonth(applyBeginDate);
+
+        //TODO 期次获取判断
+        if (month >= 0 && month <= 5) {
+            sb.append(1);
+        } else {
+            sb.append(2);
+        }
+
+        long increment = jedisClient.incr(String.format(CacheConstant.ACCEPT_NUMBER_INCR_CACHE_KEY, sb.toString()));
+
+        String acceptNumber = "00000" + String.valueOf(increment);
+        acceptNumber = acceptNumber.substring(acceptNumber.length() - 5, acceptNumber.length());
+        sb.append(acceptNumber);
+
+        return sb.toString();
     }
 
 }
