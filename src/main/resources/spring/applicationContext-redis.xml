@@ -10,6 +10,7 @@
 
     <!-- redis数据源 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="minIdle" value="2"/>
         <!-- 最大空闲数 -->
         <property name="maxIdle" value="${redis.max_idle}" />
         <!-- 最大空连接数 -->
@@ -51,6 +52,7 @@
 
     <!-- redis数据源 -->
     <bean id="jedisPoolConfig1" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="minIdle" value="2"/>
         <!-- 最大空闲数 -->
         <property name="maxIdle" value="${redis.max_idle}" />
         <!-- 最大空连接数 -->
