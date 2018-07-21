@@ -6,7 +6,6 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import oracle.jvm.hotspot.jfr.StreamWriter;
 
 public class FreeMarkerUtil {
 
