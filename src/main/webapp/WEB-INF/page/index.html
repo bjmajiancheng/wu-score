@@ -147,8 +147,8 @@
                                 <span class="integral-table-btn integral-table-btn2" onclick="cancalReservation({identityInfo.id})">取消预约</span>
                                 {/if}
                             {/if}
-                            {\#if identityInfo.reservationStatus == 10}
-                                {\#if identityInfo.reservationTime > 0}
+                            {\#if identityInfo.reservationStatus == 11}
+                                {\#if identityInfo.hallStatus < 4 && identityInfo.hallStatus != 1}
                                     <span class="integral-table-btn integral-table-btn2 print" onclick="printReservation({identityInfo.id})">打印</span>
                                 {/if}
                             {/if}
