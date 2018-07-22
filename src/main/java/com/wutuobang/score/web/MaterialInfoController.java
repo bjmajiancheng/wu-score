@@ -86,7 +86,7 @@ public class MaterialInfoController {
             }
 
             //所有材料信息
-            List<MaterialInfoModel> materialInfos = materialInfoService.find(new HashMap<String, Object>());
+            List<MaterialInfoModel> materialInfos = materialInfoService.find(Collections.singletonMap("isUpload", (Object)1));
             if (CollectionUtils.isNotEmpty(materialInfos)) {
                 for (MaterialInfoModel materialInfo : materialInfos) {
                     materialInfo.setOnlinePersonMaterial(onlinePersonMaterialMap.get(materialInfo.getId()));
