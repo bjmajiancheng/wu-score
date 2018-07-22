@@ -804,6 +804,10 @@ public class IdentityInfoController {
                 identityInfo.setCompanyName("");
             }
 
+            if (StringUtils.isEmpty(identityInfo.getAcceptNumber())) {
+                identityInfo.setAcceptNumber("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            }
+
             //自定义属性
             Map<String, Object> customData = new HashMap<String, Object>();
             Date ctime = identityInfo.getCtime();
@@ -819,9 +823,9 @@ public class IdentityInfoController {
 
             Date reservationDate = identityInfo.getReservationDate();
             if (reservationDate == null) {
-                customData.put("reserveYear", "");
-                customData.put("reserveMonth", "");
-                customData.put("reserveDay", "");
+                customData.put("reserveYear", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                customData.put("reserveMonth", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                customData.put("reserveDay", "&nbsp;&nbsp;&nbsp;&nbsp;");
             } else {
                 customData.put("reserveYear", String.valueOf(DateUtil.getYear(reservationDate)));
                 customData.put("reserveMonth", DateUtil.getMonth(reservationDate) + 1);
