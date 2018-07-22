@@ -169,7 +169,6 @@ public class IndicatorServiceImpl implements IIndicatorService {
                     case 3:
                         int jobLevel = houseProfession.getJobLevel();
 
-
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobLevel) {
                                 indicatorItem.setChecked(1);
@@ -183,6 +182,20 @@ public class IndicatorServiceImpl implements IIndicatorService {
                                 break;
                             }
                         }
+
+                        List<IndicatorItemModel> finalIndicatorItems = new ArrayList<IndicatorItemModel>();
+                        List<IndicatorItemModel> tmpIndicatorItems = new ArrayList<IndicatorItemModel>();
+
+                        for(IndicatorItemModel indicatorItem : indicatorItems) {
+                            if(indicatorItem.getContent().indexOf("具有") > -1) {
+                                finalIndicatorItems.add(indicatorItem);
+                            } else {
+                                tmpIndicatorItems.add(indicatorItem);
+                            }
+                        }
+                        finalIndicatorItems.addAll(tmpIndicatorItems);
+                        indicatorModel.setIndicatorItems(finalIndicatorItems);
+
                         break;
                     case 4:
                         break;
