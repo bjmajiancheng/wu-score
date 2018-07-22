@@ -8,9 +8,9 @@
 .p3{text-align:start;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
 .p4{text-indent:0.44444445in;text-align:start;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
 .p5{text-indent:0.44444445in;text-align:end;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
-.s1{color:red;}
-.s2{color:red;text-decoration:underline;}
-.s3{font-family:宋体;color:red;text-decoration:underline;}
+.s1{}
+.s2{text-decoration:underline;}
+.s3{font-family:宋体;text-decoration:underline;}
 .s4{font-family:宋体;}
 p {letter-spacing: 6px; line-height: 40px;}
 </style>
