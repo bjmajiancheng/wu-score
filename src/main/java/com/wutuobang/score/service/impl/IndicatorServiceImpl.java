@@ -264,7 +264,7 @@ public class IndicatorServiceImpl implements IIndicatorService {
                     case 15:
                         int region = houseMoveModel.getRegion();
                         if(region == 33) {
-                            IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户滨海区");
+                            IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户滨海新区");
                             if(indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                             }
