@@ -61,6 +61,12 @@
         <div class="integral-cont-table-wrap">
             <table class="integral-cont-table">
                 <tr>
+                    <td></td>
+                    <td>
+                        <span class="color-red">提示：单位名称与统一社会信用代码保存成功后不可更改</span>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <span class="color-red">*</span>单位名称：</td>
                     <td>
@@ -81,7 +87,7 @@
                     <td>
                         <span class="color-red">*</span>统一社会信用代码：</td>
                     <td>
-                        <input class="integral-input w450" id="societyCode" name="societyCode" placeholder="如您没有统一社会信用代码，请输入机构代码" type="text">
+                        <input class="integral-input w450" id="societyCode" name="societyCode" placeholder="18位统一社会信用代码必须与营业执照一致" type="text">
                     </td>
                 </tr>
                 <tr>
@@ -154,7 +160,7 @@
                 </tr>
                 <tr>
                     <td>
-                        联系地址：</td>
+                        <span class="color-red">*</span>联系地址：</td>
                     <td>
                         <input class="integral-input w450" placeholder="" id="operatorAddress" name="operatorAddress" type="text">
                     </td>
@@ -274,6 +280,7 @@
                     isIdCardNo : true
                 },
                 operatorAddress: {
+                    required: true,
                     maxlength: 100
                 }
             },
