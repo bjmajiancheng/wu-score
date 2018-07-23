@@ -15,4 +15,9 @@ public class CacheConstant {
      */
     public static String EDIT_PASSWD_TOKEN_CACHE_KEY = "EDIT_PASSWD_TOKEN:%s";
 
+    /**
+     * 受理编号自增key
+     */
+    public static String ACCEPT_NUMBER_INCR_CACHE_KEY = "ACCEPT_NUMBER_INCR:%s";
+
 }

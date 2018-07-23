@@ -42,7 +42,7 @@
                 <div class="interal-input-btn" on-click={this.load()}>查询</div>
             </div>
 
-            <table class="integral-table">
+            <table class="integral-table score_table">
                 <tr>
                     <th>序号</th>
                     <th>登记编号</th>
@@ -54,7 +54,7 @@
                 </tr>
                 <tbody>
                 {#list identityInfos as identityInfo}
-                <tr>
+                <tr class="score_tableTr">
                     <td>{identityInfo_index + 1}</td>
                     <td>{identityInfo.acceptNumber}</td>
                     <td>{identityInfo.companyName}</td>
@@ -75,6 +75,19 @@
         </div>
         <!-- 分页器插件 -->
         <div class="integral-paging-device-wrap2 m-style"></div>
+
+        <div class="empty_score_table" style="display: none;">
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p class="color-red" style="text-align:center;font-size:30px;">温馨提示</p>
+            <p>&nbsp;</p>
+            <p class="color-red" style="text-align:center;">用人单位统一查阅积分还未开始，敬请关注。</p>
+        </div>
     </div>
 </div>
 
@@ -87,6 +100,14 @@
 
         component.load();
         component.$inject('#app');
+
+        /*if($(".score_tableTr").length == 0) {
+            $(".empty_score_table").show();
+            $(".score_table").hide();
+        } else {
+            $(".empty_score_table").hide();
+            $(".score_table").show();
+        }*/
     });
 
     //利用Regular构建你的app吧
@@ -101,6 +122,14 @@
 
             var pageCount = list(1);
             showPage(pageCount);
+
+            /*if($(".score_tableTr").length == 0) {
+                $(".empty_score_table").show();
+                $(".score_table").hide();
+            } else {
+                $(".empty_score_table").hide();
+                $(".score_table").show();
+            }*/
         }
     });
 

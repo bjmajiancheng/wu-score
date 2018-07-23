@@ -2,6 +2,8 @@ package com.wutuobang.score.web;
 
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Constants;
+import com.wutuobang.common.client.ShardJedisClient;
+import com.wutuobang.common.constant.CacheConstant;
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.message.SmsUtil;
 import com.wutuobang.common.utils.DateUtil;
@@ -11,6 +13,7 @@ import com.wutuobang.score.biz.IdentityInfoBiz;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.service.*;
+import com.wutuobang.score.util.FreeMarkerUtil;
 import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -78,6 +82,12 @@ public class IdentityInfoController {
 
     @Autowired
     private CommonConstant commonConstant;
+
+    @Autowired
+    private ICompanyInfoService companyInfoService;
+
+    @Autowired
+    private ShardJedisClient jedisClient;
 
     /**
      * 前往新增用户页面
@@ -274,7 +284,6 @@ public class IdentityInfoController {
                     if (indicatorModel.getIndexNum() != 16) {
                         finalIndicators.add(indicatorModel);
                     }
-
 
                 }
             }
@@ -557,6 +566,13 @@ public class IdentityInfoController {
         }
 
         try {
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+
+            if (batchConfModel == null) {
+                return ResultParam.error("当前没有落户批次信息,请联系官网确认!!");
+            }
+
             AcceptDateConfModel acceptDateConf = acceptDateConfService.getById(reservaionDateId);
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
@@ -593,7 +609,7 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationDate(acceptDateConf.getAcceptDate());
             updateIdentityInfo.setReservationM(reservaionM);
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
-            String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel);
+            String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
             updateIdentityInfo.setAcceptNumber(acceptNumber);
             updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
             updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime() - 1);
@@ -749,7 +765,85 @@ public class IdentityInfoController {
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultParam.SUCCESS_RESULT;
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 打印预约凭证
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/printReservation/{id}.html", method = RequestMethod.GET)
+    public ResultParam printReservation(HttpServletRequest request, HttpServletResponse response,
+            @PathVariable("id") Integer id) {
+        if (id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+            IdentityInfoModel identityInfo = identityInfoService.getById(id);
+
+            if (identityInfo == null) {
+                return ResultParam.PARAM_ERROR_RESULT;
+            }
+
+            if (identityInfo.getAcceptNumber() == null) {
+                identityInfo.setAcceptNumber("");
+            }
+
+            Map<String, Object> data = new HashMap<String, Object>();
+            data.put("identityInfo", identityInfo);
+            CompanyInfoModel companyInfoModel = companyInfoService.getById(identityInfo.getCompanyId());
+            if (companyInfoModel != null) {
+                identityInfo.setCompanyName(companyInfoModel.getCompanyName());
+            } else {
+                identityInfo.setCompanyName("");
+            }
+
+            if (StringUtils.isEmpty(identityInfo.getAcceptNumber())) {
+                identityInfo.setAcceptNumber("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            }
+
+            //自定义属性
+            Map<String, Object> customData = new HashMap<String, Object>();
+            Date ctime = identityInfo.getCtime();
+            if (ctime == null) {
+                customData.put("addYear", "");
+                customData.put("addMonth", "");
+                customData.put("addDay", "");
+            } else {
+                customData.put("addYear", String.valueOf(DateUtil.getYear(ctime)));
+                customData.put("addMonth", DateUtil.getMonth(ctime) + 1);
+                customData.put("addDay", DateUtil.getDay(ctime));
+            }
+
+            Date reservationDate = identityInfo.getReservationDate();
+            if (reservationDate == null) {
+                customData.put("reserveYear", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                customData.put("reserveMonth", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                customData.put("reserveDay", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            } else {
+                customData.put("reserveYear", String.valueOf(DateUtil.getYear(reservationDate)));
+                customData.put("reserveMonth", DateUtil.getMonth(reservationDate) + 1);
+                customData.put("reserveDay", DateUtil.getDay(reservationDate));
+            }
+
+            Date currDate = new Date();
+            customData.put("currYear", String.valueOf(DateUtil.getYear(currDate)));
+            customData.put("currMonth", DateUtil.getMonth(currDate) + 1);
+            customData.put("currDay", DateUtil.getDay(currDate));
+
+            data.put("customData", customData);
+            String content = FreeMarkerUtil.getWriter("website_reservation.ftl", data);
+
+            return new ResultParam(ResultParam.SUCCESS_RESULT, content);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
         }
     }
 

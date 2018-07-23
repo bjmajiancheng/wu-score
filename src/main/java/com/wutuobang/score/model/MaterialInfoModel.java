@@ -37,6 +37,8 @@ public class MaterialInfoModel implements Serializable {
 	private String title;//"材料标题"
 
 	private String templateImg;//"模板图片"
+
+	private Integer isUpload;//"是否需要上传"
 	//columns END
 
 	//自定义属性START
@@ -105,6 +107,14 @@ public class MaterialInfoModel implements Serializable {
 
 	public void setTemplateImg(String templateImg) {
 		this.templateImg = templateImg;
+	}
+
+	public Integer getIsUpload() {
+		return isUpload;
+	}
+
+	public void setIsUpload(Integer isUpload) {
+		this.isUpload = isUpload;
 	}
 
 	public OnlinePersonMaterialModel getOnlinePersonMaterial() {
