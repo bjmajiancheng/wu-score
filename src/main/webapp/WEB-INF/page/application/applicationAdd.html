@@ -1157,10 +1157,14 @@
             $("#age").val(age);
 
             if(sexChar % 2 == 0) {
+                $("#female").click();/*
                 $("#female").prop("checked","checked");
+                $("#male").prop("checked","");*/
                 $("input[name=sex]").val(2);
             } else {
+                $("#male").click();/*
                 $("#male").prop("checked","checked");
+                $("#female").prop("checked","");*/
                 $("input[name=sex]").val(1);
             }
         });

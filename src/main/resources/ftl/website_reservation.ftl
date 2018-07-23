@@ -2,7 +2,7 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">.b1{white-space-collapsing:preserve;}
-.b2{margin: 0.7881944in 1.25in 1.0in 1.25in;}
+.b2{margin: 2cm 2cm 2cm 2cm;}
 .p1{text-align:center;hyphenate:auto;font-family:Times New Roman;font-size:22pt;}
 .p2{text-align:end;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
 .p3{text-align:start;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
@@ -12,11 +12,12 @@
 .s2{text-decoration:underline;}
 .s3{font-family:宋体;text-decoration:underline;}
 .s4{font-family:宋体;}
-p {letter-spacing: 6px; line-height: 40px;}
+p {line-height: 40px;}
 </style>
 <meta content="03" name="author">
 </head>
-<body class="b1 b2">
+<body>
+<div class="b1 b2">
 <div class="p1">
 <span>天津市居住证积分网上预约凭证</span>
 </div>
@@ -49,7 +50,9 @@ p {letter-spacing: 6px; line-height: 40px;}
 <p class="p4">
 <span>本人已阅读上述材料并知悉以上通知内容，积分申请人签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年  月  日</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>
 </p>
+</div>
 </body>
 </html>

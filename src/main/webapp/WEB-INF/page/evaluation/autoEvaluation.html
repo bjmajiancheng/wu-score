@@ -46,9 +46,10 @@
                         <td width="15%">${indicatorModel.name}</td>
                         <td indicator-id="${indicatorModel.id}" style="padding-left:10px;">
                             <input type="hidden" name="indexNum" value="${indicatorModel.indexNum}" />
+                            <!--$!{indicatorItem.content} != '无' && -->
                             #if($indicatorModel.itemType == 0)
                                 #foreach($indicatorItem in $indicatorModel.indicatorItems)
-                                    #if($!{indicatorItem.content} != '无' && $!{indicatorItem.content} != '具有高级职称' && $!{indicatorItem.content}!= '具有中级职称' && $!{indicatorItem.content}!= '具有初级职称')
+                                    #if($!{indicatorItem.content} != '具有高级职称' && $!{indicatorItem.content}!= '具有中级职称' && $!{indicatorItem.content}!= '具有初级职称')
                                         <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$!{indicatorItem.id}" name="indicator_item_$!{indicatorModel.id}" value="$!{indicatorItem.id}"
                                                #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
                                         <label for="indicator_item_$!{indicatorItem.id}">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
