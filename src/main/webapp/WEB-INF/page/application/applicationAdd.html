@@ -926,7 +926,7 @@
             //8.职业（工种）,9.落户地区,10.纳税,11.婚姻情况,12.知识产权,13.奖项和荣誉称号,14.退役军人,15.守法诚信
             initIndicatorInfo(data["2"], $("#cultureDegree"), '$!{houseOtherModel.cultureDegree}');
 
-            initIndicatorInfo(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');
+            initIndicatorInfo_2(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');
 
             initIndicatorInfo(data["8"], $("#jobType"), '$!{houseProfessionModel.jobType}');
 
@@ -1465,7 +1465,7 @@
             field.html('');
         }
         var arr = new Array();
-        for(var i=0; i<indicatorItems.length; i++) {debugger
+        for(var i=0; i<indicatorItems.length; i++) {
             var selected = '';
             if(defaultVal == '' && indicatorItems[i].content == '无') {
                 selected = " selected ";
@@ -1475,6 +1475,39 @@
 
             if(indicatorItems[i].content != '具有高级职称' && indicatorItems[i].content != '具有中级职称'
                 && indicatorItems[i].content != '具有初级职称'  ){
+                arr.push('<option value="'+ indicatorItems[i].id +'" ' + selected + '>'+ indicatorItems[i].content +'</option>');
+            }
+
+        }
+
+        field.html(arr.join(''));
+    }
+
+
+    /**
+     * 初始化评分选项信息
+     * 2018年7月24日，去掉“无”字，位于职业资格证书--具有职业资格--职业资格级别 的下拉列表中
+     */
+    function initIndicatorInfo_2(indicatorInfo, field, defaultVal) {
+        if(indicatorInfo == undefined) {
+            field.html('');
+        }
+        var indicatorItems = indicatorInfo.indicatorItems;
+
+        if(indicatorItems == undefined || indicatorItems.length == 0) {
+            field.html('');
+        }
+        var arr = new Array();
+        for(var i=0; i<indicatorItems.length; i++) {
+            var selected = '';
+            if(defaultVal == '' && indicatorItems[i].content == '无') {
+                selected = " selected ";
+            } else if(defaultVal != '' && indicatorItems[i].id == defaultVal){
+                selected = " selected ";
+            }
+
+            if(indicatorItems[i].content != '具有高级职称' && indicatorItems[i].content != '具有中级职称'
+                && indicatorItems[i].content != '具有初级职称' && indicatorItems[i].content != '无'  ){
                 arr.push('<option value="'+ indicatorItems[i].id +'" ' + selected + '>'+ indicatorItems[i].content +'</option>');
             }
 
