@@ -183,6 +183,11 @@
 			ORDER BY ${sortColumns}
 		</if>
     </select>
+
+	<select id="findByCompanyNameOrCode" resultMap="CompanyInfo">
+		SELECT <include refid="columns"/> FROM t_company_info
+		WHERE company_name = #{companyName} OR society_code = #{societyCode}
+	</select>
 	
 </mapper>
 

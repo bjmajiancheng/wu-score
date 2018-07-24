@@ -110,4 +110,19 @@ public class CompanyInfoServiceImpl implements ICompanyInfoService {
         return companyInfoMap;
     }
 
+    /**
+     * 根据公司名称或统一社会代码查询注册公司
+     *
+     * @param companyName
+     * @param societyCode
+     * @return
+     */
+    public List<CompanyInfoModel> findByCompanyNameOrCode(String companyName, String societyCode) {
+        if(StringUtils.isEmpty(companyName) || StringUtils.isEmpty(societyCode)) {
+            return Collections.emptyList();
+        }
+
+        return companyInfoDao.findByCompanyNameOrCode(companyName, societyCode);
+    }
+
 }

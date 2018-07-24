@@ -45,4 +45,13 @@ public interface ICompanyInfoService{
 	 * @return
      */
 	public Map<Integer, CompanyInfoModel> getMapByIds(List<Integer> ids);
+
+	/**
+	 * 根据公司名称或统一社会代码查询注册公司
+	 *
+	 * @param companyName
+	 * @param societyCode
+     * @return
+     */
+	public List<CompanyInfoModel> findByCompanyNameOrCode(String companyName, String societyCode);
 }

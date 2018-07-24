@@ -6,28 +6,41 @@
  */
 
 package com.wutuobang.score.dao;
+
 import com.wutuobang.score.model.CompanyInfoModel;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.*;
+
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
 
 public interface ICompanyInfoDao {
 
-	public int insert(CompanyInfoModel companyInfo);
+    public int insert(CompanyInfoModel companyInfo);
 
-	public int update(CompanyInfoModel companyInfo);
+    public int update(CompanyInfoModel companyInfo);
 
-	public CompanyInfoModel getById(@Param("id") Integer id);
+    public CompanyInfoModel getById(@Param("id") Integer id);
 
-	public int delete(@Param("id") Integer id);
-	
-	public List<CompanyInfoModel> find(Map<String, Object> param);
-	
+    public int delete(@Param("id") Integer id);
+
+    public List<CompanyInfoModel> find(Map<String, Object> param);
+
+    /**
+     * 根据公司名称或统一社会代码查询注册公司
+     *
+     * @param companyInfo
+     * @param societyCode
+     * @return
+     */
+    public List<CompanyInfoModel> findByCompanyNameOrCode(@Param("companyName") String companyName,
+            @Param("societyCode") String societyCode);
+
 }

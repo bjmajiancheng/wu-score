@@ -24,9 +24,9 @@ import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.common.utils.UuidUtil;
 import com.wutuobang.score.constant.CacheConstant;
 import com.wutuobang.shiro.utils.ShiroUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +87,11 @@ public class CompanyInfoController {
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
             if (companyInfoModel == null) {
                 return ResultParam.PARAM_ERROR_RESULT;
+            }
+            List<CompanyInfoModel> companyInfos = companyInfoService
+                    .findByCompanyNameOrCode(companyInfoModel.getCompanyName(), companyInfoModel.getSocietyCode());
+            if (CollectionUtils.isNotEmpty(companyInfos)) {
+                return ResultParam.error("单位名称或统一社会信用代码已注册,请更换公司名称和统一社会信用代码!!!");
             }
 
             CompanyInfoModel validateModel = companyInfoService.queryByUserName(companyInfoModel.getUserName());
