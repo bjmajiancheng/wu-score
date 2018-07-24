@@ -49,13 +49,11 @@
                             <!--$!{indicatorItem.content} != '无' && -->
                             #if($indicatorModel.itemType == 0)
                                 #foreach($indicatorItem in $indicatorModel.indicatorItems)
-                                    #if($!{indicatorItem.content} != '具有高级职称' && $!{indicatorItem.content}!= '具有中级职称' && $!{indicatorItem.content}!= '具有初级职称')
                                         <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$!{indicatorItem.id}" name="indicator_item_$!{indicatorModel.id}" value="$!{indicatorItem.id}"
                                                #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
                                         <label for="indicator_item_$!{indicatorItem.id}">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
                                         </span>
                                         <br/>
-                                    #end
                                 #end
                             #elseif(${indicatorModel.itemType} == 1)
                                 #if(${indicatorModel.indexNum} == 4)
