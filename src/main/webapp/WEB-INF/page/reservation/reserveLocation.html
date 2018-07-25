@@ -34,11 +34,14 @@
                 <tr>
                     <td>受理地点选择：</td>
                     <td>
-                        <select id="acceptAddress" name="acceptAddress">
+                        <!--<select id="acceptAddress" name="acceptAddress">
                             #foreach($item in $acceptAddressList)
                             <option value="$item.id">$item.address</option>
                             #end
-                        </select>
+                        </select>-->
+                        #foreach($item in $acceptAddressList)
+                            <input class="input_radio" name="address" type="radio" id="$item.id" value="$item.id"><label for="$item.id">$item.address</label>
+                        #end
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +121,7 @@
                 return false;
             }
 
-            var requestData = {"acceptAddressId": $("#acceptAddress").val(), "identityInfoId": $("#identityInfoId").val(),
+            var requestData = {"acceptAddressId": $('input:radio[name="address"]:checked').val(), "identityInfoId": $("#identityInfoId").val(),
                 "captcha":$("#captcha").val()};
             var flag = false;
             postResult("${rc.contextPath}/identityInfo/reserveLocation", requestData, function(data){
