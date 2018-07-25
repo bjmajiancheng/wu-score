@@ -1224,41 +1224,10 @@ public class DateUtil {
 
     public static void main(String args[]) {
 
+        Date currZeroTime = DateUtil.getTheDayZeroTime(new Date());
+        currZeroTime = DateUtil.addDay(currZeroTime, 8);
 
-        /*Date date = StringToDate("2016-11-16 03:00:00", DateStyle.YYYY_MM_DD_HH_MM_SS);
-        long timeStamp = getNextMonthSpecificDayStamp(date, 16);*/
-        /*int zero = getYesterdayZeroStamp(date);
-        int lastTime = getYesterdayLastStamp(date);
-
-        System.out.println("zero:"+zero+";lastTime:"+lastTime);
-
-        long timestamp = getNextMonthLastDayStamp(date);
-        String time  = IntToDateString(timestamp, DateStyle.YYYY_MM_DD_HH_MM_SS);
-        System.out.println(time);*/
-        /*String time  = IntToDateString(timeStamp, DateStyle.YYYY_MM_DD_HH_MM_SS);
-        System.out.println(time);
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.DAY_OF_MONTH, 32);
-        System.out.println(cal.get(Calendar.DAY_OF_MONTH));
-        String time1  = IntToDateString(cal.getTimeInMillis(), DateStyle.YYYY_MM_DD_HH_MM_SS);
-        System.out.println(time1);*/
-
-        Date date = StringToDate("2016-11-01 03:00:00", DateStyle.YYYY_MM_DD_HH_MM_SS);
-        /*Date currDate = new Date();
-        currDate = DateUtil.getYesterdayLastDate(date);
-        String time1  = IntToDateString(currDate.getTime(), DateStyle.YYYY_MM_DD_HH_MM_SS);
-        System.out.println(time1);*/
-
-        date = DateUtil.getYesterdayLastDate(date);
-        Calendar ca = Calendar.getInstance();
-        ca.setTime(date);
-        ca.add(Calendar.DAY_OF_MONTH, -1);
-        System.out.println(IntToDateString((int) (DateUtil.getMonthFirstDayStamp(ca.getTime()) / 1000),
-                DateStyle.YYYY_MM_DD_HH_MM_SS));
-        System.out.println(IntToDateString((int) (DateUtil.getMonthLastDayStamp(ca.getTime()) / 1000),
-                DateStyle.YYYY_MM_DD_HH_MM_SS));
+        System.out.println(DateUtil.DateToString(currZeroTime, DateStyle.YYYY_MM_DD_HH_MM_SS));
 
     }
 }

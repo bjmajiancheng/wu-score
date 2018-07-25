@@ -732,6 +732,13 @@ public class IdentityInfoController {
                         String.format(commonConstant.addapplicationOperatorMessage, identityInfoModel.getName()));
             }
 
+            //记录状态日志信息
+            DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_12);
+
+            PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                    dictModel, "申请人已取消预约。");
+            personBatchStatusRecordService.insert(recordModel);
+
             return ResultParam.ok("取消预约成功, " + (updateIdentityInfo.getReservationTime() == 1 ?
                     "此申请人本期还可以预约一次!!" :
                     "此申请人本期不可再预约!!"));

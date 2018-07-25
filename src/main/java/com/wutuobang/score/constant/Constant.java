@@ -66,6 +66,11 @@ public class Constant {
     public static final int reservationStatus_11 = 11;
 
     /**
+     * 申请预约状态:取消预约
+     */
+    public static final int reservationStatus_12 = 12;
+
+    /**
      * 公安预审状态:未开始
      */
     public static final int unionApproveStatus1_0 = 0;
