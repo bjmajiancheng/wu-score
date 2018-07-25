@@ -1072,6 +1072,48 @@
             initOfficeInfo($(this).val(), $("#registeredRegion"), '$!{houseMoveModel.registeredRegion}');
         }).change();
 
+        //拟落户地区联动
+        $("#registeredOffice").on("change", function () {
+            var regionOffice =  $(this).find("option:selected").text();
+            var region = "";
+            if(regionOffice.indexOf("滨海新区") == -1 ){
+                $("#region").children().prop("selected",false);
+                region = regionOffice.substring(6,8);
+                if(region == "海河"){
+                    $("#region").find("option").each(function(i,ele){
+                        if($(ele).text().indexOf("津南") != -1){
+                            $(ele).prop("selected",true);
+                        }
+                    });
+                }else if(region == "天津"){
+                    $("#region").find("option").each(function(i,ele){
+                        if($(ele).text().indexOf("滨海") != -1){
+                            $(ele).prop("selected",true);
+                        }
+                    });
+                }else if(region == "蓟县"){
+                    $("#region").find("option").each(function(i,ele){
+                        if($(ele).text().indexOf("蓟州") != -1){
+                            $(ele).prop("selected",true);
+                        }
+                    });
+                }else{
+                    $("#region").find("option").each(function(i,ele){
+                        if($(ele).text().substring(0,2) == region){
+                            $(ele).prop("selected",true);
+                        }
+                    });
+                }
+            }else{
+                $("#region").children().prop("selected",false);
+                $("#region").find("option").each(function(i,ele){
+                    if($(ele).text().indexOf("滨海") != -1){
+                        $(ele).prop("selected",true);
+                    }
+                });
+            }
+        });
+
         $("#marriageStatus").on("change", function() {
             if($(this).val() == 2) {
                 $("select[name=relationship]").each(function(){
