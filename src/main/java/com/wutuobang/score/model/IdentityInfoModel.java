@@ -93,6 +93,8 @@ public class IdentityInfoModel implements Serializable {
     private Date unionApprove1Et;//"公安预审过期时间"
 
     private Date unionApprove2Et;//"人社预审过期时间"
+
+    private String rejectReason;//"不通过原因"
     //columns END
 
     //自定义属性 START
@@ -373,6 +375,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setUnionApprove2Et(Date unionApprove2Et) {
         this.unionApprove2Et = unionApprove2Et;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 
     public HouseMoveModel getHouseMoveModel() {
