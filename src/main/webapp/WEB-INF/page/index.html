@@ -129,7 +129,7 @@
                             <span class="integral-table-btn integral-table-btn2 view" onclick="evaluationView({identityInfo.id})">查看</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 9}
-                            <span class="integral-table-btn integral-table-btn2 view" onclick="showReason({identityInfo.rejectReason})">不通过原因</span>
+                            <span class="integral-table-btn integral-table-btn2 view" onclick="showReason('{identityInfo.rejectReason}')">不通过原因</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 6}
                             <span class="integral-table-btn integral-table-btn2" onclick="uploadFile({identityInfo.id})">材料上传</span>
