@@ -150,6 +150,8 @@ public class IdentityInfoBiz {
                 houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
                 houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
                 houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+                houseProfessionModel.setProfessionTitle(0);
+                houseProfessionModel.setJobName(0);
             }
             if (houseProfessionModel.getProfessionType() == 2) {
                 houseProfessionModel.setJobLevel(0);
