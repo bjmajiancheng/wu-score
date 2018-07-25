@@ -156,11 +156,13 @@ public class IdentityInfoBiz {
             if (houseProfessionModel.getProfessionType() == 2) {
                 houseProfessionModel.setJobLevel(0);
                 houseProfessionModel.setJobType(0);
+                houseProfessionModel.setJobName(0);
             }
 
             if (houseProfessionModel.getProfessionType() == 3) {
                 houseProfessionModel.setJobTitleLevel(0);
                 houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                houseProfessionModel.setProfessionTitle(0);
             }
             houseProfessionService.insert(houseProfessionModel);
         }
@@ -267,7 +269,32 @@ public class IdentityInfoBiz {
         //职业资格证书
         HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
         if (houseProfessionModel != null) {
-            if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 2) {
+            if(houseProfessionModel.getProfessionType() == 1) {
+                houseProfessionModel.setJobLevel(0);
+                houseProfessionModel.setJobType(0);
+                houseProfessionModel.setJobName(0);
+
+                houseProfessionModel.setJobTitleLevel(0);
+                houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                houseProfessionModel.setProfessionTitle(0);
+
+                houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
+                houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
+                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+            }
+            if (houseProfessionModel.getProfessionType() == 2) {
+                houseProfessionModel.setJobLevel(0);
+                houseProfessionModel.setJobType(0);
+                houseProfessionModel.setJobName(0);
+            }
+
+            if (houseProfessionModel.getProfessionType() == 3) {
+                houseProfessionModel.setJobTitleLevel(0);
+                houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                houseProfessionModel.setProfessionTitle(0);
+            }
+
+            /*if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 2) {
                 houseProfessionModel.setJobLevel(0);
                 houseProfessionModel.setJobType(0);
             }
@@ -275,10 +302,10 @@ public class IdentityInfoBiz {
             if (houseProfessionModel.getProfessionType() == 1 || houseProfessionModel.getProfessionType() == 3) {
                 houseProfessionModel.setJobTitleLevel(0);
                 houseProfessionModel.setJobPosition(StringUtils.EMPTY);
-                /*houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
+                *//*houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
                 houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
-                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);*/
-            }
+                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);*//*
+            }*/
             if (houseProfessionModel.getId() != null) {
                 houseProfessionService.update(houseProfessionModel);
             } else {

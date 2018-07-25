@@ -158,6 +158,7 @@
                             {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
                                 {\#if identityInfo.reservationStatus != 9}
                                     <span class="integral-table-btn integral-table-btn2" onclick="reUpload({identityInfo.id})">重新上传材料</span>
+                                    <span class="integral-table-btn integral-table-btn2" onclick="followUp({identityInfo.id})">修改随迁信息</span>
                                 {/if}
                             {/if}
                         </td>
@@ -414,7 +415,91 @@
      * @param reason
      */
     function showReason(rejectReason) {
-        layer.alert(rejectReason);
+        if(rejectReason) {
+            layer.alert(rejectReason, {
+                skin: 'layui-layer-lan'
+                ,closeBtn: 0
+            });
+        } else {
+            layer.alert('不通过原因为空!!!', {
+                skin: 'layui-layer-lan'
+                ,closeBtn: 0
+            });
+        }
+    }
+
+    /**
+     * 修改随迁信息
+     *
+     * @param id
+     */
+    function followUp(id) {
+        getResultData("${rc.contextPath}/identityInfo/getFollowUpInfo/" + id + ".html", {}, function (datas) {
+            var _template = $('<div></div>');
+            var html = [];
+            html.push('<div style="overflow-y:auto; height:400px;">');
+            html.push('<table class="integral-table border-add integral-cont-table houseRelationships">');
+            html.push('<tr>');
+            html.push('<th>与本人关系</th><th>姓名</th><th width="281">身份证号</th><th width="100">是否随迁</th><th>文化程度</th>');
+            html.push('</tr>');
+            for(var i=0; i<datas.length; i++) {
+                var data = datas[i];
+                html.push('<tr class="houseRelationship" attr_id="'+ data.id +'">');
+                html.push('<td>'+ data.relationship +'</td>');
+                html.push('<td>' + data.name + '</td>');
+                html.push('<td>' + data.idNumber + '</td>');
+                html.push('<td>');
+                if(data.isRemove == 1) {
+                    html.push('<input type="radio" name="isRemove'+i+'" value="1" id="isRemove1'+ i +'" checked>');
+                } else {
+                    html.push('<input type="radio" name="isRemove'+i+'" value="1" id="isRemove1'+ i +'">');
+                }
+                html.push('<label for="isRemove1'+i+'">是</label>');
+                if(data.isRemove == 2) {
+                    html.push('<input class="m15" type="radio" name="isRemove'+i+'" value="2" id="isRemove2'+i+'" checked>');
+                } else {
+                    html.push('<input class="m15" type="radio" name="isRemove'+i+'" value="2" id="isRemove2'+i+'">');
+                }
+                html.push('<label for="isRemove2'+i+'">否</label>');
+                html.push('</td>');
+                html.push('<td>' + data.cultureDegree + '</td>');
+                html.push('</tr>');
+            }
+            html.push('</table>');
+            html.push('</div>');
+
+            var content = html.join('');
+
+            //自定页
+            var index = layer.open({
+                type: 1,
+                title: '修改随迁信息',
+                skin: 'layui-layer-demo', //样式类名
+                closeBtn: 1, //不显示关闭按钮
+                area: ['1000px', 'auto'],
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                content: content, //内容
+                btn: ['保存', '取消']
+                ,yes: function(index, layero){//保存
+                    var houseRelationships = [];
+                    $(".houseRelationship").each(function(){
+                        var id = $(this).attr("attr_id");
+                        var isRemove = $(this).find("input[type=radio]:checked").val();
+                        houseRelationships.push({"id":id, "isRemove": isRemove});
+                    });
+
+                    var houseRelationshipsJson = JSON.stringify(houseRelationships);
+                    postResult("${rc.contextPath}/identityInfo/updateHouseRelationships", {"houseRelationshipsJson" : houseRelationshipsJson}, function(data){
+                        layer.msg(data.message);
+                        layer.close(index);
+                    });
+                }
+                ,btn2: function(index){//取消
+                    layer.close(index);
+                }
+            });
+        });
     }
 </script>
 

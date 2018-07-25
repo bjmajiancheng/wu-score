@@ -735,8 +735,8 @@ public class IdentityInfoController {
             //记录状态日志信息
             DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_12);
 
-            PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
-                    dictModel, "申请人已取消预约。");
+            PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel, dictModel,
+                    "申请人已取消预约。");
             personBatchStatusRecordService.insert(recordModel);
 
             return ResultParam.ok("取消预约成功, " + (updateIdentityInfo.getReservationTime() == 1 ?
@@ -812,7 +812,8 @@ public class IdentityInfoController {
             }
 
             if (StringUtils.isEmpty(identityInfo.getAcceptNumber())) {
-                identityInfo.setAcceptNumber("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                identityInfo.setAcceptNumber(
+                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
             }
 
             //自定义属性
@@ -852,6 +853,68 @@ public class IdentityInfoController {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
         }
+    }
+
+    /**
+     * 获取随迁信息
+     *
+     * @param request
+     * @param response
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getFollowUpInfo/{id}.html", method = RequestMethod.GET)
+    public ResultParam getFollowUpInfo(HttpServletRequest request, HttpServletResponse response,
+            @PathVariable("id") Integer id) {
+        if (id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        try {
+            List<HouseRelationshipModel> houseRelationships = houseRelationshipService.getByIdentityInfoId(id);
+
+            return new ResultParam(ResultParam.SUCCESS_RESULT, houseRelationships);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+    /**
+     * 更新随迁信息
+     *
+     * @param request
+     * @param response
+     * @param houseRelationshipsJson
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateHouseRelationships", method = RequestMethod.POST)
+    public ResultParam updateHouseRelationships(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam("houseRelationshipsJson") String houseRelationshipsJson) {
+        if (StringUtils.isEmpty(houseRelationshipsJson)) {
+            return ResultParam.error("暂无随迁人员信息, 无法修改!!");
+        }
+
+        try {
+            List<HouseRelationshipModel> houseRelationships = JSON
+                    .parseArray(houseRelationshipsJson, HouseRelationshipModel.class);
+
+            if (CollectionUtils.isEmpty(houseRelationships)) {
+                return ResultParam.error("暂无随迁人员信息, 无法修改!!");
+            }
+
+            for (HouseRelationshipModel houseRelationship : houseRelationships) {
+                houseRelationshipService.update(houseRelationship);
+            }
+
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+
     }
 
     /**

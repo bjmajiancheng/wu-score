@@ -167,7 +167,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         break;
                     case 3:
                         int jobLevel = houseProfession.getJobLevel();
+                        int jobTitleLevel = houseProfession.getJobTitleLevel();
 
+                        String[] jobTitleLevelArr = { "", "初级职称", "中级职称", "高级职称" };
                         for (IndicatorItemModel indicatorItem : indicatorItems) {
                             if (indicatorItem.getId() == jobLevel) {
                                 indicatorItem.setChecked(1);
@@ -175,7 +177,14 @@ public class IndicatorServiceImpl implements IIndicatorService {
                                 break;
                             }
 
-                            if (jobLevel == 0 && indicatorItem.getScore() == 0) {
+                            if (jobTitleLevel > 0
+                                    && indicatorItem.getContent().indexOf(jobTitleLevelArr[jobTitleLevel]) > -1) {
+                                indicatorItem.setChecked(1);
+                                indicatorModel.setDisabled(1);
+                                break;
+                            }
+
+                            if (jobTitleLevel == 0 && jobLevel == 0 && indicatorItem.getScore() == 0) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
                                 break;
