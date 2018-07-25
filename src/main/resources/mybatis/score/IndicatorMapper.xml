@@ -127,7 +127,10 @@
 
 	<select id="getAllIndicators" resultMap="Indicator">
 		SELECT <include refid="columns"/> FROM t_indicator
-		order by index_num asc
+		<![CDATA[
+			WHERE id < 1003
+			order by index_num asc
+		]]>
 	</select>
 	
 </mapper>

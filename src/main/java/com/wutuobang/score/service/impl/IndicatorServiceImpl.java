@@ -97,12 +97,12 @@ public class IndicatorServiceImpl implements IIndicatorService {
      */
     public Map<Integer, IndicatorModel> getAllMapIndicator() {
         List<IndicatorModel> indicatorModels = this.getAllIndicators();
-        if(CollectionUtils.isEmpty(indicatorModels)) {
+        if (CollectionUtils.isEmpty(indicatorModels)) {
             return Collections.emptyMap();
         }
 
         Map<Integer, IndicatorModel> indicatorModelMap = new HashMap<Integer, IndicatorModel>(indicatorModels.size());
-        for(IndicatorModel indicatorModel : indicatorModels) {
+        for (IndicatorModel indicatorModel : indicatorModels) {
             indicatorModelMap.put(indicatorModel.getId(), indicatorModel);
         }
 
@@ -131,10 +131,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
             for (IndicatorModel indicatorModel : indicatorModels) {
                 List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
 
-
                 Map<String, IndicatorItemModel> indicatorItemMap = new HashMap<String, IndicatorItemModel>();
-                if(CollectionUtils.isNotEmpty(indicatorItems)) {
-                    for(IndicatorItemModel indicatorItem : indicatorItems) {
+                if (CollectionUtils.isNotEmpty(indicatorItems)) {
+                    for (IndicatorItemModel indicatorItem : indicatorItems) {
                         indicatorItemMap.put(indicatorItem.getContent(), indicatorItem);
                     }
                 }
@@ -176,7 +175,7 @@ public class IndicatorServiceImpl implements IIndicatorService {
                                 break;
                             }
 
-                            if(jobLevel == 0 && indicatorItem.getScore() == 0) {
+                            if (jobLevel == 0 && indicatorItem.getScore() == 0) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
                                 break;
@@ -186,8 +185,8 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         List<IndicatorItemModel> finalIndicatorItems = new ArrayList<IndicatorItemModel>();
                         List<IndicatorItemModel> tmpIndicatorItems = new ArrayList<IndicatorItemModel>();
 
-                        for(IndicatorItemModel indicatorItem : indicatorItems) {
-                            if(indicatorItem.getContent().indexOf("具有") > -1) {
+                        for (IndicatorItemModel indicatorItem : indicatorItems) {
+                            if (indicatorItem.getContent().indexOf("具有") > -1) {
                                 finalIndicatorItems.add(indicatorItem);
                             } else {
                                 tmpIndicatorItems.add(indicatorItem);
@@ -209,9 +208,9 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         int jobType = houseProfession.getJobType();
                         int professionType = houseProfession.getProfessionType();
 
-                        if(professionType == 1 || professionType == 2) {
+                        if (professionType == 1 || professionType == 2) {
                             IndicatorItemModel indicatorItem = indicatorItemMap.get("无");
-                            if(indicatorItem != null) {
+                            if (indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                                 indicatorModel.setDisabled(1);
                             }
@@ -223,7 +222,7 @@ public class IndicatorServiceImpl implements IIndicatorService {
                                     break;
                                 }
 
-                                if(jobType == 0 && indicatorItem.getScore() == 0) {
+                                if (jobType == 0 && indicatorItem.getScore() == 0) {
                                     indicatorItem.setChecked(1);
                                     indicatorModel.setDisabled(1);
                                     break;
@@ -263,19 +262,19 @@ public class IndicatorServiceImpl implements IIndicatorService {
                         break;
                     case 15:
                         int region = houseMoveModel.getRegion();
-                        if(region == 33) {
+                        if (region == 33) {
                             IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户滨海新区");
-                            if(indicatorItem != null) {
+                            if (indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                             }
-                        } else if(region == 31 || region == 32 || region == 34 || region == 35 || region == 36) {
+                        } else if (region == 31 || region == 32 || region == 34 || region == 35 || region == 36) {
                             IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户武清区、宝坻区、静海区、宁河区、蓟州区");
-                            if(indicatorItem != null) {
+                            if (indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                             }
                         } else {
                             IndicatorItemModel indicatorItem = indicatorItemMap.get("申请落户其他地区");
-                            if(indicatorItem != null) {
+                            if (indicatorItem != null) {
                                 indicatorItem.setChecked(1);
                             }
                         }
