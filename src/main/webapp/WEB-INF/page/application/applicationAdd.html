@@ -1239,6 +1239,7 @@
      * 提交表单
      */
     function submit() {
+        if( validMassageInfo() == false) return false;
         var formInfo = getFormInfo();
         if(formInfo == false) {
             return false;
@@ -1999,6 +2000,55 @@
         }else{
 //            $("#showInfo").hide();
         }
+    }
+
+    /**
+     * 2018年7月26日
+     * 已婚必须添加配偶信息
+     * 验证配偶信息和子女信息是否和填写的信息一致
+     * @returns {boolean}
+     */
+    function  validMassageInfo(){
+        var num = parseInt($("#sonNumber").val());//填写子女的数量
+        var relship = [];
+        $(".houseRelationship").find("select[name=relationship]").each(function(i,ele){
+            relship.push($(ele).val());
+        });
+        var relationship =relship.toString();//relship.length是添加信息的数量&& relationship.indexOf("配偶") == -1
+        var state = $("#marriageStatus").find("option:selected").text();
+        if(num == 0){
+            if(state == "已婚"){
+                if(relship.length == 1){
+                    if(relationship.indexOf("配偶") == -1){
+                        layer.msg("请添加配偶信息！");
+                        return false;
+                    }
+                }else if(relship.length == 0){
+                    layer.msg("请添加配偶信息！");
+                    return false;
+                }else{
+                    layer.msg("只能添加配偶信息！");
+                    return false;
+                }
+            }
+        }else{
+            //num:填写子女的数量;   relship.length: 添加信息的数量
+            if(state == "已婚" ){
+                if(relationship.indexOf("配偶") == -1){
+                    layer.msg("请添加配偶信息！");
+                    return false;
+                }else{
+                    if(relship.length <= num){
+                        layer.msg("请添加子女信息！");
+                        return false;
+                    }else if(relship.length >= num + 2 ){
+                        layer.msg("请保持子女数量与填写数量一致！");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 </script>
