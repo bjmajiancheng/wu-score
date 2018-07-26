@@ -1182,11 +1182,11 @@
 
             if (len == 18) {
                 strBirthday = idNumber.substr(6, 4) + "-" + idNumber.substr(10, 2) + "-" + idNumber.substr(12, 2);
-                sexChar = idNumber.substr(17, 1);
+                sexChar = idNumber.substr(16, 1);
             }
             if (len == 15) {
                 strBirthday = "19" + idNumber.substr(6, 2) + "-" + idNumber.substr(8, 2) + "-" + idNumber.substr(10, 2);
-                sexChar = idNumber.substr(14, 1);
+                sexChar = idNumber.substr(13, 1);
             }
             var birthDate = new Date(strBirthday);
             var nowDateTime = new Date();
@@ -1198,16 +1198,21 @@
             $("#birthday").val(strBirthday);
             $("#age").val(age);
 
+            var $sex = $('input:radio[name="sex"]');
             if(sexChar % 2 == 0) {
+                /*$sex.eq(2).prop("checked",true);
+                $sex.prop("disabled",true);*/
                 $("#female").click();/*
                 $("#female").prop("checked","checked");
                 $("#male").prop("checked","");*/
-                $("input[name=sex]").val(2);
+                /*$("input[name=sex]").val(2);*/
             } else {
+                /*$sex.eq(1).prop("checked",true);
+                $sex.prop("disabled",true);*/
                 $("#male").click();/*
                 $("#male").prop("checked","checked");
                 $("#female").prop("checked","");*/
-                $("input[name=sex]").val(1);
+                /*$("input[name=sex]").val(1);*/
             }
         });
 

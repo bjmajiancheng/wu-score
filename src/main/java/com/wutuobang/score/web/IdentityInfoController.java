@@ -845,6 +845,14 @@ public class IdentityInfoController {
             customData.put("currMonth", DateUtil.getMonth(currDate) + 1);
             customData.put("currDay", DateUtil.getDay(currDate));
 
+            if (identityInfo.getAcceptAddressId() == 1) {
+                customData.put("reservLocation", "市级行政许可中心");
+            } else if (identityInfo.getAcceptAddressId() == 2) {
+                customData.put("reservLocation", "滨海新区行政服务中心");
+            } else {
+                customData.put("reservLocation", "");
+            }
+
             data.put("customData", customData);
             String content = FreeMarkerUtil.getWriter("website_reservation.ftl", data);
 

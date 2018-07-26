@@ -29,7 +29,7 @@ p {line-height: 40px;}
 <span class="s1">申报单位名称</span><span>：${identityInfo.companyName}</span>
 </p>
 <p class="p4">
-<span>贵单位于</span><span class="s2">${customData.addYear}</span><span class="s1">年</span><span class="s2">${customData.addMonth}</span><span class="s1">月</span><span class="s2">${customData.addDay}</span><span class="s1">日</span><span>网上提交的本单位职工</span><span class="s2">${identityInfo.name}</span><span>（身份证号：</span><span class="s3">${identityInfo.idNumber}</span><span>）居住证积分申请已经预约成功。请持此凭证于</span><span class="s2">${customData.reserveYear}</span><span class="s1">年</span><span class="s2">${customData.reserveMonth}</span><span class="s1">月</span><span class="s2">${customData.reserveDay}</span><span class="s1">日</span><span>到</span><span class="s1">预约受理点</span><span>居住证积分服务窗口提交积分所需的相关材料，逾期不再受理。</span>
+<span>贵单位于</span><span class="s2">${customData.addYear}</span><span class="s1">年</span><span class="s2">${customData.addMonth}</span><span class="s1">月</span><span class="s2">${customData.addDay}</span><span class="s1">日</span><span>网上提交的本单位职工</span><span class="s2">${identityInfo.name}</span><span>（身份证号：</span><span class="s3">${identityInfo.idNumber}</span><span>）居住证积分申请已经预约成功。请持此凭证于</span><span class="s2">${customData.reserveYear}</span><span class="s1">年</span><span class="s2">${customData.reserveMonth}</span><span class="s1">月</span><span class="s2">${customData.reserveDay}</span><span class="s1">日</span><span>到</span><span class="s1">${customData.reservLocation}</span><span>居住证积分服务窗口提交积分所需的相关材料，逾期不再受理。</span>
 </p>
 <p class="p3">&nbsp;</p>
 <p class="p3">
