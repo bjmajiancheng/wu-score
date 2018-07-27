@@ -312,7 +312,9 @@
                 </table>
             </form>
             <!-- 上边选中子女 为有 校验下方子女表 -->
-            <span class="color-red" style="font-size: 12px;">提示：如不填写配偶信息，“婚姻情况”指标不积分。</span>
+            <span class="color-red" style="font-size: 12px;">提示：1、如不填写配偶信息，“婚姻情况”指标不积分。</span>
+            <br />
+            <span class="color-red" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、请如实填写全部家庭成员信息，及配偶、子女信息，是否随迁请视实际情况选择（家庭成员必须全部列出来，随迁选择是，不随迁选择否），若家庭成员列举不全则会影响后续业务办理。</span>
             <div id="children-table">
                 <!-- table表格部分1 子女关系表 -->
                 <form class="houseRelationshipsForm">
@@ -332,7 +334,7 @@
                                 <input type="checkbox" name="check" class="checkRelation">
                             </td>
                             <td>
-                                <select name="relationship">
+                                <select name="relationship" onchange="relationshipChange(this);">
                                     <option value="子" #if(${houseRelationship.relationship}=="子") selected #end>子</option>
                                     <option value="女" #if(${houseRelationship.relationship}=="女") selected #end>女</option>
                                     <option value="配偶" #if(${houseRelationship.relationship}=="配偶") selected #end>配偶</option>
@@ -344,9 +346,9 @@
                             <td>
                                 <input class="table_add_input" type="text" name="idNumber" value="$!{houseRelationship.idNumber}">
                             </td>
-                            <td><input type="radio" name="isRemove${velocityCount}" value="1" id="isRemove1${velocityCount}" #if(${houseRelationship.isRemove} == 1) checked #end>
+                            <td><input type="radio" name="isRemove${velocityCount}" value="1" id="isRemove1${velocityCount}" #if(${houseRelationship.relationship}=="配偶") disabled="disabled" #end #if(${houseRelationship.isRemove} == 1) checked #end>
                                 <label for="isRemove1${velocityCount}">是</label>
-                                <input class="m15" type="radio" name="isRemove${velocityCount}" value="2" id="isRemove2${velocityCount}" #if(${houseRelationship.isRemove} == 2) checked #end>
+                                <input class="m15" type="radio" name="isRemove${velocityCount}" value="2" id="isRemove2${velocityCount}" #if(${houseRelationship.relationship}=="配偶") disabled="disabled" #end #if(${houseRelationship.isRemove} == 2) checked #end>
                                 <label for="isRemove2${velocityCount}">否</label></td>
                             <td>
                                 <input class="table_add_input" type="text" name="cultureDegree" value="$!{houseRelationship.cultureDegree}">
@@ -960,7 +962,7 @@
                 if($("#marriageStatus").val() == 2) {
                     relationshipOption = '<option value="子">子</option><option value="女">女</option>';
                 }
-                html.push('<select name="relationship">'+relationshipOption+'</select>');
+                html.push('<select name="relationship" onchange="relationshipChange(this);">'+relationshipOption+'</select>');
                 html.push('</td>');
                 html.push('<td><input class="table_add_input" type="text" name="name"></td>');
                 html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
@@ -2049,6 +2051,22 @@
             }
         }
         return true;
+    }
+
+    /**
+     * 随迁信息变更
+     *
+     * @param relationship
+     */
+    function relationshipChange(relationship) {
+        var relationshipVal =  $(relationship).find("option:selected").val();
+        var $houseRelationshipTr = $(relationship).parents('.houseRelationship');
+        if(relationshipVal == '配偶') {
+            $houseRelationshipTr.find("input:radio[value=2]").click();
+            $houseRelationshipTr.find("input:radio").attr("disabled", true);
+        } else {
+            $houseRelationshipTr.find("input:radio").removeAttr("disabled");
+        }
     }
 
 </script>

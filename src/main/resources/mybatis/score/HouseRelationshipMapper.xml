@@ -135,11 +135,11 @@
 		WHERE identity_info_id = #{identityInfoId}
 	</delete>
 
-	<delete id="delIds">
+	<delete id="delByIds">
 		DELETE FROM t_house_relationship
 		WHERE id IN
 		<foreach collection="ids" item="item" open="(" separator="," close=")">
-			#{item.id}
+			#{item}
 		</foreach>
 	</delete>
 	

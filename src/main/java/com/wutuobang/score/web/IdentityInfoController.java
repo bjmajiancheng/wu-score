@@ -707,13 +707,13 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationM(0);
             updateIdentityInfo.setReservationDateNull(1);
             updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
-            //可预约状态
+            /*//可预约状态
             boolean reservationFlag = true;
             //预约日期 比 当前日期 小24小时
             if (currDate.compareTo(calendar.getTime()) >= 0) {
                 reservationFlag = false;
                 updateIdentityInfo.setReservationTime(updateIdentityInfo.getReservationTime() - 1);
-            } /*else {//预约日期 比 当前日期 大24小时
+            } *//*else {//预约日期 比 当前日期 大24小时
                 updateIdentityInfo.setReservationTime(1);
             }*/
 
