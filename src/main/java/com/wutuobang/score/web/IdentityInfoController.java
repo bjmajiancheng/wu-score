@@ -845,6 +845,9 @@ public class IdentityInfoController {
             customData.put("currMonth", DateUtil.getMonth(currDate) + 1);
             customData.put("currDay", DateUtil.getDay(currDate));
 
+            if(identityInfo.getAcceptAddressId() == null) {
+                identityInfo.setAcceptAddressId(0);
+            }
             if (identityInfo.getAcceptAddressId() == 1) {
                 customData.put("reservLocation", "市级行政许可中心");
             } else if (identityInfo.getAcceptAddressId() == 2) {

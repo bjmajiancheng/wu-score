@@ -2,7 +2,7 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css">.b1{white-space-collapsing:preserve;}
-.b2{margin: 2cm 2cm 2cm 2cm;}
+.b2{margin: 1cm 1.5cm 1cm 1.5cm;}
 .p1{text-align:center;hyphenate:auto;font-family:Times New Roman;font-size:22pt;}
 .p2{text-align:end;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
 .p3{text-align:start;hyphenate:auto;font-family:Times New Roman;font-size:16pt;}
