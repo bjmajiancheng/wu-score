@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Map;
 import java.util.Set;
@@ -146,7 +149,19 @@ public class FileUploadController {
 
         String fileUrl = uploadFolder + "/" + userName + "/" + fileFolder + "/" + fileName + "." + suffix;
         try {
-            File filePath = new File(fileUrl);
+            //载入图像
+            BufferedImage buffImg = ImageIO.read(new FileInputStream(fileUrl));
+
+            response.setContentType("image/" + suffix);
+            response.setCharacterEncoding("UTF-8");
+
+
+            ServletOutputStream sos = response.getOutputStream();
+            ImageIO.write(buffImg, suffix, sos);
+            sos.close();
+
+
+            /*File filePath = new File(fileUrl);
             if (filePath.exists()) {
                 //读图片
                 FileInputStream inputStream = new FileInputStream(filePath);
@@ -161,7 +176,7 @@ public class FileUploadController {
                 stream.write(data);
                 stream.flush();
                 stream.close();
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
