@@ -41,7 +41,7 @@
                     <tr>
                         <td class="color-red"></span>身份证号：</td>
                         <td>
-                            <input class="integral-input w450" type="text" id="idNumber" name="idNumber" value="$!{identityInfo.idNumber}">
+                            <input class="integral-input w450" type="text" id="idNumber" name="idNumber" value="$!{identityInfo.idNumber}" onkeyup="this.value=this.value.toUpperCase()">
                             <!-- <div class="interal-main-btn m15">身份证上传</div> -->
                         </td>
                     </tr>
@@ -344,7 +344,7 @@
                                 <input class="table_add_input" type="text" name="name" value="$!{houseRelationship.name}">
                             </td>
                             <td>
-                                <input class="table_add_input" type="text" name="idNumber" value="$!{houseRelationship.idNumber}">
+                                <input class="table_add_input" type="text" name="idNumber" value="$!{houseRelationship.idNumber}" onkeyup="this.value=this.value.toUpperCase()">
                             </td>
                             <td><input type="radio" name="isRemove${velocityCount}" value="1" id="isRemove1${velocityCount}" #if(${houseRelationship.relationship}=="配偶") disabled="disabled" #end #if(${houseRelationship.isRemove} == 1) checked #end>
                                 <label for="isRemove1${velocityCount}">是</label>
@@ -965,7 +965,7 @@
                 html.push('<select name="relationship" onchange="relationshipChange(this);">'+relationshipOption+'</select>');
                 html.push('</td>');
                 html.push('<td><input class="table_add_input" type="text" name="name"></td>');
-                html.push('<td><input class="table_add_input" type="text" name="idNumber"></td>');
+                html.push('<td><input class="table_add_input" type="text" name="idNumber" onkeyup="this.value=this.value.toUpperCase()"></td>');
                 html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove1' + relation_idx + '_yes"><label for="isRemove1' + relation_idx + '_yes">是</label>');
                 html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove2' + relation_idx + '_no"><label for="isRemove2' + relation_idx + '_no">否</label></td>');
                 html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
