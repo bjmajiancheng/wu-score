@@ -1345,27 +1345,27 @@
             }
 
             //身份证位数校验
-            if(relationship == '配偶') {
-                var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-                if(!pattern.test(idNumber)) {
-                    layer.msg("身份证格式不正确。");
-                    $(this).find("input[name=idNumber]").focus();
-                    validateFlag = false;
-                    return false;
-                }
+            /*if(relationship == '配偶') {*/
+            var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            if(!pattern.test(idNumber)) {
+                layer.msg(relationship + " 身份证格式不正确。");
+                $(this).find("input[name=idNumber]").focus();
+                validateFlag = false;
+                return false;
+            }
 
-                if(!validateIdNumber(idNumber)) {
-                    layer.msg("配偶身份证格式不正确。");
-                    $(this).find("input[name=idNumber]").focus();
-                    validateFlag = false;
+            if(!validateIdNumber(idNumber)) {
+                layer.msg(relationship + " 身份证格式不正确。");
+                $(this).find("input[name=idNumber]").focus();
+                validateFlag = false;
 
-                    return false;
-                }
-            } else {
+                return false;
+            }
+            /*} else {
                 if(!idNumber) {
                     $(this).find("input[name=idNumber]").val(' ');
                 }
-            }
+            }*/
 
             if(!isRemove) {
                 layer.msg("请填写是否随迁。");
