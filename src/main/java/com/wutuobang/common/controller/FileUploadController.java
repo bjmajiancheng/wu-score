@@ -7,7 +7,10 @@ import com.wutuobang.common.model.AttachmentFileModel;
 import com.wutuobang.common.model.AttachmentModel;
 import com.wutuobang.common.service.IAttachmentFileService;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.web.CompanyInfoController;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -40,6 +43,8 @@ public class FileUploadController {
     @Value("${data.upload.path}")
     private String uploadFolder;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
+
     /**
      * 上传图片
      *
@@ -55,7 +60,7 @@ public class FileUploadController {
 
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         Set<String> fileNames = fileMap.keySet();
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             file = fileMap.get(fileName);
             break;
         }
@@ -91,7 +96,7 @@ public class FileUploadController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/fileUpload/updateFile", method = RequestMethod.POST, produces="text/plain")
+    @RequestMapping(value = "/fileUpload/updateFile", method = RequestMethod.POST, produces = "text/plain")
     public void updateFile(HttpServletRequest request, HttpServletResponse response/*,
             @RequestParam(value = "file", required = true) MultipartFile file*/) throws IOException {
 
@@ -149,12 +154,22 @@ public class FileUploadController {
 
         String fileUrl = uploadFolder + "/" + userName + "/" + fileFolder + "/" + fileName + "." + suffix;
         try {
+
+            FileInputStream fileStream = new FileInputStream(fileUrl);
+            if (fileStream == null) {
+                System.out.println("没有那个文件或目录:fileUrl:" + fileUrl);
+                return;
+            }
+
             //载入图像
-            BufferedImage buffImg = ImageIO.read(new FileInputStream(fileUrl));
+            BufferedImage buffImg = ImageIO.read(fileStream);
+            if (buffImg == null) {
+                System.out.println("载入图像为空:fileUrl:" + fileUrl);
+                return;
+            }
 
             response.setContentType("image/" + suffix);
             response.setCharacterEncoding("UTF-8");
-
 
             ServletOutputStream sos = response.getOutputStream();
             ImageIO.write(buffImg, suffix, sos);
