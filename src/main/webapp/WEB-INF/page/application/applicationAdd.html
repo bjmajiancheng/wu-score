@@ -1344,6 +1344,15 @@
                 return false;
             }
 
+            //验证姓名
+            var regName =/^[\u4e00-\u9fa5]{2,4}$/;
+            if(!regName.test(name)){
+                layer.msg("姓名填写有误。");
+                $(this).find("input[name=name]").focus();
+                validateFlag = false;
+                return false;
+            }
+
             //身份证位数校验
             /*if(relationship == '配偶') {*/
             var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
@@ -1597,7 +1606,8 @@
                 },
                 name: {
                     required: true,
-                    maxlength: 20
+                    maxlength: 20,
+                    isUserName: true
                 },
                 sex: {
                     required: true
@@ -1620,7 +1630,8 @@
                 },
                 name: {
                     required: "请输入姓名",
-                    maxlength: "姓名长度不能大于 20 个字母"
+                    maxlength: "姓名长度不能大于 20 个字母",
+                    isUserName: "请输入正确的姓名"
                 },
                 sex: {
                     required: "请输入性别"
