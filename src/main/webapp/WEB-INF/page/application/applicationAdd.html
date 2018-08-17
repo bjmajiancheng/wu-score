@@ -1384,7 +1384,7 @@
             }
 
             if($.trim(cultureDegree) == '') {
-                layer.msg("请填写文化程度。");
+                layer.msg("子女或者配偶的文化程度不能为空。");
                 $(this).find("input[name=cultureDegree]").focus();
                 validateFlag = false;
                 return false;
