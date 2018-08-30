@@ -703,7 +703,7 @@ public class IdentityInfoController {
             updateIdentityInfo.setId(id);
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
             updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
-            updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
+            //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
             updateIdentityInfo.setReservationM(0);
             updateIdentityInfo.setReservationDateNull(1);
             updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
