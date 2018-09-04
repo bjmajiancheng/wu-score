@@ -78,7 +78,7 @@ public class OnlinePersonMaterialServiceImpl implements IOnlinePersonMaterialSer
             return Collections.emptyList();
         }
 
-        return this.find(Collections.singletonMap("personId", (Object) personId));
+        return onlinePersonMaterialDao.getByPersonId(personId);
     }
 
     /**

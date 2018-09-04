@@ -58,4 +58,12 @@ public interface IOnlinePersonMaterialDao {
      */
     public int delByIds(@Param("ids") List<Integer> ids);
 
+    /**
+     * 根据申请人id获取上传资料信息
+     *
+     * @param personId
+     * @return
+     */
+    public List<OnlinePersonMaterialModel> getByPersonId(@Param("personId")Integer personId);
+
 }

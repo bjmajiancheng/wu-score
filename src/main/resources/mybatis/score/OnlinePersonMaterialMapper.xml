@@ -135,18 +135,25 @@
 		</foreach>
 	</insert>
 
-	<delete id="deleteByPersonId">
-		DELETE FROM t_online_person_material where person_id = #{personId}
-	</delete>
+	<update id="deleteByPersonId">
+		UPDATE t_online_person_material
+		SET status = 2
+		where person_id = #{personId}
+	</update>
 
-	<delete id="delByIds">
-		DELETE FROM t_online_person_material
+	<update id="delByIds">
+		UPDATE t_online_person_material
+		SET status = 2
 		where id IN
 		<foreach collection="ids" item="item" separator="," open="(" close=")">
 			#{item}
 		</foreach>
+	</update>
 
-	</delete>
+	<select id="getByPersonId" resultMap="OnlinePersonMaterial">
+		SELECT <include refid="columns"/> FROM t_online_person_material
+		WHERE person_id = #{personId} AND status IN(0, 1)
+	</select>
 	
 </mapper>
 

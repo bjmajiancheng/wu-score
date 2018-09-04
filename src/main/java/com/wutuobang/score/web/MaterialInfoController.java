@@ -74,6 +74,26 @@ public class MaterialInfoController {
         try {
             ModelAndView mv = new ModelAndView("file/uploadFile.html");
 
+            //用户所有已上传的材料信息
+            List<OnlinePersonMaterialModel> allOnlinePersonMaterials = onlinePersonMaterialService
+                    .find(Collections.singletonMap("personId", (Object) identityInfoId));
+            Map<Integer, String> allReasonMap = new HashMap<Integer, String>();
+            if (CollectionUtils.isNotEmpty(allOnlinePersonMaterials)) {
+                for (OnlinePersonMaterialModel onlinePersonMaterial : allOnlinePersonMaterials) {
+                    if (StringUtils.isEmpty(onlinePersonMaterial.getReason())) {
+                        continue;
+                    }
+                    String reason = allReasonMap.get(onlinePersonMaterial.getMaterialInfoId());
+
+                    if (StringUtils.isEmpty(reason)) {
+                        allReasonMap.put(onlinePersonMaterial.getMaterialInfoId(), onlinePersonMaterial.getReason());
+                    } else {
+                        allReasonMap.put(onlinePersonMaterial.getMaterialInfoId(),
+                                reason + "<br/>" + onlinePersonMaterial.getReason());
+                    }
+                }
+            }
+
             //用户已上传的材料信息
             List<OnlinePersonMaterialModel> onlinePersonMaterials = onlinePersonMaterialService
                     .getByPersonId(identityInfoId);
@@ -86,10 +106,18 @@ public class MaterialInfoController {
             }
 
             //所有材料信息
-            List<MaterialInfoModel> materialInfos = materialInfoService.find(Collections.singletonMap("isUpload", (Object)1));
+            List<MaterialInfoModel> materialInfos = materialInfoService
+                    .find(Collections.singletonMap("isUpload", (Object) 1));
             if (CollectionUtils.isNotEmpty(materialInfos)) {
                 for (MaterialInfoModel materialInfo : materialInfos) {
-                    materialInfo.setOnlinePersonMaterial(onlinePersonMaterialMap.get(materialInfo.getId()));
+                    OnlinePersonMaterialModel tmpMaterialModel = onlinePersonMaterialMap.get(materialInfo.getId());
+                    if (tmpMaterialModel != null) {
+                        String reason = allReasonMap.get(materialInfo.getId());
+                        if (StringUtils.isNotEmpty(reason)) {
+                            tmpMaterialModel.setReason(reason);
+                        }
+                    }
+                    materialInfo.setOnlinePersonMaterial(tmpMaterialModel);
                 }
             }
 
@@ -203,19 +231,20 @@ public class MaterialInfoController {
 
                 //待补件功能修改
                 if (identityInfoModel.getUnionApproveStatus1() == 4 || identityInfoModel.getUnionApproveStatus2() == 4
-                        || identityInfoModel.getPoliceApproveStatus() == 2 || identityInfoModel.getRensheAcceptStatus() == 2) {
+                        || identityInfoModel.getPoliceApproveStatus() == 2
+                        || identityInfoModel.getRensheAcceptStatus() == 2) {
                     IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
                     updateIdentityInfo.setId(identityInfoModel.getId());
-                    if(identityInfoModel.getUnionApproveStatus1() == 4) {
+                    if (identityInfoModel.getUnionApproveStatus1() == 4) {
                         updateIdentityInfo.setUnionApproveStatus1(1);
                     }
-                    if(identityInfoModel.getUnionApproveStatus2() == 4) {
+                    if (identityInfoModel.getUnionApproveStatus2() == 4) {
                         updateIdentityInfo.setUnionApproveStatus2(1);
                     }
-                    if(identityInfoModel.getPoliceApproveStatus() == 2) {
+                    if (identityInfoModel.getPoliceApproveStatus() == 2) {
                         updateIdentityInfo.setPoliceApproveStatus(1);
                     }
-                    if(identityInfoModel.getRensheAcceptStatus() == 2) {
+                    if (identityInfoModel.getRensheAcceptStatus() == 2) {
                         updateIdentityInfo.setRensheAcceptStatus(1);
                     }
                     identityInfoService.update(updateIdentityInfo);
