@@ -51,7 +51,7 @@
                                 #foreach($indicatorItem in $indicatorModel.indicatorItems)
                                         <span><input class="input_radio indicator_item" type="radio" id="indicator_item_$!{indicatorItem.id}" name="indicator_item_$!{indicatorModel.id}" value="$!{indicatorItem.id}"
                                                #if(${indicatorModel.disabled} ==1) disabled #end #if(${indicatorItem.checked} == 1) checked="checked" #end/>
-                                        <label for="indicator_item_$!{indicatorItem.id}">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
+                                        <label for="indicator_item_$!{indicatorItem.id}" style="display:contents;">$!{indicatorItem.content} ($!{indicatorItem.score} 分) &nbsp;&nbsp;&nbsp;</label>
                                         </span>
                                         <br/>
                                 #end
