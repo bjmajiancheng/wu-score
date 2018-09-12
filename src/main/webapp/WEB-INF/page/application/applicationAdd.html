@@ -305,8 +305,20 @@
                             <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon" #if(${houseMoveModel.haveSon} == 2) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="haveNoSon">无</label>
                             <span class="integral-td-title ml50">子女数量：</span>
-                            <input class="integral-input" type="number" min="0" placeholder="无子女数量可不填" name="sonNumber"
-                                   id="sonNumber" value="$!{houseMoveModel.sonNumber}" style="width:265px;">
+                            <!--<input class="integral-input" type="number" min="0" placeholder="无子女数量可不填" name="sonNumber"
+                                   id="sonNumber" value="$!{houseMoveModel.sonNumber}" style="width:265px;">-->
+                            <select name="sonNumber" id="sonNumber">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
                         </td>
                     </tr>
                 </table>
@@ -315,6 +327,8 @@
             <span class="color-red" style="font-size: 12px;">提示：1、如不填写配偶信息，“婚姻情况”指标不积分。</span>
             <br />
             <span class="color-red" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、必须如实列出全部家庭成员信息（配偶和子女信息，包括亲生、法院判与及收养子女），否则影响市卫计委窗口业务办理。</span>
+            <br />
+            <span class="color-red" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、不如实填写全部家庭成员信息的，按照提交虚假材料处理，取消当期申请资格。</span>
             <div id="children-table">
                 <!-- table表格部分1 子女关系表 -->
                 <form class="houseRelationshipsForm">
@@ -1132,7 +1146,13 @@
                     }
                 });
             }
+
+            autoGenerRelation();
         });
+
+        if('${addFlag}' == 'true' && $("#marriageStatus").val() == 1) {
+            autoGenerRelation();
+        }
 
         //职业资格项
         $("input[name=professionType]").on("change", function(){
@@ -1235,6 +1255,10 @@
                 $("#degree").val(0);
             }
         }).change();
+
+        $("#sonNumber").on("change", function(){
+            autoGenerRelation();
+        });
     });
 
     /**
@@ -1330,6 +1354,13 @@
             validateFlag = false;
         }
 
+        var sonNumber = $("#sonNumber").val();
+        var marriageNumber = 0;
+        if($("#marriageStatus").val() == 1) {
+            marriageNumber = 1;
+        }
+        var relationSonNum = 0;
+        var relationmarriageNum = 0;
         $(".houseRelationship").each(function () {
             var relationship = $(this).find("select[name=relationship]").val();
             var name = $(this).find("input[name=name]").val();
@@ -1384,7 +1415,27 @@
                 validateFlag = false;
                 return false;
             }
+
+            if(relationship == '子' || relationship == '女') {
+                relationSonNum ++;
+            } else if(relationship == '配偶') {
+                relationmarriageNum ++;
+            }
         });
+
+        if(!validateFlag) {
+            return false;
+        }
+
+        if(relationSonNum != sonNumber) {
+            layer.msg("子女数量填写不匹配,请新增或删除子女信息");
+            return false;
+        }
+
+        if(relationmarriageNum != marriageNumber) {
+            layer.msg("配偶数量填写不匹配,请新增或删除配偶信息");
+            return false;
+        }
 
         //身份证验证(正面)
         if($("input[name=id_card_positive]").val() == '') {
@@ -1395,10 +1446,6 @@
         //身份证验证(反面)
         if($("input[name=id_card_opposite]").val() == '') {
             layer.msg("请上传身份证反面图片。");
-            return false;
-        }
-
-        if(!validateFlag) {
             return false;
         }
 
@@ -1919,6 +1966,7 @@
         $("#settledNature").val('$!{houseMoveModel.settledNature}');
         $("#region").val('$!{houseMoveModel.region}');
         $("#marriageStatus").val('$!{houseMoveModel.marriageStatus}');
+        $("#sonNumber").val('$!{houseMoveModel.sonNumber}');
 
         //其他信息
         $("#politicalStatus").val('$!{houseOtherModel.politicalStatus}');
@@ -2056,10 +2104,10 @@
                     if(relship.length <= num){
                         layer.msg("请添加子女信息！");
                         return false;
-                    }else if(relship.length >= num + 2 ){
+                    }/*else if(relship.length >= num + 2 ){
                         layer.msg("请保持子女数量与填写数量一致！");
                         return false;
-                    }
+                    }*/
                 }
             }
         }
@@ -2080,6 +2128,58 @@
         } else {
             $houseRelationshipTr.find("input:radio").removeAttr("disabled");
         }
+    }
+
+    /**
+     * 自动生成与本人关系信息
+     *
+     */
+    function autoGenerRelation() {
+        $(".houseRelationship").each(function(){
+            this.remove();
+        })
+
+        if($("#marriageStatus").val() == 1) {
+            addRelationship('<option value="配偶">配偶</option>');
+        }
+
+        var sonNumber = $("#sonNumber").val();
+        for(var i=0; i<sonNumber; i++) {
+            addRelationship('<option value="子">子</option><option value="女">女</option>');
+        }
+    }
+
+    /**
+     * 添加与本人关系信息
+     *
+     * @param relationshipOption
+     */
+    function addRelationship(relationshipOption) {
+        var disabled = '';
+        var parnter = false;
+        if($(relationshipOption).val() == '配偶') {
+            disabled = ' disabled="disabled"';
+            parnter = true;
+        }
+        var html = [];
+        html.push('<tr class="houseRelationship">');
+        html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
+        html.push('<td>');
+        /*var relationshipOption = '<option value="子">子</option><option value="女">女</option><option value="配偶">配偶</option>';
+        if($("#marriageStatus").val() == 2) {
+            relationshipOption = '<option value="子">子</option><option value="女">女</option>';
+        }*/
+        html.push('<select name="relationship" onchange="relationshipChange(this);">'+relationshipOption+'</select>');
+        html.push('</td>');
+        html.push('<td><input class="table_add_input" type="text" name="name"></td>');
+        html.push('<td><input class="table_add_input" type="text" name="idNumber" onkeyup="this.value=this.value.toUpperCase()"></td>');
+        html.push('<td><input type="radio" name="isRemove' + relation_idx + '" value="1" id="isRemove1' + relation_idx + '_yes" '+ disabled +'><label for="isRemove1' + relation_idx + '_yes">是</label>');
+        html.push('<input class="m15" type="radio" name="isRemove' + relation_idx + '" value="2" id="isRemove2' + relation_idx + '_no" '+ disabled +' '+ (parnter ? 'checked="checked"' : '') +'><label for="isRemove2' + relation_idx + '_no">否</label></td>');
+        html.push('<td><input class="table_add_input" type="text" name="cultureDegree"></td>');
+        html.push('</tr>');
+        $(".houseRelationships").append(html.join(''));
+
+        relation_idx = relation_idx + 1;
     }
 
 </script>
