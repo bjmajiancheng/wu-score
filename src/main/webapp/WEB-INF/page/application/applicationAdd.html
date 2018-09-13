@@ -1432,6 +1432,15 @@
             return false;
         }
 
+        var haveSon = $('input:radio[name="haveSon"]:checked').val();
+        if(haveSon == 1) {
+            if($("#sonNumber").val() <= 0) {
+                layer.msg("子女数量最少是一个, 请添加子女数量");
+                $("#sonNumber").focus();
+                return false;
+            }
+        }
+
         if(relationmarriageNum != marriageNumber) {
             layer.msg("配偶数量填写不匹配,请新增或删除配偶信息");
             return false;
