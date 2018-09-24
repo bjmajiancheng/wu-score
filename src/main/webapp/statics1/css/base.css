@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/**
+ * @ClassName: base.css
+ * @Description: 公共样式表
+ * @Author: UED
+ * @Date: 2017-3-15
+ */
+/*------------------ Reset ------------------*/
+
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, fieldset, input { padding: 0; margin: 0;}
+article, aside, dialog, footer, header, section, footer, nav, figure, menu { display:block; }
+body{font:14px/20px '微软雅黑','Microsoft YaHei','\5FAE\8F6F\96C5\9ED1'; color:#333;    -webkit-font-smoothing: antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust: none;  -ms-text-size-adjust: none;}
+input, select, textarea { font: 12px/20px '微软雅黑','Microsoft YaHei','\5FAE\8F6F\96C5\9ED1';}
+i, cite, em { font-style: normal;}
+input,button,select,textarea{ vertical-align: middle;outline:none}
+td, th, div,p,span{word-break: break-all;word-wrap: break-word;}
+ul,dl,ol, li {list-style:none;margin:0;padding:0;}
+table {border-collapse: collapse;}
+hr {  border: none;  height: 1px;  }
+img{border:none;}
+label{font-weight:normal;}
+a { text-decoration: none; outline:none; }
+a:link,a:visited,a:hover, a:active{text-decoration: none;outline:none;}
+
+
+/*------------------common ------------------*/
+.clearfix:after {  content:"";display:block;clear:both;}
+.clearfix {*zoom:1;}/*IE/7/6*/
+.fl{float:left;}
+.fr{float:right;}
+.tl{text-align:left;}
+.tc{text-align:center;}
+.tr{text-align:right;}
+.textOver{white-space:nowrap;word-wrap:normal;overflow:hidden;text-overflow:ellipsis;}
+.wrapper{width:1200px;margin:0 auto; position:inherit;}/*宽度根据设计图定*/
+.hidden{display:none;}
+.show{display:block;}
+.animate{-webkit-transition-duration:.5s;-moz-transition-duration:.5s;-o-transition:.5s;transition-duration:.5s; }

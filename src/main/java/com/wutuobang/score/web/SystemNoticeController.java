@@ -125,8 +125,40 @@ public class SystemNoticeController {
     @RequestMapping("/systemNotice.html")
     public ModelAndView systemNotice(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
-        mv.addObject("systemNotice", systemNoticeService.getLastSystemNotice());
+
+
+        SystemNoticeModel systemNoticeModel = systemNoticeService.getLastSystemNotice();
+        if(systemNoticeModel == null) {
+            systemNoticeModel = new SystemNoticeModel();
+            systemNoticeModel.setType(3);
+        }
+        mv.addObject("systemNotice", systemNoticeModel);
         return mv;
     }
+
+    /**
+     * 获取流程说明页面
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/liucheng.html")
+    public String liucheng(HttpServletRequest request) {
+        return "system/liucheng.html";
+    }
+
+        @RequestMapping("/peitao.html")
+    public String peitao(HttpServletRequest request) {return "system/peitao.html";}
+
+    @RequestMapping("/peitao2.html")
+    public String peitao2(HttpServletRequest request) {return "system/peitao2.html";}
+
+    @RequestMapping("/peitao3.html")
+    public String peitao3(HttpServletRequest request) {return "system/peitao3.html";}
+
+    @RequestMapping("/peitao4.html")
+    public String peitao4(HttpServletRequest request) {return "system/peitao4.html";}
+
+
 
 }

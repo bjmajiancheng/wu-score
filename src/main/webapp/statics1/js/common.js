@@ -23,6 +23,11 @@ function currPage(pageClass) {
     $("."+pageClass).addClass("active");
 }
 
+//定位当前页面(新)
+function newCurrPage(pageClass) {
+    $("."+pageClass).attr('style', "color:rgb(243, 127, 50);background: rgb(221, 230, 237);");
+}
+
 /**
  * 通过get方式获取数据信息
  * @param url

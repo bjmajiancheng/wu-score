@@ -1,18 +1,18 @@
 <!-- banner和title部分 -->
-<div class="integral-banner-title">
-    <!-- title -->
+<!--<div class="integral-banner-title">
+    &lt;!&ndash; title &ndash;&gt;
     <div class="integral-title">
-        <!-- logo -->
+        &lt;!&ndash; logo &ndash;&gt;
         <div class="integral-logo">
 
         </div>
-        <!-- 地点信息 -->
+        &lt;!&ndash; 地点信息 &ndash;&gt;
         <div class="integral-local"></div>
-        <!-- 搜索框 -->
+        &lt;!&ndash; 搜索框 &ndash;&gt;
         <div class="integral-searchbar"></div>
-        <!-- 登录信息 -->
+        &lt;!&ndash; 登录信息 &ndash;&gt;
         <div class="integral-register-info">
-            <!--<img src="${rc.contextPath}/$static.curr_ver()/img/user.png" alt="">-->
+            &lt;!&ndash;<img src="${rc.contextPath}/$static.curr_ver()/img/user.png" alt="">&ndash;&gt;
             #if($shiro.hasLogin())
             <a href="${rc.contextPath}/logout.html" class="login_cl">注销</a>
             #else
@@ -20,5 +20,52 @@
             <a href="${rc.contextPath}/sys/register.html">注册</a>
             #end
         </div>
+    </div>
+</div>-->
+<div class="header">
+    <div class="header-bar">
+        <div class="toolbar wrapper clearfix" style="position:relative">
+            <div class="fl web-info">
+                <a href="http://www.tj.gov.cn/">
+                    <img src="${rc.contextPath}/$static.curr_ver()/img/small-ne.png" alt="国徽" /> 天津市政府门户网站</a>
+                <span id="showdate">2018年4月3日 星期二</span>
+                <script type="text/javascript">
+                    var day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+                    var now = new Date();
+                    $("#showdate").html(now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日 " + day[now.getDay()]);
+                </script>
+            </div>
+
+            <div class="fr user-info">
+                <div class="search-box">
+                    <!--<input type="text" name="sxname" onkeydown="if(event.keyCode==13){znsearchform();}" id="sxname" placeholder="请输入您想找的服务">-->
+                    <span class="fa fa-search" onclick="znsearchform()"></span>
+                </div>
+                <ul class="userinfo-list">
+                    <!-- <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span>用户中心</span></a></li> -->
+                    <li>
+                        #if($shiro.hasLogin())
+                        #else
+                        <a href="${rc.contextPath}/login.html">登录</a>/
+                        <a href="${rc.contextPath}/sys/register.html">注册</a>
+                        #end
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header-nav">
+        <div class="header-nav-banner">
+            <div class="National-Emblem">
+                <img src="${rc.contextPath}/$static.curr_ver()/img/Nationa_Emblem.png" alt="中华人民共和国国徽" />
+            </div>
+            <div class="web-name-img">
+                <img src="${rc.contextPath}/$static.curr_ver()/img/482466838474947407.png" />
+            </div>
+        </div>
+        <nav class="Navigation-bar">
+
+        </nav>
     </div>
 </div>

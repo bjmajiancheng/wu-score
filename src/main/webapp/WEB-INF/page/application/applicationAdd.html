@@ -39,7 +39,7 @@
                 <input type="hidden" name="id" value="$!{identityInfo.id}" id="identityInfoId"/>
                 <table class="integral-cont-table">
                     <tr>
-                        <td class="color-red"></span>身份证号：</td>
+                        <td class=""></span>身份证号：</td>
                         <td>
                             <input class="integral-input w450" type="text" id="idNumber" name="idNumber" value="$!{identityInfo.idNumber}" onkeyup="this.value=this.value.toUpperCase()">
                             <!-- <div class="interal-main-btn m15">身份证上传</div> -->
@@ -77,13 +77,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                        <td class="">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
                         <td>
                             <input class="integral-input w450" type="text" name="name" id="name" value="$!{identityInfo.name}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                        <td class="">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                         <td>
                             <input class="input_radio" type="radio" name="sex" value="1" id="male" #if(${identityInfo.sex} == 1) checked #end>&nbsp;
                             <label for="male">男</label>
@@ -92,19 +92,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">出生日期：</td>
+                        <td class="">出生日期：</td>
                         <td>
                             <input class="integral-input w450" type="text" name="birthday" id="birthday" value="$!{identityInfo.birthday}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+                        <td class="">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>
                             <input class="integral-input w450" type="number" id="age" name="age" value="$!{identityInfo.age}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
+                        <td class="">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
                         <td>
                             <!--<input class="integral-input w450" type="text" name="nation" id="nation" value="$!{identityInfo.nation}">-->
                             <select name="nation" id="nation" style="width:125px;">
@@ -180,7 +180,7 @@
                 <input type="hidden" name="id" value="$!{houseMoveModel.id}" />
                 <table class="integral-cont-table">
                     <tr>
-                        <td class="color-red">迁出地区：</td>
+                        <td class="">迁出地区：</td>
                         <td>
                             <select name="moveProvince" id="moveProvince" style="width:125px;">
                                 <option value="0">请选择</option>
@@ -197,20 +197,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">迁出地地址：</td>
+                        <td class="">迁出地地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">现户籍登记机关：</td>
+                        <td class="">现户籍登记机关：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="moveRegisteredOffice"
                                    id="moveRegisteredOffice" value="$!{houseMoveModel.moveRegisteredOffice}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">现户口性质：</td>
+                        <td class="">现户口性质：</td>
                         <td>
                             <select name="houseNature" id="houseNature">
                                 <!--<option value="0">请选择</option>-->
@@ -235,7 +235,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">迁入户籍登记机关：</td>
+                        <td class="">迁入户籍登记机关：</td>
                         <td>
                             <select name="registeredOffice" id="registeredOffice">
                                 <option value="0">请选择</option>
@@ -247,13 +247,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">迁入地址详细地址：</td>
+                        <td class="">迁入地址详细地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="address" id="address" value="$!{houseMoveModel.address}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">收件人：</td>
+                        <td class="">收件人：</td>
                         <td>
                             <input class="integral-input w200" placeholder="户口准予迁入收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
@@ -262,13 +262,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">邮寄地址：</td>
+                        <td class="">邮寄地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress" value="$!{houseMoveModel.witnessAddress}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">拟落户地区：</td>
+                        <td class="">拟落户地区：</td>
                         <td>
                             <select name="region" id="region">
                                 <option value="21">和平区</option>
@@ -298,7 +298,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">有无子女</td>
+                        <td class="">有无子女</td>
                         <td>
                             <input class="input_radio" type="radio" name="haveSon" value="1" id="haveSon" #if(${houseMoveModel.haveSon} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp; <label for="haveSon">有</label>
@@ -324,11 +324,11 @@
                 </table>
             </form>
             <!-- 上边选中子女 为有 校验下方子女表 -->
-            <span class="color-red" style="font-size: 12px;">提示：1、如不填写配偶信息，“婚姻情况”指标不积分。</span>
+            <span class="" style="font-size: 12px;">提示：1、如不填写配偶信息，“婚姻情况”指标不积分。</span>
             <br />
-            <span class="color-red" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、必须如实列出全部家庭成员信息（配偶和子女信息，包括亲生、法院判与及收养子女），否则影响市卫计委窗口业务办理。</span>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、必须如实列出全部家庭成员信息（配偶和子女信息，包括亲生、法院判与及收养子女），否则影响市卫计委窗口业务办理。</span>
             <br />
-            <span class="color-red" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、不如实填写全部家庭成员信息的，按照提交虚假材料处理，取消当期申请资格。</span>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、不如实填写全部家庭成员信息的，按照提交虚假材料处理，取消当期申请资格。</span>
             <div id="children-table">
                 <!-- table表格部分1 子女关系表 -->
                 <form class="houseRelationshipsForm">
@@ -390,7 +390,7 @@
 
                 <table class="integral-cont-table">
                     <tr>
-                        <td class="color-red">申请人类型：</td>
+                        <td class="">申请人类型：</td>
                         <td>
                             <input class="input_radio" type="radio" name="applicantType" value="1" id="radio13" #if(${houseOtherModel.applicantType} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="radio13">企业员工</label>
@@ -403,7 +403,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">政治面貌：</td>
+                        <td class="">政治面貌：</td>
                         <td>
                             <select name="politicalStatus" id="politicalStatus">
                                 <option value="13" selected>群众</option>
@@ -426,7 +426,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">文化程度：</td>
+                        <td class="">文化程度：</td>
                         <td>
                             <select name="cultureDegree" id="cultureDegree">
                             </select>
@@ -443,25 +443,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">专业：</td>
+                        <td class="">专业：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="profession" id="profession" value="$!{houseOtherModel.profession}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">实际用工单位名称：</td>
+                        <td class="">实际用工单位名称：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="companyName" value="$!{houseOtherModel.companyName}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">实际用工单位地址：</td>
+                        <td class="">实际用工单位地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="companyAddress" value="$!{houseOtherModel.companyAddress}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">当前工作岗位：</td>
+                        <td class="">当前工作岗位：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="jobTitle" value="$!{houseOtherModel.jobTitle}">
                             <span class="integral-td-title ml50">主要从事工作内容：</span>
@@ -469,7 +469,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">单位座机电话：</td>
+                        <td class="">单位座机电话：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="companyPhone" value="$!{houseOtherModel.companyPhone}">
                             <span class="integral-td-title ml50">本人手机：</span>
@@ -477,13 +477,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">居住证申领日期：</td>
+                        <td class="">居住证申领日期：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="applicationDate" id="applicationDate" value="$!{houseOtherModel.applicationDate}">
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">社保缴纳：</td>
+                        <td class="">社保缴纳：</td>
                         <td>
                             <input class="input_radio" type="radio" name="socialSecurityPay" value="1" id="redio1" #if(${houseOtherModel.socialSecurityPay} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="redio1">是</label>
@@ -493,7 +493,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">公积金：</td>
+                        <td class="">公积金：</td>
                         <td>
                             <input class="input_radio" type="radio" name="providentFund" value="1" id="redio3" #if(${houseOtherModel.providentFund} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="redio3">是</label>
@@ -503,7 +503,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">纳税情况：</td>
+                        <td class="">纳税情况：</td>
                         <td>
                             <input class="input_radio" type="radio" name="taxes" value="1" id="radio5" #if(${houseOtherModel.taxes} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="radio5">是</label>
@@ -514,7 +514,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">拘留记录：</td>
+                        <td class="">拘留记录：</td>
                         <td>
                             <input class="input_radio" type="radio" name="detention" value="1" id="radio7" #if(${houseOtherModel.detention} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;
@@ -526,7 +526,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">获刑记录：</td>
+                        <td class="">获刑记录：</td>
                         <td>
                             <input class="input_radio" type="radio" name="penalty" value="1" id="radio9" #if(${houseOtherModel.penalty} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;
@@ -538,7 +538,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="color-red">奖项荣誉称号：</td>
+                        <td class="">奖项荣誉称号：</td>
                         <td>
                             <select name="awardsTitle" id="awardsTitle" style="width:518px;">
                             </select>
@@ -558,7 +558,7 @@
                 <input type="hidden" name="id" value="$!{houseProfessionModel.id}" />
                 <table class="integral-cont-table">
                     <tr>
-                        <td class="color-red">职业资格项：</td>
+                        <td class="">职业资格项：</td>
                         <td>
                             <input class="input_radio" type="radio" name="professionType" value="1" id="radio16" #if(${addFlag}) checked #end #if(${houseProfessionModel.professionType} == 1) checked #end>
                             &nbsp;&nbsp;&nbsp;
@@ -571,7 +571,7 @@
                             <label for="radio18">具有职业资格</label>
                         </td>
                     </tr>
-                    <tr class="professionType_2 color-red">
+                    <tr class="professionType_2 ">
                         <td>专业名称：</td>
                         <td>
                             <select name="professionTitle" id="professionTitle">
@@ -621,7 +621,7 @@
                             </select>
                         </td>
                     </tr>
-                    <!--<tr class="professionType_2 color-red">
+                    <!--<tr class="professionType_2 ">
                         <td>职称级别：</td>
                         <td>
                             <select name="jobTitleLevel" id="jobTitleLevel">
@@ -632,7 +632,7 @@
                         </td>
                     </tr>-->
 
-                    <tr class="professionType_3 color-red">
+                    <tr class="professionType_3 ">
                         <td>职业资格级别：</td>
                         <td>
                             <select name="jobLevel" id="jobLevel" onchange="showInfo2()">
@@ -840,14 +840,14 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="professionType_3 color-red">
+                    <tr class="professionType_3 ">
                         <td>工种：</td>
                         <td>
                             <select name="jobType" id="jobType" onchange="showInfo3()">
                             </select>
                         </td>
                     </tr>
-                    <tr class="professionType_23 color-red">
+                    <tr class="professionType_23 ">
                         <td>发证机关：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
@@ -855,7 +855,7 @@
                             <input class="integral-input w200" type="text" name="issuingDate" id="issuingDate" value="$!{houseProfessionModel.issuingDate}">
                         </td>
                     </tr>
-                    <!--<tr class="professionType_2 color-red">
+                    <!--<tr class="professionType_2 ">
                         <td>职位：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="jobPosition" id="jobPosition" value="$!{houseProfessionModel.jobPosition}">
@@ -863,7 +863,7 @@
                             <input class="integral-input w200" type="text" name="issuingAuthority" id="issuingAuthority" value="$!{houseProfessionModel.issuingAuthority}">
                         </td>
                     </tr>-->
-                    <tr class="professionType_23 color-red">
+                    <tr class="professionType_23 ">
                         <td>证书编号：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="certificateCode" id="certificateCode" value="$!{houseProfessionModel.certificateCode}">
@@ -880,7 +880,7 @@
         <table class="check-table">
             <tr>
                 <td>
-                    <span class="color-red">*</span>验证码：
+                    <span class="">*</span>验证码：
                 </td>
                 <td>
                     <input class="integral-input w200" type="text" name="captcha">

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport">
+    <title>天津市网上办事大厅</title>
+
+    #parse("common/header.html")
+    <![endif]-->
+    <style>
+        html {
+            /*始终显示滚动条*/
+            -ms-overflow-style: scrollbar;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            min-width: 1200px;
+            margin: 0;
+            padding: 0
+        }
+
+        .container {
+            width: 100%;
+
+        }
+
+        body {
+            min-width: 1200px
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="pub-wrapper" style="background:#f5f5f5">
+    #parse("common/banner.html")
+
+    <!--页面内容区-->
+    <div class="content wrapper" style="margin-top: 20px;">
+        <!--第一行内容-->
+        <section class="clearfix section-notice">
+            #parse("common/lefter.html")
+
+            <div class="panel-heading ">
+                <section>
+                    <div class="section-item fl" style="width: 950px;margin-top: -40px;">
+                        <div class="cons02_t" style="display: block;">
+                            <ul id="#body">
+                                <a style="float: left;margin-left: 135px;margin-top: 50px" href="${rc.contextPath}/systemNotice/peitao.html">
+                                    <img src="${rc.contextPath}/$static.curr_ver()/img/liucheng1.png" alt="">
+                                </a>
+                                <li class="li1" id="li1"
+                                    style="float: left;width: 132px;height: 5px;background: #bdcfdd;;margin-top: 76px"></li>
+                                <a id="li2" style="float: left;margin-top: 50px" href="${rc.contextPath}/systemNotice/peitao2.html">
+                                    <img src="${rc.contextPath}/$static.curr_ver()/img/674224063526679812.png" alt="">
+                                </a>
+                                <li style="float: left;width: 132px;height: 5px;background: #ccc;margin-top: 76px"></li>
+                                <a style="float: left;margin-top: 50px" href="${rc.contextPath}/systemNotice/peitao3.html">
+                                    <img src="${rc.contextPath}/$static.curr_ver()/img/榜上有名.png" alt="">
+                                </a>
+                                <li style="float: left;width: 132px;height: 5px;background: #ccc;margin-top: 76px"></li>
+                                <a class="selectTag" style="float: left;margin-top: 50px" href="${rc.contextPath}/systemNotice/peitao4.html">
+                                    <img src="${rc.contextPath}/$static.curr_ver()/img/居住证.png" alt="">
+                                </a>
+                            </ul>
+                            <div id="tagContent">
+                                <div class="tagContent selectTag"
+                                     style="position: absolute;top: 628px;margin-left: 34px;">
+                                    <ul>
+                                        <li>
+                                            <img src="${rc.contextPath}/$static.curr_ver()/img/peitao.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tagContent" style="position: absolute;top: 628px;margin-left: 34px">
+                                    <ul>
+                                        <li>
+                                            <img src="${rc.contextPath}/$static.curr_ver()/img/peitao2.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tagContent" style="position: absolute;top: 660px;margin-left: 34px">
+                                    <ul>
+                                        <li>
+                                            <img src="${rc.contextPath}/$static.curr_ver()/img/peitao3.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tagContent" style="position: absolute;top: 660px;margin-left: 34px">
+                                    <ul>
+                                        <li>
+                                            <img src="${rc.contextPath}/$static.curr_ver()/img/peitao4.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+
+</div>
+
+<style>
+    .clearfix:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden
+    }
+
+    .clearfix {
+        *+height: 1%;
+    }
+
+    .other-links {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .other-links ul li {
+        float: left;
+        color: #fff;
+        width: 28%
+    }
+
+    .other-links ul li select {
+        border: none;
+        background: rgba(255, 255, 255, 0.7);
+        color: #999;
+        width: 95%
+    }
+
+    /*footer*/
+
+    /* .footer{height:150px;width:100%; background:#3098ef; } */
+
+    .footer {
+        width: 100%;
+        background: #E9E9E9;
+        border-top: none;
+        min-height: 180px;
+    }
+
+    .footer .container {
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .footer-left {
+        width: 33%;
+        float: left;
+        margin-top: 20px;
+    }
+
+    .footer-left a img {
+        margin-right: 10px;
+    }
+
+    .footer-left a {
+        float: right;
+    }
+
+    .footer-right {
+        width: 60%;
+        float: left;
+        margin-top: 20px;
+    }
+
+    .footer-right p {
+        margin-bottom: 10px;
+        color: #8f8b8b;
+    }
+
+    .bottomshow a {
+        cursor: pointer;
+    }
+</style>
+<!-- 底部栏 footer -->
+#parse("common/footer.html")
+</body>
+
+<script type="text/javascript">
+    $(function () {
+        newCurrPage("peitao");
+    });
+</script>
+
+</html>
