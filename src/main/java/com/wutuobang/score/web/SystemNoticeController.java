@@ -128,6 +128,7 @@ public class SystemNoticeController {
 
 
         SystemNoticeModel systemNoticeModel = systemNoticeService.getLastSystemNotice();
+        systemNoticeModel = null;
         if(systemNoticeModel == null) {
             systemNoticeModel = new SystemNoticeModel();
             systemNoticeModel.setType(3);

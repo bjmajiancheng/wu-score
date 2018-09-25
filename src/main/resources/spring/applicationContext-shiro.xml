@@ -58,6 +58,7 @@
                 /companyInfo/editPassword=anon
                 /captcha.jpg=anon
                 /index.html=anon
+                /welcome.html=anon
                 /systemNotice/**=anon
                 /attachmentFile/**=anon
                 /commonQuestion/**=anon

@@ -36,7 +36,7 @@
         <p class="fl publicityList">
             <img src="${rc.contextPath}/$static.curr_ver()/img/公示1.png" alt="" style="margin-right: 10px">名单公示</p>
     </a>
-    <div class="menuCard clearFix">
+    <div class="menuCard clearFix scoreMenu">
         <p class="fl jifen">
             <img src="${rc.contextPath}/$static.curr_ver()/img/证件.png" alt="" style="margin-right: 10px">居住证积分
             <i class="" id="i"></i>
@@ -44,9 +44,16 @@
 
         <div class="cardOne">
             <div class="cardOnes">
-                <p style="font-size: 13px">申请人列表</p>
-                <p style="font-size: 13px">申请人信息填写</p>
-                <p style="font-size: 13px">申请人信息填写</p>
+                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/index.html">
+                    <p class="fl identityList" style="font-size: 13px">申请人列表</p>
+                </a>
+                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
+                    <p class="fl addIdentity" style="font-size: 13px">申请人信息填写</p>
+                </a>
+
+                <a class="menuCard clearFix" href="${rc.contextPath}/companyInfo/companyEdit.html">
+                    <p class="fl companyEdit" style="font-size: 13px">企业信息修改</p>
+                </a>
             </div>
 
         </div>

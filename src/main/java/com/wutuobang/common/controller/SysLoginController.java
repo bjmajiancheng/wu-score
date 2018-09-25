@@ -3,6 +3,7 @@ package com.wutuobang.common.controller;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.model.SystemNoticeModel;
 import com.wutuobang.score.service.ISystemNoticeService;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.shiro.authc.*;
@@ -101,7 +102,9 @@ public class SysLoginController {
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
-        mv.addObject("systemNotice", systemNoticeService.getLastSystemNotice());
+        SystemNoticeModel systemNoticeModel = new SystemNoticeModel();
+        systemNoticeModel.setType(3);
+        mv.addObject("systemNotice", systemNoticeModel);
         return mv;
         /*return "redirect:systemNotice/systemNotice.html";*/
     }
@@ -115,6 +118,16 @@ public class SysLoginController {
     public String login() {
         ShiroUtils.logout();
         return "login.html";
+    }
+
+    /**
+     * 跳转到欢迎页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/welcome.html", method = RequestMethod.GET)
+    public String welcome() {
+        return "welcome.html";
     }
 
 }
