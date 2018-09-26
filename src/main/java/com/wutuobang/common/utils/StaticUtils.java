@@ -6,7 +6,7 @@ package com.wutuobang.common.utils;
 public class StaticUtils {
 
     /** 前端版本 */
-    public final String curr_ver = "statics1";
+    public final String curr_ver = "statics2";
 
     /**
      * 获取当前静态文件版本
@@ -14,7 +14,7 @@ public class StaticUtils {
      * @return
      */
     public final static String curr_ver() {
-        return "statics1";
+        return "statics2";
     }
 
 }
