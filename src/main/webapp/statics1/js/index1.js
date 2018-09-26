@@ -71,7 +71,7 @@ function createDemo(name){
 
     })
 }
-createDemo('demo1');
+/*createDemo('demo1');
 $('.s_municipal').click(function(){
     dataJson='json/aa.json';
     createDemo('demo1');
@@ -79,7 +79,7 @@ $('.s_municipal').click(function(){
 $('.q_municipal').click(function(){
     dataJson='json/q_index.json';
     createDemo('demo1');
-})
+})*/
 function autoAddEllipsis(pStr, pLen) {
 
     var _ret = cutString(pStr, pLen);
