@@ -36,6 +36,7 @@
         <p class="fl publicityList">
             <img src="${rc.contextPath}/$static.curr_ver()/img/公示1.png" alt="" style="margin-right: 10px">名单公示</p>
     </a>
+    #if($shiro.hasLogin())
     <div class="menuCard clearFix scoreMenu">
         <p class="fl jifen">
             <img src="${rc.contextPath}/$static.curr_ver()/img/证件.png" alt="" style="margin-right: 10px">居住证积分
@@ -58,6 +59,7 @@
 
         </div>
     </div>
+    #end
 
 </div>
 
