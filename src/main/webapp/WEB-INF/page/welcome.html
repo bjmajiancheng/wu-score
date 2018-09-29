@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>天津市居住证积分专栏</title>
     <script src="${rc.contextPath}/$static.curr_ver()/js/jquery.min.js"></script>
     <style>
         *{margin: 0;padding: 0;}
@@ -16,29 +16,29 @@
         #menu li{width:135px;height:147px;list-style: none;position: absolute;opacity: 0;}
         #menu li a{display:inline-block;width:100%;height:100%;}
 
-        /*#menu li:nth-child(1){top: 294px;left: 490px;background: url('${rc.contextPath}/$static.curr_ver()/image/配套说明.png');}
-        #menu li:nth-child(2){top: 166px;left: 680px;background: url('${rc.contextPath}/$static.curr_ver()/image/办理流程.png');}
-        #menu li:nth-child(3){top: 244px;left: 876px;background: url('${rc.contextPath}/$static.curr_ver()/image/重要通知.png');}
-        #menu li:nth-child(4){top: 178px;left: 1073px;background: url('${rc.contextPath}/$static.curr_ver()/image/相关政策.png');}
-        #menu li:nth-child(5){top: 294px;left: 1260px;background: url('${rc.contextPath}/$static.curr_ver()/image/办理指南.png');}
+        /*#menu li:nth-child(1){top: 294px;left: 490px;background: url('${rc.contextPath}/$static.curr_ver()/image/peitaoshuoming.png');}
+        #menu li:nth-child(2){top: 166px;left: 680px;background: url('${rc.contextPath}/$static.curr_ver()/image/banliliucheng.png');}
+        #menu li:nth-child(3){top: 244px;left: 876px;background: url('${rc.contextPath}/$static.curr_ver()/image/zhongyaotongzhi.png');}
+        #menu li:nth-child(4){top: 178px;left: 1073px;background: url('${rc.contextPath}/$static.curr_ver()/image/xiangguanzhengce.png');}
+        #menu li:nth-child(5){top: 294px;left: 1260px;background: url('${rc.contextPath}/$static.curr_ver()/image/banlizhinan.png');}
 
-        #menu li:nth-child(6){top: 547px;left: 428px;background: url('${rc.contextPath}/$static.curr_ver()/image/资料下载.png');}
-        #menu li:nth-child(7){top: 443px;left: 642px;background: url('${rc.contextPath}/$static.curr_ver()/image/常见问题.png');}
-        #menu li:nth-child(8){top: 512px;left: 876px;background: url('${rc.contextPath}/$static.curr_ver()/image/积分查询.png');}
-        #menu li:nth-child(9){top: 441px;left: 1110px;background: url('${rc.contextPath}/$static.curr_ver()/image/名单公示.png');}
-        #menu li:nth-child(10){top: 549px;left: 1322px;background: url('${rc.contextPath}/$static.curr_ver()/image/居住证积分.png');}*/
+        #menu li:nth-child(6){top: 547px;left: 428px;background: url('${rc.contextPath}/$static.curr_ver()/image/ziliaoxiazai.png');}
+        #menu li:nth-child(7){top: 443px;left: 642px;background: url('${rc.contextPath}/$static.curr_ver()/image/changjianwenti.png');}
+        #menu li:nth-child(8){top: 512px;left: 876px;background: url('${rc.contextPath}/$static.curr_ver()/image/jifenchaxun.png');}
+        #menu li:nth-child(9){top: 441px;left: 1110px;background: url('${rc.contextPath}/$static.curr_ver()/image/mingdangongshi.png');}
+        #menu li:nth-child(10){top: 549px;left: 1322px;background: url('${rc.contextPath}/$static.curr_ver()/image/juzhuzhengjifen.png');}*/
 
-        #menu li:nth-child(1){top: 35%;left: 20%;background: url('${rc.contextPath}/$static.curr_ver()/image/配套说明.png');}
-        #menu li:nth-child(2){top: 15%;left: 35%;background: url('${rc.contextPath}/$static.curr_ver()/image/办理流程.png');}
-        #menu li:nth-child(3){top: 25%;left: 50%;background: url('${rc.contextPath}/$static.curr_ver()/image/重要通知.png');}
-        #menu li:nth-child(4){top: 17%;left: 65%;background: url('${rc.contextPath}/$static.curr_ver()/image/相关政策.png');}
-        #menu li:nth-child(5){top: 30%;left: 80%;background: url('${rc.contextPath}/$static.curr_ver()/image/办理指南.png');}
+        #menu li:nth-child(1){top: 35%;left: 20%;background: url('${rc.contextPath}/$static.curr_ver()/image/peitaoshuoming.png');}
+        #menu li:nth-child(2){top: 15%;left: 35%;background: url('${rc.contextPath}/$static.curr_ver()/image/banliliucheng.png');}
+        #menu li:nth-child(3){top: 25%;left: 50%;background: url('${rc.contextPath}/$static.curr_ver()/image/zhongyaotongzhi.png');}
+        #menu li:nth-child(4){top: 17%;left: 65%;background: url('${rc.contextPath}/$static.curr_ver()/image/xiangguanzhengce.png');}
+        #menu li:nth-child(5){top: 30%;left: 80%;background: url('${rc.contextPath}/$static.curr_ver()/image/banlizhinan.png');}
 
-        #menu li:nth-child(6){top: 55%;left: 32%;background: url('${rc.contextPath}/$static.curr_ver()/image/资料下载.png');}
-        #menu li:nth-child(7){top: 65%;left: 47%;background: url('${rc.contextPath}/$static.curr_ver()/image/常见问题.png');}
-        #menu li:nth-child(8){top: 57%;left: 62%;background: url('${rc.contextPath}/$static.curr_ver()/image/积分查询.png');}
-        #menu li:nth-child(9){top: 67%;left: 77%;background: url('${rc.contextPath}/$static.curr_ver()/image/名单公示.png');}
-        #menu li:nth-child(10){top: 52%;left: 88%;background: url('${rc.contextPath}/$static.curr_ver()/image/居住证积分.png');}
+        #menu li:nth-child(6){top: 55%;left: 32%;background: url('${rc.contextPath}/$static.curr_ver()/image/ziliaoxiazai.png');}
+        #menu li:nth-child(7){top: 65%;left: 47%;background: url('${rc.contextPath}/$static.curr_ver()/image/changjianwenti.png');}
+        #menu li:nth-child(8){top: 57%;left: 62%;background: url('${rc.contextPath}/$static.curr_ver()/image/jifenchaxun.png');}
+        #menu li:nth-child(9){top: 67%;left: 77%;background: url('${rc.contextPath}/$static.curr_ver()/image/mingdangongshi.png');}
+        #menu li:nth-child(10){top: 52%;left: 88%;background: url('${rc.contextPath}/$static.curr_ver()/image/juzhuzhengjifen.png');}
     </style>
 </head>
 <body>
@@ -88,34 +88,34 @@
         Yimg=$(this).css('background');
         switch (idx){
             case 0:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/配套说明-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/peitaoshuoming_yidong.png")'});
                 break;
             case 1:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/办理说明-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/banlishuoming_yidong.png")'});
                 break;
             case 2:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/重要通知-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/zhongyaotongzhi_yidong.png")'});
                 break;
             case 3:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/相关政策-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/xiangguanzhengce_yidong.png")'});
                 break;
             case 4:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/办理指南-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/banlizhinan_yidong.png")'});
                 break;
             case 5:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/资料下载-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/ziliaoxiazai_yidong.png")'});
                 break;
             case 6:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/常见问题-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/changjianwenti_yidong.png")'});
                 break;
             case 7:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/积分查询-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/jifenchaxun_yidong.png")'});
                 break;
             case 8:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/名单公示-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/mingdangongshi_yidong.png")'});
                 break;
             case 9:
-                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/居住证积分-移动.png")'});
+                $(this).css({'background':'url("${rc.contextPath}/$static.curr_ver()/image/juzhuzhengjifen_yidong.png")'});
                 break;
         }
 
