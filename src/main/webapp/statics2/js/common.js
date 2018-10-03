@@ -25,7 +25,10 @@ function currPage(pageClass) {
 
 //定位当前页面(新)
 function newCurrPage(pageClass) {
-    $("."+pageClass).attr('style', "color:rgb(243, 127, 50);background: rgb(221, 230, 237);");
+    /*$("."+pageClass).addClass('menuChange');*/
+    var style = $("."+pageClass).attr('style');
+    style = style + ';color:rgb(243, 127, 50);background: rgb(221, 230, 237);';
+    $("."+pageClass).attr('style', style);
 }
 
 /**

@@ -1,21 +1,29 @@
-$('.menuCard>p').attr({'isclick':'1'});
-$('.cardOnes>p').attr({'isTrue':'0'});
-$('.menuCard>p').click(function(){
+$('.menuCard>p').attr({'isclick':'0'});
+$('.cardOnes>p').attr({'isTrue':'1'});
+$('#dv1').click(function(){
     var clickNum=$(this).attr('isclick');
     if(clickNum==0){
-        $(this).parent().find('.cardOne').css({'display':'none'});
-        $(this).attr({'isclick':'1'});
-        $("#menu").css("height","483px");
-        $("#icon").css("display","block");
-        $('#icon1').css("display",'none');
-        // $(this).next('i').attr({'background':'url(../img/left.png) no-repeat center top;'});
-    }else{
         // $(this).next('i').attr({'background':'url(../img/bottom.png) no-repeat center top;});
-        $("#menu").css("height","600px");
+        $("#menu").css("height","600px")
         $(this).parent().find('.cardOne').css({'display':'block'});
-        $(this).attr({'isclick':'0'});
-        $("#icon1").css("display","block");
+        // $(this).attr({'isclick':'0'});
+        $("#dv1").attr({'isclick':'1'})
+        $("#icon1").css("display","block")
         $('#icon').css("display",'none')
+    }else{
+        // // $(this).next('i').attr({'background':'url(../img/bottom.png) no-repeat center top;});
+        // $("#menu").css("height","600px")
+        // $(this).parent().find('.cardOne').css({'display':'block'});
+        // // $(this).attr({'isclick':'0'});
+        // $("#dv1").attr({'isclick':'0'})
+        // $("#icon1").css("display","block")
+        // $('#icon').css("display",'none')
+        $(this).parent().find('.cardOne').css({'display':'none'});
+        // $(this).attr({'isclick':'1'})
+        $("#dv1").attr({'isclick':'0'})
+        $("#menu").css("height","483px");
+        $("#icon").css("display","block")
+        $('#icon1').css("display",'none')
     }
 });
 $('.cardOnes>p').click(function(){
@@ -24,7 +32,6 @@ $('.cardOnes>p').click(function(){
 
         $(this).parent().find('.cardTwo').css({'display':'block'});
         $(this).attr({'isTrue':'1'});
-
     }else{
         $(this).parent().find('.cardTwo').css({'display':'none'});
         $(this).attr({'isTrue':'0'});
@@ -71,7 +78,7 @@ function createDemo(name){
 
     })
 }
-/*createDemo('demo1');
+/*createDemo('demo1');*/
 $('.s_municipal').click(function(){
     dataJson='json/aa.json';
     createDemo('demo1');
@@ -79,7 +86,7 @@ $('.s_municipal').click(function(){
 $('.q_municipal').click(function(){
     dataJson='json/q_index.json';
     createDemo('demo1');
-})*/
+})
 function autoAddEllipsis(pStr, pLen) {
 
     var _ret = cutString(pStr, pLen);

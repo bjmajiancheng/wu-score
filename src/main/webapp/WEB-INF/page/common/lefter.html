@@ -38,6 +38,29 @@
     </a>
     #if($shiro.hasLogin())
     <div class="menuCard clearFix scoreMenu">
+        <p class="fl jifen" id="dv1">
+            <img src="${rc.contextPath}/$static.curr_ver()/img/papers.png" alt="" style="margin-right: 13px">居住证积分
+            <i id="icon" style="background-image: url('${rc.contextPath}/$static.curr_ver()/img/left.png');display: block"></i>
+            <i id="icon1" style="background-image: url('${rc.contextPath}/$static.curr_ver()/img/bottom.png');display: none"></i>
+        </p>
+
+        <div class="cardOne">
+            <div class="cardOnes">
+                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/index.html">
+                    <p class="identityList" style="font-size: 13px;padding-left:40px">申请人列表</p>
+                </a>
+                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
+                    <p class="addIdentity" style="font-size: 13px;padding-left:40px">申请人信息填写</p>
+                </a>
+                <a class="menuCard clearFix" href="${rc.contextPath}/companyInfo/companyEdit.html">
+                    <p class="companyEdit" style="font-size: 13px;padding-left:40px">企业信息修改</p>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    #end
+    <!--<div class="menuCard clearFix scoreMenu">
         <p class="fl jifen">
             <img src="${rc.contextPath}/$static.curr_ver()/img/papers.png" alt="" style="margin-right: 10px">居住证积分
             <i class="" id="i"></i>
@@ -58,8 +81,7 @@
             </div>
 
         </div>
-    </div>
-    #end
+    </div>-->
 
 </div>
 
@@ -137,6 +159,11 @@
 
     .bottomshow a {
         cursor: pointer;
+    }
+
+    .menuChange {
+        color:rgb(243, 127, 50);
+        background: rgb(221, 230, 237);
     }
 </style>
 

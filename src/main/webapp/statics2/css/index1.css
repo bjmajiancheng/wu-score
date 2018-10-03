@@ -9,9 +9,9 @@
 /*------------------首页公共样式----------------------*/
 body{background: #f4f4f4 url(../img/bg-cloud.png) no-repeat left top -120px;background-size: 100% auto}
 html {
-/*始终显示滚动条*/
-margin:0;padding:0
-} 
+	/*始终显示滚动条*/
+	margin:0;padding:0
+}
 body{
 	min-width: 1200px;margin:0;padding:0
 }
@@ -61,7 +61,7 @@ section{margin-bottom: 27px}
 .server-list li a i.icon-comment{background: url(../img/icon-comment.png) no-repeat center;}
 
 /*----导航与banner---*/
-.header-nav{ background: #fff url(../img/web-banner.png) no-repeat top -10px center;background-size: 100% auto}
+.header-nav{/* background: #fff url(../img/web-banner.png) no-repeat top -10px center;background-size: 100% auto */}
 .header-nav .header-nav-banner{height: 260px;width: 60%;margin: auto;text-align: center;position:  relative;}
 .header-nav .header-nav-banner .National-Emblem{position: absolute;top: -35px;margin-bottom: 14px;height: 114px;width: 100%;}
 .header-nav .header-nav-banner .web-name-img{padding-top: 95px;margin-bottom: 18px}
@@ -207,22 +207,22 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 .header-nav .header-nav-banner .web-name-img img{width: 100%}
 /*lll*/
 .web-info{
-  font-size: 16px
+	font-size: 16px
 }
 .web-info img{
-  margin-top: -4px
+	margin-top: -4px
 }
 .foot-item-left{
-  margin-top: 50px
+	margin-top: 50px
 }
 .foot-item-left a:first-child{
-  display: inline-block;float: left;width: 50%;text-align: right;
+	display: inline-block;float: left;width: 50%;text-align: right;
 }
 .foot-item-left a:last-child{
-  display: inline-block;float: left;width: 30%;text-align: center;
+	display: inline-block;float: left;width: 30%;text-align: center;
 }
 .foot-item-right{
-  margin-left: -6%
+	margin-left: -6%
 }
 .container{
 	width: 100%;padding:0;margin:0;
@@ -252,22 +252,22 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	border:1px solid #7095c2;
 	vertical-align: middle;
 	line-height: 22px;
-    text-align: center;
-    margin-left:15px;
-    position:relative;
+	text-align: center;
+	margin-left:15px;
+	position:relative;
 }
 .panel_top ul li:last-child{
 	width: 218px;
-    height: 24px;
-    margin-left:290px;
-    border-radius:16px;
-    border:1px solid #a2a2a2;
+	height: 24px;
+	margin-left:290px;
+	border-radius:16px;
+	border:1px solid #a2a2a2;
 }
 .panel_top ul li:last-child .search-box span{
 	right:0;
-    top:2px; 
-    color: #a2a2a2;
-    border-right: none;
+	top:2px;
+	color: #a2a2a2;
+	border-right: none;
 }
 .panel_content{
 	padding: 26px;
@@ -296,15 +296,15 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	text-align: center;
 	font-size: 16px;
 	right: 200px;
-    top: 15px;
+	top: 15px;
 }
 .panel_footer{
 	width: 60%;
-    /* height: 68px; */
-    /* margin: 0 auto; */
-    position: absolute;
-    bottom: 126px;
-    right: -10%;
+	/* height: 68px; */
+	/* margin: 0 auto; */
+	position: absolute;
+	bottom: 126px;
+	right: -10%;
 }
 .pagination{
 	margin:16px auto;
@@ -312,11 +312,11 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 }
 .section-item .panel-heading span.title_err{
 	position: absolute;
-    color: #c4d3e6;
-    top: -7px;
-    right: 6px;
-    cursor: pointer;
-    font-size: 12px;
+	color: #c4d3e6;
+	top: -7px;
+	right: 6px;
+	cursor: pointer;
+	font-size: 12px;
 }
 .panel_top ul li:first-child{
 	background-color: #7095c2;
@@ -327,28 +327,28 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	border: 1px solid #aaa;
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-go-input>input[type=text], .paginationjs.paginationjs-theme-blue .paginationjs-pages li{
-	 /*border-radius: 8px;*/
-	 border-color: #999;
+	/*border-radius: 8px;*/
+	border-color: #999;
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages li.active>a{
 	background: #7095c2;
-    color: #fff;
-    height: 35px;
-    line-height: 35px;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages li>a{
 	color:#999;
 }
 .paginationjs .paginationjs-pages li>a{
 	min-width: 35px;
-    height: 35px;
-    line-height: 35px;
-    display: block;
-    background: #fff;
-    font-size: 14px;
-    color: #333;
-    text-decoration: none;
-    text-align: center;
+	height: 35px;
+	line-height: 35px;
+	display: block;
+	background: #fff;
+	font-size: 14px;
+	color: #333;
+	text-decoration: none;
+	text-align: center;
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages .paginationjs-prev>a,.paginationjs.paginationjs-theme-blue .paginationjs-pages .paginationjs-next>a{
 	width: 66px;
@@ -356,8 +356,8 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 }
 #menu{
 	width: 170px;
-    height: 435px;
-    border:2px solid #bdcfdd;
+	height: 100%;
+	border:2px solid #bdcfdd;
 	border-radius: 6px;
 	background: rgba(253,253,253,1)
 }
@@ -372,7 +372,7 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	display: inline-block;
 	padding-left: 12px;
 	cursor: pointer;
-	
+
 }
 .menuCard>p{
 	position: relative;
@@ -391,19 +391,19 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	line-height: 50px;
 	box-sizing:border-box;
 	/*color: #fff;*/
-	/*font-size: 18px;
-	background: #fff;
-	display: inline-block;
-	padding-left: 12px;
-	cursor: pointer;
-	border-top:none;
+/*font-size: 18px;
+background: #fff;
+display: inline-block;
+padding-left: 12px;
+cursor: pointer;
+border-top:none;
 }*/
 
 .menuCard i{
 	line-height: 50px;
 	color:#598db7;
 	font-weight: 400;
- 	font-size: 16px;
+	font-size: 16px;
 }
 .cardOne{
 	width: 100%;
@@ -437,7 +437,7 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 }
 .menuCard:first-child .cardOne{
 	display:block;
-} 
+}
 .content_top{
 	width:960px;
 	margin:0 auto;
@@ -462,17 +462,17 @@ footer .foot-item img{margin-top: 40px; margin-right: 15px}
 	margin-left: 20px;
 }
 .content_tops2{
-font-weight:bold;
-color:rgba(249,7,10,1);
-margin-top: 44px;
-margin-left:262px;
+	font-weight:bold;
+	color:rgba(249,7,10,1);
+	margin-top: 44px;
+	margin-left:262px;
 }
 .content_tops3{
 	font-weight:bold;
 	color:rgba(102,102,102,1);
 	margin-top: 44px;
 	margin-left:856px;
-	}
+}
 .content_top h6{
 	display: inline-block;
 	font-size: 18px;
@@ -492,7 +492,7 @@ margin-left:262px;
 	border-radius: 50%
 }
 .dv1{
-	background-color: #7095c2;	
+	background-color: #7095c2;
 	width: 60px;
 	height: 60px;
 	border-radius: 50%
