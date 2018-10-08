@@ -92,7 +92,13 @@ public class SystemNoticeServiceImpl implements ISystemNoticeService {
             return new PageData<SystemNoticeModel>();
         }
 
-        List<SystemNoticeModel> systemNotices = systemNoticeDao.findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
+        List<SystemNoticeModel> systemNotices = null;
+        if (type == 2){
+            systemNotices = systemNoticeDao.findPage(param, new RowBounds((pageNo - 1) * 30, 30));
+        } else {
+            systemNotices = systemNoticeDao.findPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
+        }
+
         PageData<SystemNoticeModel> pageData = new PageData<SystemNoticeModel>();
         pageData.setData(systemNotices);
         pageData.setRecordsTotal(pageCount);
