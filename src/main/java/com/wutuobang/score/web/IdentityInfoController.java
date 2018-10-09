@@ -701,12 +701,31 @@ public class IdentityInfoController {
 
             IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
             updateIdentityInfo.setId(id);
-            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
-            updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
-            //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
-            updateIdentityInfo.setReservationM(0);
-            updateIdentityInfo.setReservationDateNull(1);
-            updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
+
+            /*
+            2018年10月9日修改，xuegr
+            已经通过公安窗口前置审核的申请人，如果取消预约，再进行二次预约的，公安窗口不必再次进行前置审核，公安窗口的一切操作状态保留；
+            下面if中的判断条件就是此状态时的参数
+             */
+            if(identityInfoModel.getReservationStatus()==11 && identityInfoModel.getHallStatus()==3 && identityInfoModel.getPoliceApproveStatus()==3
+                    && identityInfoModel.getRensheAcceptStatus()==1){
+//                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
+//                updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
+                //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
+//                updateIdentityInfo.setReservationM(0);
+                updateIdentityInfo.setReservationDateNull(1);//设置预约时间为空
+                updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
+                updateIdentityInfo.setHallStatus(0);
+                updateIdentityInfo.setPoliceApproveStatus(1);
+                updateIdentityInfo.setRensheAcceptStatus(0);
+            } else{
+                updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
+                updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
+                //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
+                updateIdentityInfo.setReservationM(0);
+                updateIdentityInfo.setReservationDateNull(1);
+                updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
+            }
             /*//可预约状态
             boolean reservationFlag = true;
             //预约日期 比 当前日期 小24小时
