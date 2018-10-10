@@ -611,7 +611,12 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
             String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
             updateIdentityInfo.setAcceptNumber(acceptNumber);
-            updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
+            if(identityInfoModel.getPoliceApproveStatus() == 3){
+                updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_3);
+            }else{
+                updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
+            }
+
             updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime() - 1);
 
             identityInfoService.update(updateIdentityInfo);
