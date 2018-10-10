@@ -18,7 +18,7 @@ public class CommonConstant {
     public String applicationMessage = "系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。";
 
     //2、申请人自主测评通过后，短信通知申请人、经办人
-    public String autoevaluationpassMessage = "系统提示：%s，恭喜您已通过自主测评，下一步可以上传预审材料。 ";
+    public String autoevaluationpassMessage = "系统提示：%s，恭喜您已通过自主测评，下一步可以进行网上预约。";
 
     //3、申请人预约成功后，取消预约时需要经办人短信验证码
     public String reservationMessage = "系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。";
