@@ -49,7 +49,7 @@
                 <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/index.html">
                     <p class="identityList" style="font-size: 13px;padding-left:40px">申请人列表</p>
                 </a>
-                <a id="closeAdd" class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
+                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
                     <p class="addIdentity" style="font-size: 13px;padding-left:40px">申请人信息填写</p>
                 </a>
                 <a class="menuCard clearFix" href="${rc.contextPath}/companyInfo/companyEdit.html">
@@ -166,25 +166,4 @@
         background: rgb(221, 230, 237);
     }
 </style>
-<script type="text/javascript">
-    $("#closeAdd").click(function () {
-        /*
-         受理期收尾安排：2018年10月30日17点关闭关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。
-         */
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        var year_2018 = date2.getFullYear();
-        var month_2018 = date2.getMonth()+1;
-        var strDate_2018 = date2.getDate();
-        var hour_2018 = date2.getHours();
-        var min_2018 = date2.getMinutes();
-        var date = new Date();
-
-        if(date2<date){
-            layer.msg('10月30日17:00关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。');
-            return false;
-        }
-    });
-</script>
 

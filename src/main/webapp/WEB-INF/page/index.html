@@ -188,23 +188,6 @@
         component.$inject('#app');
 
         $("#addApplication").on("click", function () {
-            /*
-             受理期收尾安排：2018年10月30日17点关闭申请人信息填写
-             */
-            var finishDate = "2018-10-30 17:00";
-            finishDate = finishDate.replace(/-/g,"/");
-            var date2 = new Date(finishDate);
-            var year_2018 = date2.getFullYear();
-            var month_2018 = date2.getMonth()+1;
-            var strDate_2018 = date2.getDate();
-            var hour_2018 = date2.getHours();
-            var min_2018 = date2.getMinutes();
-            var date = new Date();
-
-            if(date2<date){
-                layer.msg('10月30日17:00关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。');
-                return;
-            }
             window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
         });
     });
@@ -264,24 +247,6 @@
      * @param id
      */
     function reservationLocation(id) {
-        /*
-         受理期收尾安排：2018年10月30日17点关闭关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。
-         */
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        var year_2018 = date2.getFullYear();
-        var month_2018 = date2.getMonth()+1;
-        var strDate_2018 = date2.getDate();
-        var hour_2018 = date2.getHours();
-        var min_2018 = date2.getMinutes();
-        var date = new Date();
-
-        if(date2<date){
-            layer.msg('10月30日17:00关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。');
-            return false;
-        }
-
         //询问框
         var index = layer.confirm('确定要申请审核吗？', {
             btn: ['确认', '取消'] //按钮
@@ -314,25 +279,6 @@
      * @param id
      */
     function autoTest(id) {
-
-        /*
-         受理期收尾安排：2018年10月30日17点关闭关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。
-         */
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        var year_2018 = date2.getFullYear();
-        var month_2018 = date2.getMonth()+1;
-        var strDate_2018 = date2.getDate();
-        var hour_2018 = date2.getHours();
-        var min_2018 = date2.getMinutes();
-        var date = new Date();
-
-        if(date2<date){
-            layer.msg('10月30日17:00关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。');
-            return false;
-        }
-
         //询问框
         var index = layer.confirm('测评完毕之后无法再进行信息修改,确定要自助评测吗？', {
             btn: ['确认', '取消'] //按钮
@@ -405,24 +351,6 @@
      * @param id
      */
     function uploadFile(id) {
-        /*
-         受理期收尾安排：2018年10月30日17点关闭关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。
-         */
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        var year_2018 = date2.getFullYear();
-        var month_2018 = date2.getMonth()+1;
-        var strDate_2018 = date2.getDate();
-        var hour_2018 = date2.getHours();
-        var min_2018 = date2.getMinutes();
-        var date = new Date();
-
-        if(date2<date){
-            layer.msg('10月30日17:00关闭单位注册、申请人信息填写、在线测评、上传材料、申请网上预审功能。');
-            return false;
-        }
-
         //询问框
         var index = layer.confirm('确定要上传材料吗？', {
             btn: ['确认', '取消'] //按钮
