@@ -155,7 +155,7 @@
                                     <span class="integral-table-btn integral-table-btn2 print" onclick="printReservation({identityInfo.id})">打印</span>
                                 {/if}
                             {/if}
-                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
+                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 }
                                 {\#if identityInfo.reservationStatus != 9}
                                     <span class="integral-table-btn integral-table-btn2" onclick="reUpload({identityInfo.id})">重新上传材料</span>
                                     <span class="integral-table-btn integral-table-btn2" onclick="followUp({identityInfo.id})">修改随迁信息</span>
