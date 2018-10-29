@@ -7,6 +7,7 @@
 
 package com.wutuobang.score.web;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,6 +84,17 @@ public class CompanyInfoController {
         }
 
         try {
+
+            /*
+            2018年10月30日17:00关闭单位注册、网上预审功能
+             */
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String strTime = "2018-10-30 17:00";
+            Date date2 = sdf.parse(strTime);
+            if (date2.getTime()<System.currentTimeMillis()){
+                return ResultParam.error("2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+            }
+
 
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
             if (companyInfoModel == null) {

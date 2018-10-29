@@ -49,7 +49,7 @@
                 <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/index.html">
                     <p class="identityList" style="font-size: 13px;padding-left:40px">申请人列表</p>
                 </a>
-                <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
+                <a id="applicationWrInfo" class="menuCard clearFix" href="${rc.contextPath}/identityInfo/applicationAdd.html">
                     <p class="addIdentity" style="font-size: 13px;padding-left:40px">申请人信息填写</p>
                 </a>
                 <a class="menuCard clearFix" href="${rc.contextPath}/companyInfo/companyEdit.html">
@@ -167,3 +167,16 @@
     }
 </style>
 
+<script type="text/javascript">
+    $("applicationWrInfo").on("click", function () {
+        var time= $.ajax({async: false}).getResponseHeader("Date");
+        var date = new Date(time);
+        var finishDate = "2018-10-30 17:00";
+        finishDate = finishDate.replace(/-/g,"/");
+        var date2 = new Date(finishDate);
+        if(date2<date){
+            layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
+            return false;
+        }
+    })
+</script>
