@@ -22,6 +22,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 登录相关
@@ -61,6 +64,22 @@ public class SysLoginController {
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     public ResultParam login(String username, String password, String captcha) throws IOException {
+
+        /*
+            2018年10月30日17:00关闭单位注册、网上预审功能
+             */
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String strTime = "2018-10-31 17:00";
+        Date date2 = null;
+        try {
+            date2 = sdf.parse(strTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (date2.getTime()<System.currentTimeMillis()){
+            return ResultParam.error("2018年第二期居住证积分受理阶段已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+        }
+
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return ResultParam.error("验证码不正确");
