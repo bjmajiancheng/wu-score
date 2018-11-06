@@ -121,8 +121,9 @@ public class SysLoginController {
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("system/systemNoticeDetail.html");
-        SystemNoticeModel systemNoticeModel = new SystemNoticeModel();
-        systemNoticeModel.setType(3);
+        /*SystemNoticeModel systemNoticeModel = new SystemNoticeModel();
+        systemNoticeModel.setType(3);*/
+        SystemNoticeModel systemNoticeModel = systemNoticeService.getLastSystemNotice();
         mv.addObject("systemNotice", systemNoticeModel);
         return mv;
         /*return "redirect:systemNotice/systemNotice.html";*/
