@@ -24,12 +24,18 @@
         <result property="acceptUserCount" column="accept_user_count"/>
         <result property="status" column="status"/>
         <result property="process" column="process"/>
+		<result property="closeFunctionTime" column="close_function_time"/>
+		<result property="openFunctionTime" column="open_function_time"/>
+		<result property="closeLoginTime" column="close_login_time"/>
+		<result property="openLoginTime" column="open_login_time"/>
+
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,batch_name ,batch_number ,apply_begin ,apply_end ,accept_begin ,accept_end ,publish_begin ,publish_end ,notice_begin ,notice_end ,self_score_end ,accept_address_id ,indicator_type ,indicator_value ,accept_user_count ,status ,process 
+        id ,batch_name ,batch_number ,apply_begin ,apply_end ,accept_begin ,accept_end ,publish_begin ,publish_end ,notice_begin ,notice_end ,self_score_end ,accept_address_id ,indicator_type ,indicator_value ,accept_user_count ,status ,process,
+         close_function_time,open_function_time,close_login_time,open_login_time
 	    ]]>
 	</sql>
 

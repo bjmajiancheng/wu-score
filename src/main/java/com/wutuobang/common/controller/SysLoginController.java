@@ -3,7 +3,9 @@ package com.wutuobang.common.controller;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.SystemNoticeModel;
+import com.wutuobang.score.service.IBatchConfService;
 import com.wutuobang.score.service.ISystemNoticeService;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.shiro.authc.*;
@@ -22,9 +24,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 登录相关
@@ -42,6 +48,9 @@ public class SysLoginController {
     @Autowired
     private ISystemNoticeService systemNoticeService;
 
+    @Autowired
+    private IBatchConfService batchConfService;
+
     @RequestMapping("/captcha.jpg")
     public void captcha(HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
@@ -58,6 +67,31 @@ public class SysLoginController {
         ImageIO.write(image, "jpg", out);
     }
 
+    /*
+    判断是否在关闭功能的时间段内，若是返回成功，失败返回0即可
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sys/getCloseOrOpenFunTime", method = RequestMethod.POST)
+    public ResultParam getCloseOrOpenFunTime(){
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date closeFunctionTime = new Date();
+        Date openFunctionTime = new Date();
+        for(BatchConfModel batchConf : batchConfs){
+            if (batchConf.getStatus() == 1){
+                closeFunctionTime = batchConf.getCloseFunctionTime();
+                openFunctionTime = batchConf.getOpenFunctionTime();
+            }
+        }
+        if (closeFunctionTime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openFunctionTime.getTime()){
+            return ResultParam.cloOrOpen();
+        }else{
+            return ResultParam.ok();
+        }
+    }
+
     /**
      * 登录
      */
@@ -65,18 +99,24 @@ public class SysLoginController {
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     public ResultParam login(String username, String password, String captcha) throws IOException {
 
+
         /*
-            2018年10月30日17:00关闭单位注册、网上预审功能
-             */
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String strTime = "2018-10-31 17:00";
-        Date date2 = null;
-        try {
-            date2 = sdf.parse(strTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        从表 t_batch_conf 中取字段值，CLOSE_LOGIN_TIME（关闭登录功能时间）、OPEN_LOGIN_TIME（打开登录功能时间）
+         */
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date closeLogintime = new Date();
+        Date openLoginTime = new Date();
+        for(BatchConfModel batchConf : batchConfs){
+            if (batchConf.getStatus() == 1){
+                closeLogintime = batchConf.getCloseLoginTime();
+                openLoginTime = batchConf.getOpenLoginTime();
+            }
         }
-        if (date2.getTime()<System.currentTimeMillis()){
+
+        if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
             return ResultParam.error("2018年第二期居住证积分受理阶段已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
         }
 

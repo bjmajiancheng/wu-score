@@ -58,6 +58,19 @@ public class BatchConfModel implements Serializable {
 
 	private Integer process;//"当前进程"
 
+	/*
+	添加4个字段值
+	* 1、关闭单位注册、填写申请人信息、自助测评、申请预审功能的时间；
+     * 2、打开单位注册、填写申请人信息、自助测评、申请预审功能的时间；
+     * 3、关闭申请人登录功能的时间；
+     * 4、打开申请人登录功能的时间；
+	 */
+	private Date closeFunctionTime;
+	private Date openFunctionTime;
+	private Date closeLoginTime;
+	private Date openLoginTime;
+
+
 	//columns END
 		
 	public void setId(Integer id) {
@@ -202,6 +215,38 @@ public class BatchConfModel implements Serializable {
 
 	public Integer getProcess() {
 		return this.process;
+	}
+
+	public void setCloseFunctionTime(Date closeFunctionTime) {
+		this.closeFunctionTime = closeFunctionTime;
+	}
+
+	public void setOpenFunctionTime(Date openFunctionTime) {
+		this.openFunctionTime = openFunctionTime;
+	}
+
+	public void setCloseLoginTime(Date closeLoginTime) {
+		this.closeLoginTime = closeLoginTime;
+	}
+
+	public void setOpenLoginTime(Date openLoginTime) {
+		this.openLoginTime = openLoginTime;
+	}
+
+	public Date getCloseFunctionTime() {
+		return closeFunctionTime;
+	}
+
+	public Date getOpenFunctionTime() {
+		return openFunctionTime;
+	}
+
+	public Date getCloseLoginTime() {
+		return closeLoginTime;
+	}
+
+	public Date getOpenLoginTime() {
+		return openLoginTime;
 	}
 
 	public Map<String, Object> getParam() {

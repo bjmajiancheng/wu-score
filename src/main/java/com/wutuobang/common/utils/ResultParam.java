@@ -17,6 +17,11 @@ public class ResultParam {
     public static final ResultParam SUCCESS_RESULT = new ResultParam(0, "操作成功!!!");
 
     /**
+     * 功能在关闭的时间段内，无法使用，例如：注册、预审等
+     */
+    public static final ResultParam closeOrOpenFun = new ResultParam(20,"2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+
+    /**
      * 系统异常
      */
     public static final ResultParam SYSTEM_ERROR_RESULT = new ResultParam(1, "系统异常, 请稍后重试!!!");
@@ -74,6 +79,11 @@ public class ResultParam {
     public static ResultParam ok() {
         return SUCCESS_RESULT;
     }
+
+    public static ResultParam cloOrOpen(){
+        return closeOrOpenFun;
+    }
+
 
     public static ResultParam ok(String message) {
         return new ResultParam(SUCCESS_RESULT.getCode(), message);
