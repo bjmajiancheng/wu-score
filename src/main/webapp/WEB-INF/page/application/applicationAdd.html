@@ -973,7 +973,7 @@
                 html.push('<tr class="houseRelationship">');
                 html.push('<td><input type="checkbox" name="check" class="checkRelation"></td>');
                 html.push('<td>');
-                var relationshipOption = '<option value="子">子</option><option value="女">女</option><option value="配偶">配偶</option>';
+                var relationshipOption = '<option value="子">子</option><option value="女">女</option>';//<option value="配偶">配偶</option>//去掉此处的配偶，因为有人误点两次配偶，导致最后的统计数据有问题
                 if($("#marriageStatus").val() == 2) {
                     relationshipOption = '<option value="子">子</option><option value="女">女</option>';
                 }
