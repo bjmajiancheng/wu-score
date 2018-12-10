@@ -1,7 +1,5 @@
 package com.wutuobang.score.model;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
