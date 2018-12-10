@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IPbScoreRecordDao">
+    <resultMap id="PbScoreRecord" type="com.wutuobang.score.model.PbScoreRecordModel">
+        <result property="id" column="id"/>
+        <result property="accept_number" column="accept_number"/>
+        <result property="batch_id" column="batch_id"/>
+        <result property="indicator_id" column="indicator_id"/>
+        <result property="indicator_name" column="indicator_name"/>
+        <result property="person_id" column="person_id"/>
+        <result property="person_name" column="person_name"/>
+        <result property="person_id_num" column="person_id_num"/>
+        <result property="person_mobile_phone" column="person_mobile_phone"/>
+        <result property="company_id" column="company_id"/>
+        <result property="company_name" column="company_name"/>
+        <result property="status" column="status"/>
+        <result property="score_value" column="score_value"/>
+        <result property="item_id" column="item_id"/>
+        <result property="accept_date" column="accept_date"/>
+        <result property="submit_date" column="submit_date"/>
+        <result property="score_date" column="score_date"/>
+        <result property="op_user_id" column="op_user_id"/>
+        <result property="op_user" column="op_user"/>
+        <result property="op_role_id" column="op_role_id"/>
+        <result property="op_role" column="op_role"/>
+        <result property="score_detail" column="score_detail"/>
+        <result property="c_time" column="c_time"/>
+        <result property="accept_address_id" column="accept_address_id"/>
+    </resultMap>
+
+    <sql id="columns">
+        <![CDATA[
+        id,accept_number,batch_id,indicator_id,indicator_name,person_id,person_name,person_id_num,person_mobile_phone,company_id,company_name,
+        status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id
+	    ]]>
+    </sql>
+
+    <select id="getByPersonId" resultMap="PbScoreRecord">
+        SELECT <include refid="columns"/> FROM t_pb_score_record
+        <where>
+            <if test="id != null">
+                AND  person_id= #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getPublicList" resultMap="PbScoreRecord">
+          select a.person_id_num,max(a.person_name) person_name,trunc(nvl(sum(a.SCORE), 0),2) score_value
+            from
+            (
+            select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+                   union all
+            select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
+                   union all
+            select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
+            ) a
+            group by a.person_id_num order by score_value desc
+    </select>
+
+</mapper>

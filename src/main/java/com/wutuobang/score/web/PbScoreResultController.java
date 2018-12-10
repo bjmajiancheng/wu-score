@@ -7,6 +7,7 @@
 
 package com.wutuobang.score.web;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
-import com.wutuobang.score.model.BatchConfModel;
-import com.wutuobang.score.model.CompanyInfoModel;
-import com.wutuobang.score.model.IdentityInfoModel;
+import com.wutuobang.score.model.*;
 import com.wutuobang.score.util.IdNumberReplaceUtil;
 import com.wutuobang.score.view.SearchScoreView;
 import org.apache.commons.collections.CollectionUtils;
@@ -28,8 +27,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import com.wutuobang.score.model.PbScoreResultModel;
 
 import java.util.*;
 
@@ -58,6 +55,9 @@ public class PbScoreResultController {
 
     @Autowired
     private ICompanyInfoService companyInfoService;
+
+    @Autowired
+    private IPbScoreRecordService pbScoreRecordService;
 
     /**
      * 跳转到积分查询页面
@@ -102,6 +102,13 @@ public class PbScoreResultController {
             }
 
             if (batchConfModel.getProcess() != 2) {
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
+            }
+
+            /*
+            2018年12月6日，“积分查询”页面只能让申请人看到自己的信息，看不到其他人的信息
+             */
+            if(StringUtils.isEmpty(searchScoreView.getIdCardNumber())){
                 return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
             }
 
@@ -159,10 +166,60 @@ public class PbScoreResultController {
             }
 
             List<PbScoreResultModel> pbScoreResults = pbScoreResultService.getByPersonId(identityInfoId);
-            mv.addObject("identityInfo", identityInfo);
-            mv.addObject("pbScoreResults", pbScoreResults);
 
-            mv.addObject("status", pbScoreResultMap.get(identityInfo.getId()) == null ? 0 : 1);
+            /*
+            需要在表t_pb_score_record(类：PbScoreRecordModel)中查询打分项，由于PbScoreResult里面有重复分数，导致结果不准确；
+             */
+            List<PbScoreRecordModel> pbScoreRecord_3 = new ArrayList<PbScoreRecordModel>();//受教育程度
+            List<PbScoreRecordModel> pbScoreRecord_14 = new ArrayList<PbScoreRecordModel>();//婚姻情况
+            List<PbScoreRecordModel> pbScoreRecord_other = new ArrayList<PbScoreRecordModel>();//其他16项
+            List<PbScoreRecordModel> pbScoreRecords = pbScoreRecordService.getByPersonId(identityInfoId);
+            if (pbScoreRecords.size()>0){
+
+                for (PbScoreRecordModel p : pbScoreRecords){
+                    p.setScore_value(p.getScore_value().setScale(2,BigDecimal.ROUND_DOWN));
+                    if (p.getIndicator_id()==3){
+                        pbScoreRecord_3.add(p);
+                    }
+                    if (p.getIndicator_id() == 14){
+                        pbScoreRecord_14.add(p);
+                    }
+
+                    if (p.getIndicator_id() != 3 && p.getIndicator_id() != 14){
+                        pbScoreRecord_other.add(p);
+                    }
+                }
+
+                /*
+                1、受教育程度，只显示1条，人社和市教委，哪个分高显示哪个
+                 */
+                if (pbScoreRecord_3.get(0).getScore_value().longValue() > pbScoreRecord_3.get(1).getScore_value().longValue()){
+                    pbScoreRecord_other.add(pbScoreRecord_3.get(0));
+                }else {
+                    pbScoreRecord_other.add(pbScoreRecord_3.get(1));
+                }
+                /*
+                2、婚姻情况，只显示1条，人社打分和市民政局打分相加等于20时，显示10分，否则显示0分
+                 */
+                Long l1 = pbScoreRecord_14.get(0).getScore_value().longValue();
+                Long l2 = pbScoreRecord_14.get(1).getScore_value().longValue();
+                BigDecimal value_10 = new BigDecimal(10.00);
+                BigDecimal value_0 = new BigDecimal(0.00);
+                if ((l1+l2)==20.00){
+                    pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2,BigDecimal.ROUND_DOWN));
+                }else {
+                    pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2,BigDecimal.ROUND_DOWN));
+                }
+                pbScoreRecord_other.add(pbScoreRecord_14.get(0));
+            }
+
+
+            mv.addObject("identityInfo", identityInfo);
+//            mv.addObject("pbScoreResults", pbScoreResults);
+            mv.addObject("pbScoreRecords",pbScoreRecord_other);
+
+//            mv.addObject("status", pbScoreResultMap.get(identityInfo.getId()) == null ? 0 : 1);
+            mv.addObject("status", (pbScoreRecords.size()==0) ? 0 : 1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,18 +264,19 @@ public class PbScoreResultController {
                 return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
             }
 
-            if (MapUtils.isEmpty(param) || param.get("queryStr") == null || StringUtils
-                    .isEmpty((String) param.get("queryStr"))) {
+            if (MapUtils.isEmpty(param) || param.get("queryStr") == null || StringUtils.isEmpty((String) param.get("queryStr"))) {
                 List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
 
                 if (CollectionUtils.isNotEmpty(pbScoreResults)) {
                     for (PbScoreResultModel pbScoreResult : pbScoreResults) {
-                        pbScoreResult
-                                .setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResult.getPersonIdNum()));
+                        pbScoreResult.setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResult.getPersonIdNum()));
                     }
                 }
 
-                return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
+                List<PbScoreRecordModel> pbScoreRecordModels = pbScoreRecordService.getPublicList(batchConfModel.getId());
+
+//                return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
+                return new ResultParam(ResultParam.SUCCESS_RESULT, pbScoreRecordModels);
             }
 
             String queryStr = (String) param.get("queryStr");
@@ -319,7 +377,7 @@ public class PbScoreResultController {
             if (maxIndex > scoreResultModels.size()) {
                 finalScoreResults.addAll(scoreResultModels);
             } else {
-                finalScoreResults.addAll(scoreResultModels.subList(0, maxIndex - 1));
+                finalScoreResults.addAll(scoreResultModels.subList(0, maxIndex));
             }
         }
 

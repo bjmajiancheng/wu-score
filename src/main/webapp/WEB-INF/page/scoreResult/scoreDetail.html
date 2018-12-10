@@ -46,7 +46,13 @@
             <tr>
                 <td>单位名称: ${identityInfo.companyName}</td>
                 <td></td>
-                <td></td>
+                <td>申报地点：
+                    #if(${identityInfo.acceptAddressId} == 1)
+                        市区
+                    #elseif(${identityInfo.acceptAddressId} == 2)
+                        滨海新区
+                    #end
+                </td>
                 <td></td>
             </tr>
             <tr>
@@ -56,9 +62,9 @@
                     #end
                 </td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td colspan="4">不予落户原因: </td>
-            </tr>
+            </tr>-->
         </table>
 
         <div style="clear: both;"></div>
@@ -72,13 +78,16 @@
                 <th>分数</th>
             </tr>
             <tbody>
-            #foreach (${pbScoreResult} in ${pbScoreResults})
+
+
+            #foreach (${pbScoreRecord} in ${pbScoreRecords})
             <tr>
                 <td>${velocityCount}</td>
-                <td>${pbScoreResult.indicatorName}</td>
-                <td>${pbScoreResult.scoreValue}</td>
+                <td>${pbScoreRecord.indicator_name}</td>
+                <td>${pbScoreRecord.score_value}</td>
             </tr>
             #end
+
             </tbody>
         </table>
     </div>
