@@ -176,7 +176,7 @@ public class PbScoreResultController {
             /*
             公布申请人是“打分完成”状态；申请人是取消资格状态的，只公布“取消资格”，不公布其它信息。
              */
-            if (pbScoreRecords.size()>0 && identityInfo.getHallStatus()==9 && identityInfo.getCancelStatus()==0) {
+            if (pbScoreRecords.size()>0 && identityInfo.getCancelStatus()==0) {
 
                 for (PbScoreRecordModel p : pbScoreRecords){
                     p.setScore_value(p.getScore_value().setScale(2,BigDecimal.ROUND_DOWN));
