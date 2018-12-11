@@ -95,10 +95,9 @@ public class PbScoreResultController {
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
             if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
-                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils
-                        .isEmpty(searchScoreView.getIdCardNumber())) {
+//                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils.isEmpty(searchScoreView.getIdCardNumber())) {
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
-                }
+//                }
             }
 
             if (batchConfModel.getProcess() != 2) {
@@ -174,7 +173,10 @@ public class PbScoreResultController {
             List<PbScoreRecordModel> pbScoreRecord_14 = new ArrayList<PbScoreRecordModel>();//婚姻情况
             List<PbScoreRecordModel> pbScoreRecord_other = new ArrayList<PbScoreRecordModel>();//其他16项
             List<PbScoreRecordModel> pbScoreRecords = pbScoreRecordService.getByPersonId(identityInfoId);
-            if (pbScoreRecords.size()>0){
+            /*
+            公布申请人是“打分完成”状态；申请人是取消资格状态的，只公布“取消资格”，不公布其它信息。
+             */
+            if (pbScoreRecords.size()>0 && identityInfo.getHallStatus()==9 && identityInfo.getCancelStatus()==0) {
 
                 for (PbScoreRecordModel p : pbScoreRecords){
                     p.setScore_value(p.getScore_value().setScale(2,BigDecimal.ROUND_DOWN));
@@ -219,7 +221,7 @@ public class PbScoreResultController {
             mv.addObject("pbScoreRecords",pbScoreRecord_other);
 
 //            mv.addObject("status", pbScoreResultMap.get(identityInfo.getId()) == null ? 0 : 1);
-            mv.addObject("status", (pbScoreRecords.size()==0) ? 0 : 1);
+            mv.addObject("status", (identityInfo.getHallStatus()==8) ? 0 : 1);
 
         } catch (Exception e) {
             e.printStackTrace();
