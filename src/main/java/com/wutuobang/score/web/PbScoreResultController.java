@@ -179,7 +179,7 @@ public class PbScoreResultController {
             if (pbScoreRecords.size()>0 && identityInfo.getCancelStatus()==0) {
 
                 for (PbScoreRecordModel p : pbScoreRecords){
-                    p.setScore_value(p.getScore_value().setScale(2,BigDecimal.ROUND_DOWN));
+                    p.setScore_value(p.getScore_value().setScale(2));
                     if (p.getIndicator_id()==3){
                         pbScoreRecord_3.add(p);
                     }
@@ -208,9 +208,9 @@ public class PbScoreResultController {
                 BigDecimal value_10 = new BigDecimal(10.00);
                 BigDecimal value_0 = new BigDecimal(0.00);
                 if ((l1+l2)==20.00){
-                    pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2,BigDecimal.ROUND_DOWN));
+                    pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2));
                 }else {
-                    pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2,BigDecimal.ROUND_DOWN));
+                    pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2));
                 }
                 pbScoreRecord_other.add(pbScoreRecord_14.get(0));
             }
