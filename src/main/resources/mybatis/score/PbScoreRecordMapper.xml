@@ -48,16 +48,94 @@
     </select>
 
     <select id="getPublicList" resultMap="PbScoreRecord">
-          select a.person_id_num,max(a.person_name) person_name,trunc(nvl(sum(a.SCORE), 0),2) score_value
-            from
-            (
-            select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
-                   union all
-            select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
-                   union all
-            select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
-            ) a
-            group by a.person_id_num order by score_value desc
+          select t2.person_id_num,t1.id,t2.person_name,t2.score_value from t_identity_info t1,
+                (
+                select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
+                from
+                (
+                select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+                       union all
+                select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
+                       union all
+                select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
+                ) a
+                group by a.person_id_num  order by score_value desc
+                ) t2
+            where t1.id_number = t2.person_id_num and t1.hall_status=6
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="findPublicPage" resultMap="PbScoreRecord">
+        select t2.person_id_num,t1.id,t2.person_name,t2.score_value from t_identity_info t1,
+        (
+        select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
+        from
+        (
+        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
+        ) a
+        group by a.person_id_num  order by score_value desc
+        ) t2
+
+        <where>
+            t1.id_number = t2.person_id_num and t1.hall_status=6
+            <if test="indicatorType == 0">
+                AND rownum &lt; ${indicatorValue}
+            </if>
+            <if test="indicatorType == 1">
+                AND t2.score_value &lt;=${indicatorValue} order by score_value desc
+            </if>
+        </where>
+    </select>
+
+    <select id="findPublicPageCount" resultType="int">
+        select count(1) from t_identity_info t1,
+        (
+        select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
+        from
+        (
+        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
+        ) a
+        group by a.person_id_num  order by score_value desc
+        ) t2
+
+        <where>
+            t1.id_number = t2.person_id_num and t1.hall_status=6
+            <if test="indicatorValue != null">
+                AND t2.score_value &lt;=${indicatorValue}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findOnePbScoreRecord" resultMap="PbScoreRecord">
+        select t2.person_id_num,t1.id,t2.person_name,t2.score_value from t_identity_info t1,
+        (
+        select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
+        from
+        (
+        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
+        union all
+        select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),20,10,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
+        ) a
+        group by a.person_id_num  order by score_value desc
+        ) t2
+
+        <where>
+            t1.id_number = t2.person_id_num and t1.hall_status=6
+
+            <if test="id_number != null">
+                AND t2.person_id_num='${id_number}' order by score_value desc
+            </if>
+        </where>
     </select>
 
 </mapper>

@@ -311,6 +311,93 @@ public class PbScoreResultController {
         }
     }
 
+
+    /**
+     * 获取名单公示列表数据22222222222--重写
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/publicityList2")
+    public ResultParam publicityListData2(HttpServletRequest request, @RequestParam("searchParam") String searchParam) {
+        if (StringUtils.isEmpty(searchParam)) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+
+        Map<String, Object> param = JSON.parseObject(searchParam, Map.class);
+        try {
+            //获取当前批次信息
+            BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+
+            long startTimeStamp = DateUtil.getTheDayZeroTime(batchConfModel.getNoticeBegin()).getTime();
+            long endTimeStamp = DateUtil.getNextDayZeroTime(batchConfModel.getNoticeEnd()).getTime();
+
+            //若不在公示时间内，就不显示名单公示的内容0
+            if (System.currentTimeMillis() < startTimeStamp || System.currentTimeMillis() > endTimeStamp) {
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+            }
+
+            //若没输入查询的内容，就分页显示
+            if (MapUtils.isEmpty(param) || param.get("queryStr") == null || StringUtils.isEmpty((String) param.get("queryStr"))) {
+//                List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId());
+//
+//                if (CollectionUtils.isNotEmpty(pbScoreResults)) {
+//                    for (PbScoreResultModel pbScoreResult : pbScoreResults) {
+//                        pbScoreResult.setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResult.getPersonIdNum()));
+//                    }
+//                }
+//
+//                List<PbScoreRecordModel> pbScoreRecordModels = pbScoreRecordService.getPublicList(batchConfModel.getId());
+
+//                return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
+//                return new ResultParam(ResultParam.SUCCESS_RESULT, pbScoreRecordModels);
+
+                /*
+                获取分页的数据,0：总人数选取；1：分数线选取；
+                 */
+//                PageData<IdentityInfoModel> pageData = identityInfoService.findPage(param, searchScoreView.getPageNo());
+                Integer pageNo = (Integer) param.get("pageNo");
+                List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
+                        batchConfModel.getIndicatorValue(), pageNo);
+                PageData<PbScoreRecordModel> pageData2 = new PageData<PbScoreRecordModel>();
+                for (PbScoreRecordModel p : pbScoreRePbulicList){
+                    p.setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(p.getPerson_id_num()));
+                }
+                pageData2.setData(pbScoreRePbulicList);
+                int publicPageCount = pbScoreRecordService.findPublicPageCount(batchConfModel);//获得总页数
+                pageData2.setRecordsTotal(publicPageCount);
+                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData2);
+
+            }
+
+            /*
+            2018年12月17日 名单公示
+            当查询区域有值传入后台时，传给前台一条数据
+             */
+            String queryStr = (String) param.get("queryStr");
+            param.put("queryStr", "%" + queryStr + "%");
+//            List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
+//                    batchConfModel.getIndicatorValue(), pageNo);
+
+            List<PbScoreRecordModel> pbScoreRecordModel = pbScoreRecordService.findOnePbScoreRecord(queryStr, batchConfModel.getId());
+            if (pbScoreRecordModel.size()>0){
+                pbScoreRecordModel.get(0).setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(pbScoreRecordModel.get(0).getPerson_id_num()));
+                PageData<PbScoreRecordModel> pageData_one = new PageData<PbScoreRecordModel>();
+                pageData_one.setData(pbScoreRecordModel);
+                pageData_one.setPageCount(1);
+                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData_one);
+            }
+            return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+
+
+
     /**
      * 获取所有通过的人员信息
      *

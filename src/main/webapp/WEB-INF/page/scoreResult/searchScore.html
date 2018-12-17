@@ -39,7 +39,7 @@
                 <div class="interal-input-title">身份证号</div>
                 <input type="text" name="idCardNumber" />
 
-                <div class="interal-input-btn" on-click={this.load()}>查询</div>
+                <div class="interal-input-btn" on-click={this.load()}>查询</div><div style="margin-top:15px;"><span class="color-red" >输入正确的身份证号即可.</span></div>
             </div>
 
             <table class="integral-table score_table">
@@ -98,17 +98,8 @@
 <script type="text/javascript">
     $(function(){
         newCurrPage("searchScore");
-
         component.load();
         component.$inject('#app');
-
-        /*if($(".score_tableTr").length == 0) {
-            $(".empty_score_table").show();
-            $(".score_table").hide();
-        } else {
-            $(".empty_score_table").hide();
-            $(".score_table").show();
-        }*/
     });
 
     //利用Regular构建你的app吧
@@ -120,17 +111,8 @@
     var component = new rowsRegular({
         data: {identityInfos: []},
         load: function(data){
-
             var pageCount = list(1);
             showPage(pageCount);
-
-            /*if($(".score_tableTr").length == 0) {
-                $(".empty_score_table").show();
-                $(".score_table").hide();
-            } else {
-                $(".empty_score_table").hide();
-                $(".score_table").show();
-            }*/
         }
     });
 

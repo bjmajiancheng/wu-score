@@ -33,7 +33,7 @@
         <script type="text/regular" id="rows">
             <div class="interal-tab-title-input1">
                 <div class="interal-input-title">名单查询</div>
-                <input type="text" name="queryStr" placeholder="按照登记编号、身份证号和姓名进行查询" style="width: 280px;"/>
+                <input type="text" name="queryStr" placeholder="请输入正确的身份证号进行查询" style="width: 280px;"/>
 
                 <div class="interal-input-btn" on-click={this.load()}>查询</div>
             </div>
@@ -58,8 +58,8 @@
         <div id="app">
         </div>
         <!-- 分页器插件 --><!---->
-        <div class="integral-paging-device-wrap2 m-style"></div>
-        <div class="empty_score_table" style="display: block;">
+        <div style="left: 20%;" class="integral-paging-device-wrap2 m-style"></div>
+        <div class="empty_score_table" style="display: none;">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -121,11 +121,11 @@
 
         var queryStr = $("input[name=queryStr]").val();
 
-        var searchParam = JSON.stringify({"queryStr": queryStr});
-        getSyncResultData("${rc.contextPath}/pbScoreResult/publicityList", {"searchParam": searchParam}, function(result){
-            component.data.identityInfos = result;
+        var searchParam = JSON.stringify({"queryStr": queryStr, "pageNo": page_index});
+        getSyncResultData("${rc.contextPath}/pbScoreResult/publicityList2", {"searchParam": searchParam}, function(result){
+            component.data.identityInfos = result.data;
             component.$update();
-            pageCount = result.length;
+            pageCount = result.pageCount;
         });
 
         return pageCount;
