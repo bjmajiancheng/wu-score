@@ -83,7 +83,7 @@
         <where>
             t1.id_number = t2.person_id_num and t1.hall_status=6
             <if test="indicatorType == 0">
-                AND rownum &lt; ${indicatorValue}
+                AND rownum &lt;= ${indicatorValue}
             </if>
             <if test="indicatorType == 1">
                 AND t2.score_value &lt;=${indicatorValue} order by score_value desc
