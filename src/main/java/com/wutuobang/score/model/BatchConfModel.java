@@ -70,6 +70,11 @@ public class BatchConfModel implements Serializable {
 	private Date closeLoginTime;
 	private Date openLoginTime;
 
+	/*
+	2019年1月4日
+	 */
+	private Integer scoreValue;//"指标值"
+
 
 	//columns END
 		
@@ -247,6 +252,14 @@ public class BatchConfModel implements Serializable {
 
 	public Date getOpenLoginTime() {
 		return openLoginTime;
+	}
+
+	public Integer getScoreValue() {
+		return scoreValue;
+	}
+
+	public void setScoreValue(Integer scoreValue) {
+		this.scoreValue = scoreValue;
 	}
 
 	public Map<String, Object> getParam() {

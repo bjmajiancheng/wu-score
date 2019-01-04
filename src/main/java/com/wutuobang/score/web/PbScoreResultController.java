@@ -382,7 +382,7 @@ public class PbScoreResultController {
 
             List<PbScoreRecordModel> pbScoreRecordModel = pbScoreRecordService.findOnePbScoreRecord(queryStr, batchConfModel.getId());
             if (pbScoreRecordModel.size()>0){
-                if(pbScoreRecordModel.get(0).getScore_value().compareTo(new BigDecimal(146))==-1){
+                if(pbScoreRecordModel.get(0).getScore_value().compareTo(new BigDecimal(batchConfModel.getScoreValue()))==-1){
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
                 }
                 pbScoreRecordModel.get(0).setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(pbScoreRecordModel.get(0).getPerson_id_num()));
