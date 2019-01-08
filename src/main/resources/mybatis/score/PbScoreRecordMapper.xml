@@ -86,7 +86,7 @@
                 AND rownum &lt;= ${indicatorValue}
             </if>-->
             <if test="indicatorValue !=null">
-                AND t2.score_value &lt;=${indicatorValue} order by score_value desc
+                AND t2.score_value &gt;=${scoreValue} order by score_value desc
             </if>
         </where>
     </select>

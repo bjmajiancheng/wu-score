@@ -73,7 +73,7 @@ public class BatchConfModel implements Serializable {
 	/*
 	2019年1月4日
 	 */
-	private Integer scoreValue;//"指标值"
+	private Double scoreValue;//"指标值"
 
 
 	//columns END
@@ -254,11 +254,11 @@ public class BatchConfModel implements Serializable {
 		return openLoginTime;
 	}
 
-	public Integer getScoreValue() {
+	public Double getScoreValue() {
 		return scoreValue;
 	}
 
-	public void setScoreValue(Integer scoreValue) {
+	public void setScoreValue(Double scoreValue) {
 		this.scoreValue = scoreValue;
 	}
 

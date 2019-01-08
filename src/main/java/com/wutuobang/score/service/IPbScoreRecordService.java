@@ -23,7 +23,7 @@ public interface IPbScoreRecordService {
     /*
     2018年12月13日 根据居住证积分的
      */
-    public List<PbScoreRecordModel> findPublicPage(Integer batch_id, Integer indicatorType, Integer indicatorValue, Integer pageNo);
+    public List<PbScoreRecordModel> findPublicPage(Integer batch_id, Integer indicatorType, Integer indicatorValue, Integer pageNo, Double scoreValue);
 
     /*
     2018年12月16日

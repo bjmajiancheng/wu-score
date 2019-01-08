@@ -33,11 +33,12 @@ public class PbScoreRecordServiceImpl implements IPbScoreRecordService {
     }
 
     @Override
-    public List<PbScoreRecordModel> findPublicPage(Integer batch_id, Integer indicatorType, Integer indicatorValue, Integer pageNo) {
+    public List<PbScoreRecordModel> findPublicPage(Integer batch_id, Integer indicatorType, Integer indicatorValue, Integer pageNo, Double scoreValue) {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("batch_id",batch_id);
         param.put("indicatorType",indicatorType);
         param.put("indicatorValue", indicatorValue);
+        param.put("scoreValue", scoreValue);
 //        int pageNo = 1;
         List<PbScoreRecordModel> list = pbScoreRecordDao.findPublicPage(param, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
         return  list;

@@ -92,6 +92,14 @@ public class PbScoreResultController {
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
+            /*
+            2019年1月8日
+            如果没有查询到批次信息，就返回一个新建的一个类
+             */
+            if(batchConfModel==null){
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
+            }
+
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
             if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
@@ -330,6 +338,14 @@ public class PbScoreResultController {
             //获取当前批次信息
             BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
 
+            /*
+            2019年1月8日
+            如果没有查询到批次的信息，就直接返回一个结果
+             */
+            if(batchConfModel==null){
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+            }
+
             long startTimeStamp = DateUtil.getTheDayZeroTime(batchConfModel.getNoticeBegin()).getTime();
             long endTimeStamp = DateUtil.getNextDayZeroTime(batchConfModel.getNoticeEnd()).getTime();
 
@@ -359,7 +375,7 @@ public class PbScoreResultController {
 //                PageData<IdentityInfoModel> pageData = identityInfoService.findPage(param, searchScoreView.getPageNo());
                 Integer pageNo = (Integer) param.get("pageNo");
                 List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
-                        batchConfModel.getIndicatorValue(), pageNo);
+                        batchConfModel.getIndicatorValue(), pageNo, batchConfModel.getScoreValue());
                 PageData<PbScoreRecordModel> pageData2 = new PageData<PbScoreRecordModel>();
                 for (PbScoreRecordModel p : pbScoreRePbulicList){
                     p.setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(p.getPerson_id_num()));
