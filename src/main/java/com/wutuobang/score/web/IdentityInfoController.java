@@ -97,7 +97,6 @@ public class IdentityInfoController {
     @RequestMapping(value = "/applicationAdd.html", method = RequestMethod.GET)
     public ModelAndView toAddIdentityInfo() {
         ModelAndView mv = new ModelAndView("application/applicationAdd.html");
-
         mv.addObject("addFlag", true);
         return mv;
     }
@@ -122,11 +121,10 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/addIdentityInfo", method = RequestMethod.POST)
     public ResultParam addIdentityInfo(HttpServletRequest request,
-            @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
+                                       @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
-
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return ResultParam.CAPTCHA_ERROR_RESULT;
@@ -147,6 +145,7 @@ public class IdentityInfoController {
             }
 
             //申请人信息
+
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
 
             Map<String, Object> param = new HashMap<String, Object>();
@@ -178,7 +177,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/updateIdentityInfo", method = RequestMethod.POST)
     public ResultParam updateIdentityInfo(HttpServletRequest request,
-            @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
+                                          @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -228,7 +227,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResultParam list(HttpServletRequest request, @RequestParam("queryStr") String queryStr,
-            @RequestParam("pageNo") Integer pageNo) {
+                            @RequestParam("pageNo") Integer pageNo) {
 
         try {
 
@@ -307,7 +306,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/autoEvaluation", method = RequestMethod.POST)
     public ResultParam autoEvaluation(HttpServletRequest request,
-            @RequestParam("indicatorView") String indicatorViewStr, @RequestParam("captcha") String captcha) {
+                                      @RequestParam("indicatorView") String indicatorViewStr, @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(indicatorViewStr)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -375,7 +374,7 @@ public class IdentityInfoController {
      */
     @RequestMapping("/evaluationView/{identityInfoId}.html")
     public ModelAndView evaluationView(HttpServletRequest request,
-            @PathVariable("identityInfoId") Integer identityInfoId) {
+                                       @PathVariable("identityInfoId") Integer identityInfoId) {
         ModelAndView mv = new ModelAndView("evaluation/evaluationView.html");
         if (identityInfoId == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
@@ -461,7 +460,13 @@ public class IdentityInfoController {
 
             mv.addObject("identityInfo", identityInfo);
             mv.addObject("houseMoveModel", identityInfo.getHouseMoveModel());
-            mv.addObject("houseRelationshipList", identityInfo.getHouseRelationshipModelList());
+            List<HouseRelationshipModel> houseRelationshipList = identityInfo.getHouseRelationshipModelList();
+            for (HouseRelationshipModel houseRelationshipModel : houseRelationshipList) {
+                if ("配偶".equals(houseRelationshipModel.getRelationship())) {
+                    mv.addObject("spouseHouseRelationshipModel", houseRelationshipModel);
+                }
+            }
+            mv.addObject("houseRelationshipList", houseRelationshipList);
             mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());
             mv.addObject("houseProfessionModel", identityInfo.getHouseProfessionModel());
             mv.addObject("addFlag", false);
@@ -483,8 +488,8 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/reserveLocation", method = RequestMethod.POST)
     public ResultParam reserveLocation(HttpServletRequest request,
-            @RequestParam("acceptAddressId") Integer acceptAddressId,
-            @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("captcha") String captcha) {
+                                       @RequestParam("acceptAddressId") Integer acceptAddressId,
+                                       @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("captcha") String captcha) {
         if (acceptAddressId == null || identityInfoId == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -553,9 +558,9 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/reserveDate", method = RequestMethod.POST)
     public ResultParam reserveDate(HttpServletRequest request,
-            @RequestParam("reservaionDateId") Integer reservaionDateId,
-            @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("reservaionM") Integer reservaionM,
-            @RequestParam("captcha") String captcha) {
+                                   @RequestParam("reservaionDateId") Integer reservaionDateId,
+                                   @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("reservaionM") Integer reservaionM,
+                                   @RequestParam("captcha") String captcha) {
         if (reservaionDateId == null || identityInfoId == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -611,9 +616,9 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
             String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
             updateIdentityInfo.setAcceptNumber(acceptNumber);
-            if(identityInfoModel.getPoliceApproveStatus() == 3){
+            if (identityInfoModel.getPoliceApproveStatus() == 3) {
                 updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_3);
-            }else{
+            } else {
                 updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_1);
             }
 
@@ -645,7 +650,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/validIdNumber", method = RequestMethod.POST)
     public ResultParam validIdNumber(HttpServletRequest request, @RequestParam("idNumber") String idNumber,
-            @RequestParam("identityInfoId") Integer identityInfoId) {
+                                     @RequestParam("identityInfoId") Integer identityInfoId) {
         if (StringUtils.isEmpty(idNumber)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -706,26 +711,26 @@ public class IdentityInfoController {
 
             IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
             updateIdentityInfo.setId(id);
-//            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
-//            updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
-//            //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
-//            updateIdentityInfo.setReservationM(0);
-//            updateIdentityInfo.setReservationDateNull(1);
-//            updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
+            //            updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
+            //            updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
+            //            //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
+            //            updateIdentityInfo.setReservationM(0);
+            //            updateIdentityInfo.setReservationDateNull(1);
+            //            updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
              /*
             2018年10月9日修改，xuegr
             已经通过公安窗口前置审核的申请人，如果取消预约，再进行二次预约的，公安窗口不必再次进行前置审核，公安窗口的一切操作状态保留；
             下面if中的判断条件就是此状态时的参数
              */
-            if(identityInfoModel.getReservationStatus()==11 && identityInfoModel.getHallStatus()==3 && identityInfoModel.getPoliceApproveStatus()==3
-                    && identityInfoModel.getRensheAcceptStatus()==1){
+            if (identityInfoModel.getReservationStatus() == 11 && identityInfoModel.getHallStatus() == 3 && identityInfoModel.getPoliceApproveStatus() == 3
+                    && identityInfoModel.getRensheAcceptStatus() == 1) {
                 updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
-//                updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
+                //                updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
                 //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
                 updateIdentityInfo.setReservationM(0);//1:上午，2：下午；0表示无
                 updateIdentityInfo.setReservationDateNull(1);//设置预约时间为空
                 updateIdentityInfo.setReservationTime(identityInfoModel.getReservationTime());
-            } else{
+            } else {
                 updateIdentityInfo.setReservationStatus(Constant.reservationStatus_10);
                 updateIdentityInfo.setAcceptNumber(StringUtils.EMPTY);
                 //updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_0);
@@ -812,7 +817,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/printReservation/{id}.html", method = RequestMethod.GET)
     public ResultParam printReservation(HttpServletRequest request, HttpServletResponse response,
-            @PathVariable("id") Integer id) {
+                                        @PathVariable("id") Integer id) {
         if (id == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -871,7 +876,7 @@ public class IdentityInfoController {
             customData.put("currMonth", DateUtil.getMonth(currDate) + 1);
             customData.put("currDay", DateUtil.getDay(currDate));
 
-            if(identityInfo.getAcceptAddressId() == null) {
+            if (identityInfo.getAcceptAddressId() == null) {
                 identityInfo.setAcceptAddressId(0);
             }
             if (identityInfo.getAcceptAddressId() == 1) {
@@ -903,7 +908,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/getFollowUpInfo/{id}.html", method = RequestMethod.GET)
     public ResultParam getFollowUpInfo(HttpServletRequest request, HttpServletResponse response,
-            @PathVariable("id") Integer id) {
+                                       @PathVariable("id") Integer id) {
         if (id == null) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -929,7 +934,7 @@ public class IdentityInfoController {
     @ResponseBody
     @RequestMapping(value = "/updateHouseRelationships", method = RequestMethod.POST)
     public ResultParam updateHouseRelationships(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam("houseRelationshipsJson") String houseRelationshipsJson) {
+                                                @RequestParam("houseRelationshipsJson") String houseRelationshipsJson) {
         if (StringUtils.isEmpty(houseRelationshipsJson)) {
             return ResultParam.error("暂无随迁人员信息, 无法修改!!");
         }

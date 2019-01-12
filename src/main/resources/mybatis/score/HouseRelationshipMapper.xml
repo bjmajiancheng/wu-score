@@ -1,33 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.wutuobang.score.dao.IHouseRelationshipDao">
 
-    <resultMap id="HouseRelationship" type="com.wutuobang.score.model.HouseRelationshipModel">
-        <result property="id" column="id"/>
-        <result property="identityInfoId" column="identity_info_id"/>
-        <result property="relationship" column="relationship"/>
-        <result property="name" column="name"/>
-        <result property="idNumber" column="id_number"/>
-        <result property="isRemove" column="is_remove"/>
-        <result property="cultureDegree" column="culture_degree"/>
-        <result property="ctime" column="c_time"/>
-    </resultMap>
+	<resultMap id="HouseRelationship" type="com.wutuobang.score.model.HouseRelationshipModel">
+		<result property="id" column="id"/>
+		<result property="identityInfoId" column="identity_info_id"/>
+		<result property="relationship" column="relationship"/>
+		<result property="name" column="name"/>
+		<result property="idNumber" column="id_number"/>
+		<result property="isRemove" column="is_remove"/>
+		<result property="cultureDegree" column="culture_degree"/>
+		<result property="ctime" column="c_time"/>
+		<result property="formerName" column="formerName"/>
+		<result property="sex" column="sex"/>
+		<result property="spouse_HJAddress" column="spouse_HJAddress"/>
+		<result property="spouse_LivingAddress" column="spouse_LivingAddress"/>
+		<result property="policyAttribute" column="policyAttribute"/>
+		<result property="medical_number" column="medical_number"/>
+		<result property="medical_authority" column="medical_authority"/>
+		<result property="isAdopt" column="isAdopt"/>
+		<result property="birthplace" column="birthplace"/>
+		<result property="approval_time" column="approval_time"/>
+		<result property="approval_number" column="approval_number"/>
+		<result property="approval_companyName" column="approval_companyName"/>
+		<result property="approval_rules" column="approval_rules"/>
+		<result property="approval_which" column="approval_which"/>
+		<result property="approval_custody" column="approval_custody"/>
+	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
-	    <![CDATA[
-        id ,identity_info_id ,relationship ,name ,id_number ,is_remove ,culture_degree ,c_time 
-	    ]]>
+		<![CDATA[
+        id ,
+        identity_info_id ,
+        relationship ,
+        name ,
+        id_number ,
+        is_remove ,
+        culture_degree ,
+        c_time,
+        formerName,
+        sex,
+        spouse_HJAddress,
+        spouse_LivingAddress,
+        policyAttribute,
+        medical_number,
+        medical_authority,
+        isAdopt,
+        birthplace,
+        approval_time,
+        approval_number,
+        approval_companyName,
+        approval_rules,
+        approval_which,
+        approval_custody
+        ]]>
 	</sql>
-	
-    <insert id="insert" >
+
+	<insert id="insert">
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_house_relationship_seq.NEXTVAL from dual
 		</selectKey>
-    <![CDATA[
+		<![CDATA[
         INSERT INTO t_house_relationship (
 	        id  ,
 	        identity_info_id  ,
@@ -36,7 +73,22 @@
 	        id_number  ,
 	        is_remove  ,
 	        culture_degree  ,
-	        c_time  
+	        c_time  ,
+			formerName,
+			sex,
+			spouse_HJAddress,
+			spouse_LivingAddress,
+			policyAttribute,
+			medical_number,
+			medical_authority,
+			isAdopt,
+			birthplace,
+			approval_time,
+			approval_number,
+			approval_companyName,
+			approval_rules,
+			approval_which,
+			approval_custody
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -45,43 +97,75 @@
         	#{idNumber, jdbcType=VARCHAR} ,
         	#{isRemove, jdbcType=INTEGER} ,
         	#{cultureDegree, jdbcType=VARCHAR} ,
-        	#{ctime, jdbcType=TIMESTAMP} 
+        	#{ctime, jdbcType=TIMESTAMP} ,
+            #{formerName, jdbcType=VARCHAR} ,
+            #{sex, jdbcType=INTEGER} ,
+            #{spouse_HJAddress, jdbcType=VARCHAR} ,
+            #{spouse_LivingAddress, jdbcType=VARCHAR} ,
+            #{policyAttribute, jdbcType=VARCHAR} ,
+            #{medical_number, jdbcType=VARCHAR} ,
+            #{medical_authority, jdbcType=VARCHAR} ,
+            #{isAdopt, jdbcType=INTEGER} ,
+            #{birthplace, jdbcType=VARCHAR} ,
+            #{approval_time, jdbcType=TIMESTAMP} ,
+            #{approval_number, jdbcType=VARCHAR} ,
+            #{approval_companyName, jdbcType=VARCHAR} ,
+            #{approval_rules, jdbcType=VARCHAR} ,
+            #{approval_which, jdbcType=VARCHAR} ,
+            #{approval_custody, jdbcType=VARCHAR}
         )
     ]]>
-    </insert>
+	</insert>
 
-    <update id="update" >
-        UPDATE t_house_relationship SET
-	        <if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
-	        <if test="relationship != null">relationship = #{relationship, jdbcType=VARCHAR} ,</if>
-	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
-	        <if test="idNumber != null">id_number = #{idNumber, jdbcType=VARCHAR} ,</if>
-	        <if test="isRemove != null">is_remove = #{isRemove, jdbcType=INTEGER} ,</if>
-	        <if test="cultureDegree != null">culture_degree = #{cultureDegree, jdbcType=VARCHAR} ,</if>
-	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
-			id = #{id}
-        WHERE 
-	        id = #{id} 
-    </update>
+	<update id="update">
+		UPDATE t_house_relationship SET
+		<if test="identityInfoId != null">identity_info_id = #{identityInfoId, jdbcType=INTEGER} ,</if>
+		<if test="relationship != null">relationship = #{relationship, jdbcType=VARCHAR} ,</if>
+		<if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
+		<if test="idNumber != null">id_number = #{idNumber, jdbcType=VARCHAR} ,</if>
+		<if test="isRemove != null">is_remove = #{isRemove, jdbcType=INTEGER} ,</if>
+		<if test="cultureDegree != null">culture_degree = #{cultureDegree, jdbcType=VARCHAR} ,</if>
+		<if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+		<if test="formerName != null">formerName = #{formerName, jdbcType=VARCHAR} ,</if>
+		<if test="sex != null">sex = #{sex, jdbcType=INTEGER} ,</if>
+		<if test="spouse_HJAddress != null">spouse_HJAddress = #{spouse_HJAddress, jdbcType=VARCHAR} ,</if>
+		<if test="spouse_LivingAddress != null">spouse_LivingAddress = #{spouse_LivingAddress, jdbcType=VARCHAR} ,</if>
+		<if test="policyAttribute != null">policyAttribute = #{policyAttribute, jdbcType=VARCHAR} ,</if>
+		<if test="medical_number != null">medical_number = #{medical_number, jdbcType=VARCHAR} ,</if>
+		<if test="medical_authority != null">medical_authority = #{medical_authority, jdbcType=VARCHAR} ,</if>
+		<if test="isAdopt != null">isAdopt = #{isAdopt, jdbcType=INTEGER} ,</if>
+		<if test="birthplace != null">birthplace = #{birthplace, jdbcType=VARCHAR} ,</if>
+		<if test="approval_time != null">approval_time = #{approval_time, jdbcType=TIMESTAMP} ,</if>
+		<if test="approval_number != null">approval_number = #{approval_number, jdbcType=VARCHAR} ,</if>
+		<if test="approval_companyName != null">approval_companyName = #{approval_companyName, jdbcType=VARCHAR} ,</if>
+		<if test="approval_rules != null">approval_rules = #{approval_rules, jdbcType=VARCHAR} ,</if>
+		<if test="approval_which != null">approval_which = #{approval_which, jdbcType=VARCHAR} ,</if>
+		<if test="approval_custody != null">approval_custody = #{approval_custody, jdbcType=VARCHAR} ,</if>
+		id = #{id}
+		WHERE
+		id = #{id}
+	</update>
 
-    <delete id="delete">
-    <![CDATA[
-        DELETE FROM t_house_relationship WHERE
-        id = #{id} 
-    ]]>
-    </delete>
-    
-    <select id="getById" resultMap="HouseRelationship">
-	    SELECT <include refid="columns"/>
-	    <![CDATA[
+	<delete id="delete">
+		<![CDATA[
+        DELETE
+        FROM t_house_relationship
+        WHERE id = #{id}
+        ]]>
+	</delete>
+
+	<select id="getById" resultMap="HouseRelationship">
+		SELECT
+		<include refid="columns"/>
+		<![CDATA[
 	        FROM t_house_relationship
-	        WHERE 
-		        id = #{id} 
+	        WHERE
+		        id = #{id}
 	    ]]>
-    </select>
+	</select>
 
 	<sql id="findWhere">
-	    <where>
+		<where>
 			<if test="relationship != null">
 				AND relationship = #{relationship}
 			</if>
@@ -94,44 +178,51 @@
 			<if test="identityInfoId != null">
 				AND identity_info_id = #{identityInfoId}
 			</if>
-	    </where>
+		</where>
 	</sql>
-	 
-    <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM t_house_relationship <include refid="findWhere"/>
-    </select>
-    
-    <!--
-    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
-    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
-    -->
-    <select id="findPage" resultMap="HouseRelationship">
-    	SELECT <include refid="columns"/> FROM t_house_relationship
-		<include refid="findWhere"/>
-		<if test="sortColumns != null">
-			ORDER BY ${sortColumns}
-		</if>
-    </select>
 
-	
-	<select id="find" resultMap="HouseRelationship">
-	    SELECT <include refid="columns"/> FROM t_house_relationship
+	<select id="findPageCount" resultType="int">
+		SELECT count(*) FROM t_house_relationship
+		<include refid="findWhere"/>
+	</select>
+
+	<!--
+        分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+        因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+	<select id="findPage" resultMap="HouseRelationship">
+		SELECT
+		<include refid="columns"/>
+		FROM t_house_relationship
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
 		</if>
-    </select>
+	</select>
+
+
+	<select id="find" resultMap="HouseRelationship">
+		SELECT
+		<include refid="columns"/>
+		FROM t_house_relationship
+		<include refid="findWhere"/>
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
 
 	<insert id="batchInsert">
 		INSERT INTO t_house_relationship(id, identity_info_id, relationship, name, id_number, is_remove, culture_degree)
 		VALUES
 		<foreach collection="houseRelationships" item="item" separator=",">
-			(t_house_relationship_seq.nextval, #{item.identityInfoId}, #{item.relationship}, #{item.name}, #{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})
+			(t_house_relationship_seq.nextval, #{item.identityInfoId}, #{item.relationship}, #{item.name},
+			#{item.idNumber}, #{item.isRemove}, #{item.cultureDegree})
 		</foreach>
 	</insert>
 
 	<delete id="delByIdentityInfoId">
-		DELETE FROM t_house_relationship
+		DELETE
+		FROM t_house_relationship
 		WHERE identity_info_id = #{identityInfoId}
 	</delete>
 
@@ -142,6 +233,6 @@
 			#{item}
 		</foreach>
 	</delete>
-	
+
 </mapper>
 

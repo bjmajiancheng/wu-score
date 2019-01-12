@@ -42,6 +42,18 @@ public class IdentityInfoModel implements Serializable {
 
     private String name;//"姓名"
 
+    //2019-1-9添加卫健委信息
+
+    private String formerName;//"曾用名"
+
+    private String pregnantPromise;//本人或配偶目前 0:请选择（没啥用）；1.承诺 2.不承诺 已怀孕_周
+
+    private String pregnantWeek;//本人或配偶目前(不)承诺 已怀孕_周
+
+    private String thirdPregnantPromise;//本人或配偶 0:请选择（没啥用）； 1.承诺 2.不承诺目前未处于政策外第三个及以上子女怀孕期间
+
+    //2019-1-9添加卫健委信息END
+
     private Integer sex;//"性别：1、男；2、女"
 
     private String birthday;//"出生日期"
@@ -167,6 +179,38 @@ public class IdentityInfoModel implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFormerName() {
+        return formerName;
+    }
+
+    public void setFormerName(String formerName) {
+        this.formerName = formerName;
+    }
+
+    public String getPregnantPromise() {
+        return pregnantPromise;
+    }
+
+    public void setPregnantPromise(String pregnantPromise) {
+        this.pregnantPromise = pregnantPromise;
+    }
+
+    public String getPregnantWeek() {
+        return pregnantWeek;
+    }
+
+    public void setPregnantWeek(String pregnantWeek) {
+        this.pregnantWeek = pregnantWeek;
+    }
+
+    public String getThirdPregnantPromise() {
+        return thirdPregnantPromise;
+    }
+
+    public void setThirdPregnantPromise(String thirdPregnantPromise) {
+        this.thirdPregnantPromise = thirdPregnantPromise;
     }
 
     public Integer getSex() {
@@ -453,5 +497,7 @@ public class IdentityInfoModel implements Serializable {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
+
 }
 
