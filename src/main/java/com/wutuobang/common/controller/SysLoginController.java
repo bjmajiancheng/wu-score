@@ -2,6 +2,7 @@ package com.wutuobang.common.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.score.model.SystemNoticeModel;
@@ -109,11 +110,16 @@ public class SysLoginController {
         //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
         Date closeLogintime = new Date();
         Date openLoginTime = new Date();
+        boolean flag = false;
         for(BatchConfModel batchConf : batchConfs){
             if (batchConf.getStatus() == 1){
                 closeLogintime = batchConf.getCloseLoginTime();
                 openLoginTime = batchConf.getOpenLoginTime();
+                flag = true;
             }
+        }
+        if (true){
+            return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
 
         if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
