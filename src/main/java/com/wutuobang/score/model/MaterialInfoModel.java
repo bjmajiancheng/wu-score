@@ -39,12 +39,16 @@ public class MaterialInfoModel implements Serializable {
 	private String templateImg;//"模板图片"
 
 	private Integer isUpload;//"是否需要上传"
+
+	private String category;//一级分类  1：必传材料；2：人力社保局材料；3:公安局材料；
+
+	private String categoryRenshe;//二级分类 21：高级技工学校高级班相关材料；22：专业技术人员职业资格证书相关材料；23：技能职业资格证书相关材料；24：奖项及荣誉称号相关材料；25：其他；
 	//columns END
 
 	//自定义属性START
 	private OnlinePersonMaterialModel onlinePersonMaterial;
 	//自定义属性END
-		
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -52,7 +56,7 @@ public class MaterialInfoModel implements Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-		
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -60,7 +64,7 @@ public class MaterialInfoModel implements Serializable {
 	public String getName() {
 		return this.name;
 	}
-		
+
 	public void setNote(String note) {
 		this.note = note;
 	}
@@ -68,7 +72,7 @@ public class MaterialInfoModel implements Serializable {
 	public String getNote() {
 		return this.note;
 	}
-		
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
@@ -76,7 +80,7 @@ public class MaterialInfoModel implements Serializable {
 	public Date getCreateTime() {
 		return this.createTime;
 	}
-		
+
 	public void setAddUser(String addUser) {
 		this.addUser = addUser;
 	}
@@ -84,7 +88,7 @@ public class MaterialInfoModel implements Serializable {
 	public String getAddUser() {
 		return this.addUser;
 	}
-		
+
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
 	}
@@ -92,7 +96,7 @@ public class MaterialInfoModel implements Serializable {
 	public Integer getTitleId() {
 		return this.titleId;
 	}
-		
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -123,6 +127,22 @@ public class MaterialInfoModel implements Serializable {
 
 	public void setOnlinePersonMaterial(OnlinePersonMaterialModel onlinePersonMaterial) {
 		this.onlinePersonMaterial = onlinePersonMaterial;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCategoryRenshe() {
+		return categoryRenshe;
+	}
+
+	public void setCategoryRenshe(String categoryRenshe) {
+		this.categoryRenshe = categoryRenshe;
 	}
 }
 

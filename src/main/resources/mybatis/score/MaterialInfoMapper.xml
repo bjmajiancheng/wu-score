@@ -15,12 +15,14 @@
         <result property="title" column="title"/>
 		<result property="templateImg" column="template_img" />
 		<result property="isUpload" column="is_upload" />
+		<result property="category" column="category" />
+		<result property="categoryRenshe" column="category_renshe" />
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,name ,note ,create_time ,add_user ,title_id ,title ,template_img ,is_upload
+        id ,name ,note ,create_time ,add_user ,title_id ,title ,template_img ,is_upload , category , category_renshe
 	    ]]>
 	</sql>
 	

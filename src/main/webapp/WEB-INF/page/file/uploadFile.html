@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>申请人材料上传</title>
-#parse("common/header.html")
+    <title>申请人材料上传</title>
+    #parse("common/header.html")
 </head>
 
 <body>
@@ -10,8 +10,8 @@
 #parse("common/banner.html")
 
 <!-- 主体部分 -->
-<div class="integral-main-box">
-    <div class="integral-cont">
+<div class="integral-main-box" style="width: 1350px;">
+    <div class="integral-cont" style="width: 1300px;">
         <!-- 申请人材料上传 -->
         <!-- 示例title 面包屑导航 -->
         <div class="integral-grey-title-bar">
@@ -42,19 +42,25 @@
             6.身份证及居住证必须上传，如未上传，不能申请预审。
         </div>
 
-        <input type="hidden" name="identityInfoId" id="identityInfoId" value="$!{identityInfo.id}" />
+        <input type="hidden" name="identityInfoId" id="identityInfoId" value="$!{identityInfo.id}"/>
         <!-- 政策表格 -->
-        <table class="integral-table">
-            <tbody>
+        <table class="integral-table" id="materialTable">
+            <thead>
             <tr>
-                <th>材料清单</th>
-                <th>操作</th>
-                <th>上传查看</th>
-                <th>模板样式</th>
-                <th>删除</th>
+                <th style="width: 8%">分类</th>
+                <th style="width: 10%">上传材料项</th>
+                <th style="width: 50%">材料清单</th>
+                <th style="width: 8%">操作</th>
+                <th style="width: 8%">上传查看</th>
+                <th style="width: 8%">模板样式</th>
+                <th style="width: 8%">删除</th>
             </tr>
+            </thead>
+            <tbody id="materialTableTbody">
             #foreach(${materialInfo} in ${materialInfos})
             <tr class="materialInfoTr">
+                <td>$!{materialInfo.category}</td>
+                <td>$!{materialInfo.categoryRenshe}</td>
                 <td>
                     <input type="hidden" name="id" value="$!{materialInfo.onlinePersonMaterial.id}"/>
                     <input type="hidden" name="materialInfoId" value="$!{materialInfo.id}"/>
@@ -63,9 +69,11 @@
                 <td>
                     <span class="attachmentName">$!{materialInfo.onlinePersonMaterial.materialName}</span>
                     <input type="hidden" name="materialId" value="$!{materialInfo.onlinePersonMaterial.materialId}"/>
-                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
+                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} ==
+                    1))
                     <span class="integral-table-btn td_upload integral-table-btn2">上传</span>
-                    <input class="upload_input" type="file" id="updateFile_${velocityCount}" name="updateFile" accept="image/*"/>
+                    <input class="upload_input" type="file" id="updateFile_${velocityCount}" name="updateFile" style="display: none"
+                           accept="image/*"/>
                     #end
                 </td>
                 <td>
@@ -75,12 +83,14 @@
                 <td><a class="integral-table-btn integral-table-btn2 viewTemplate" herf="javascript:void(0);"
                        templateImg="$!{materialInfo.templateImg}">查看模板</a></td>
                 <td>
-                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
+                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} ==
+                    1))
                     <a class="integral-table-btn integral-table-btn2 deleteFile">删除</a>
                     #end
 
                     #if($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1)
-                    <a class="integral-table-btn integral-table-btn2 " href="javascript:void(0);" onclick="showReason('$!{materialInfo.onlinePersonMaterial.reason}')">失败原因</a>
+                    <a class="integral-table-btn integral-table-btn2 " href="javascript:void(0);"
+                       onclick="showReason('$!{materialInfo.onlinePersonMaterial.reason}')">失败原因</a>
                     #end
                 </td>
             </tr>
@@ -125,6 +135,114 @@
 <script type="text/javascript" src="${rc.contextPath}/$static.curr_ver()/js/jquery.form.min.js"></script>
 <script type="text/javascript">
     $(function () {
+        var materialTableTbody = $('#materialTableTbody');
+        var materialTableTbodyClone = materialTableTbody.clone();
+        var tempMaterial = {};
+        var firstTD = "";
+        var secondTD = "";
+        materialTableTbodyClone.find('tr').each(function () {
+            firstTD = $(this).children('td').eq(0).text();
+            secondTD = $(this).children('td').eq(1).text();
+            if (!tempMaterial.hasOwnProperty(firstTD)) {
+                tempMaterial[firstTD] = {};
+            }
+            if (!tempMaterial[firstTD].hasOwnProperty(secondTD)) {
+                tempMaterial[firstTD][secondTD] = [];
+            }
+            tempMaterial[firstTD][secondTD].push($(this));
+        });
+
+
+        materialTableTbody.empty();
+        var tempTr;
+        if (tempMaterial.hasOwnProperty("必传材料")) {
+            for (var secondKey in tempMaterial["必传材料"]) {
+                if (tempMaterial["必传材料"].hasOwnProperty(secondKey)) {
+                    var isFirst = false;
+                    if (secondKey == getFirstAttribute(tempMaterial["必传材料"])) {
+                        isFirst = true;
+                    }
+                    for (var index in tempMaterial["必传材料"][secondKey]) {
+                        if (tempMaterial["必传材料"][secondKey].hasOwnProperty(index)) {
+                            tempTr = tempMaterial["必传材料"][secondKey][index];
+                            firstTD = tempTr.children('td').eq(0);
+                            secondTD = tempTr.children('td').eq(1);
+                            var firstKeyLength = 0;
+                            var secondKeyLenth = tempMaterial["必传材料"][secondKey].length;
+                            for (var tempkey in tempMaterial["必传材料"]) {
+                                if (tempMaterial["必传材料"].hasOwnProperty(tempkey)) {
+                                    firstKeyLength += tempMaterial["必传材料"][tempkey].length;
+                                }
+                            }
+                            if (isFirst && index == 0) {
+                                firstTD.attr("rowspan", firstKeyLength);
+                            } else {
+                                firstTD.remove();
+                            }
+
+                            if (index == 0) {
+                                secondTD.attr("rowspan", secondKeyLenth);
+                            } else {
+                                secondTD.remove();
+                            }
+                            materialTableTbody.append(tempTr);
+                        }
+                    }
+                }
+            }
+        }
+        for (var firstKey in tempMaterial) {
+            if (tempMaterial.hasOwnProperty(firstKey) && firstKey != "必传材料") {
+                for (var secondKey in tempMaterial[firstKey]) {
+                    if (tempMaterial[firstKey].hasOwnProperty(secondKey)) {
+                        var isFirst = false;
+                        if (secondKey == getFirstAttribute(tempMaterial[firstKey])) {
+                            isFirst = true;
+                        }
+                        for (var index in tempMaterial[firstKey][secondKey]) {
+                            if (tempMaterial[firstKey][secondKey].hasOwnProperty(index)) {
+                                tempTr = tempMaterial[firstKey][secondKey][index];
+                                firstTD = tempTr.children('td').eq(0);
+                                secondTD = tempTr.children('td').eq(1);
+                                var firstKeyLength = 0;
+                                var secondKeyLenth = tempMaterial[firstKey][secondKey].length;
+                                for (var tempkey in tempMaterial[firstKey]) {
+                                    if (tempMaterial[firstKey].hasOwnProperty(tempkey)) {
+                                        firstKeyLength += tempMaterial[firstKey][tempkey].length;
+                                    }
+                                }
+                                if (isFirst && index == 0) {
+                                    firstTD.attr("rowspan", firstKeyLength);
+                                } else {
+                                    firstTD.remove();
+                                }
+
+                                if (index == 0) {
+                                    secondTD.attr("rowspan", secondKeyLenth);
+                                } else {
+                                    secondTD.remove();
+                                }
+                                materialTableTbody.append(tempTr);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        var materialTable = $('#materialTable');
+        materialTable.css('border', '1px solid #636363');
+        materialTable.find("th").each(function () {
+            $(this).css('border', '1px solid #636363')
+        });
+        materialTable.find("td").each(function () {
+            $(this).css('border', '1px solid #636363')
+        });
+        materialTable.find("tr").each(function () {
+            $(this).css('border', '1px solid #636363')
+        });
+
+
         //页面层-自定义
         $(".viewTemplate").on("click", function () {
             var templateImg = $(this).attr("templateImg");
@@ -143,8 +261,8 @@
             var fileSize = 0;
             var fileMaxSize = 1024;//1M
             var filePath = file.value;
-            if(filePath) {
-                fileSize =file.files[0].size;
+            if (filePath) {
+                fileSize = file.files[0].size;
                 var size = fileSize / 1024;
                 if (size > fileMaxSize) {
                     layer.alert("文件大小不能大于1M！");
@@ -154,12 +272,12 @@
             }
 
             $.ajaxFileUpload({
-                url : '${rc.contextPath}/fileUpload/updateFile', //用于文件上传的服务器端请求地址
-                fileElementId : $(this).attr("id"), //文件上传空间的id属性  <input type="file" id="file" name="file" />
-                type : 'post',
-                dataType : 'text', //返回值类型 一般设置为json
+                url: '${rc.contextPath}/fileUpload/updateFile', //用于文件上传的服务器端请求地址
+                fileElementId: $(this).attr("id"), //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                type: 'post',
+                dataType: 'text', //返回值类型 一般设置为json
                 obj: obj,
-                success : function(result, status, obj) //服务器成功响应处理函数
+                success: function (result, status, obj) //服务器成功响应处理函数
                 {
 
                     var _this = obj;
@@ -172,12 +290,12 @@
                         layer.msg(resultObj.msg);
                     }
 
-                    var file_input = $('<input class="upload_input" type="file" id="'+ _this.find('.upload_input').attr("id") +'" name="updateFile" accept="image/*"/>');
+                    var file_input = $('<input class="upload_input" type="file" id="' + _this.find('.upload_input').attr("id") + '" name="updateFile" accept="image/*"/>');
                     _this.find("input.upload_input").remove();
                     file_input.on("change", _updateFileChange);
-                    file_input.appendTo( _this);
+                    file_input.appendTo(_this);
                 },
-                error : function(result, status, e)//服务器响应失败处理函数
+                error: function (result, status, e)//服务器响应失败处理函数
                 {
                     layer.msg("图片上传失败");
                 }
@@ -204,18 +322,18 @@
         /**
          *  删除按钮
          */
-        $(".deleteFile").on("click", function() {
+        $(".deleteFile").on("click", function () {
             var $tr = $(this).parents("tr.materialInfoTr");
 
             layer.confirm('是否要删除上传文件？', {
-                btn: ['是','否'] //按钮
-            }, function(index){
+                btn: ['是', '否'] //按钮
+            }, function (index) {
                 $tr.find("input[name=materialId]").val('');
                 $tr.find("span.attachmentName").text('');
                 $tr.find(".viewFile").attr("uri", '');
 
                 layer.close(index);
-            }, function(index){
+            }, function (index) {
                 layer.close(index);
             });
 
@@ -230,7 +348,7 @@
                 var materialInfoId = $(this).find("input[name=materialInfoId]").val();
                 var materialId = $(this).find("input[name=materialId]").val();
 
-                if(materialId != '') {
+                if (materialId != '') {
                     materialInfoArr.push({"id": id, "materialInfoId": materialInfoId, "materialId": materialId});
                 }
             });
@@ -247,7 +365,7 @@
                 layer.msg('保存成功!!', {
                     time: 1000
                 }, function () {
-                    if(window.opener && window.opener.component) {
+                    if (window.opener && window.opener.component) {
                         window.opener.component.load();
                         window.close();
                     } else {
@@ -263,15 +381,15 @@
      * 展示失败原因
      **/
     function showReason(reason) {
-        if(reason) {
+        if (reason) {
             layer.alert(reason, {
                 skin: 'layui-layer-lan'
-                ,closeBtn: 0
+                , closeBtn: 0
             });
         } else {
             layer.alert('失败原因为空!!!', {
                 skin: 'layui-layer-lan'
-                ,closeBtn: 0
+                , closeBtn: 0
             });
         }
     }
@@ -315,6 +433,13 @@
             $(this).fadeOut("fast");
         });
     }
-</script>
 
+    function getFirstAttribute(data) {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                return key;
+            }
+        }
+    }
+</script>
 </html>
