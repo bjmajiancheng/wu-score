@@ -123,7 +123,7 @@ public class SysLoginController {
         }
 
         if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
-            return ResultParam.error("2018年第二期居住证积分受理阶段已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+            return ResultParam.error("居住证积分受理阶段已经关闭，积分结果公布具体时间请关注网站通知！");
         }
 
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);

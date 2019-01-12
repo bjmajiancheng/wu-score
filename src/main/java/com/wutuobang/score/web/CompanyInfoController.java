@@ -24,6 +24,7 @@ import com.wutuobang.common.utils.RedisUtil;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.common.utils.UuidUtil;
 import com.wutuobang.score.constant.CacheConstant;
+import com.wutuobang.score.model.BatchConfModel;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -61,6 +62,9 @@ public class CompanyInfoController {
     @Autowired
     private ShardJedisClient jedisClient;
 
+    @Autowired
+    private IBatchConfService batchConfService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyInfoController.class);
 
     /**
@@ -88,12 +92,40 @@ public class CompanyInfoController {
             /*
             2018年10月30日17:00关闭单位注册、网上预审功能
              */
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String strTime = "2018-10-30 17:00";
             Date date2 = sdf.parse(strTime);
             if (date2.getTime()<System.currentTimeMillis()){
                 return ResultParam.error("2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+            }*/
+
+
+
+            /*
+        从表 t_batch_conf 中取字段值，CLOSE_LOGIN_TIME（关闭登录功能时间）、OPEN_LOGIN_TIME（打开登录功能时间）
+         */
+            Map<String,Object> params = new HashMap<String,Object>();
+            params.put("status", 1);//
+            List<BatchConfModel> batchConfs = batchConfService.find(params);
+            //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+            Date closeLogintime = new Date();
+            Date openLoginTime = new Date();
+            boolean flag = false;
+            for(BatchConfModel batchConf : batchConfs){
+                if (batchConf.getStatus() == 1){
+                    closeLogintime = batchConf.getCloseLoginTime();
+                    openLoginTime = batchConf.getOpenLoginTime();
+                    flag = true;
+                }
             }
+            if (true){
+                return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
+            }
+
+            if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
+                return ResultParam.error("居住证积分受理阶段网上注册已经关闭，详情请关注重要通知！");
+            }
+
 
 
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
