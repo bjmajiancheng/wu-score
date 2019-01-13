@@ -126,9 +126,14 @@
 	<select id="find" resultMap="MaterialInfo">
 	    SELECT <include refid="columns"/> FROM t_material_info 
 		<include refid="findWhere"/>
-		<if test="sortColumns != null">
-			ORDER BY ${sortColumns}
-		</if>
+		<choose>
+			<when test="sortColumns != null">
+				ORDER BY ${sortColumns},CATEGORY_RENSHE,CATEGORY
+			</when>
+			<otherwise>
+				ORDER BY CATEGORY_RENSHE,CATEGORY
+			</otherwise>
+		</choose>
     </select>
 	
 </mapper>
