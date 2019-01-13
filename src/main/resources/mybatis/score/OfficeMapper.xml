@@ -24,7 +24,7 @@
 			select t_office_seq.NEXTVAL from dual
 		</selectKey>
     <![CDATA[
-        INSERT INTO t_office (
+        INSERT INTO t_office_2 (
 	        id  ,
 	        name  ,
 	        parent_id  ,
@@ -39,7 +39,7 @@
     </insert>
 
     <update id="update" >
-        UPDATE t_office SET
+        UPDATE t_office_2 SET
 	        <if test="name != null">name = #{name, jdbcType=VARCHAR} ,</if>
 	        <if test="parentId != null">parent_id = #{parentId, jdbcType=INTEGER} ,</if>
 	        <if test="level != null">region_level = #{level, jdbcType=INTEGER} </if>
@@ -49,7 +49,7 @@
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM t_office WHERE
+        DELETE FROM t_office_2 WHERE
         id = #{id} 
     ]]>
     </delete>
@@ -57,7 +57,7 @@
     <select id="getById" resultMap="Office">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
-	        FROM t_office 
+	        FROM t_office_2
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -75,7 +75,7 @@
 	</sql>
 	 
     <select id="findPageCount" resultType="int">
-        SELECT count(*) FROM t_office <include refid="findWhere"/>    
+        SELECT count(*) FROM t_office_2 <include refid="findWhere"/>
     </select>
     
     <!--
@@ -83,7 +83,7 @@
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
     <select id="findPage" resultMap="Office">
-    	SELECT <include refid="columns"/> FROM t_office 
+    	SELECT <include refid="columns"/> FROM t_office_2
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -92,7 +92,7 @@
 
 	
 	<select id="find" resultMap="Office">
-	    SELECT <include refid="columns"/> FROM t_office 
+	    SELECT <include refid="columns"/> FROM t_office_2
 		<include refid="findWhere"/>
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
