@@ -58,6 +58,9 @@ public class MaterialInfoController {
     @Autowired
     private IAttachmentService attachmentService;
 
+    @Autowired
+    private IHouseMoveService houseMoveService;
+
     /**
      * 跳转到上传文件页面
      *
@@ -67,7 +70,7 @@ public class MaterialInfoController {
      */
     @RequestMapping(value = "/updateFile/{identityInfoId}.html", method = RequestMethod.GET)
     public ModelAndView toUpdateFile(HttpServletRequest request,
-            @PathVariable("identityInfoId") Integer identityInfoId) {
+                                     @PathVariable("identityInfoId") Integer identityInfoId) {
         if (identityInfoId == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
         }
@@ -105,7 +108,26 @@ public class MaterialInfoController {
                 }
             }
 
+            //根据id判断是否结婚
+            IdentityInfoModel identityInfoFindIsMarried = identityInfoService.getById(identityInfoId);
+            identityInfoFindIsMarried.setHouseMoveModel(houseMoveService.getByIdentityInfoId(identityInfoId));
+            Integer isMarriedNum = identityInfoFindIsMarried.getHouseMoveModel().getMarriageStatus();
+            boolean isMarried = false;
+            if (isMarriedNum != null) {
+                switch (isMarriedNum) {
+                    //项目开始时设置1为已婚,现已废弃，为适用原数据库数据匹配
+                    case 1:
+                        //初婚复婚再婚需要上传结婚证
+                    case 7:
+                    case 8:
+                    case 9:
+                        isMarried = true;
+                        break;
+                }
+            }
+
             //所有材料信息
+
             List<MaterialInfoModel> materialInfos = materialInfoService
                     .find(Collections.singletonMap("isUpload", (Object) 1));
             if (CollectionUtils.isNotEmpty(materialInfos)) {
@@ -118,8 +140,14 @@ public class MaterialInfoController {
                         }
                     }
                     materialInfo.setOnlinePersonMaterial(tmpMaterialModel);
+                    //根据主键17判断是否为结婚材料,并修改为必传材料
+                    if (materialInfo.getId() == 17 && isMarried) {
+                        materialInfo.setCategory("必传材料");
+                        materialInfo.setCategoryRenshe("");
+                    }
                 }
             }
+
 
             //判断当前状态是否是重新上传材料
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
@@ -150,7 +178,7 @@ public class MaterialInfoController {
     @ResponseBody
     @RequestMapping(value = "/saveMaterialInfo", method = RequestMethod.POST)
     public ResultParam saveMaterialInfo(HttpServletRequest request, @RequestParam("materialInfo") String materialInfo,
-            @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("captcha") String captcha) {
+                                        @RequestParam("identityInfoId") Integer identityInfoId, @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(materialInfo) || identityInfoId == null) {
             return ResultParam.SYSTEM_ERROR_RESULT;
         }

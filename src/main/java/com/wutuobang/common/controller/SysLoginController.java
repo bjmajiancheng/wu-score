@@ -110,20 +110,20 @@ public class SysLoginController {
         //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
         Date closeLogintime = new Date();
         Date openLoginTime = new Date();
-        boolean flag = false;
+        boolean flag = true;
         for(BatchConfModel batchConf : batchConfs){
             if (batchConf.getStatus() == 1){
                 closeLogintime = batchConf.getCloseLoginTime();
                 openLoginTime = batchConf.getOpenLoginTime();
-                flag = true;
+                flag = false;
             }
         }
-        if (true){
+        if (flag){
             return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
 
         if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
-            return ResultParam.error("居住证积分受理阶段已经关闭，积分结果公布具体时间请关注网站通知！");
+            return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
 
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);

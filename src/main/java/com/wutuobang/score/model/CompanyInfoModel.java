@@ -54,6 +54,8 @@ public class CompanyInfoModel implements Serializable {
 
 	private Date createTime;//"创建时间"
 
+	private Integer status;//用来控制修改的次数，每一期只能修改一次；
+
 	//columns END
 		
 	public void setId(Integer id) {
@@ -182,6 +184,14 @@ public class CompanyInfoModel implements Serializable {
 
 	public String getIdCardNumber_2() {
 		return idCardNumber_2;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }
 

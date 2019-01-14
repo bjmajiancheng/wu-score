@@ -22,15 +22,17 @@
 		<result property="operatorMobile2" column="operator_obile2"></result>
 		<result property="idCardNumber_1" column="idCardNumber_1"></result>
 		<result property="idCardNumber_2" column="idCardNumber_2"></result>
+		<result property="status" column="status"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,create_time,operator_obile2,idCardNumber_1,idCardNumber_2
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2,
+        operator_mobile ,operator_address ,remark ,create_time,operator_obile2,idCardNumber_1,idCardNumber_2,status
 	    ]]>
 	</sql>
-	
+
     <insert id="insert" >
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select t_company_info_seq.NEXTVAL from dual
@@ -52,7 +54,8 @@
 	        create_time,
 	        operator_obile2,
 	        idCardNumber_1,
-	        idCardNumber_2
+	        idCardNumber_2,
+	        status
         ) VALUES (
         	${id} ,
         	#{userName, jdbcType=VARCHAR} ,
@@ -69,7 +72,8 @@
         	#{createTime, jdbcType=TIMESTAMP},
         	#{operatorMobile2, jdbcType=VARCHAR},
         	#{idCardNumber_1, jdbcType=VARCHAR},
-        	#{idCardNumber_2, jdbcType=VARCHAR}
+        	#{idCardNumber_2, jdbcType=VARCHAR},
+        	#{status，jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -91,9 +95,10 @@
 			<if test="operatorMobile2 != null">operator_obile2 = #{operatorMobile2, jdbcType=VARCHAR} ,</if>
 			<if test="idCardNumber_1 != null">idCardNumber_1 = #{idCardNumber_1, jdbcType=VARCHAR} ,</if>
 			<if test="idCardNumber_2 != null">idCardNumber_2 = #{idCardNumber_2, jdbcType=VARCHAR} ,</if>
+            <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
 			id = #{id}
 		WHERE
-	        id = #{id} 
+	        id = #{id}
     </update>
 
     <delete id="delete">
@@ -102,7 +107,7 @@
         id = #{id} 
     ]]>
     </delete>
-    
+
     <select id="getById" resultMap="CompanyInfo">
 	    SELECT <include refid="columns"/>
 	    <![CDATA[
@@ -150,6 +155,9 @@
 			<if test="idCardNumber_2 != null">
 				AND idCardNumber_2 = #{idCardNumber_2}
 			</if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
 			<if test="ids != null">
 				AND id IN
 				<foreach collection="ids" item="item" open="(" separator="," close=")">
@@ -158,11 +166,11 @@
 			</if>
 	    </where>
 	</sql>
-	 
+
     <select id="findPageCount" resultType="int">
         SELECT count(*) FROM t_company_info <include refid="findWhere"/>
     </select>
-    
+
     <!--
     	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
     	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
@@ -175,7 +183,7 @@
 		</if>
     </select>
 
-	
+
 	<select id="find" resultMap="CompanyInfo">
 	    SELECT <include refid="columns"/> FROM t_company_info
 		<include refid="findWhere"/>
@@ -188,6 +196,6 @@
 		SELECT <include refid="columns"/> FROM t_company_info
 		WHERE company_name = #{companyName} OR society_code = #{societyCode}
 	</select>
-	
+
 </mapper>
 
