@@ -172,7 +172,7 @@
         /*
         读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
          */
-        var flag = true;
+        var flag = false;
         $.ajax({
             type: "POST",
             url: "sys/getCloseOrOpenFunTime",
@@ -180,15 +180,22 @@
             dataType: "json",
             success: function (result) {
                 if (result.code == 20) {//后台定义的20为
-                    flag = false;
+                    flag = true;
+                    if(flag){
+                        layer.msg(result.message);
+                        return false;
+                    }
+                }else{
+                    window.open("${rc.contextPath}/identityInfo/applicationAdd.html");
                 }
             }
+
         });
 
-        if(flag){
+        /*if(flag){
             layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
             return false;
-        }
+        }*/
 
         /*var time= $.ajax({async: false}).getResponseHeader("Date");
         var date = new Date(time);

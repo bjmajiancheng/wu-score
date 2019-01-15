@@ -974,4 +974,30 @@ public class IdentityInfoController {
         identityInfo.setHouseOtherModel(houseOtherService.getByIdentityInfoId(id));
         identityInfo.setHouseProfessionModel(houseProfessionService.getByIdentityInfoId(id));
     }
+
+    /*
+    判断是否在关闭功能的时间段内，若是返回成功，失败返回0即可
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sys/getCloseOrOpenFunTime", method = RequestMethod.POST)
+    public ResultParam getCloseOrOpenFunTime(){
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date closeFunctionTime = new Date();
+        Date openFunctionTime = new Date();
+        for(BatchConfModel batchConf : batchConfs){
+            if (batchConf.getStatus() == 1){
+                closeFunctionTime = batchConf.getCloseFunctionTime();
+                openFunctionTime = batchConf.getOpenFunctionTime();
+            }
+        }
+        if (closeFunctionTime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openFunctionTime.getTime()){
+            return ResultParam.cloOrOpen();
+        }else{
+            return ResultParam.ok();
+        }
+    }
+
 }

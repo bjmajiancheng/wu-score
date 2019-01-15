@@ -19,7 +19,7 @@ public class ResultParam {
     /**
      * 功能在关闭的时间段内，无法使用，例如：注册、预审等
      */
-    public static final ResultParam closeOrOpenFun = new ResultParam(20,"2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。");
+    public static final ResultParam closeOrOpenFun = new ResultParam(20,"居住证积分受理阶段网上注册、预审已经关闭，详情请关注网站重要通知。");
 
     /**
      * 系统异常
