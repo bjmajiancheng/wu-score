@@ -12,9 +12,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * @author  davdian
+ * @author davdian
  * @version 1.0
  * @since 1.0
  */
@@ -54,10 +55,22 @@ public class CompanyInfoModel implements Serializable {
 
 	private Date createTime;//"创建时间"
 
-	private Integer status;//用来控制修改的次数，每一期只能修改一次；
+	//19-1-15增加
+
+	private Integer status;//"是否修改过经办人信息状态,1为已修改过"
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	//19-1-15 END
 
 	//columns END
-		
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -65,7 +78,7 @@ public class CompanyInfoModel implements Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-		
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -73,7 +86,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getUserName() {
 		return this.userName;
 	}
-		
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -81,7 +94,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getPassword() {
 		return this.password;
 	}
-		
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
@@ -89,7 +102,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getCompanyName() {
 		return this.companyName;
 	}
-		
+
 	public void setCompanyType(Integer companyType) {
 		this.companyType = companyType;
 	}
@@ -97,7 +110,7 @@ public class CompanyInfoModel implements Serializable {
 	public Integer getCompanyType() {
 		return this.companyType;
 	}
-		
+
 	public void setSocietyCode(String societyCode) {
 		this.societyCode = societyCode;
 	}
@@ -105,7 +118,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getSocietyCode() {
 		return this.societyCode;
 	}
-		
+
 	public void setCompanyMobile(String companyMobile) {
 		this.companyMobile = companyMobile;
 	}
@@ -113,7 +126,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getCompanyMobile() {
 		return this.companyMobile;
 	}
-		
+
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
@@ -137,7 +150,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getOperatorMobile() {
 		return this.operatorMobile;
 	}
-		
+
 	public void setOperatorAddress(String operatorAddress) {
 		this.operatorAddress = operatorAddress;
 	}
@@ -145,7 +158,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getOperatorAddress() {
 		return this.operatorAddress;
 	}
-		
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
@@ -153,7 +166,7 @@ public class CompanyInfoModel implements Serializable {
 	public String getRemark() {
 		return this.remark;
 	}
-		
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
@@ -186,12 +199,31 @@ public class CompanyInfoModel implements Serializable {
 		return idCardNumber_2;
 	}
 
-	public Integer getStatus() {
-		return status;
+	//判断只能修改一次的信息是否修改
+	public boolean isOperatorEquals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CompanyInfoModel)) return false;
+		CompanyInfoModel that = (CompanyInfoModel) o;
+		return Objects.equals(companyMobile, that.companyMobile) &&
+				Objects.equals(operator, that.operator) &&
+				Objects.equals(operator2, that.operator2) &&
+				Objects.equals(operatorMobile, that.operatorMobile) &&
+				Objects.equals(operatorMobile2, that.operatorMobile2) &&
+				Objects.equals(idCardNumber_1, that.idCardNumber_1) &&
+				Objects.equals(idCardNumber_2, that.idCardNumber_2) &&
+				Objects.equals(operatorAddress, that.operatorAddress);
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	//只修改可以修改的信息
+	public void setOnlyOperatorData() {
+		this.userName = null;
+		this.password = null;
+		this.companyName = null;
+		this.companyType = null;
+		this.societyCode = null;
+		this.remark = null;
+		this.createTime = null;
 	}
+
 }
 

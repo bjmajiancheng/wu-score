@@ -77,7 +77,7 @@ public class CompanyInfoController {
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResultParam register(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo,
-            @RequestParam("captcha") String captcha) {
+                                @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(companyInfo) || StringUtils.isEmpty(captcha)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -104,28 +104,27 @@ public class CompanyInfoController {
             /*
         从表 t_batch_conf 中取字段值，CLOSE_LOGIN_TIME（关闭登录功能时间）、OPEN_LOGIN_TIME（打开登录功能时间）
          */
-            Map<String,Object> params = new HashMap<String,Object>();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("status", 1);//
             List<BatchConfModel> batchConfs = batchConfService.find(params);
             //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
             Date closeLogintime = new Date();
             Date openLoginTime = new Date();
             boolean flag = false;
-            for(BatchConfModel batchConf : batchConfs){
-                if (batchConf.getStatus() == 1){
+            for (BatchConfModel batchConf : batchConfs) {
+                if (batchConf.getStatus() == 1) {
                     closeLogintime = batchConf.getCloseLoginTime();
                     openLoginTime = batchConf.getOpenLoginTime();
                     flag = true;
                 }
             }
-            if (true){
+            if (true) {
                 return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
             }
 
-            if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
+            if (closeLogintime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openLoginTime.getTime()) {
                 return ResultParam.error("居住证积分受理阶段网上注册已经关闭，详情请关注重要通知！");
             }
-
 
 
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
@@ -199,7 +198,7 @@ public class CompanyInfoController {
     @ResponseBody
     @RequestMapping(value = "/companyEdit", method = RequestMethod.POST)
     public ResultParam companyEdit(HttpServletRequest request, @RequestParam("companyInfo") String companyInfo,
-            @RequestParam("captcha") String captcha) {
+                                   @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(companyInfo)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -212,8 +211,27 @@ public class CompanyInfoController {
         try {
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
 
-            companyInfoService.update(companyInfoModel);
-            return ResultParam.SUCCESS_RESULT;
+            CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
+
+            if (currCompany != null) {
+                Integer status = currCompany.getStatus();
+                if (status == null || status != 1) {
+                    //如果企业信息不修改,不改变字段的值
+                    if (!currCompany.isOperatorEquals(companyInfoModel)) {
+                        companyInfoModel.setStatus(1);
+                        companyInfoModel.setOnlyOperatorData();
+                        companyInfoService.update(companyInfoModel);
+                    } else {
+                        return new ResultParam(3, "每一期只可以修改一次用人单位信息,请确定有信息修改后保存");
+                    }
+                } else {
+                    return new ResultParam(3, "每一期只可以修改一次用人单位信息");
+                }
+            } else {
+                return ResultParam.SYSTEM_ERROR_RESULT;
+            }
+
+            return new ResultParam(0, "用人单位信息修改成功!");
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
@@ -231,7 +249,7 @@ public class CompanyInfoController {
     @ResponseBody
     @RequestMapping(value = "/retrievePasswd", method = RequestMethod.POST)
     public ResultParam retrievePasswd(HttpServletRequest request, @RequestParam("userName") String userName,
-            @RequestParam("captcha") String captcha) {
+                                      @RequestParam("captcha") String captcha) {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(captcha)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -277,7 +295,7 @@ public class CompanyInfoController {
     @ResponseBody
     @RequestMapping(value = "/validMsgCode", method = RequestMethod.POST)
     public ResultParam validMsgCode(HttpServletRequest request, @RequestParam("userName") String userName,
-            @RequestParam("msgCode") String msgCode) {
+                                    @RequestParam("msgCode") String msgCode) {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(msgCode)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -314,7 +332,7 @@ public class CompanyInfoController {
     @ResponseBody
     @RequestMapping(value = "/editPassword", method = RequestMethod.POST)
     public ResultParam editPassword(HttpServletRequest request, @RequestParam("userName") String userName,
-            @RequestParam("password") String password, @RequestParam("token") String token) {
+                                    @RequestParam("password") String password, @RequestParam("token") String token) {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
             return ResultParam.error("用户名或密码不能为空。");
         }
