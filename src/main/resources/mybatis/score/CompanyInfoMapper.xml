@@ -23,12 +23,13 @@
 		<result property="idCardNumber_1" column="idCardNumber_1"></result>
 		<result property="idCardNumber_2" column="idCardNumber_2"></result>
 		<result property="status" column="status"></result>
+		<result property="businessLicenseSrc" column="businessLicenseSrc"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 		<![CDATA[
-        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,create_time,operator_obile2,idCardNumber_1,idCardNumber_2,status
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,create_time,operator_obile2,idCardNumber_1,idCardNumber_2,status,businessLicenseSrc
 	    ]]>
 	</sql>
 
@@ -54,7 +55,8 @@
 	        operator_obile2,
 	        idCardNumber_1,
 	        idCardNumber_2,
-	        status
+			status,
+businessLicenseSrc
         ) VALUES (
         	${id} ,
         	#{userName, jdbcType=VARCHAR} ,
@@ -72,7 +74,8 @@
         	#{operatorMobile2, jdbcType=VARCHAR},
         	#{idCardNumber_1, jdbcType=VARCHAR},
         	#{idCardNumber_2, jdbcType=VARCHAR},
-        	#{status，jdbcType=INTEGER}
+        	#{status，jdbcType=INTEGER},
+		#{businessLicenseSrc, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
@@ -95,6 +98,7 @@
 		<if test="idCardNumber_1 != null">idCardNumber_1 = #{idCardNumber_1, jdbcType=VARCHAR} ,</if>
 		<if test="idCardNumber_2 != null">idCardNumber_2 = #{idCardNumber_2, jdbcType=VARCHAR} ,</if>
 		<if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
+		<if test="businessLicenseSrc != null">businessLicenseSrc = #{businessLicenseSrc, jdbcType=VARCHAR} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

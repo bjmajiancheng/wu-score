@@ -64,6 +64,7 @@
                 /commonQuestion/**=anon
                 /systemNotice/**=anon
                 /pbScoreResult/**=anon
+                /fileUpload/uploadImage/businessLicense/**=anon
                 /shopPic/**=anon
                 /**=authc
             </value>

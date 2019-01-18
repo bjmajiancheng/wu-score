@@ -221,6 +221,13 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="">现居住地址：</td>
+                        <td>
+                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"
+                                   value="$!{houseMoveModel.moveNowAddress}">
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="">现户籍登记机关：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="moveRegisteredOffice"
@@ -422,6 +429,17 @@
                                        #if(${spouseHouseRelationshipModel.isRemove}=="2") checked #end name="isRemove"
                                        value="2">否
                             </label>
+                        </td>
+                    </tr>
+                    <tr class="spouseModel">
+                        <td class="">配偶婚姻状况：</td>
+                        <td>
+                            <select name="marriageStatus" id="spouseMarriageStatus">
+                                <option value="0">请选择</option>
+                                <option value="7">初婚</option>
+                                <option value="8">复婚</option>
+                                <option value="9">再婚</option>
+                            </select>
                         </td>
                     </tr>
                     <tr class="spouseModel">
@@ -1518,7 +1536,7 @@
                     layer.msg("图片上传失败");
                 }
             });
-        }
+        };
 
         $("input[name=idcard1]").on("change", _updateFileChange);
         //身份证正面上传
@@ -2505,6 +2523,8 @@
         $("#settledNature").val('$!{houseMoveModel.settledNature}');
         $("#region").val('$!{houseMoveModel.region}');
         $("#marriageStatus").val('$!{houseMoveModel.marriageStatus}');
+        //配偶婚姻状况
+        $("#spouseMarriageStatus").val('$!{spouseHouseRelationshipModel.marriageStatus}');
         $("#sonNumber").val('$!{houseMoveModel.sonNumber}');
 
         //其他信息

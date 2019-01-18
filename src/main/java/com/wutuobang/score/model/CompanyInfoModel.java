@@ -67,6 +67,16 @@ public class CompanyInfoModel implements Serializable {
 		this.status = status;
 	}
 
+	private String businessLicenseSrc;//营业执照路径
+
+	public String getBusinessLicenseSrc() {
+		return businessLicenseSrc;
+	}
+
+	public void setBusinessLicenseSrc(String businessLicenseSrc) {
+		this.businessLicenseSrc = businessLicenseSrc;
+	}
+
 	//19-1-15 END
 
 	//columns END
@@ -223,6 +233,7 @@ public class CompanyInfoModel implements Serializable {
 		this.societyCode = null;
 		this.remark = null;
 		this.createTime = null;
+		this.businessLicenseSrc = null;
 	}
 
 }

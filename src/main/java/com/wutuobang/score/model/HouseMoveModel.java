@@ -62,8 +62,22 @@ public class HouseMoveModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 
+	//2019-1-17增加字段
+
+	private String moveNowAddress; //申请人现居住地址
+
+	public String getMoveNowAddress() {
+		return moveNowAddress;
+	}
+
+	public void setMoveNowAddress(String moveNowAddress) {
+		this.moveNowAddress = moveNowAddress;
+	}
+
+	//2019-1-17增加字段End
+
 	//columns END
-		
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -71,7 +85,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-		
+
 	public void setIdentityInfoId(Integer identityInfoId) {
 		this.identityInfoId = identityInfoId;
 	}
@@ -79,7 +93,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getIdentityInfoId() {
 		return this.identityInfoId;
 	}
-		
+
 	public void setMoveProvince(Integer moveProvince) {
 		this.moveProvince = moveProvince;
 	}
@@ -87,7 +101,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getMoveProvince() {
 		return this.moveProvince;
 	}
-		
+
 	public void setMoveCity(Integer moveCity) {
 		this.moveCity = moveCity;
 	}
@@ -95,7 +109,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getMoveCity() {
 		return this.moveCity;
 	}
-		
+
 	public void setMoveRegion(Integer moveRegion) {
 		this.moveRegion = moveRegion;
 	}
@@ -103,7 +117,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getMoveRegion() {
 		return this.moveRegion;
 	}
-		
+
 	public void setMoveAddress(String moveAddress) {
 		this.moveAddress = moveAddress;
 	}
@@ -111,7 +125,7 @@ public class HouseMoveModel implements Serializable {
 	public String getMoveAddress() {
 		return this.moveAddress;
 	}
-		
+
 	public void setMoveRegisteredOffice(String moveRegisteredOffice) {
 		this.moveRegisteredOffice = moveRegisteredOffice;
 	}
@@ -119,7 +133,7 @@ public class HouseMoveModel implements Serializable {
 	public String getMoveRegisteredOffice() {
 		return this.moveRegisteredOffice;
 	}
-		
+
 	public void setHouseNature(Integer houseNature) {
 		this.houseNature = houseNature;
 	}
@@ -127,7 +141,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getHouseNature() {
 		return this.houseNature;
 	}
-		
+
 	public void setSettledNature(Integer settledNature) {
 		this.settledNature = settledNature;
 	}
@@ -135,7 +149,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getSettledNature() {
 		return this.settledNature;
 	}
-		
+
 	public void setRegisteredOffice(String registeredOffice) {
 		this.registeredOffice = registeredOffice;
 	}
@@ -159,7 +173,7 @@ public class HouseMoveModel implements Serializable {
 	public String getAddress() {
 		return this.address;
 	}
-		
+
 	public void setWitness(String witness) {
 		this.witness = witness;
 	}
@@ -167,7 +181,7 @@ public class HouseMoveModel implements Serializable {
 	public String getWitness() {
 		return this.witness;
 	}
-		
+
 	public void setWitnessPhone(String witnessPhone) {
 		this.witnessPhone = witnessPhone;
 	}
@@ -175,7 +189,7 @@ public class HouseMoveModel implements Serializable {
 	public String getWitnessPhone() {
 		return this.witnessPhone;
 	}
-		
+
 	public void setWitnessAddress(String witnessAddress) {
 		this.witnessAddress = witnessAddress;
 	}
@@ -183,7 +197,7 @@ public class HouseMoveModel implements Serializable {
 	public String getWitnessAddress() {
 		return this.witnessAddress;
 	}
-		
+
 	public void setRegion(Integer region) {
 		this.region = region;
 	}
@@ -191,7 +205,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getRegion() {
 		return this.region;
 	}
-		
+
 	public void setMarriageStatus(Integer marriageStatus) {
 		this.marriageStatus = marriageStatus;
 	}
@@ -199,7 +213,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getMarriageStatus() {
 		return this.marriageStatus;
 	}
-		
+
 	public void setHaveSon(Integer haveSon) {
 		this.haveSon = haveSon;
 	}
@@ -207,7 +221,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getHaveSon() {
 		return this.haveSon;
 	}
-		
+
 	public void setSonNumber(Integer sonNumber) {
 		this.sonNumber = sonNumber;
 	}
@@ -215,7 +229,7 @@ public class HouseMoveModel implements Serializable {
 	public Integer getSonNumber() {
 		return this.sonNumber;
 	}
-		
+
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
 	}

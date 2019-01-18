@@ -98,6 +98,22 @@
                     </tr>
                     <tr>
                         <td>
+                            <span class="color-red">*</span>单位营业执照：
+                        </td>
+                        <td>
+                            <div class="integral-businesslicense-img">
+                                <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png" onclick="integral.clickImg(this);">
+                                <img class="preview" id="preview" alt="" name="pic" width="160" height="220"/>
+                                <input id="business_license" name="business_license" type="file" class="upload_input" accept="image/*" onchange="integral.change(this)" attr-inp="businessLicenseSrc"/>
+                                <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传营业执照</div>
+                                <div class="title_idcard" style="display:none;">营业执照</div>
+                                <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
+                                <input name="businessLicenseSrc" type="hidden" value=""/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <span class="color-red">*</span>单位联系电话：</td>
                         <td>
                             <input class="integral-input w450" id="companyMobile" name="companyMobile" placeholder="请输入11位手机号" type="text">
@@ -234,6 +250,30 @@
     });
 
     $(function(){
+        var _updateFileChange = function () {
+            var obj = $(this);
+            $.ajaxFileUpload({
+                url: '${rc.contextPath}/fileUpload/uploadImage/businessLicense',
+                fileElementId: $(this).attr("id"),
+                type: 'post',
+                dataType: 'text',
+                obj: obj,
+                success: function (result, status, obj) {
+                    var resultObj = JSON.parse(result);
+                    if (!resultObj.code) {
+                        $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
+                    } else {
+                        layer.msg(resultObj.msg);
+                    }
+                },
+                error: function (result, status, e) {
+                    layer.msg("图片上传失败");
+                }
+            });
+        };
+
+        $("input[name=business_license]").on("change", _updateFileChange);
+
         $("#companyForm").validate({
             rules: {
                 userName: {
@@ -418,5 +458,17 @@
         return true;
     }
 </script>
-
+<style type="text/css">
+    .integral-businesslicense-img {
+        width: 180px;
+        height: 268px;
+        float: left;
+        background: #FBFCFF;
+        text-align: center;
+        border: 1px solid #DDDDDD;
+        padding: 10px;
+        margin-right: 10px;
+        position: relative;
+    }
+</style>
 </html>

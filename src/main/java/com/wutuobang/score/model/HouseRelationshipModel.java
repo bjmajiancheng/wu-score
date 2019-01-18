@@ -72,6 +72,39 @@ public class HouseRelationshipModel implements Serializable {
 
 	//2019-1-9添加卫健委信息END
 
+	//2019-1-17增加字段
+
+	private Integer marriageStatus;  //配偶婚姻状况 0.请选择 7.初婚 8.复婚 9.再婚
+
+	public Integer getMarriageStatus() {
+		return marriageStatus;
+	}
+
+	public void setMarriageStatus(Integer marriageStatus) {
+		this.marriageStatus = marriageStatus;
+	}
+
+	public String getStringMarriageStatus() {
+		if (this.marriageStatus == null) {
+			return "";
+		} else {
+			switch (this.marriageStatus) {
+				case 0:
+					return "";
+				case 7:
+					return "初婚";
+				case 8:
+					return "复婚";
+				case 9:
+					return "再婚";
+				default:
+					return "";
+			}
+		}
+	}
+
+	//2019-1-17增加字段End
+
 	//columns END
 
 	public void setId(Integer id) {
