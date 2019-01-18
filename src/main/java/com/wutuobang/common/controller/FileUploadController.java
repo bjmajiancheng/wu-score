@@ -6,8 +6,12 @@ import com.wutuobang.common.biz.IAttachmentFileBiz;
 import com.wutuobang.common.model.AttachmentFileModel;
 import com.wutuobang.common.model.AttachmentModel;
 import com.wutuobang.common.service.IAttachmentFileService;
+import com.wutuobang.common.utils.DateStyle;
+import com.wutuobang.common.utils.DateUtil;
+import com.wutuobang.common.utils.FileUtil;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.web.CompanyInfoController;
+import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -91,6 +97,79 @@ public class FileUploadController {
     }
 
     /**
+     * 上传营业执照图片
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/fileUpload/uploadImage/businessLicense", method = RequestMethod.POST)
+    public void uploadImageBusinessLicense(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = null;
+
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+        Set<String> fileNames = fileMap.keySet();
+        for (String fileName : fileNames) {
+            file = fileMap.get(fileName);
+            break;
+        }
+
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
+
+        PrintWriter writer = response.getWriter();
+        try {
+            if (file == null || file.isEmpty()) {
+                writer.println(JSON.toJSONString(ResultParam.error("请选择文件!!!")));
+                return;
+            }
+
+            Date currDate = new Date();
+
+            String savePath = uploadFolder + "/" + "businessLicenseSrc" + "/" + DateUtil
+                    .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+            String path = request.getContextPath();
+            String downloadPath =
+                    request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+                            + "/shopPic/" + "businessLicenseSrc" + "/" + DateUtil
+                            .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+
+            File targetFile = new File(savePath);
+            if (!targetFile.exists()) {
+                targetFile.mkdirs();
+            }
+
+            String fileName = file.getOriginalFilename();
+
+            String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+            String newFileName = DateUtil.DateToString(currDate, DateStyle.YYYYMMDDHHMMSS) + String
+                    .format("%04d", new Random().nextInt(1000)) + "_" + fileName;
+
+            FileUtil.saveFileFromInputStream(file.getInputStream(), savePath, newFileName);
+
+            AttachmentModel attachmentModel = new AttachmentModel();
+            attachmentModel.setAttachmentName(fileName);
+            attachmentModel.setAttachmentType(0);
+            attachmentModel.setAttachmentSuffix(fileExt);
+            attachmentModel.setAttachmentPath(savePath + newFileName);
+            attachmentModel.setAttachmentUrl(downloadPath + newFileName);
+            attachmentModel.setAttachmentSize(file.getSize());
+
+            ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!", attachmentModel);
+            writer.println(JSON.toJSONString(param));
+
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("系统异常, 请稍后重试!!");
+            return;
+        }
+    }
+
+
+    /**
      * 上传图片
      *
      * @param request
@@ -119,9 +198,6 @@ public class FileUploadController {
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "文件上传成功!!", attachmentFile);
             writer.println(JSON.toJSONString(param));
-
-            System.out.println("result:" + JSON.toJSONString(param));
-
             return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,8 +216,8 @@ public class FileUploadController {
      */
     @RequestMapping(value = "/shopPic/{userName}/{fileFolder}/{fileName}.{suffix}")
     public void showPic(HttpServletRequest request, HttpServletResponse response,
-            @PathVariable(value = "userName") String userName, @PathVariable(value = "fileFolder") String fileFolder,
-            @PathVariable(value = "fileName") String fileName, @PathVariable(value = "suffix") String suffix) {
+                        @PathVariable(value = "userName") String userName, @PathVariable(value = "fileFolder") String fileFolder,
+                        @PathVariable(value = "fileName") String fileName, @PathVariable(value = "suffix") String suffix) {
         /*byte[] b = new byte[20];
         try {
             b = BASE64.decryptBASE64(fileName);
