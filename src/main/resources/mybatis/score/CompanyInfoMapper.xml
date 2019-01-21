@@ -74,7 +74,7 @@ businessLicenseSrc
         	#{operatorMobile2, jdbcType=VARCHAR},
         	#{idCardNumber_1, jdbcType=VARCHAR},
         	#{idCardNumber_2, jdbcType=VARCHAR},
-        	#{status，jdbcType=INTEGER},
+        	#{status,jdbcType=INTEGER},
 		#{businessLicenseSrc, jdbcType=VARCHAR}
         )
     ]]>

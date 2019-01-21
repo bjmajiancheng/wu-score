@@ -97,7 +97,12 @@ public class IdentityInfoController {
     @RequestMapping(value = "/applicationAdd.html", method = RequestMethod.GET)
     public ModelAndView toAddIdentityInfo() {
         ModelAndView mv = new ModelAndView("application/applicationAdd.html");
-        mv.addObject("addFlag", true);
+        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc())) {
+            mv.setViewName("company/companyEdit.html");
+        } else {
+            mv.addObject("addFlag", true);
+        }
+
         return mv;
     }
 
@@ -108,7 +113,11 @@ public class IdentityInfoController {
      */
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public String index() {
-        return "index.html";
+        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc())) {
+            return "company/companyEdit.html";
+        } else {
+            return "index.html";
+        }
     }
 
     /**
@@ -980,22 +989,22 @@ public class IdentityInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/sys/getCloseOrOpenFunTime", method = RequestMethod.POST)
-    public ResultParam getCloseOrOpenFunTime(){
-        Map<String,Object> params = new HashMap<String,Object>();
+    public ResultParam getCloseOrOpenFunTime() {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("status", 1);//
         List<BatchConfModel> batchConfs = batchConfService.find(params);
         //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
         Date closeFunctionTime = new Date();
         Date openFunctionTime = new Date();
-        for(BatchConfModel batchConf : batchConfs){
-            if (batchConf.getStatus() == 1){
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
                 closeFunctionTime = batchConf.getCloseFunctionTime();
                 openFunctionTime = batchConf.getOpenFunctionTime();
             }
         }
-        if (closeFunctionTime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openFunctionTime.getTime()){
+        if (closeFunctionTime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openFunctionTime.getTime()) {
             return ResultParam.cloOrOpen();
-        }else{
+        } else {
             return ResultParam.ok();
         }
     }

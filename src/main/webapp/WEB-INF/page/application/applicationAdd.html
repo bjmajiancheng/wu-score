@@ -57,7 +57,7 @@
                                      #if("$!{identityInfo.idCardPositive}"=="") style="display:none;" #end
                                 src="$!{identityInfo.idCardPositive}"/>
                                 <input id="idcard1" name="idcard1" type="file" class="upload_input" accept="image/*"
-                                       onchange="integral.change(this)" attr-inp="id_card_positive"/>
+                                       onchange="changeImg(this)" attr-inp="id_card_positive"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证正面</div>
                                 <div class="title_idcard" style="display:none;">身份证正面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
@@ -72,7 +72,7 @@
                                      #if("$!{identityInfo.idCardOpposite}"=="") style="display:none;" #end
                                 src="$!{identityInfo.idCardOpposite}"/>
                                 <input id="idcard2" name="idcard2" type="file" class="upload_input" accept="image/*"
-                                       onchange="integral.change(this)" attr-inp="id_card_opposite"/>
+                                       onchange="changeImg(this)" attr-inp="id_card_opposite"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传身份证反面</div>
                                 <div class="title_idcard" style="display:none;">身份证反面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
@@ -216,7 +216,7 @@
                     <tr>
                         <td class="">迁出地地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress"
+                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" placeholder="天津市XX区XX街道/乡镇XX小区XX号楼XX室（申请人的现居住地必须是在天津市的）"
                                    value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
@@ -281,7 +281,7 @@
                     <tr>
                         <td class="">收件人：</td>
                         <td>
-                            <input class="integral-input w200" placeholder="户口准予迁入收件人" type="text" name="witness"
+                            <input class="integral-input w200" placeholder="《户口准予迁入证明》收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
                             <span class="integral-td-title ml75">手机号：</span>
                             <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone"
@@ -325,7 +325,7 @@
                                 <!--<option value="1">已婚</option>-->
                                 <option value="2">未婚</option>
                                 <option value="3">丧偶</option>
-                                <option value="4">离婚</option>
+                                <option value="4">离异</option>
                             </select>
                         </td>
                     </tr>
@@ -478,7 +478,7 @@
             <br/>
             <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、子女信息中“政策属性”选择“政策内多孩”的，后面的“再生育审批情况（审批时间、审批证明编号、审批单位名称、审批条例适用）”为必填项</span>
             <br/>
-            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5、养子女的需上传收养证明、子女中有双胞胎、多胞胎的，需逐个上传子女的出生医学证明、婚姻状况为丧偶的，需要上传配偶的死亡证明</span>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5、收养子女的需上传收养证明、子女中有双胞胎、多胞胎的，需逐个上传子女的出生医学证明、婚姻状况为丧偶的，需要上传配偶的死亡证明</span>
             <div id="children-table">
                 <div id="houseRelationshipsDiv">
                     #if(${addFlag})
@@ -489,7 +489,8 @@
                                     <input type="hidden" name="id">
                                     <input type="checkbox" name="check" class="checkRelation">
                                 </td>
-                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息</span></td>
+                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>姓名:</td>
@@ -611,7 +612,8 @@
                                     <input type="hidden" name="id" value="$!{houseRelationship.id}">
                                     <input type="checkbox" name="check" class="checkRelation">
                                 </td>
-                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息</span></td>
+                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>姓名:</td>
@@ -1506,39 +1508,7 @@
             });
         });
 
-        var _updateFileChange = function () {
-            var obj = $(this);
-
-            $.ajaxFileUpload({
-                url: '${rc.contextPath}/fileUpload/uploadImage', //用于文件上传的服务器端请求地址
-                fileElementId: $(this).attr("id"), //文件上传空间的id属性  <input type="file" id="file" name="file" />
-                type: 'post',
-                dataType: 'text', //返回值类型 一般设置为json
-                obj: obj,
-                success: function (result, status, obj) //服务器成功响应处理函数
-                {
-
-                    var _this = obj;
-                    var resultObj = JSON.parse(result);
-                    if (!resultObj.code) {
-                        $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
-                    } else {
-                        layer.msg(resultObj.msg);
-                    }
-
-                    /*var file_input = $('<input class="upload_input" type="file" id="'+ _this.find('.upload_input').attr("id") +'" name="'+ _this.find('.upload_input').attr("name") +'" accept="image/!*"/>');
-                     _this.find("input.upload_input").remove();
-                     file_input.on("change", _updateFileChange);
-                     file_input.appendTo( _this);*/
-                },
-                error: function (result, status, e)//服务器响应失败处理函数
-                {
-                    layer.msg("图片上传失败");
-                }
-            });
-        };
-
-        $("input[name=idcard1]").on("change", _updateFileChange);
+        // $("input[name=idcard1]").on("change", _updateFileChange);
         //身份证正面上传
         /*$("input[name=idcard1]").on("change", function () {
          var form = $("<form>");
@@ -1563,7 +1533,7 @@
          });*/
 
         //身份证反面上传
-        $("input[name=idcard2]").on("change", _updateFileChange);
+        // $("input[name=idcard2]").on("change", _updateFileChange);
 
         //初始化迁入户籍登记机关
         initOfficeInfo(0, $("#registeredOffice"), '$!{houseMoveModel.registeredOffice}');
@@ -1746,6 +1716,28 @@
 
     });
 
+    function _updateFileChange(fileObj) {
+        $.ajaxFileUpload({
+            url: '${rc.contextPath}/fileUpload/uploadImage',
+            fileElementId: fileObj.attr("id"),
+            type: 'post',
+            dataType: 'text',
+            obj: fileObj,
+            success: function (result, status, obj) {
+                var resultObj = JSON.parse(result);
+                if (!resultObj.code) {
+                    $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
+                } else {
+                    layer.msg(resultObj.message);
+                }
+            },
+            error: function (result, status, e) {
+                layer.msg("图片上传失败");
+            }
+        });
+    }
+
+
     /**
      * 提交表单
      */
@@ -1854,7 +1846,6 @@
                 validateFlag = false;
             }
         });
-
 
 
         if (!validateFlag) {
@@ -2759,6 +2750,11 @@
         } else {
             $('#haveSon')[0].checked = true;
         }
+    }
+
+    function changeImg(object) {
+        integral.change(object);
+        _updateFileChange($(object));
     }
 </script>
 

@@ -38,23 +38,29 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>用&nbsp; 户 &nbsp;名：</td>
+                            <span class="color-red">*</span>用&nbsp; 户 &nbsp;名：
+                        </td>
                         <td>
-                            <input class="integral-input w450 ml50" id="userName" name="userName" placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
+                            <input class="integral-input w450 ml50" id="userName" name="userName"
+                                   placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                            <span class="color-red">*</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
+                        </td>
                         <td>
-                            <input class="integral-input w450 ml50" id="password" name="password" placeholder="请使用5--12位" type="password">
+                            <input class="integral-input w450 ml50" id="password" name="password"
+                                   placeholder="请使用5--12位" type="password">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>确认密码：</td>
+                            <span class="color-red">*</span>确认密码：
+                        </td>
                         <td>
-                            <input class="integral-input w450 ml50" id="passwordConfirm" name="passwordConfirm" placeholder="请再输入一遍您上面填写的密码" type="password">
+                            <input class="integral-input w450 ml50" id="passwordConfirm" name="passwordConfirm"
+                                   placeholder="请再输入一遍您上面填写的密码" type="password">
                         </td>
                     </tr>
                 </table>
@@ -74,26 +80,32 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>单位名称：</td>
+                            <span class="color-red">*</span>单位名称：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="companyName" name="companyName" placeholder="单位名称必须与营业执照一致" type="text">
+                            <input class="integral-input w450" id="companyName" name="companyName"
+                                   placeholder="单位名称必须与营业执照一致" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>单位类型：</td>
+                            <span class="color-red">*</span>单位类型：
+                        </td>
                         <td>
                             <input class="input_radio" type="radio" name="companyType" value="1" id="causeCompany">&nbsp;&nbsp;&nbsp;
                             <label for="causeCompany">企事业单位</label>
-                            <input class="input_radio ml30" type="radio" name="companyType" value="2" id="simpleCompany">&nbsp;&nbsp;&nbsp;
+                            <input class="input_radio ml30" type="radio" name="companyType" value="2"
+                                   id="simpleCompany">&nbsp;&nbsp;&nbsp;
                             <label for="simpleCompany">个体工商户</label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>统一社会信用代码：</td>
+                            <span class="color-red">*</span>统一社会信用代码：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="societyCode" name="societyCode" placeholder="18位统一社会信用代码必须与营业执照一致" type="text">
+                            <input class="integral-input w450" id="societyCode" name="societyCode"
+                                   placeholder="18位统一社会信用代码必须与营业执照一致" type="text">
                         </td>
                     </tr>
                     <tr>
@@ -102,21 +114,32 @@
                         </td>
                         <td>
                             <div class="integral-businesslicense-img">
-                                <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png" onclick="integral.clickImg(this);">
-                                <img class="preview" id="preview" alt="" name="pic" width="160" height="220"/>
-                                <input id="business_license" name="business_license" type="file" class="upload_input" accept="image/*" onchange="integral.change(this)" attr-inp="businessLicenseSrc"/>
-                                <div class="pointer title_click" onclick="integral.clickImg(this);">点击上传营业执照</div>
+                                <img class="addImg pointer"
+                                     src="${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png"
+                                     onclick="integral.clickImg(this);">
+                                <img class="preview" id="preview" alt="" name="pic" width="160" height="220"
+                                     style="display: none"/>
+                                <input id="business_license" name="business_license" type="file"
+                                       class="upload_input" accept="image/*"
+                                       onchange="changeImg(this)" attr-inp="businessLicenseSrc"/>
+                                <div class="pointer title_click" onclick="integral.clickImg(this);">
+                                    点击上传营业执照
+                                </div>
                                 <div class="title_idcard" style="display:none;">营业执照</div>
-                                <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
-                                <input name="businessLicenseSrc" type="hidden" value=""/>
+                                <div class="del_idcard" onclick="integral.deleteImg(this)"
+                                     style="display:none;"></div>
+                                <input id="businessLicenseSrc" name="businessLicenseSrc"
+                                       type="hidden" value=""/>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>单位联系电话：</td>
+                            <span class="color-red">*</span>单位联系电话：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="companyMobile" name="companyMobile" placeholder="请输入11位手机号" type="text">
+                            <input class="integral-input w450" id="companyMobile" name="companyMobile"
+                                   placeholder="请输入11位手机号" type="text">
                         </td>
                     </tr>
                     <tr>
@@ -129,9 +152,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1：</td>
+                            <span class="color-red">*</span>经办人1：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三" type="text">
+                            <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三"
+                                   type="text">
                         </td>
                     </tr>
                     <!--<tr>
@@ -142,23 +167,29 @@
                     </tr>-->
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1联系手机：</td>
+                            <span class="color-red">*</span>经办人1联系手机：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="operatorMobile" name="operatorMobile" placeholder="请输入11位手机号码" type="text">
+                            <input class="integral-input w450" id="operatorMobile" name="operatorMobile"
+                                   placeholder="请输入11位手机号码" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1身份证号：</td>
+                            <span class="color-red">*</span>经办人1身份证号：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1" placeholder="请输入身份证号" type="text">
+                            <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1"
+                                   placeholder="请输入身份证号" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人2：</td>
+                            <span class="color-red">*</span>经办人2：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="operator2" name="operator2" placeholder="如：李四" type="text">
+                            <input class="integral-input w450" id="operator2" name="operator2" placeholder="如：李四"
+                                   type="text">
                         </td>
                     </tr>
                     <!--<tr>
@@ -169,31 +200,41 @@
                     </tr>-->
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人2联系手机：</td>
+                            <span class="color-red">*</span>经办人2联系手机：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="operatorMobile2" name="operatorMobile2" placeholder="请输入11位手机号码" type="text">
+                            <input class="integral-input w450" id="operatorMobile2" name="operatorMobile2"
+                                   placeholder="请输入11位手机号码" type="text">
                         </td>
                     </tr>
 
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人2身份证号：</td>
+                            <span class="color-red">*</span>经办人2身份证号：
+                        </td>
                         <td>
-                            <input class="integral-input w450" id="idCardNumber_2" name="idCardNumber_2" placeholder="请输入身份证号" type="text">
+                            <input class="integral-input w450" id="idCardNumber_2" name="idCardNumber_2"
+                                   placeholder="请输入身份证号" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>联系地址：</td>
+                            <span class="color-red">*</span>联系地址：
+                        </td>
                         <td>
-                            <input class="integral-input w450" placeholder="" id="operatorAddress" name="operatorAddress" type="text">
+                            <input class="integral-input w450" placeholder="" id="operatorAddress"
+                                   name="operatorAddress" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>验证码：</td>
+                            <span class="color-red">*</span>验证码：
+                        </td>
                         <td>
-                            <input class="integral-input w200" type="text" id="captcha" name="captcha"> <div class="checkimg"><img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我" class="click_me"></div><span class="click_me">看不清点我</span>
+                            <input class="integral-input w200" type="text" id="captcha" name="captcha">
+                            <div class="checkimg"><img id="captchaImg" src="${rc.contextPath}/captcha.jpg" alt="看不清点我"
+                                                       class="click_me"></div>
+                            <span class="click_me">看不清点我</span>
                         </td>
                     </tr>
                     <tr>
@@ -224,56 +265,36 @@
     //    });
 
     //点击注册按钮，2018年7月18日，添加提示
-    $("#register").on("click", function(){
+    $("#register").on("click", function () {
         //询问框
         var index = layer.confirm('一旦注册成功，本期不可修改，确定要注册吗？', {
-            btn: ['确认','取消'] //按钮
-        }, function(){
-            $("#companyForm").submit();
-            layer.close(index);
-        }, function(){
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            if ($('#businessLicenseSrc').val().trim() != "") {
+                $("#companyForm").submit();
+                layer.close(index);
+            } else {
+                layer.alert("请上传营业执照照片！");
+            }
+        }, function () {
             layer.close(index);
         });
     });
 
 
-    $("#submitAndContinue").on("click", function(){
+    $("#submitAndContinue").on("click", function () {
         //询问框
         var index = layer.confirm('确定要保存并继续录入申请人吗？', {
-            btn: ['确认','取消'] //按钮
-        }, function(){
+            btn: ['确认', '取消'] //按钮
+        }, function () {
             submitAndContinue();
             layer.close(index);
-        }, function(){
+        }, function () {
             layer.close(index);
         });
     });
 
-    $(function(){
-        var _updateFileChange = function () {
-            var obj = $(this);
-            $.ajaxFileUpload({
-                url: '${rc.contextPath}/fileUpload/uploadImage/businessLicense',
-                fileElementId: $(this).attr("id"),
-                type: 'post',
-                dataType: 'text',
-                obj: obj,
-                success: function (result, status, obj) {
-                    var resultObj = JSON.parse(result);
-                    if (!resultObj.code) {
-                        $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
-                    } else {
-                        layer.msg(resultObj.msg);
-                    }
-                },
-                error: function (result, status, e) {
-                    layer.msg("图片上传失败");
-                }
-            });
-        };
-
-        $("input[name=business_license]").on("change", _updateFileChange);
-
+    $(function () {
         $("#companyForm").validate({
             rules: {
                 userName: {
@@ -301,7 +322,7 @@
                 },
                 companyMobile: {
                     required: true,
-                    isMobile : true
+                    isMobile: true
                 },
                 operator: {
                     required: true,
@@ -313,19 +334,19 @@
                 },
                 operatorMobile: {
                     required: true,
-                    isMobile : true
+                    isMobile: true
                 },
                 operatorMobile2: {
                     required: true,
-                    isMobile : true
+                    isMobile: true
                 },
                 idCardNumber_1: {
                     required: true,
-                    isIdCardNo : true
+                    isIdCardNo: true
                 },
                 idCardNumber_2: {
                     required: true,
-                    isIdCardNo : true
+                    isIdCardNo: true
                 },
                 operatorAddress: {
                     required: true,
@@ -385,7 +406,7 @@
                 }
             },
 
-            submitHandler:function(form){
+            submitHandler: function (form) {
                 var companyInfo = serializeForm($("#companyForm"));
                 var captcha = companyInfo['captcha'];
                 //移除元素
@@ -393,19 +414,19 @@
                 delete companyInfo['captcha'];
 
                 var societyCode = $("input[name=societyCode]").val();
-                if(! checkSocialCreditCode(societyCode)) {
+                if (!checkSocialCreditCode(societyCode)) {
                     return false;
                 }
 
                 $.ajax({
                     type: "POST",
                     url: "${rc.contextPath}/companyInfo/register",
-                    data: {"companyInfo" : JSON.stringify(companyInfo), "captcha" : captcha},
+                    data: {"companyInfo": JSON.stringify(companyInfo), "captcha": captcha},
                     dataType: "json",
-                    success: function(result){
-                        if(result.code == 0){//注册成功
-                            parent.location.href ='../login.html';
-                        }else{
+                    success: function (result) {
+                        if (result.code == 0) {//注册成功
+                            parent.location.href = '../login.html';
+                        } else {
                             layer.alert(result.message);
 
                             refreshCode();
@@ -419,10 +440,10 @@
     function checkSocialCreditCode(Code) {
         var patrn = /^[0-9A-Z]+$/;//18位校验及大写校验
 
-        if ((Code.length != 18) || (patrn.test(Code) == false)){
+        if ((Code.length != 18) || (patrn.test(Code) == false)) {
             layer.alert("不是有效的统一社会信用代码！");
             return false;
-        } else{
+        } else {
             var Ancode; //统一社会信用代码的每一个值
 
             var Ancodevalue; //统一社会信用代码每一个值的权重
@@ -440,7 +461,7 @@
             var logiccheckcode = 31 - total % 31;
 
 
-            if (logiccheckcode == 31){
+            if (logiccheckcode == 31) {
                 logiccheckcode = 0;
             }
             var Str = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,J,K,L,M,N,P,Q,R,T,U,W,X,Y";
@@ -449,13 +470,39 @@
 
 
             var checkcode = Code.substring(17, 18);
-            if (logiccheckcode != checkcode){
+            if (logiccheckcode != checkcode) {
                 layer.alert("不是有效的统一社会信用代码！");
                 return false;
             }
         }
 
         return true;
+    }
+
+    function _updateFileChange(fileObj) {
+        $.ajaxFileUpload({
+            url: '${rc.contextPath}/fileUpload/uploadImage/businessLicense',
+            fileElementId: fileObj.attr("id"),
+            type: 'post',
+            dataType: 'text',
+            obj: fileObj,
+            success: function (result, status, obj) {
+                var resultObj = JSON.parse(result);
+                if (!resultObj.code) {
+                    $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
+                } else {
+                    layer.msg(resultObj.message);
+                }
+            },
+            error: function (result, status, e) {
+                layer.msg("图片上传失败");
+            }
+        });
+    }
+
+    function changeImg(object) {
+        integral.change(object);
+        _updateFileChange($(object));
     }
 </script>
 <style type="text/css">

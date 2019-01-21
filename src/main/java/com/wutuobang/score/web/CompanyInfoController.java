@@ -110,18 +110,17 @@ public class CompanyInfoController {
             //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
             Date closeLogintime = new Date();
             Date openLoginTime = new Date();
-            boolean flag = false;
+            boolean flag = true;
             for (BatchConfModel batchConf : batchConfs) {
                 if (batchConf.getStatus() == 1) {
                     closeLogintime = batchConf.getCloseLoginTime();
                     openLoginTime = batchConf.getOpenLoginTime();
-                    flag = true;
+                    flag = false;
                 }
             }
-            if (true) {
+            if (flag) {
                 return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
             }
-
             if (closeLogintime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openLoginTime.getTime()) {
                 return ResultParam.error("居住证积分受理阶段网上注册已经关闭，详情请关注重要通知！");
             }
@@ -215,24 +214,38 @@ public class CompanyInfoController {
             CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
 
             if (currCompany != null) {
+                String message = "用人单位信息修改成功!";
                 Integer status = currCompany.getStatus();
+
+                boolean isUploadbusinessLicense = StringUtils.isEmpty(currCompany.getBusinessLicenseSrc()) && StringUtils.isNotEmpty(companyInfoModel.getBusinessLicenseSrc());//是否修改营业执照
+
+                if (isUploadbusinessLicense) {
+                    //修改营业执照信息
+                    currCompany.setBusinessLicenseSrc(companyInfoModel.getBusinessLicenseSrc());
+                }
+
                 if (status == null || status != 1) {
                     //如果企业信息不修改,不改变字段的值
                     if (!currCompany.isOperatorEquals(companyInfoModel)) {
                         companyInfoModel.setStatus(1);
-                        companyInfoModel.setOnlyOperatorData();
-                        companyInfoService.update(companyInfoModel);
-                    } else {
-                        return new ResultParam(3, "每一期只可以修改一次用人单位信息,请确定有信息修改后保存");
+                    } else if (!isUploadbusinessLicense) {
+                        message = "每一期只可以修改一次用人单位信息,请确定有信息修改后保存";
                     }
+                } else if (!isUploadbusinessLicense) {
+                    message = "每一期只可以修改一次用人单位信息";
+                }
+
+                if ("用人单位信息修改成功!".equals(message)) {
+                    companyInfoModel.setOnlyOperatorData();
+                    companyInfoService.update(companyInfoModel);
+                    return new ResultParam(0, message);
                 } else {
-                    return new ResultParam(3, "每一期只可以修改一次用人单位信息");
+                    return new ResultParam(3, message);
                 }
             } else {
                 return ResultParam.SYSTEM_ERROR_RESULT;
             }
 
-            return new ResultParam(0, "用人单位信息修改成功!");
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
