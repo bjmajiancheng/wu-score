@@ -216,14 +216,14 @@
                     <tr>
                         <td class="">迁出地地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" placeholder="天津市XX区XX街道/乡镇XX小区XX号楼XX室（申请人的现居住地必须是在天津市的）"
+                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress"
                                    value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
                     <tr>
                         <td class="">现居住地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"
+                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"  placeholder="天津市XX区XX街道/乡镇XX小区XX号楼XX室（申请人的现居住地必须是在天津市的）"
                                    value="$!{houseMoveModel.moveNowAddress}">
                         </td>
                     </tr>
@@ -414,21 +414,6 @@
                         <td>
                             <input class="integral-input w518" type="text" placeholder="无配偶不用填写"
                                    name="formerName" value="$!{spouseHouseRelationshipModel.formerName}">
-                        </td>
-                    </tr>
-                    <tr class="spouseModel">
-                        <td class="">配偶是否随迁：</td>
-                        <td>
-                            <label>
-                                <input class="input_radio" type="radio"
-                                       #if(${spouseHouseRelationshipModel.isRemove}=="1") checked #end name="isRemove"
-                                       value="1">是
-                            </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label>
-                                <input class="input_radio" type="radio"
-                                       #if(${spouseHouseRelationshipModel.isRemove}=="2") checked #end name="isRemove"
-                                       value="2">否
-                            </label>
                         </td>
                     </tr>
                     <tr class="spouseModel">
@@ -1660,10 +1645,6 @@
                 strBirthday = idNumber.substr(6, 4) + "-" + idNumber.substr(10, 2) + "-" + idNumber.substr(12, 2);
                 sexChar = idNumber.substr(16, 1);
             }
-            if (len == 15) {
-                strBirthday = "19" + idNumber.substr(6, 2) + "-" + idNumber.substr(8, 2) + "-" + idNumber.substr(10, 2);
-                sexChar = idNumber.substr(13, 1);
-            }
             var birthDate = new Date(strBirthday);
             var nowDateTime = new Date();
             var age = nowDateTime.getFullYear() - birthDate.getFullYear();
@@ -1676,19 +1657,9 @@
 
             var $sex = $('input:radio[name="sex"]');
             if (sexChar % 2 == 0) {
-                /*$sex.eq(2).prop("checked",true);
-                 $sex.prop("disabled",true);*/
-                $("#female").click();/*
-                 $("#female").prop("checked","checked");
-                 $("#male").prop("checked","");*/
-                /*$("input[name=sex]").val(2);*/
+                $("#female").click();
             } else {
-                /*$sex.eq(1).prop("checked",true);
-                 $sex.prop("disabled",true);*/
-                $("#male").click();/*
-                 $("#male").prop("checked","checked");
-                 $("#female").prop("checked","");*/
-                /*$("input[name=sex]").val(1);*/
+                $("#male").click();
             }
         });
 
@@ -1950,7 +1921,7 @@
             case '3':
             case '4':
                 $("#spouseForm").find("input").each(function () {
-                    if ($(this).val().trim() != "") {
+                    if (inputType($(this)) == "text" && $(this).val().trim() != "") {
                         layer.msg("当前婚姻状况无需填写配偶信息。");
                         validateFlag = false;
                         return false;

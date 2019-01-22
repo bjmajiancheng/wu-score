@@ -128,8 +128,11 @@ public class MaterialInfoController {
 
             //所有材料信息
 
-            List<MaterialInfoModel> materialInfos = materialInfoService
-                    .find(Collections.singletonMap("isUpload", (Object) 1));
+            Map<String, Object> findMap = new HashMap<>();
+            findMap.put("isUpload", 1);
+            findMap.put("sortColumns", "SORTCOLUMNS");
+            //Collections.singletonMap("isUpload", (Object) 1)
+            List<MaterialInfoModel> materialInfos = materialInfoService.find(findMap);
             if (CollectionUtils.isNotEmpty(materialInfos)) {
                 for (MaterialInfoModel materialInfo : materialInfos) {
                     OnlinePersonMaterialModel tmpMaterialModel = onlinePersonMaterialMap.get(materialInfo.getId());

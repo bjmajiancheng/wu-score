@@ -49,6 +49,17 @@ public class MaterialInfoModel implements Serializable {
 	private OnlinePersonMaterialModel onlinePersonMaterial;
 	//自定义属性END
 
+	//排序字段
+	private Integer sortColumns;
+
+	public Integer getSortColumns() {
+		return sortColumns;
+	}
+
+	public void setSortColumns(Integer sortColumns) {
+		this.sortColumns = sortColumns;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
