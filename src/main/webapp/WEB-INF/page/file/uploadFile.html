@@ -53,7 +53,8 @@
             <tr>
                 <th style="width: 8%">分类</th>
                 <th style="width: 10%">上传材料项</th>
-                <th style="width: 50%">材料清单</th>
+                <th style="width: 42%">材料清单</th>
+                <th style="width: 8%">备注</th>
                 <th style="width: 8%">操作</th>
                 <th style="width: 8%">上传查看</th>
                 <th style="width: 8%">模板样式</th>
@@ -65,10 +66,19 @@
             <tr class="materialInfoTr">
                 <td>$!{materialInfo.category}</td>
                 <td>$!{materialInfo.categoryRenshe}</td>
-                <td title="$!{materialInfo.note}">
+                <td>
                     <input type="hidden" name="id" value="$!{materialInfo.onlinePersonMaterial.id}"/>
                     <input type="hidden" name="materialInfoId" value="$!{materialInfo.id}"/>
                     ${materialInfo.name}
+                </td>
+                <td>
+                    #if("$!{materialInfo.note}" != "")
+                    <a class="integral-table-btn integral-table-btn2 viewTemplate"
+                       onclick="layer.msg('$!{materialInfo.note}');">备注</a>
+                    #else
+                    <a class="integral-table-btn integral-table-btn2 viewTemplate"
+                       onclick="layer.msg('暂无');">备注</a>
+                    #end
                 </td>
                 <td>
                     <span class="attachmentName">$!{materialInfo.onlinePersonMaterial.materialName}</span>
