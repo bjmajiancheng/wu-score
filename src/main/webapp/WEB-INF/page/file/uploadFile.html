@@ -54,7 +54,7 @@
                 <th style="width: 8%">分类</th>
                 <th style="width: 10%">上传材料项</th>
                 <th style="width: 42%">材料清单</th>
-                <th style="width: 8%">备注</th>
+                <th style="width: 8%">说明</th>
                 <th style="width: 8%">操作</th>
                 <th style="width: 8%">上传查看</th>
                 <th style="width: 8%">模板样式</th>
@@ -74,10 +74,10 @@
                 <td>
                     #if("$!{materialInfo.note}" != "")
                     <a class="integral-table-btn integral-table-btn2 viewTemplate"
-                       onclick="layer.msg('$!{materialInfo.note}');">备注</a>
+                       onclick="layer.msg('$!{materialInfo.note}');">说明</a>
                     #else
                     <a class="integral-table-btn integral-table-btn2 viewTemplate"
-                       onclick="layer.msg('暂无');">备注</a>
+                       onclick="layer.msg('暂无');">说明</a>
                     #end
                 </td>
                 <td>
