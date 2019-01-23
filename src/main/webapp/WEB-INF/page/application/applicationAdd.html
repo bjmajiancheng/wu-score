@@ -185,7 +185,7 @@
                     <tr>
                         <td class="">曾用名&nbsp;&nbsp;&nbsp;&nbsp;：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="formerName" id="formerName"
+                            <input class="integral-input w450" type="text" name="formerName" id="formerName" placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                    value="$!{identityInfo.formerName}">
                         </td>
                     </tr>
@@ -219,6 +219,16 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class=""></td>
+                        <td style="line-height:20px;padding-top:20px;">
+                            <span style="">迁出地地址、现居住地址填写规范如下所示：</span>
+                            <br>
+                            <span>格式示例1：XX省（自治区/直辖市）XX市（县/区）XX区 XX街道XX小区X号楼X门X室;</span>
+                            <br>
+                            <span>格式示例2：XX省（自治区/直辖市）XX市（县/区）XX县XX乡（镇）XX村X排X号;</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="">迁出地地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress"
@@ -228,7 +238,7 @@
                     <tr>
                         <td class="">现居住地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"  placeholder="天津市XX区XX街道/乡镇XX小区XX号楼XX室（申请人的现居住地必须是在天津市的）"
+                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"
                                    value="$!{houseMoveModel.moveNowAddress}">
                         </td>
                     </tr>
@@ -400,6 +410,16 @@
                         </td>
                     </tr>
                     <tr class="spouseModel">
+                        <td class=""></td>
+                        <td style="line-height:20px;padding-top:20px;">
+                            <span>配偶现居住地详细地址、配偶现居住地详细地址填写规范如下所示：</span>
+                            <br>
+                            <span>格式示例1：XX省（自治区/直辖市）XX市（县/区）XX区 XX街道XX小区X号楼X门X室;</span>
+                            <br>
+                            <span>格式示例2：XX省（自治区/直辖市）XX市（县/区）XX县XX乡（镇）XX村X排X号;</span>
+                        </td>
+                    </tr>
+                    <tr class="spouseModel">
                         <td class="">配偶现居住地详细地址：</td>
                         <td>
                             <input class="integral-input w518" type="text" placeholder="无配偶不用填写"
@@ -434,12 +454,12 @@
                     </tr>
                     <tr class="spouseModel">
                         <td colspan="2">
-                            本人或配偶目前:&nbsp;&nbsp;&nbsp;&nbsp;
+                            本人及配偶:&nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="pregnantPromise" name="pregnantPromise">
                                 <option #if(${identityInfo.pregnantPromise}=="0") selected #end value="0">请选择</option>
                                 <option #if(${identityInfo.pregnantPromise}=="1") selected #end value="1">承诺</option>
                                 <option #if(${identityInfo.pregnantPromise}=="2") selected #end value="2">不承诺</option>
-                            </select>&nbsp;&nbsp;&nbsp;&nbsp;已怀孕&nbsp;&nbsp;&nbsp;&nbsp;
+                            </select>&nbsp;&nbsp;&nbsp;&nbsp;目前已怀孕&nbsp;&nbsp;&nbsp;&nbsp;
                             <input class="integral-input" type="text" id="pregnantWeek" name="pregnantWeek"
                                    value="$!{identityInfo.pregnantWeek}">&nbsp;&nbsp;&nbsp;&nbsp;周
                         </td>
@@ -469,6 +489,17 @@
             <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.子女信息中“政策属性”选择“政策内多孩”的，则该子女信息的“再生育审批情况（审批时间、审批证明编号、审批单位名称、审批条例适用）”为必填项。</span>
             <br/>
             <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.收养子女的需上传收养证明；子女中有双胞胎、多胞胎的，需逐个上传子女的出生医学证明；婚姻状况为丧偶的，需要上传配偶的死亡证明；申请人及配偶一方或者双方涉及丧偶后再婚的，均需上传原配偶的死亡证明。</span>
+            <br/>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.“子女情况中，要填写申请人的子女情况、配偶的子女情况，包括亲生子女（具体指婚生子女、非婚生子女、离异时抚养权判予对方的子女）和收养子女。若有多个子女，应按年龄从大到小填写。”</span>
+            <br/>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.“出生医学证明编号，必须连同数字前的字母一并填写，否则视为填写无效。”</span>
+            <br/>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.“按照省、地、县填写至县级。直辖市填写到区（县）。”</span>
+            <br/>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.“再生育审批证明编号必须填写完整，如包含有汉字、字母和符号的，必须一并填写，否则视为填写无效。”</span>
+            <br/>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10. 涉及曾用名的需填写曾用名，没有曾用名则无需填写</span>
+            <br/>
             <div id="children-table">
                 <div id="houseRelationshipsDiv">
                     #if(${addFlag})
@@ -690,7 +721,7 @@
                                            type="text" name="birthplace" value="$!{houseRelationship.birthplace}"
                                            placeholder="只填写省市县，示例:XX省/XX市/XX县"></td>
                                 <td>曾用名:</td>
-                                <td><input class="integral-input" type="text" name="formerName"
+                                <td><input class="integral-input" type="text" name="formerName" placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                            value="$!{houseRelationship.formerName}"></td>
                             </tr>
                             <tr>
@@ -835,7 +866,7 @@
                     <tr>
                         <td class="">实际用工单位地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="companyAddress"
+                            <input class="integral-input w518" type="text" name="companyAddress"  placeholder="天津市XX区XX路（道）XX号"
                                    value="$!{houseOtherModel.companyAddress}">
                         </td>
                     </tr>
@@ -1742,12 +1773,9 @@
                 time: 1000
             }, function () {
 
-                if (window.opener && window.opener.component) {
-                    window.opener.component.load();
-                    window.close();
-                } else {
-                    window.close();
-                }
+                window.opener = null;
+                window.open('', '_self');
+                window.close();
 
             });
         }

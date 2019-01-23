@@ -239,13 +239,13 @@ public class IdentityInfoController {
             }
 
             //修改身份证照片上传材料
-            //正面照片
             List<OnlinePersonMaterialModel> onlinePersonMaterialModelList =
                     onlinePersonMaterialService.getByPersonId(identityInfoModel.getId());
             for (OnlinePersonMaterialModel o : onlinePersonMaterialModelList) {
                 if (o.getMaterialInfoId() == 1057) {
-                    AttachmentModel attachmentModel=attachmentService.getById(attachment_id_card_positive);
-                    if(!Objects.equals(attachmentModel.getAttachmentUrl(),identityInfoModel.getIdCardPositive())){
+                    //正面照片
+                    AttachmentModel attachmentModel = attachmentService.getById(attachment_id_card_positive);
+                    if (attachmentModel != null && !Objects.equals(attachmentModel.getAttachmentUrl(), identityInfoModel.getIdCardPositive())) {
                         o.setCtime(new Date());
                         o.setMaterialUri(attachmentModel.getAttachmentUrl());
                         o.setMaterialId(attachment_id_card_positive);
@@ -253,8 +253,9 @@ public class IdentityInfoController {
                         onlinePersonMaterialService.update(o);
                     }
                 } else if (o.getMaterialInfoId() == 1058) {
-                    AttachmentModel attachmentModel=attachmentService.getById(attachment_id_card_opposite);
-                    if(!Objects.equals(attachmentModel.getAttachmentUrl(),identityInfoModel.getIdCardOpposite())){
+                    //反面照片
+                    AttachmentModel attachmentModel = attachmentService.getById(attachment_id_card_opposite);
+                    if (attachmentModel != null && !Objects.equals(attachmentModel.getAttachmentUrl(), identityInfoModel.getIdCardOpposite())) {
                         o.setCtime(new Date());
                         o.setMaterialUri(attachmentModel.getAttachmentUrl());
                         o.setMaterialId(attachment_id_card_opposite);
@@ -264,21 +265,6 @@ public class IdentityInfoController {
 
                 }
             }
-            //反面照片
-            String idCardOppositeUrl = identityInfoModel.getIdCardOpposite();
-            if (StringUtils.isNotEmpty(idCardOppositeUrl)) {
-                OnlinePersonMaterialModel onlinePersonMaterialModelOpposite = new OnlinePersonMaterialModel();
-                onlinePersonMaterialModelOpposite.setCtime(new Date());
-                onlinePersonMaterialModelOpposite.setMaterialUri(idCardOppositeUrl);
-                onlinePersonMaterialModelOpposite.setBatchId(batchConfModel.getId());
-                onlinePersonMaterialModelOpposite.setPersonId(identityInfoModel.getId());
-                onlinePersonMaterialModelOpposite.setMaterialInfoId(1058);
-                onlinePersonMaterialModelOpposite.setStatus(0);
-                onlinePersonMaterialModelOpposite.setMaterialId(attachment_id_card_opposite);
-                onlinePersonMaterialModelOpposite.setMaterialName(attachmentService.getById(attachment_id_card_opposite).getAttachmentName());
-                onlinePersonMaterialService.insert(onlinePersonMaterialModelOpposite);
-            }
-
 
             boolean updateFlag = identityInfoBiz.updateIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
