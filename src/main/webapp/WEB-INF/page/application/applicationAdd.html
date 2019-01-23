@@ -185,7 +185,8 @@
                     <tr>
                         <td class="">曾用名&nbsp;&nbsp;&nbsp;&nbsp;：</td>
                         <td>
-                            <input class="integral-input w450" type="text" name="formerName" id="formerName" placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
+                            <input class="integral-input w450" type="text" name="formerName" id="formerName"
+                                   placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                    value="$!{identityInfo.formerName}">
                         </td>
                     </tr>
@@ -767,7 +768,8 @@
                                            type="text" name="birthplace" value="$!{houseRelationship.birthplace}"
                                            placeholder="只填写省市县，示例:XX省/XX市/XX县"></td>
                                 <td>曾用名:</td>
-                                <td><input class="integral-input" type="text" name="formerName" placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
+                                <td><input class="integral-input" type="text" name="formerName"
+                                           placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                            value="$!{houseRelationship.formerName}"></td>
                             </tr>
                             <tr>
@@ -912,7 +914,8 @@
                     <tr>
                         <td class="">实际用工单位地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="companyAddress"  placeholder="天津市XX区XX路（道）XX号"
+                            <input class="integral-input w518" type="text" name="companyAddress"
+                                   placeholder="天津市XX区XX路（道）XX号"
                                    value="$!{houseOtherModel.companyAddress}">
                         </td>
                     </tr>
@@ -1457,6 +1460,11 @@
             }
         ).change();
 
+        changePregnantPromise($('#pregnantPromise'));
+        $('#pregnantPromise').on("change", function () {
+            changePregnantPromise($(this));
+        });
+
         //添加户籍关系
         $("#addRelation").on("click",
             function () {
@@ -1873,6 +1881,16 @@
         var sonNumber = $("#sonNumber").val();
         if ($(".houseRelationshipsForm").length != sonNumber) {
             layer.msg("子女数量填写不匹配,请新增或删除子女信息");
+            return false;
+        }
+
+        if ($('#pregnantPromise').val() == 0) {
+            layer.msg("请选择本人及配偶是否承诺目前已怀孕 周");
+            return false;
+        }
+
+        if ($('#thirdPregnantPromise').val() == 0) {
+            layer.msg("请选择本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
 
@@ -2812,6 +2830,23 @@
     function changeImg(object) {
         integral.change(object);
         _updateFileChange($(object));
+    }
+
+    function changePregnantPromise(pregnantPromise) {
+        var value = pregnantPromise.val();
+        var pregnantWeek = $('#pregnantWeek');
+        if (value == 1) {
+            pregnantWeek.removeAttr("disabled");
+            $("#pregnantWeek option[value=' ']").remove();
+        } else if (value == 2) {
+            pregnantWeek.attr("disabled", "disabled");
+            pregnantWeek.prepend("<option value=\" \">请选择</option>");
+            pregnantWeek.val(" ");
+        } else if (value == 0) {
+            pregnantWeek.prepend("<option value=\" \">请选择</option>");
+            pregnantWeek.attr("disabled", "disabled");
+            pregnantWeek.val(" ");
+        }
     }
 </script>
 
