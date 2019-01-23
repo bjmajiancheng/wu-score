@@ -23,10 +23,10 @@ public interface IAttachmentDao {
 
 	public int update(AttachmentModel dattachment);
 
-	public AttachmentModel getById(@Param("id") Integer id);
+	public AttachmentModel getById(@Param("attachmentId") Integer id);
 
-	public int delete(@Param("id") Integer id);
-	
+	public int delete(@Param("attachmentId") Integer id);
+
 	public List<AttachmentModel> find(Map<String, Object> param);
-	
+
 }

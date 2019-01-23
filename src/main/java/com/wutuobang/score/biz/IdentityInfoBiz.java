@@ -3,6 +3,7 @@ package com.wutuobang.score.biz;
 import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.message.SmsUtil;
+import com.wutuobang.common.service.IAttachmentService;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
@@ -61,6 +62,12 @@ public class IdentityInfoBiz {
     @Autowired
     private CommonConstant commonConstant;
 
+    @Autowired
+    private IOnlinePersonMaterialService onlinePersonMaterialService;
+
+    @Autowired
+    private IAttachmentService attachmentService;
+
     /**
      * 新增申请人信息
      *
@@ -72,7 +79,7 @@ public class IdentityInfoBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public boolean addIdentityInfo(IdentityInfoModel identityInfoModel, BatchConfModel batchConfModel,
-            CompanyInfoModel currUser) throws Exception {
+                                   CompanyInfoModel currUser, Integer attachment_id_card_positive, Integer attachment_id_card_opposite) throws Exception {
 
         Date currDate = new Date();
         if (identityInfoModel != null) {
@@ -102,6 +109,36 @@ public class IdentityInfoBiz {
 
             identityInfoService.insert(identityInfoModel);
 
+            //将身份证照片放到上传材料中
+            //正面照片
+            String idCardPositiveUrl = identityInfoModel.getIdCardPositive();
+            if (StringUtils.isNotEmpty(idCardPositiveUrl)) {
+                OnlinePersonMaterialModel onlinePersonMaterialModelPositive = new OnlinePersonMaterialModel();
+                onlinePersonMaterialModelPositive.setCtime(new Date());
+                onlinePersonMaterialModelPositive.setMaterialUri(idCardPositiveUrl);
+                onlinePersonMaterialModelPositive.setBatchId(batchConfModel.getId());
+                onlinePersonMaterialModelPositive.setPersonId(identityInfoModel.getId());
+                onlinePersonMaterialModelPositive.setMaterialInfoId(1057);
+                onlinePersonMaterialModelPositive.setStatus(0);
+                onlinePersonMaterialModelPositive.setMaterialId(attachment_id_card_positive);
+                onlinePersonMaterialModelPositive.setMaterialName(attachmentService.getById(attachment_id_card_positive).getAttachmentName());
+                onlinePersonMaterialService.insert(onlinePersonMaterialModelPositive);
+            }
+            //反面照片
+            String idCardOppositeUrl = identityInfoModel.getIdCardOpposite();
+            if (StringUtils.isNotEmpty(idCardOppositeUrl)) {
+                OnlinePersonMaterialModel onlinePersonMaterialModelOpposite = new OnlinePersonMaterialModel();
+                onlinePersonMaterialModelOpposite.setCtime(new Date());
+                onlinePersonMaterialModelOpposite.setMaterialUri(idCardOppositeUrl);
+                onlinePersonMaterialModelOpposite.setBatchId(batchConfModel.getId());
+                onlinePersonMaterialModelOpposite.setPersonId(identityInfoModel.getId());
+                onlinePersonMaterialModelOpposite.setMaterialInfoId(1058);
+                onlinePersonMaterialModelOpposite.setStatus(0);
+                onlinePersonMaterialModelOpposite.setMaterialId(attachment_id_card_opposite);
+                onlinePersonMaterialModelOpposite.setMaterialName(attachmentService.getById(attachment_id_card_opposite).getAttachmentName());
+                onlinePersonMaterialService.insert(onlinePersonMaterialModelOpposite);
+            }
+
             //记录状态日志信息
             DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_1);
             if (dictModel != null) {
@@ -109,72 +146,71 @@ public class IdentityInfoBiz {
                         dictModel, "添加申请人信息成功");
                 personBatchStatusRecordService.insert(recordModel);
             }
-        }
 
-        //户籍迁移信息
-        HouseMoveModel houseMoveModel = identityInfoModel.getHouseMoveModel();
-        if (houseMoveModel != null) {
-            houseMoveModel.setIdentityInfoId(identityInfoModel.getId());
-            if (houseMoveModel.getSonNumber() == null) {
-                houseMoveModel.setSonNumber(0);
+            //户籍迁移信息
+            HouseMoveModel houseMoveModel = identityInfoModel.getHouseMoveModel();
+            if (houseMoveModel != null) {
+                houseMoveModel.setIdentityInfoId(identityInfoModel.getId());
+                if (houseMoveModel.getSonNumber() == null) {
+                    houseMoveModel.setSonNumber(0);
+                }
+                houseMoveService.insert(houseMoveModel);
             }
-            houseMoveService.insert(houseMoveModel);
-        }
-
-        //申请人家庭关系
-        List<HouseRelationshipModel> houseRelationshipModels = identityInfoModel.getHouseRelationshipModelList();
-        if (CollectionUtils.isNotEmpty(houseRelationshipModels)) {
-            for (HouseRelationshipModel houseRelationship : houseRelationshipModels) {
-                houseRelationship.setIdentityInfoId(identityInfoModel.getId());
-            }
-            houseRelationshipService.batchInsert(houseRelationshipModels);
-        }
-
-        //申请人其他信息
-        HouseOtherModel houseOtherModel = identityInfoModel.getHouseOtherModel();
-        if (houseOtherModel != null) {
-            houseOtherModel.setIdentityInfoId(identityInfoModel.getId());
-            houseOtherService.insert(houseOtherModel);
-        }
-
-        //职业资格证书
-        HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
-        if (houseProfessionModel != null) {
-            houseProfessionModel.setIdentityInfoId(identityInfoModel.getId());
-            if(houseProfessionModel.getProfessionType() == 1) {
-                houseProfessionModel.setJobLevel(0);
-                houseProfessionModel.setJobType(0);
-
-                houseProfessionModel.setJobTitleLevel(0);
-                houseProfessionModel.setJobPosition(StringUtils.EMPTY);
-                houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
-                houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
-                houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
-                houseProfessionModel.setProfessionTitle(0);
-                houseProfessionModel.setJobName(0);
-            }
-            if (houseProfessionModel.getProfessionType() == 2) {
-                houseProfessionModel.setJobLevel(0);
-                houseProfessionModel.setJobType(0);
-                houseProfessionModel.setJobName(0);
+            //申请人家庭关系
+            List<HouseRelationshipModel> houseRelationshipModels = identityInfoModel.getHouseRelationshipModelList();
+            if (CollectionUtils.isNotEmpty(houseRelationshipModels)) {
+                for (HouseRelationshipModel houseRelationship : houseRelationshipModels) {
+                    houseRelationship.setIdentityInfoId(identityInfoModel.getId());
+                }
+                houseRelationshipService.batchInsert(houseRelationshipModels);
             }
 
-            if (houseProfessionModel.getProfessionType() == 3) {
-                houseProfessionModel.setJobTitleLevel(0);
-                houseProfessionModel.setJobPosition(StringUtils.EMPTY);
-                houseProfessionModel.setProfessionTitle(0);
+            //申请人其他信息
+            HouseOtherModel houseOtherModel = identityInfoModel.getHouseOtherModel();
+            if (houseOtherModel != null) {
+                houseOtherModel.setIdentityInfoId(identityInfoModel.getId());
+                houseOtherService.insert(houseOtherModel);
             }
-            houseProfessionService.insert(houseProfessionModel);
-        }
 
-        if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
-            SmsUtil.send(currUser.getOperatorMobile(),
-                    String.format(commonConstant.addapplicationApplicantMessage, currUser.getOperator()));
-        }
+            //职业资格证书
+            HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
+            if (houseProfessionModel != null) {
+                houseProfessionModel.setIdentityInfoId(identityInfoModel.getId());
+                if (houseProfessionModel.getProfessionType() == 1) {
+                    houseProfessionModel.setJobLevel(0);
+                    houseProfessionModel.setJobType(0);
 
-        if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
-            SmsUtil.send(houseOtherModel.getSelfPhone(),
-                    String.format(commonConstant.addapplicationApplicantMessage, identityInfoModel.getName()));
+                    houseProfessionModel.setJobTitleLevel(0);
+                    houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                    houseProfessionModel.setIssuingAuthority(StringUtils.EMPTY);
+                    houseProfessionModel.setIssuingDate(StringUtils.EMPTY);
+                    houseProfessionModel.setCertificateCode(StringUtils.EMPTY);
+                    houseProfessionModel.setProfessionTitle(0);
+                    houseProfessionModel.setJobName(0);
+                }
+                if (houseProfessionModel.getProfessionType() == 2) {
+                    houseProfessionModel.setJobLevel(0);
+                    houseProfessionModel.setJobType(0);
+                    houseProfessionModel.setJobName(0);
+                }
+
+                if (houseProfessionModel.getProfessionType() == 3) {
+                    houseProfessionModel.setJobTitleLevel(0);
+                    houseProfessionModel.setJobPosition(StringUtils.EMPTY);
+                    houseProfessionModel.setProfessionTitle(0);
+                }
+                houseProfessionService.insert(houseProfessionModel);
+            }
+
+            if (StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
+                SmsUtil.send(currUser.getOperatorMobile(),
+                        String.format(commonConstant.addapplicationApplicantMessage, currUser.getOperator()));
+            }
+
+            if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
+                SmsUtil.send(houseOtherModel.getSelfPhone(),
+                        String.format(commonConstant.addapplicationApplicantMessage, identityInfoModel.getName()));
+            }
         }
 
         return true;
@@ -191,7 +227,7 @@ public class IdentityInfoBiz {
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public boolean updateIdentityInfo(IdentityInfoModel identityInfoModel, BatchConfModel batchConfModel,
-            CompanyInfoModel currUser) throws Exception {
+                                      CompanyInfoModel currUser) throws Exception {
 
         if (identityInfoModel == null) {
             return false;
@@ -269,7 +305,7 @@ public class IdentityInfoBiz {
         //职业资格证书
         HouseProfessionModel houseProfessionModel = identityInfoModel.getHouseProfessionModel();
         if (houseProfessionModel != null) {
-            if(houseProfessionModel.getProfessionType() == 1) {
+            if (houseProfessionModel.getProfessionType() == 1) {
                 houseProfessionModel.setJobLevel(0);
                 houseProfessionModel.setJobType(0);
                 houseProfessionModel.setJobName(0);
@@ -385,25 +421,25 @@ public class IdentityInfoBiz {
 
                         indicatorItemView.setScoreValue(new BigDecimal(totalScore));
 
-                        monthMap.put("pensionMonth", new Integer[] { indicatorView.getPensionMonth(), pensionScore });
-                        monthMap.put("medicalMonth", new Integer[] { indicatorView.getMedicalMonth(), medicalScore });
+                        monthMap.put("pensionMonth", new Integer[]{indicatorView.getPensionMonth(), pensionScore});
+                        monthMap.put("medicalMonth", new Integer[]{indicatorView.getMedicalMonth(), medicalScore});
                         monthMap.put("unemploymentMonth",
-                                new Integer[] { indicatorView.getUnemploymentMonth(), unemploymentScore });
+                                new Integer[]{indicatorView.getUnemploymentMonth(), unemploymentScore});
                         monthMap.put("workInjuryMonth",
-                                new Integer[] { indicatorView.getWorkInjuryMonth(), workInjuryScore });
+                                new Integer[]{indicatorView.getWorkInjuryMonth(), workInjuryScore});
                         monthMap.put("fertilityMonth",
-                                new Integer[] { indicatorView.getFertilityMonth(), fertilityScore });
+                                new Integer[]{indicatorView.getFertilityMonth(), fertilityScore});
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
                     } else if (indicatorItemView.getIndexNum() == 5) {
                         //参加住房公积金的每年积2分。
                         int fundScore = indicatorView.getFundMonth() / 6;
                         indicatorItemView.setScoreValue(new BigDecimal(fundScore));
-                        monthMap.put("fundMonth", new Integer[] { indicatorView.getFundMonth(), fundScore });
+                        monthMap.put("fundMonth", new Integer[]{indicatorView.getFundMonth(), fundScore});
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
                     } else if (indicatorItemView.getIndexNum() == 7) {
                         int liveYearScore = indicatorView.getLiveYear() * 6;
                         indicatorItemView.setScoreValue(new BigDecimal(liveYearScore));
-                        monthMap.put("liveYear", new Integer[] { indicatorView.getLiveYear(), liveYearScore });
+                        monthMap.put("liveYear", new Integer[]{indicatorView.getLiveYear(), liveYearScore});
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
                     } else {
                         List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();

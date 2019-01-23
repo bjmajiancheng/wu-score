@@ -63,6 +63,8 @@
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
                                 <input name="id_card_positive" type="hidden" value="$!{identityInfo.idCardPositive}"/>
+                                <input id="attachment_id_card_positive" name="attachment_id_card_positive" type="hidden"
+                                       value=""/>
                             </div>
                             <div class="integral-idcard-img">
                                 <img class="addImg pointer" src="${rc.contextPath}/$static.curr_ver()/img/IDcard2.png"
@@ -78,6 +80,9 @@
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
                                 <input name="id_card_opposite" type="hidden" value="$!{identityInfo.idCardOpposite}"/>
+                                <input id="attachment_id_card_opposite" name="attachment_id_card_opposite" type="hidden"
+                                       value=""/>
+
                             </div>
                         </td>
                     </tr>
@@ -1698,6 +1703,7 @@
                 var resultObj = JSON.parse(result);
                 if (!resultObj.code) {
                     $("input[name=" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentUrl);
+                    $("input[name=attachment_" + obj.attr("attr-inp") + "]").val(resultObj.data.attachmentId);
                 } else {
                     layer.msg(resultObj.message);
                 }
@@ -1952,7 +1958,12 @@
         var captcha = $("input[name=captcha]").val();
         var identityInfoJson = JSON.stringify(identityInfo);
 
-        var formData = {"identityInfoJson": identityInfoJson, "captcha": captcha};
+        var formData = {
+            "identityInfoJson": identityInfoJson,
+            "captcha": captcha,
+            "attachment_id_card_positive": $('#attachment_id_card_positive').val(),
+            "attachment_id_card_opposite": $('#attachment_id_card_opposite').val()
+        };
 
         return formData;
     }

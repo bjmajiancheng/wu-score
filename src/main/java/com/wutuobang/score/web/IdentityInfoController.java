@@ -6,6 +6,9 @@ import com.wutuobang.common.client.ShardJedisClient;
 import com.wutuobang.common.constant.CacheConstant;
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.message.SmsUtil;
+import com.wutuobang.common.model.AttachmentFileModel;
+import com.wutuobang.common.model.AttachmentModel;
+import com.wutuobang.common.service.IAttachmentService;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
 import com.wutuobang.common.utils.ResultParam;
@@ -89,6 +92,12 @@ public class IdentityInfoController {
     @Autowired
     private ShardJedisClient jedisClient;
 
+    @Autowired
+    private IOnlinePersonMaterialService onlinePersonMaterialService;
+
+    @Autowired
+    private IAttachmentService attachmentService;
+
     /**
      * 前往新增用户页面
      *
@@ -129,8 +138,14 @@ public class IdentityInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/addIdentityInfo", method = RequestMethod.POST)
-    public ResultParam addIdentityInfo(HttpServletRequest request,
-                                       @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
+    public ResultParam addIdentityInfo(
+            HttpServletRequest request,
+            @RequestParam("identityInfoJson") String identityInfoJson,
+            @RequestParam("captcha") String captcha,
+            @RequestParam(value = "attachment_id_card_positive")
+                    Integer attachment_id_card_positive,
+            @RequestParam(value = "attachment_id_card_opposite")
+                    Integer attachment_id_card_opposite) {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -157,7 +172,7 @@ public class IdentityInfoController {
 
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
 
-            Map<String, Object> param = new HashMap<String, Object>();
+            Map<String, Object> param = new HashMap<>();
             param.put("batchId", batchConfModel.getId());
             param.put("idNumber", identityInfoModel.getIdNumber());
             List<IdentityInfoModel> identityInfoModels = identityInfoService.find(param);
@@ -166,7 +181,7 @@ public class IdentityInfoController {
             }
 
             identityInfoModel.setAutoTestNum(basicConfModel.getSelfTestLimit());
-            boolean addFlag = identityInfoBiz.addIdentityInfo(identityInfoModel, batchConfModel, currUser);
+            boolean addFlag = identityInfoBiz.addIdentityInfo(identityInfoModel, batchConfModel, currUser, attachment_id_card_positive, attachment_id_card_opposite);
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
@@ -185,8 +200,14 @@ public class IdentityInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/updateIdentityInfo", method = RequestMethod.POST)
-    public ResultParam updateIdentityInfo(HttpServletRequest request,
-                                          @RequestParam("identityInfoJson") String identityInfoJson, @RequestParam("captcha") String captcha) {
+    public ResultParam updateIdentityInfo(
+            HttpServletRequest request,
+            @RequestParam("identityInfoJson") String identityInfoJson,
+            @RequestParam("captcha") String captcha,
+            @RequestParam(value = "attachment_id_card_positive")
+                    Integer attachment_id_card_positive,
+            @RequestParam(value = "attachment_id_card_opposite")
+                    Integer attachment_id_card_opposite) {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
@@ -216,6 +237,48 @@ public class IdentityInfoController {
             if (CollectionUtils.isNotEmpty(identityInfoModels)) {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
+
+            //修改身份证照片上传材料
+            //正面照片
+            List<OnlinePersonMaterialModel> onlinePersonMaterialModelList =
+                    onlinePersonMaterialService.getByPersonId(identityInfoModel.getId());
+            for (OnlinePersonMaterialModel o : onlinePersonMaterialModelList) {
+                if (o.getMaterialInfoId() == 1057) {
+                    AttachmentModel attachmentModel=attachmentService.getById(attachment_id_card_positive);
+                    if(!Objects.equals(attachmentModel.getAttachmentUrl(),identityInfoModel.getIdCardPositive())){
+                        o.setCtime(new Date());
+                        o.setMaterialUri(attachmentModel.getAttachmentUrl());
+                        o.setMaterialId(attachment_id_card_positive);
+                        o.setMaterialName(attachmentModel.getAttachmentName());
+                        onlinePersonMaterialService.update(o);
+                    }
+                } else if (o.getMaterialInfoId() == 1058) {
+                    AttachmentModel attachmentModel=attachmentService.getById(attachment_id_card_opposite);
+                    if(!Objects.equals(attachmentModel.getAttachmentUrl(),identityInfoModel.getIdCardOpposite())){
+                        o.setCtime(new Date());
+                        o.setMaterialUri(attachmentModel.getAttachmentUrl());
+                        o.setMaterialId(attachment_id_card_opposite);
+                        o.setMaterialName(attachmentModel.getAttachmentName());
+                        onlinePersonMaterialService.update(o);
+                    }
+
+                }
+            }
+            //反面照片
+            String idCardOppositeUrl = identityInfoModel.getIdCardOpposite();
+            if (StringUtils.isNotEmpty(idCardOppositeUrl)) {
+                OnlinePersonMaterialModel onlinePersonMaterialModelOpposite = new OnlinePersonMaterialModel();
+                onlinePersonMaterialModelOpposite.setCtime(new Date());
+                onlinePersonMaterialModelOpposite.setMaterialUri(idCardOppositeUrl);
+                onlinePersonMaterialModelOpposite.setBatchId(batchConfModel.getId());
+                onlinePersonMaterialModelOpposite.setPersonId(identityInfoModel.getId());
+                onlinePersonMaterialModelOpposite.setMaterialInfoId(1058);
+                onlinePersonMaterialModelOpposite.setStatus(0);
+                onlinePersonMaterialModelOpposite.setMaterialId(attachment_id_card_opposite);
+                onlinePersonMaterialModelOpposite.setMaterialName(attachmentService.getById(attachment_id_card_opposite).getAttachmentName());
+                onlinePersonMaterialService.insert(onlinePersonMaterialModelOpposite);
+            }
+
 
             boolean updateFlag = identityInfoBiz.updateIdentityInfo(identityInfoModel, batchConfModel, currUser);
 
