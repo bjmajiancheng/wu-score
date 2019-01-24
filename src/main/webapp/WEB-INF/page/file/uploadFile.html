@@ -324,39 +324,66 @@
 
         //保存申请人材料信息
         $("#save").on("click", function () {
-            //材料信息封装
-            var materialInfoArr = new Array();
-            $("tr.materialInfoTr").each(function () {
-                var id = $(this).find("input[name=id]").val();
-                var materialInfoId = $(this).find("input[name=materialInfoId]").val();
-                var materialId = $(this).find("input[name=materialId]").val();
+            var isupload = true;
+            var message = "";
 
-                if (materialId != '') {
-                    materialInfoArr.push({"id": id, "materialInfoId": materialInfoId, "materialId": materialId});
+            $('#materialTableTbody').find('tr').each(function () {
+                firstTD = $(this).children('td').eq(0);
+                if (firstTD.text() == "必传材料") {
+                    var rowspan = firstTD.attr("rowspan");
+                    var tempObject = $(this);
+                    var uploadSpan = tempObject.find(".attachmentName");
+                    for (var i = 0; i < parseInt(rowspan); i++) {
+                        if (uploadSpan.text().trim() == "") {
+                            isupload = false;
+                            message = uploadSpan.parent().prev().prev().text();
+                            break;
+                        } else {
+                            tempObject = tempObject.next();
+                            uploadSpan = tempObject.find(".attachmentName");
+                        }
+                    }
+                    return false;
                 }
             });
 
-            var materialInfoJson = JSON.stringify(materialInfoArr);
+            if (isupload) {
+                //材料信息封装
+                var materialInfoArr = new Array();
+                $("tr.materialInfoTr").each(function () {
+                    var id = $(this).find("input[name=id]").val();
+                    var materialInfoId = $(this).find("input[name=materialInfoId]").val();
+                    var materialId = $(this).find("input[name=materialId]").val();
 
-            var flag = false;
-            postResultData("${rc.contextPath}/materialInfo/saveMaterialInfo", {
-                "materialInfo": materialInfoJson,
-                "identityInfoId": $("#identityInfoId").val(),
-                "captcha": $("input[name=captcha]").val()
-            }, function () {
-                flag = true;
-                layer.msg('保存成功!!', {
-                    time: 1000
-                }, function () {
-                    if (window.opener && window.opener.component) {
-                        window.opener.component.load();
-                        window.close();
-                    } else {
-                        window.close();
+                    if (materialId != '') {
+                        materialInfoArr.push({"id": id, "materialInfoId": materialInfoId, "materialId": materialId});
                     }
-                    /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
                 });
-            });
+
+                var materialInfoJson = JSON.stringify(materialInfoArr);
+
+                var flag = false;
+                postResultData("${rc.contextPath}/materialInfo/saveMaterialInfo", {
+                    "materialInfo": materialInfoJson,
+                    "identityInfoId": $("#identityInfoId").val(),
+                    "captcha": $("input[name=captcha]").val()
+                }, function () {
+                    flag = true;
+                    layer.msg('保存成功!!', {
+                        time: 1000
+                    }, function () {
+                        /*if (window.opener && window.opener.component) {
+                         window.opener.component.load();
+                         window.close();
+                         } else {
+                         window.close();
+                         }*/
+                        window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                    });
+                });
+            } else {
+                layer.alert(message + "为必传材料,请上传后保存");
+            }
         });
     });
 
