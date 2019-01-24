@@ -629,11 +629,40 @@
                                     <input class="integral-input" type="text" name="formerName"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">与第几任妻子/丈夫所生:</td>
-                                <td><input class="integral-input" type="text" name="approval_which"></td>
+                                <td>与第</td>
+                                <td>
+                                    <select name="approval_index">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </td>
+                                <td>任</td>
+                                <td>
+                                    <select name="approval_spouse">
+                                        <option value="妻子">妻子</option>
+                                        <option value="丈夫">丈夫</option>
+                                    </select>
+                                </td>
+                                <td><input class="integral-input" type="text" name="approval_which" placeholder="姓名"></td>
+                                <td>所生</td>
+                            </tr>
+                            <tr>
                                 <td>抚养权归属:</td>
-                                <td><input class="integral-input" type="text" name="approval_custody"></td>
-                                <td colspan="1"></td>
+                                <td>
+                                    <select name="approval_custody">
+                                        <option value="婚内共同抚养">婚内共同抚养</option>
+                                        <option value="归女方抚养">归女方抚养</option>
+                                        <option value="归男方抚养">归男方抚养</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td colspan="6">再生育审批情况:</td>
@@ -664,13 +693,13 @@
                                            style="width: 60px">&nbsp;&nbsp;项
                                 </td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td colspan="2">与第几任妻子/丈夫所生:</td>
                                 <td><input class="integral-input" type="text" name="approval_which"></td>
                                 <td>抚养权归属:</td>
                                 <td><input class="integral-input" type="text" name="approval_custody"></td>
                                 <td colspan="1"></td>
-                            </tr>
+                            </tr>-->
                         </table>
                         <br>
                     </form>
@@ -775,15 +804,44 @@
                                            placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                            value="$!{houseRelationship.formerName}"></td>
                             </tr>
+
                             <tr>
-                                <td colspan="2">与第几任妻子/丈夫所生:</td>
-                                <td><input class="integral-input" type="text" name="approval_which"
-                                           value="$!{houseRelationship.approval_which}"></td>
-                                <td>抚养权归属:</td>
-                                <td><input class="integral-input" type="text" name="approval_custody"
-                                           value="$!{houseRelationship.approval_custody}"></td>
-                                <td colspan="1"></td>
+                                <td>与第</td>
+                                <td>
+                                    <select name="approval_index">
+                                        <option value="1" #if(${houseRelationship.approval_index}=="1") selected #end>1</option>
+                                        <option value="2" #if(${houseRelationship.approval_index}=="2") selected #end>2</option>
+                                        <option value="3" #if(${houseRelationship.approval_index}=="3") selected #end>3</option>
+                                        <option value="4" #if(${houseRelationship.approval_index}=="4") selected #end>4</option>
+                                        <option value="5" #if(${houseRelationship.approval_index}=="5") selected #end>5</option>
+                                        <option value="6" #if(${houseRelationship.approval_index}=="6") selected #end>6</option>
+                                    </select>
+                                </td>
+                                <td>任</td>
+                                <td>
+                                    <select name="approval_spouse">
+                                        <option value="妻子" #if(${houseRelationship.approval_spouse}=="妻子") selected #end>妻子</option>
+                                        <option value="丈夫" #if(${houseRelationship.approval_spouse}=="丈夫") selected #end>丈夫</option>
+                                    </select>
+                                </td>
+                                <td><input class="integral-input" type="text" name="approval_which" value="$!{houseRelationship.approval_which}" placeholder="姓名"></td>
+                                <td>所生</td>
                             </tr>
+                            <tr>
+                                <td>抚养权归属:</td>
+                                <td>
+                                    <select name="approval_custody">
+                                        <option value="婚内共同抚养"  #if(${houseRelationship.approval_custody}=="婚内共同抚养") selected #end>婚内共同抚养</option>
+                                        <option value="归女方抚养" #if(${houseRelationship.approval_custody}=="归女方抚养") selected #end>归女方抚养</option>
+                                        <option value="归男方抚养" #if(${houseRelationship.approval_custody}=="归男方抚养") selected #end>归男方抚养</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
                             <tr>
                                 <td colspan="6">再生育审批情况:</td>
                             </tr>
@@ -1507,6 +1565,9 @@
                         },
                         birthplace: {
                             required: true
+                        },
+                        approval_which: {
+                            required: true
                         }
                     },
                     messages: {
@@ -1527,6 +1588,9 @@
                         },
                         birthplace: {
                             required: "请输入出生地"
+                        },
+                        approval_which: {
+                            required: "请输入配偶姓名"
                         }
                     },
 
@@ -2494,6 +2558,9 @@
                     },
                     birthplace: {
                         required: true
+                    },
+                    approval_which: {
+                        required: true
                     }
                 },
                 messages: {
@@ -2514,6 +2581,9 @@
                     },
                     birthplace: {
                         required: "请输入出生地"
+                    },
+                    approval_which: {
+                        required: "请输入配偶姓名"
                     }
                 },
 

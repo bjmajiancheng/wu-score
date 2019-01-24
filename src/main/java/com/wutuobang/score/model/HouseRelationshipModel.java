@@ -66,6 +66,10 @@ public class HouseRelationshipModel implements Serializable {
 
 	private String approval_rules;//"审批条例适用"
 
+	private String  approval_index; //第几任 选择项 1- 6
+
+	private  String approval_spouse;//范围 妻子/丈夫
+
 	private String approval_which;//"与第几任妻子/丈夫所生"
 
 	private String approval_custody;//"抚养权归属"
@@ -311,6 +315,22 @@ public class HouseRelationshipModel implements Serializable {
 			return new String[]{"", "", "", ""};
 		}
 
+	}
+
+	public String getApproval_index() {
+		return approval_index;
+	}
+
+	public void setApproval_index(String approval_index) {
+		this.approval_index = approval_index;
+	}
+
+	public String getApproval_spouse() {
+		return approval_spouse;
+	}
+
+	public void setApproval_spouse(String approval_spouse) {
+		this.approval_spouse = approval_spouse;
 	}
 }
 

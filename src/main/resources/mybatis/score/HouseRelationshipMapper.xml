@@ -27,6 +27,8 @@
 		<result property="approval_number" column="approval_number"/>
 		<result property="approval_companyName" column="approval_companyName"/>
 		<result property="approval_rules" column="approval_rules"/>
+		<result property="approval_index" column="approval_index"/>
+		<result property="approval_spouse" column="approval_spouse"/>
 		<result property="approval_which" column="approval_which"/>
 		<result property="approval_custody" column="approval_custody"/>
 		<result property="marriageStatus" column="marriageStatus"/>
@@ -56,6 +58,8 @@
         approval_number,
         approval_companyName,
         approval_rules,
+        approval_index,
+        approval_spouse,
         approval_which,
         approval_custody,
         marriageStatus
@@ -89,6 +93,8 @@
 			approval_number,
 			approval_companyName,
 			approval_rules,
+			approval_index,
+        	approval_spouse,
 			approval_which,
 			approval_custody,
             marriageStatus
@@ -114,6 +120,8 @@
             #{approval_number, jdbcType=VARCHAR} ,
             #{approval_companyName, jdbcType=VARCHAR} ,
             #{approval_rules, jdbcType=VARCHAR} ,
+        	#{approval_index, jdbcType=VARCHAR} ,
+        	#{approval_spouse, jdbcType=VARCHAR} ,
             #{approval_which, jdbcType=VARCHAR} ,
             #{approval_custody, jdbcType=VARCHAR},
             #{marriageStatus, jdbcType=INTEGER}
@@ -143,6 +151,8 @@
 		<if test="approval_number != null">approval_number = #{approval_number, jdbcType=VARCHAR} ,</if>
 		<if test="approval_companyName != null">approval_companyName = #{approval_companyName, jdbcType=VARCHAR} ,</if>
 		<if test="approval_rules != null">approval_rules = #{approval_rules, jdbcType=VARCHAR} ,</if>
+		<if test="approval_index != null">approval_index = #{approval_index, jdbcType=VARCHAR} ,</if>
+		<if test="approval_spouse != null">approval_spouse = #{approval_spouse, jdbcType=VARCHAR} ,</if>
 		<if test="approval_which != null">approval_which = #{approval_which, jdbcType=VARCHAR} ,</if>
 		<if test="approval_custody != null">approval_custody = #{approval_custody, jdbcType=VARCHAR} ,</if>
 		<if test="marriageStatus != null">marriageStatus = #{marriageStatus, jdbcType=INTEGER} ,</if>
