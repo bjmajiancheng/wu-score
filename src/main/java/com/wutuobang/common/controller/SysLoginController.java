@@ -98,7 +98,7 @@ public class SysLoginController {
         /*
         qiyezhanghao1是个申请人用户名，用来测试用的
          */
-        if(!username.equals("qiyezhanghao1")){
+        if(!username.equals("tianjindawan")){
             if (flag){
                 return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
             }
