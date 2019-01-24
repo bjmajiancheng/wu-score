@@ -455,12 +455,12 @@
                     </tr>
                     <tr class="spouseModel">
                         <td colspan="2">
-                            本人及配偶:&nbsp;&nbsp;&nbsp;&nbsp;
+                            本人及配偶承诺目前:&nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="pregnantPromise" name="pregnantPromise">
                                 <option #if(${identityInfo.pregnantPromise}=="0") selected #end value="0">请选择</option>
-                                <option #if(${identityInfo.pregnantPromise}=="1") selected #end value="1">承诺</option>
-                                <option #if(${identityInfo.pregnantPromise}=="2") selected #end value="2">不承诺</option>
-                            </select>&nbsp;&nbsp;&nbsp;&nbsp;目前已怀孕&nbsp;&nbsp;&nbsp;&nbsp;
+                                <option #if(${identityInfo.pregnantPromise}=="1") selected #end value="1">已怀孕</option>
+                                <option #if(${identityInfo.pregnantPromise}=="2") selected #end value="2">未怀孕</option>
+                            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="pregnantWeek" name="pregnantWeek">
                                 <option value=" ">请选择</option>
                                 <option value="1">1</option>
@@ -513,15 +513,15 @@
                     </tr>
                     <tr class="spouseModel">
                         <td colspan="2">
-                            本人及配偶:&nbsp;&nbsp;&nbsp;&nbsp;
+                            本人及配偶承诺目前:&nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="thirdPregnantPromise" name="thirdPregnantPromise">
                                 <option #if(${identityInfo.thirdPregnantPromise}=="0") selected #end value="0">请选择
                                 </option>
-                                <option #if(${identityInfo.thirdPregnantPromise}=="1") selected #end value="1">承诺
+                                <option #if(${identityInfo.thirdPregnantPromise}=="1") selected #end value="1">处于
                                 </option>
-                                <option #if(${identityInfo.thirdPregnantPromise}=="2") selected #end value="2">不承诺
+                                <option #if(${identityInfo.thirdPregnantPromise}=="2") selected #end value="2">未处于
                                 </option>
-                            </select>&nbsp;&nbsp;&nbsp;&nbsp;目前未处于政策外第三个及以上子女怀孕期间
+                            </select>&nbsp;&nbsp;&nbsp;&nbsp;政策外第三个及以上子女怀孕期间
                         </td>
                     </tr>
                 </table>
