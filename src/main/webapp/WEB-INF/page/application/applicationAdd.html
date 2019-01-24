@@ -549,8 +549,7 @@
             <br/>
             <div id="children-table">
                 <div id="houseRelationshipsDiv">
-                    #if(${addFlag})
-                    <form class="houseRelationshipsForm">
+                    <form class="houseRelationshipsForm" id="needClone">
                         <table class="integral-table border-add integral-cont-table houseRelationships">
                             <tr style="background-color: #E0E0E0">
                                 <td>
@@ -670,7 +669,6 @@
                         </table>
                         <br>
                     </form>
-                    #end
                     #foreach(${houseRelationship} in $!{houseRelationshipList})
                     #if ($houseRelationship.relationship!="配偶")
                     <form class="houseRelationshipsForm">
@@ -1387,9 +1385,11 @@
 <script type="text/javascript" src="${rc.contextPath}/$static.curr_ver()/js/jquery.form.min.js"></script>
 <script type="text/javascript">
     // var relation_idx = $("tr.houseRelationship").length + 1;
-    var houseRelationshipsClone = $('#houseRelationshipsDiv').children(":first").clone();
+    var houseRelationshipsClone;
 
     $(function () {
+        houseRelationshipsClone = $('#needClone').clone();
+        $('#needClone').remove();
 
         $(".scoreMenu>p").click();
         newCurrPage("addIdentity");
@@ -1418,7 +1418,10 @@
 
         laydate.render({
             elem: '#applicationDate' //居住证申领日期
-            , max: 0
+            , max: 0,
+            done: function () {
+                $('#applicationDate').valid();
+            }
         });
 
         $("input[name='approval_time']").each(function () {
@@ -1468,28 +1471,14 @@
         //添加户籍关系
         $("#addRelation").on("click",
             function () {
-                // relation_idx++;
                 var parentDom = $('#houseRelationshipsDiv');
                 var addDom = houseRelationshipsClone.clone();
-                // addDom.attr('id', "houseRelationshipsForm" + relation_idx);
-                addDom.find('*').each(function () {
-                    var type = inputType($(this));
-                    if (type !== "other") {
-                        if (type === "text" || type === "textarea" || type === "hidden") {
-                            if ($(this).attr('name') === "approval_time") {
-                                var tempThis = $(this);
-                                laydate.render({
-                                    elem: tempThis[0],
-                                    max: 0,
-                                    done: function () {
-                                        tempThis.valid();
-                                    }
-                                });
-                            }
-                            $(this).val("");
-                        } else {
-                            $(this)[0].checked = false;
-                        }
+                var approval_time = addDom.find("input[name='approval_time']");
+                laydate.render({
+                    elem: approval_time[0],
+                    max: 0,
+                    done: function () {
+                        approval_time.valid();
                     }
                 });
                 parentDom.append(addDom);
@@ -1536,16 +1525,15 @@
                         }
                     },
 
-                    errorPlacement: function (error, element) { //指定错误信息位置
-                        if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
-                            error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                    errorPlacement: function (error, element) {
+                        if (element.is(':radio') || element.is(':checkbox')) {
+                            error.appendTo(element.parent());
                         } else {
                             error.insertAfter(element);
                         }
                         element.focus();
                     }
                 });
-                changeZaishengyuCheck($(this), $(this).find("SELECT[name=policyAttribute]").val() == "政策内多孩");
                 chcekChildNum();
             }
         );
@@ -1561,9 +1549,8 @@
 
         //提交
         $("#submit").on("click", function () {
-            //询问框
             var index = layer.confirm('确定要保存申请人吗？', {
-                btn: ['确认', '取消'] //按钮
+                btn: ['确认', '取消']
             }, function () {
                 submit();
                 layer.close(index);
@@ -1571,6 +1558,7 @@
                 layer.close(index);
             });
         });
+
         $("#submitAndContinue").on("click", function () {
             //询问框
             var index = layer.confirm('确定要保存并继续录入申请人吗？', {
@@ -1582,33 +1570,6 @@
                 layer.close(index);
             });
         });
-
-        // $("input[name=idcard1]").on("change", _updateFileChange);
-        //身份证正面上传
-        /*$("input[name=idcard1]").on("change", function () {
-         var form = $("<form>");
-         form.attr('style', 'display:none');
-         form.attr('method', 'post');
-         form.attr('action', '${rc.contextPath}/fileUpload/uploadImage');
-         form.attr('enctype', 'multipart/form-data');
-         var file = $("input[name=idcard1]").clone();
-         $(file).attr('name', 'file');
-         $(form).append(file);
-
-         $('body').append(form);
-
-         $(form).ajaxSubmit(function (result) {
-         var obj = JSON.parse(result);
-         if (!obj.code) {
-         $("input[name=id_card_positive]").val(obj.data.attachmentUrl);
-         } else {
-         layer.msg(obj.msg);
-         }
-         });
-         });*/
-
-        //身份证反面上传
-        // $("input[name=idcard2]").on("change", _updateFileChange);
 
         //初始化迁入户籍登记机关
         initOfficeInfo(0, $("#registeredOffice"), '$!{houseMoveModel.registeredOffice}');
@@ -1761,10 +1722,6 @@
             initIdentityInfo();
         }
 
-        if ($('#sonNumber').val() == 0) {
-            delAllChildrenTabel();
-        }
-
         $("#cultureDegree").on("change", function () {
             var cultureDegreeName = $(this).find("option:selected").text();
             if (cultureDegreeName == '本科及以上学历') {
@@ -1804,7 +1761,6 @@
      * 提交表单
      */
     function submit() {
-        // if (validMassageInfo() == false) return false;
         var formInfo = getFormInfo();
         if (formInfo == false) {
             return false;
@@ -1821,16 +1777,13 @@
         });
 
         if (flag) {
-            /*window.location.href = "${rc.contextPath}/identityInfo/index.html";*/
-
             layer.msg('保存成功!!', {
                 time: 1000
             }, function () {
-
-                window.opener = null;
-                window.open('', '_self');
-                window.close();
-
+                window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                /*window.opener = null;
+                 window.open('', '_self');
+                 window.close();*/
             });
         }
     }
@@ -1939,11 +1892,6 @@
                 return false;
             }
         }
-
-        /*if (relationmarriageNum != marriageNumber) {
-         layer.msg("配偶数量填写不匹配,请新增或删除配偶信息");
-         return false;
-         }*/
 
         //身份证验证(正面)
         if ($("input[name=id_card_positive]").val() == '') {
@@ -2342,10 +2290,9 @@
                 }
             },
 
-            errorPlacement: function (error, element) { //指定错误信息位置
-                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
-                    var eid = element.attr('name'); //获取元素的name属性
-                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+            errorPlacement: function (error, element) {
+                if (element.is(':radio') || element.is(':checkbox')) {
+                    error.appendTo(element.parent());
                 } else {
                     error.insertAfter(element);
                 }
@@ -2510,9 +2457,9 @@
                 }
             },
 
-            errorPlacement: function (error, element) { //指定错误信息位置
-                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
-                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+            errorPlacement: function (error, element) {
+                if (element.is(':radio') || element.is(':checkbox')) {
+                    error.appendTo(element.parent());
                 } else {
                     error.insertAfter(element);
                 }
@@ -2566,8 +2513,8 @@
                 },
 
                 errorPlacement: function (error, element) {
-                    if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
-                        error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                    if (element.is(':radio') || element.is(':checkbox')) {
+                        error.appendTo(element.parent());
                     } else {
                         error.insertAfter(element);
                     }
