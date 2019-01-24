@@ -232,14 +232,14 @@
                     <tr>
                         <td class="">迁出地地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress"
+                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" placeholder="填写格式参照上面提示"
                                    value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
                     <tr>
                         <td class="">现居住地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"
+                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress" placeholder="此处为申请人在天津市实际居住地址，填写格式参照上面提示"
                                    value="$!{houseMoveModel.moveNowAddress}">
                         </td>
                     </tr>
@@ -300,14 +300,14 @@
                             <input class="integral-input w200" placeholder="《户口准予迁入证明》收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
                             <span class="integral-td-title ml75">手机号：</span>
-                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone"
+                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone" placeholder="收件人手机号"
                                    value="$!{houseMoveModel.witnessPhone}">
                         </td>
                     </tr>
                     <tr>
                         <td class="">邮寄地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress"
+                            <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress" placeholder="《户口准予迁入证明》邮寄地址"
                                    value="$!{houseMoveModel.witnessAddress}">
                         </td>
                     </tr>
@@ -541,11 +541,9 @@
             <br/>
             <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.“出生医学证明编号，必须连同数字前的字母一并填写，否则视为填写无效。”</span>
             <br/>
-            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.“按照省、地、县填写至县级。直辖市填写到区（县）。”</span>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.“再生育审批证明编号必须填写完整，如包含有汉字、字母和符号的，必须一并填写，否则视为填写无效。”</span>
             <br/>
-            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.“再生育审批证明编号必须填写完整，如包含有汉字、字母和符号的，必须一并填写，否则视为填写无效。”</span>
-            <br/>
-            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10. 涉及曾用名的需填写曾用名，没有曾用名则无需填写</span>
+            <span class="" style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9. 涉及曾用名的需填写曾用名，没有曾用名则无需填写</span>
             <br/>
             <div id="children-table">
                 <div id="houseRelationshipsDiv">
@@ -625,10 +623,17 @@
                                 <td colspan="3">
                                     <input class="integral-input" style="width: 440px"
                                            type="text" name="birthplace"
-                                           placeholder="只填写省市县，示例:XX省/XX市/XX县"></td>
+                                           placeholder="按照省、地、县填写至县级。直辖市填写到区（县）"></td>
                                 <td>曾用名:</td>
                                 <td>
                                     <input class="integral-input" type="text" name="formerName"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">与第几任妻子/丈夫所生:</td>
+                                <td><input class="integral-input" type="text" name="approval_which"></td>
+                                <td>抚养权归属:</td>
+                                <td><input class="integral-input" type="text" name="approval_custody"></td>
+                                <td colspan="1"></td>
                             </tr>
                             <tr>
                                 <td colspan="6">再生育审批情况:</td>
@@ -764,11 +769,20 @@
                                 <td colspan="3">
                                     <input class="integral-input" style="width: 440px"
                                            type="text" name="birthplace" value="$!{houseRelationship.birthplace}"
-                                           placeholder="只填写省市县，示例:XX省/XX市/XX县"></td>
+                                           placeholder="按照省、地、县填写至县级。直辖市填写到区（县）"></td>
                                 <td>曾用名:</td>
                                 <td><input class="integral-input" type="text" name="formerName"
                                            placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                            value="$!{houseRelationship.formerName}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">与第几任妻子/丈夫所生:</td>
+                                <td><input class="integral-input" type="text" name="approval_which"
+                                           value="$!{houseRelationship.approval_which}"></td>
+                                <td>抚养权归属:</td>
+                                <td><input class="integral-input" type="text" name="approval_custody"
+                                           value="$!{houseRelationship.approval_custody}"></td>
+                                <td colspan="1"></td>
                             </tr>
                             <tr>
                                 <td colspan="6">再生育审批情况:</td>
@@ -804,15 +818,6 @@
                                            value="$!{houseRelationship.getApproval_rulesArray()[3]}"
                                            style="width: 60px">&nbsp;&nbsp;项
                                 </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">与第几任妻子/丈夫所生:</td>
-                                <td><input class="integral-input" type="text" name="approval_which"
-                                           value="$!{houseRelationship.approval_which}"></td>
-                                <td>抚养权归属:</td>
-                                <td><input class="integral-input" type="text" name="approval_custody"
-                                           value="$!{houseRelationship.approval_custody}"></td>
-                                <td colspan="1"></td>
                             </tr>
                         </table>
                         <br>
