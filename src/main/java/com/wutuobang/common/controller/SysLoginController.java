@@ -102,6 +102,13 @@ public class SysLoginController {
 //
 //        }
 
+        /*
+        屏蔽的几家公司，因为虚假材料
+         */
+        if (username.equals("hongfengchang") || username.equals("smx123456") || username.equals("bcqc123")){
+            return ResultParam.error("2018年第二期提交营业执照副本复印件虚假，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
+        }
+
         if (flag){
             return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
