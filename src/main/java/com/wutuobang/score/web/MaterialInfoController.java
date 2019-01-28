@@ -160,6 +160,10 @@ public class MaterialInfoController {
             } else {
                 mv.addObject("reUpload", 0);
             }
+
+            if (identityInfo.getMaterialStatus() != null && identityInfo.getMaterialStatus() == 1) {
+                mv.addObject("reUpload", 1);
+            }
             mv.addObject("identityInfo", identityInfo);
             mv.addObject("materialInfos", materialInfos);
 
@@ -263,7 +267,8 @@ public class MaterialInfoController {
                 //待补件功能修改
                 if (identityInfoModel.getUnionApproveStatus1() == 4 || identityInfoModel.getUnionApproveStatus2() == 4
                         || identityInfoModel.getPoliceApproveStatus() == 2
-                        || identityInfoModel.getRensheAcceptStatus() == 2) {
+                        || identityInfoModel.getRensheAcceptStatus() == 2
+                        || (identityInfoModel.getMaterialStatus()!=null && identityInfoModel.getMaterialStatus() == 1)) {
                     IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
                     updateIdentityInfo.setId(identityInfoModel.getId());
                     if (identityInfoModel.getUnionApproveStatus1() == 4) {
@@ -277,6 +282,13 @@ public class MaterialInfoController {
                     }
                     if (identityInfoModel.getRensheAcceptStatus() == 2) {
                         updateIdentityInfo.setRensheAcceptStatus(1);
+                    }
+                    if (identityInfoModel.getMaterialStatus()!=null && identityInfoModel.getMaterialStatus() == 1) {
+                        /*
+                        2019年1月28日
+                        材料上传页面，材料驳回后，申请人再次上传通过后，
+                         */
+                        updateIdentityInfo.setMaterialStatus(2);
                     }
                     identityInfoService.update(updateIdentityInfo);
                 }

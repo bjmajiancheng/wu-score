@@ -672,7 +672,8 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationDate(acceptDateConf.getAcceptDate());
             updateIdentityInfo.setReservationM(reservaionM);
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
-            String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
+//            String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
+            String acceptNumber = "102018200405";
             updateIdentityInfo.setAcceptNumber(acceptNumber);
             if (identityInfoModel.getPoliceApproveStatus() == 3) {
                 updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_3);
