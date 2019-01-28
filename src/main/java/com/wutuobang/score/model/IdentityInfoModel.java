@@ -78,6 +78,8 @@ public class IdentityInfoModel implements Serializable {
 
     private Integer rensheAcceptStatus;//"人社受理状态"
 
+    private Integer materialStatus;//"材料送达补正状态"
+
     private Integer cancelStatus;//"资格取消状态"
 
     private String acceptNumber;//"受理编号"
@@ -498,6 +500,12 @@ public class IdentityInfoModel implements Serializable {
         this.companyName = companyName;
     }
 
+    public Integer getMaterialStatus() {
+        return materialStatus;
+    }
 
+    public void setMaterialStatus(Integer materialStatus) {
+        this.materialStatus = materialStatus;
+    }
 }
 

@@ -29,6 +29,7 @@
 		<result property="unionApproveStatus2" column="union_approve_status_2"/>
 		<result property="policeApproveStatus" column="police_approve_status"/>
 		<result property="rensheAcceptStatus" column="renshe_accept_status"/>
+		<result property="materialStatus" column="materialStatus"/>
 		<result property="cancelStatus" column="cancel_status"/>
 		<result property="acceptNumber" column="accept_number"/>
 		<result property="acceptAddressId" column="accept_address_id"/>
@@ -82,7 +83,8 @@
         score,
         auto_test_num,
         reservation_time,
-        reject_reason
+        reject_reason,
+        materialStatus
         ]]>
 	</sql>
 
@@ -119,7 +121,8 @@
 	        c_time  ,
 	        u_time  ,
 	        auto_test_num  ,
-	        reservation_time
+	        reservation_time ,
+	        materialStatus
         ) VALUES (
         	${id} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -148,7 +151,8 @@
         	#{ctime, jdbcType=TIMESTAMP} ,
         	#{utime, jdbcType=TIMESTAMP} ,
         	#{autoTestNum, jdbcType=INTEGER},
-        	#{reservationTime, jdbcType=INTEGER}
+        	#{reservationTime, jdbcType=INTEGER} ,
+        	#{materialStatus, jdbcType=INTEGER}
         )
     ]]>
 	</insert>
@@ -192,6 +196,7 @@
 		<if test="reservationDateNull != null">reservation_date = NULL ,</if>
 		<if test="unionApprove1Et != null">union_approve_1_et = #{unionApprove1Et, jdbcType=DATE},</if>
 		<if test="unionApprove2Et != null">union_approve_2_et = #{unionApprove2Et, jdbcType=DATE},</if>
+		<if test="materialStatus != null">materialStatus = #{materialStatus, jdbcType=INTEGER} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}
