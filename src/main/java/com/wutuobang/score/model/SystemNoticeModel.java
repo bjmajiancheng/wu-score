@@ -34,8 +34,19 @@ public class SystemNoticeModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 
+	//排序
+	private String sortcolumns;
+
+	public String getSortcolumns() {
+		return sortcolumns;
+	}
+
+	public void setSortcolumns(String sortcolumns) {
+		this.sortcolumns = sortcolumns;
+	}
+
 	//columns END
-		
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -43,7 +54,7 @@ public class SystemNoticeModel implements Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-		
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -51,7 +62,7 @@ public class SystemNoticeModel implements Serializable {
 	public String getTitle() {
 		return this.title;
 	}
-		
+
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -59,7 +70,7 @@ public class SystemNoticeModel implements Serializable {
 	public String getContent() {
 		return this.content;
 	}
-		
+
 	public void setType(Integer type) {
 		this.type = type;
 	}
@@ -67,7 +78,7 @@ public class SystemNoticeModel implements Serializable {
 	public Integer getType() {
 		return this.type;
 	}
-		
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
@@ -75,7 +86,7 @@ public class SystemNoticeModel implements Serializable {
 	public String getAuthor() {
 		return this.author;
 	}
-		
+
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
 	}

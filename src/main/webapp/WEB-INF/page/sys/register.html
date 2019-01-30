@@ -267,19 +267,20 @@
 
     //点击注册按钮，2018年7月18日，添加提示
     $("#register").on("click", function () {
-        //询问框
-        var index = layer.confirm('一旦注册成功，本期不可修改，确定要注册吗？', {
-            btn: ['确认', '取消'] //按钮
-        }, function () {
-            if ($('#businessLicenseSrc').val().trim() != "") {
+        if ($('#userName').val().indexOf(" ") !== -1) {
+            layer.alert("用户名中不能有空格！");
+        } else if ($('#businessLicenseSrc').val().trim() == "") {
+            layer.alert("请上传营业执照照片！");
+        } else {
+            var index = layer.confirm('一旦注册成功，本期不可修改，确定要注册吗？', {
+                btn: ['确认', '取消']
+            }, function () {
                 $("#companyForm").submit();
                 layer.close(index);
-            } else {
-                layer.alert("请上传营业执照照片！");
-            }
-        }, function () {
-            layer.close(index);
-        });
+            }, function () {
+                layer.close(index);
+            });
+        }
     });
 
 

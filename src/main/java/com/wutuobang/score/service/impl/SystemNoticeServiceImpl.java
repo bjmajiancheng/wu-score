@@ -85,7 +85,7 @@ public class SystemNoticeServiceImpl implements ISystemNoticeService {
         param.put("type", type);
         /*param.put("start", (pageNo - 1) * CommonConstant.PAGE_SIZE);
         param.put("pageSize", CommonConstant.PAGE_SIZE);*/
-        param.put("sortColumns", "id ASC");
+        param.put("sortColumns", "sortcolumns ASC");
 
         int pageCount = systemNoticeDao.findPageCount(param);
         if (pageCount == 0) {
