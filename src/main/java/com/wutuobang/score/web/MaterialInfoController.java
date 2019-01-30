@@ -108,30 +108,11 @@ public class MaterialInfoController {
                 }
             }
 
-            //根据id判断是否结婚
-            IdentityInfoModel identityInfoFindIsMarried = identityInfoService.getById(identityInfoId);
-            identityInfoFindIsMarried.setHouseMoveModel(houseMoveService.getByIdentityInfoId(identityInfoId));
-            Integer isMarriedNum = identityInfoFindIsMarried.getHouseMoveModel().getMarriageStatus();
-            boolean isMarried = false;
-            if (isMarriedNum != null) {
-                switch (isMarriedNum) {
-                    //项目开始时设置1为已婚,现已废弃，为适用原数据库数据匹配
-                    case 1:
-                        //初婚复婚再婚需要上传结婚证
-                    case 7:
-                    case 8:
-                    case 9:
-                        isMarried = true;
-                        break;
-                }
-            }
-
             //所有材料信息
 
             Map<String, Object> findMap = new HashMap<>();
             findMap.put("isUpload", 1);
             findMap.put("sortColumns", "SORTCOLUMNS");
-            //Collections.singletonMap("isUpload", (Object) 1)
             List<MaterialInfoModel> materialInfos = materialInfoService.find(findMap);
             if (CollectionUtils.isNotEmpty(materialInfos)) {
                 for (MaterialInfoModel materialInfo : materialInfos) {
@@ -143,11 +124,6 @@ public class MaterialInfoController {
                         }
                     }
                     materialInfo.setOnlinePersonMaterial(tmpMaterialModel);
-                    //根据主键17判断是否为结婚材料,并修改为必传材料
-                    if (materialInfo.getId() == 17 && isMarried) {
-                        materialInfo.setCategory("必传材料");
-                        materialInfo.setCategoryRenshe("");
-                    }
                 }
             }
 
