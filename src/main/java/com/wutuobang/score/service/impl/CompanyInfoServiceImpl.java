@@ -43,6 +43,13 @@ public class CompanyInfoServiceImpl implements ICompanyInfoService {
         return companyInfoDao.insert(companyInfo);
     }
 
+    public int insertCompanyEditRecord(CompanyInfoModel companyInfo) {
+        if (companyInfo == null) {
+            return 0;
+        }
+        return companyInfoDao.insertCompanyEditRecord(companyInfo);
+    }
+
     public int update(CompanyInfoModel companyInfo) {
         if (companyInfo == null) {
             return 0;

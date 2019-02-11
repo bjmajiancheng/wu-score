@@ -234,7 +234,7 @@ public class CompanyInfoController {
                 if (status == null || status != 1) {
                     //如果企业信息不修改,不改变字段的值
                     if (!currCompany.isOperatorEquals(companyInfoModel)) {
-                        companyInfoModel.setStatus(1);
+                        currCompany.setStatus(1);
                     } else if (!isUploadbusinessLicense) {
                         message = "每一期只可以修改一次用人单位信息,请确定有信息修改后保存";
                     }
@@ -243,8 +243,9 @@ public class CompanyInfoController {
                 }
 
                 if ("用人单位信息修改成功!".equals(message)) {
-                    companyInfoModel.setOnlyOperatorData();
-                    companyInfoService.update(companyInfoModel);
+                    currCompany.setChangeDate(companyInfoModel);
+                    companyInfoService.update(currCompany);
+                    companyInfoService.insertCompanyEditRecord(currCompany);
                     return new ResultParam(0, message);
                 } else {
                     return new ResultParam(3, message);

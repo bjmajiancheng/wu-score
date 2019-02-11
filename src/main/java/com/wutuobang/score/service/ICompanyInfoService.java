@@ -22,6 +22,8 @@ public interface ICompanyInfoService{
 
 	public int insert(CompanyInfoModel companyInfo);
 
+	public int insertCompanyEditRecord(CompanyInfoModel companyInfo);
+
 	public int update(CompanyInfoModel companyInfo);
 
 	public CompanyInfoModel getById(Integer value);
@@ -35,7 +37,7 @@ public interface ICompanyInfoService{
 	 *
 	 * @param userName
 	 * @return
-     */
+	 */
 	public CompanyInfoModel queryByUserName(String userName);
 
 	/**
@@ -43,7 +45,7 @@ public interface ICompanyInfoService{
 	 *
 	 * @param ids
 	 * @return
-     */
+	 */
 	public Map<Integer, CompanyInfoModel> getMapByIds(List<Integer> ids);
 
 	/**
@@ -51,7 +53,7 @@ public interface ICompanyInfoService{
 	 *
 	 * @param companyName
 	 * @param societyCode
-     * @return
-     */
+	 * @return
+	 */
 	public List<CompanyInfoModel> findByCompanyNameOrCode(String companyName, String societyCode);
 }

@@ -25,6 +25,8 @@ public interface ICompanyInfoDao {
 
     public int insert(CompanyInfoModel companyInfo);
 
+    public int insertCompanyEditRecord(CompanyInfoModel companyInfo);
+
     public int update(CompanyInfoModel companyInfo);
 
     public CompanyInfoModel getById(@Param("id") Integer id);
@@ -41,6 +43,6 @@ public interface ICompanyInfoDao {
      * @return
      */
     public List<CompanyInfoModel> findByCompanyNameOrCode(@Param("companyName") String companyName,
-            @Param("societyCode") String societyCode);
+                                                          @Param("societyCode") String societyCode);
 
 }

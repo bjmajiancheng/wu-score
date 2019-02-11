@@ -61,6 +61,16 @@ public class CompanyInfoModel implements Serializable {
 
     private String businessLicenseSrc;//营业执照路径
 
+    private Integer recordId;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -224,16 +234,20 @@ public class CompanyInfoModel implements Serializable {
                 Objects.equals(operatorAddress, that.operatorAddress);
     }
 
-    //只修改可以修改的信息
-    public void setOnlyOperatorData() {
-        this.userName = null;
-        this.password = null;
-        this.companyName = null;
-        this.companyType = null;
-        this.societyCode = null;
-        this.remark = null;
-        this.createTime = null;
+    /**
+     * 修改信息
+     * @param changeDate
+     */
+    public void setChangeDate(CompanyInfoModel changeDate) {
+        this.companyMobile = changeDate.companyMobile;
+        this.operator = changeDate.operator;
+        this.operator2 = changeDate.operator2;
+        this.operatorMobile = changeDate.operatorMobile;
+        this.operatorMobile2 = changeDate.operatorMobile2;
+        this.idCardNumber_1 = changeDate.idCardNumber_1;
+        this.idCardNumber_2 = changeDate.idCardNumber_2;
+        this.operatorAddress = changeDate.operatorAddress;
+        this.businessLicenseSrc = changeDate.businessLicenseSrc;
     }
-
 }
 
