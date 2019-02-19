@@ -565,6 +565,10 @@ public class IdentityInfoController {
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
 
+            if (identityInfoModel.getReservationStatus() != 6) {
+                return ResultParam.error("当前状态不可预约");
+            }
+
             //更新预约地点
             IdentityInfoModel updateIdentityInfo = new IdentityInfoModel();
             updateIdentityInfo.setId(identityInfoId);
@@ -673,7 +677,7 @@ public class IdentityInfoController {
             updateIdentityInfo.setReservationM(reservaionM);
             updateIdentityInfo.setReservationStatus(Constant.reservationStatus_11);
             String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
-//            String acceptNumber = "102018200405";
+            //            String acceptNumber = "102018200405";
             updateIdentityInfo.setAcceptNumber(acceptNumber);
             if (identityInfoModel.getPoliceApproveStatus() == 3) {
                 updateIdentityInfo.setPoliceApproveStatus(Constant.policeApproveStatus_3);
