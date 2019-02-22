@@ -238,6 +238,12 @@ public class IdentityInfoController {
                 return ResultParam.error("本批次申请人身份证号重复, 请填写其他申请人!!");
             }
 
+            IdentityInfoModel infoModelDatebase = identityInfoService.getById(identityInfoModel.getId());
+            if (infoModelDatebase != null && infoModelDatebase.getReservationStatus() >= 6) {
+                return ResultParam.error("您当前状态不能修改申请人信息");
+            }
+
+
             //修改身份证照片上传材料
             List<OnlinePersonMaterialModel> onlinePersonMaterialModelList =
                     onlinePersonMaterialService.getByPersonId(identityInfoModel.getId());
@@ -528,6 +534,48 @@ public class IdentityInfoController {
             mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());
             mv.addObject("houseProfessionModel", identityInfo.getHouseProfessionModel());
             mv.addObject("addFlag", false);
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+    }
+
+
+    /**
+     * 跳转到查看申请人信息页面,不可修改
+     *
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/selectIdentityInfo/{id}.html")
+    public ModelAndView selectIdentityInfo(HttpServletRequest request, @PathVariable("id") Integer id) {
+        if (id == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+
+        ModelAndView mv = new ModelAndView("application/applicationAdd.html");
+
+        try {
+
+            IdentityInfoModel identityInfo = identityInfoService.getById(id);
+            initIdentityInfoAttrs(identityInfo);
+
+            mv.addObject("identityInfo", identityInfo);
+            mv.addObject("houseMoveModel", identityInfo.getHouseMoveModel());
+            List<HouseRelationshipModel> houseRelationshipList = identityInfo.getHouseRelationshipModelList();
+            for (HouseRelationshipModel houseRelationshipModel : houseRelationshipList) {
+                if ("配偶".equals(houseRelationshipModel.getRelationship())) {
+                    mv.addObject("spouseHouseRelationshipModel", houseRelationshipModel);
+                }
+            }
+            mv.addObject("houseRelationshipList", houseRelationshipList);
+            mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());
+            mv.addObject("houseProfessionModel", identityInfo.getHouseProfessionModel());
+            mv.addObject("addFlag", false);
+            mv.addObject("selectFlag", true);
             return mv;
         } catch (Exception e) {
             e.printStackTrace();
