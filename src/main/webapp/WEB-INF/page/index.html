@@ -126,7 +126,7 @@
                             <span class="integral-table-btn integral-table-btn1 edit" onclick="editIdentityInfo({identityInfo.id})">编辑</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 6 || identityInfo.reservationStatus == 9 || identityInfo.reservationStatus == 10 || identityInfo.reservationStatus == 11 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum == 0)}
-                            <span class="integral-table-btn integral-table-btn2 view" onclick="evaluationView({identityInfo.id})">查看</span>
+                            <span class="integral-table-btn integral-table-btn2 view" onclick="evaluationView({identityInfo.id})"> 查看</span>
                             {/if}
                             {\#if identityInfo.reservationStatus == 9}
                             <span class="integral-table-btn integral-table-btn2 view" onclick="showReason('{identityInfo.rejectReason}')">不通过原因</span>
@@ -189,14 +189,14 @@
 
         $("#addApplication").on("click", function () {
             /*var time= $.ajax({async: false}).getResponseHeader("Date");
-            var date = new Date(time);
-            var finishDate = "2018-10-30 17:00";
-            finishDate = finishDate.replace(/-/g,"/");
-            var date2 = new Date(finishDate);
-            if(date2<date){
-                layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
-                return false;
-            }*/
+             var date = new Date(time);
+             var finishDate = "2018-10-30 17:00";
+             finishDate = finishDate.replace(/-/g,"/");
+             var date2 = new Date(finishDate);
+             if(date2<date){
+             layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
+             return false;
+             }*/
             /*
              读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
              */
@@ -279,14 +279,14 @@
     function reservationLocation(id) {
 
         /*var time= $.ajax({async: false}).getResponseHeader("Date");
-        var date = new Date(time);
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        if(date2<date){
-            layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
-            return false;
-        }*/
+         var date = new Date(time);
+         var finishDate = "2018-10-30 17:00";
+         finishDate = finishDate.replace(/-/g,"/");
+         var date2 = new Date(finishDate);
+         if(date2<date){
+         layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
+         return false;
+         }*/
 
         /*
          读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
@@ -310,7 +310,7 @@
 //        }
 
         //询问框
-        var index = layer.confirm('确定要申请审核吗？', {
+        var index = layer.confirm('材料上传结束后，可以申请审核，确定要申请审核吗？', {
             btn: ['确认', '取消'] //按钮
         }, function () {
             window.open("${rc.contextPath}/reservation/reserveLocation/" + id + ".html");
@@ -342,14 +342,14 @@
      */
     function autoTest(id) {
         /*var time= $.ajax({async: false}).getResponseHeader("Date");
-        var date = new Date(time);
-        var finishDate = "2018-10-30 17:00";
-        finishDate = finishDate.replace(/-/g,"/");
-        var date2 = new Date(finishDate);
-        if(date2<date){
-            layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
-            return false;
-        }*/
+         var date = new Date(time);
+         var finishDate = "2018-10-30 17:00";
+         finishDate = finishDate.replace(/-/g,"/");
+         var date2 = new Date(finishDate);
+         if(date2<date){
+         layer.msg('2018年第二期居住证积分受理阶段网上注册、预审已经关闭。积分结果将在12月公布，具体时间请关注网站通知。');
+         return false;
+         }*/
 
         /*
          读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
@@ -381,7 +381,7 @@
      * @param id
      */
     function evaluationView(id) {
-        window.open("${rc.contextPath}/identityInfo/evaluationView/" + id + ".html");
+        window.open("${rc.contextPath}/identityInfo/selectIdentityInfo/" + id + ".html");
     }
 
     /**

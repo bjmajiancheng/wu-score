@@ -17,7 +17,7 @@
     <!-- 中间二级导航 -->
 
     <!-- 内容展示区 -->
-    <div class="integral-cont">
+    <div class="integral-cont" id="disId">
         <!-- 第二大部分 -->
         <!-- 表单部分 -->
         <!-- 示例title 面包屑导航 -->
@@ -232,14 +232,16 @@
                     <tr>
                         <td class="">迁出地地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress" placeholder="填写格式参照上面提示"
+                            <input class="integral-input w518" type="text" name="moveAddress" id="moveAddress"
+                                   placeholder="填写格式参照上面提示"
                                    value="$!{houseMoveModel.moveAddress}">
                         </td>
                     </tr>
                     <tr>
                         <td class="">现居住地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress" placeholder="此处为申请人在天津市实际居住地址，填写格式参照上面提示"
+                            <input class="integral-input w518" type="text" name="moveNowAddress" id="moveNowAddress"
+                                   placeholder="此处为申请人在天津市实际居住地址，填写格式参照上面提示"
                                    value="$!{houseMoveModel.moveNowAddress}">
                         </td>
                     </tr>
@@ -300,14 +302,16 @@
                             <input class="integral-input w200" placeholder="《户口准予迁入证明》收件人" type="text" name="witness"
                                    id="witness" value="$!{houseMoveModel.witness}">
                             <span class="integral-td-title ml75">手机号：</span>
-                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone" placeholder="收件人手机号"
+                            <input class="integral-input w200" type="text" name="witnessPhone" id="witnessPhone"
+                                   placeholder="收件人手机号"
                                    value="$!{houseMoveModel.witnessPhone}">
                         </td>
                     </tr>
                     <tr>
                         <td class="">邮寄地址：</td>
                         <td>
-                            <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress" placeholder="《户口准予迁入证明》邮寄地址"
+                            <input class="integral-input w518" type="text" name="witnessAddress" id="witnessAddress"
+                                   placeholder="《户口准予迁入证明》邮寄地址"
                                    value="$!{houseMoveModel.witnessAddress}">
                         </td>
                     </tr>
@@ -647,7 +651,8 @@
                                         <option value="丈夫">丈夫</option>
                                     </select>
                                 </td>
-                                <td><input class="integral-input" type="text" name="approval_which" placeholder="配偶姓名"></td>
+                                <td><input class="integral-input" type="text" name="approval_which" placeholder="配偶姓名">
+                                </td>
                                 <td>所生</td>
                             </tr>
                             <tr>
@@ -809,31 +814,54 @@
                                 <td>与第</td>
                                 <td>
                                     <select name="approval_index">
-                                        <option value="1" #if(${houseRelationship.approval_index}=="1") selected #end>1</option>
-                                        <option value="2" #if(${houseRelationship.approval_index}=="2") selected #end>2</option>
-                                        <option value="3" #if(${houseRelationship.approval_index}=="3") selected #end>3</option>
-                                        <option value="4" #if(${houseRelationship.approval_index}=="4") selected #end>4</option>
-                                        <option value="5" #if(${houseRelationship.approval_index}=="5") selected #end>5</option>
-                                        <option value="6" #if(${houseRelationship.approval_index}=="6") selected #end>6</option>
+                                        <option value="1" #if(${houseRelationship.approval_index}=="1") selected #end>
+                                            1
+                                        </option>
+                                        <option value="2" #if(${houseRelationship.approval_index}=="2") selected #end>
+                                            2
+                                        </option>
+                                        <option value="3" #if(${houseRelationship.approval_index}=="3") selected #end>
+                                            3
+                                        </option>
+                                        <option value="4" #if(${houseRelationship.approval_index}=="4") selected #end>
+                                            4
+                                        </option>
+                                        <option value="5" #if(${houseRelationship.approval_index}=="5") selected #end>
+                                            5
+                                        </option>
+                                        <option value="6" #if(${houseRelationship.approval_index}=="6") selected #end>
+                                            6
+                                        </option>
                                     </select>
                                 </td>
                                 <td>任</td>
                                 <td>
                                     <select name="approval_spouse">
-                                        <option value="妻子" #if(${houseRelationship.approval_spouse}=="妻子") selected #end>妻子</option>
-                                        <option value="丈夫" #if(${houseRelationship.approval_spouse}=="丈夫") selected #end>丈夫</option>
+                                        <option value="妻子" #if(${houseRelationship.approval_spouse}=="妻子") selected
+                                                #end>妻子
+                                        </option>
+                                        <option value="丈夫" #if(${houseRelationship.approval_spouse}=="丈夫") selected
+                                                #end>丈夫
+                                        </option>
                                     </select>
                                 </td>
-                                <td><input class="integral-input" type="text" name="approval_which" value="$!{houseRelationship.approval_which}" placeholder="配偶姓名"></td>
+                                <td><input class="integral-input" type="text" name="approval_which"
+                                           value="$!{houseRelationship.approval_which}" placeholder="配偶姓名"></td>
                                 <td>所生</td>
                             </tr>
                             <tr>
                                 <td>抚养权归属:</td>
                                 <td>
                                     <select name="approval_custody">
-                                        <option value="婚内共同抚养"  #if(${houseRelationship.approval_custody}=="婚内共同抚养") selected #end>婚内共同抚养</option>
-                                        <option value="归女方抚养" #if(${houseRelationship.approval_custody}=="归女方抚养") selected #end>归女方抚养</option>
-                                        <option value="归男方抚养" #if(${houseRelationship.approval_custody}=="归男方抚养") selected #end>归男方抚养</option>
+                                        <option value="婚内共同抚养" #if(${houseRelationship.approval_custody}=="婚内共同抚养")
+                                                selected #end>婚内共同抚养
+                                        </option>
+                                        <option value="归女方抚养" #if(${houseRelationship.approval_custody}=="归女方抚养")
+                                                selected #end>归女方抚养
+                                        </option>
+                                        <option value="归男方抚养" #if(${houseRelationship.approval_custody}=="归男方抚养")
+                                                selected #end>归男方抚养
+                                        </option>
                                     </select>
                                 </td>
                                 <td></td>
@@ -1419,7 +1447,7 @@
         </div>
 
         <!-- 验证码和底部按钮 -->
-        <table class="check-table">
+        <table class="check-table" id="checkimgTable">
             <tr>
                 <td>
                     <span class="">*</span>验证码：
@@ -1801,7 +1829,28 @@
             }
         }).change();
 
+        if ('$!{selectFlag}' == 'true') {
+            disabledAll();
+        }
+
     });
+
+    function disabledAll() {
+        $('#disId').find('*').each(function () {
+            if (inputType($(this)) !== "other") {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+        $('#addRelation').hide();
+        $('#delRelation').hide();
+        $('#submitAndContinue').hide();
+        $('#submit').hide();
+        $('#checkimgTable').hide();
+        $('.title_click').hide();
+        $('.integral-desc-title').text("查看申请人信息");
+        $("title").html("查看申请人信息");
+    }
+
 
     function _updateFileChange(fileObj) {
         $.ajaxFileUpload({
