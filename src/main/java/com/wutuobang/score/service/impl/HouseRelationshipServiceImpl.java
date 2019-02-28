@@ -80,6 +80,9 @@ public class HouseRelationshipServiceImpl implements IHouseRelationshipService {
 
         int count = 0;
         for(HouseRelationshipModel houseRelationship : houseRelationships) {
+            if(houseRelationship.getRelationship().equals("配偶")){
+                houseRelationship.setIsRemove(2);
+            }
             count += this.insert(houseRelationship);
         }
         return count;
