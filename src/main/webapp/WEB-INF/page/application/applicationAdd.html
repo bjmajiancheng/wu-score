@@ -2079,7 +2079,15 @@
             case '7':
             case '8':
             case '9':
-                houseRelationshipInfos.push(serializeForm($("#spouseForm")));
+                var spouse = serializeForm($("#spouseForm"));
+                for (var key in spouse) {
+                    if (key != "id" && key != "formerName" && spouse[key] == "") {
+                        layer.msg("请填写配偶信息。");
+                        validateFlag = false;
+                        return false;
+                    }
+                }
+                houseRelationshipInfos.push(spouse);
                 break;
             case '2':
             case '3':
