@@ -131,11 +131,11 @@ public class CompanyInfoController {
                 return ResultParam.PARAM_ERROR_RESULT;
             }
 
-            if (companyInfoModel.getCompanyName().equals("天津市宏丰昌皮革制品有限公司") || companyInfoModel.getCompanyName().equals("天津思慕轩科技有限公司") ||
-                    companyInfoModel.getCompanyName().equals("天津宝驰汽车维修服务中心") || companyInfoModel.getSocietyCode().equals("911202225961159249")  ||
-                    companyInfoModel.getSocietyCode().equals("91120105MA05J3TH7U")  || companyInfoModel.getSocietyCode().equals("91120103767600685K")  ){
-                return ResultParam.error("因提交虚假材料，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
-            }
+//            if (companyInfoModel.getCompanyName().equals("天津市宏丰昌皮革制品有限公司") || companyInfoModel.getCompanyName().equals("天津思慕轩科技有限公司") ||
+//                    companyInfoModel.getCompanyName().equals("天津宝驰汽车维修服务中心") || companyInfoModel.getSocietyCode().equals("911202225961159249")  ||
+//                    companyInfoModel.getSocietyCode().equals("91120105MA05J3TH7U")  || companyInfoModel.getSocietyCode().equals("91120103767600685K")  ){
+//                return ResultParam.error("因提交虚假材料，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
+//            }
 
             List<CompanyInfoModel> companyInfos = companyInfoService
                     .findByCompanyNameOrCode(companyInfoModel.getCompanyName(), companyInfoModel.getSocietyCode());
