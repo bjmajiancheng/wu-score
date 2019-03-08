@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wutuobang.score.dao.IFakeRecordCompanyDao">
+
+    <resultMap id="FakeRecordCompany" type="com.wutuobang.score.model.FakeRecordCompanyModel">
+        <result property="id" column="id"/>
+
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyUsid" column="COMPANY_USID"/>
+        <result property="batchId" column="BATCH_ID"/>
+        <result property="recordDate" column="RECORD_DATE"/>
+        <result property="finishDate" column="FINISH_DATE"/>
+        <result property="addUser" column="ADD_USER"/>
+        <result property="fakeContent" column="fake_content"/>
+
+
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+        id,
+		company_name,
+		company_usid,
+		batch_id,
+		record_date,
+		add_user,
+		fake_content,
+		finish_date
+	    ]]>
+	</sql>
+
+
+    <select id="find" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT count(1) FROM t_fake_record_company where  company_usid = #{sco, jdbcType=VARCHAR} and FINISH_DATE > sysdate
+         ]]>
+    </select>
+
+    <select id="findFakeRecordCompany" resultType="java.lang.Integer">
+        <![CDATA[
+        select count(1)
+        from t_fake_record_company t1, t_company_info t2
+        where t1.company_usid = t2.society_code
+              and t2.user_name = #{name, jdbcType=VARCHAR}
+              and FINISH_DATE > sysdate
+         ]]>
+    </select>
+
+
+</mapper>
+

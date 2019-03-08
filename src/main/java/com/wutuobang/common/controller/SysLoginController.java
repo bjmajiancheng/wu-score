@@ -5,8 +5,12 @@ import com.google.code.kaptcha.Producer;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.model.BatchConfModel;
+import com.wutuobang.score.model.CompanyInfoModel;
+import com.wutuobang.score.model.FakeRecordCompanyModel;
 import com.wutuobang.score.model.SystemNoticeModel;
 import com.wutuobang.score.service.IBatchConfService;
+import com.wutuobang.score.service.ICompanyInfoService;
+import com.wutuobang.score.service.IFakeRecordCompanyService;
 import com.wutuobang.score.service.ISystemNoticeService;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.shiro.authc.*;
@@ -52,6 +56,12 @@ public class SysLoginController {
     @Autowired
     private IBatchConfService batchConfService;
 
+    @Autowired
+    private IFakeRecordCompanyService fakeRecordCompanyService;
+
+    @Autowired
+    private ICompanyInfoService companyInfoService;
+
     @RequestMapping("/captcha.jpg")
     public void captcha(HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
@@ -80,20 +90,21 @@ public class SysLoginController {
         /*
         从表 t_batch_conf 中取字段值，CLOSE_LOGIN_TIME（关闭登录功能时间）、OPEN_LOGIN_TIME（打开登录功能时间）
          */
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("status", 1);//
         List<BatchConfModel> batchConfs = batchConfService.find(params);
         //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
         Date closeLogintime = new Date();
         Date openLoginTime = new Date();
         boolean flag = true;
-        for(BatchConfModel batchConf : batchConfs){
-            if (batchConf.getStatus() == 1){
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
                 closeLogintime = batchConf.getCloseLoginTime();
                 openLoginTime = batchConf.getOpenLoginTime();
                 flag = false;
             }
         }
+
 
         /*
         qiyezhanghao1是个申请人用户名，用来测试用的
@@ -102,18 +113,11 @@ public class SysLoginController {
 //
 //        }
 
-        /*
-        屏蔽的几家公司，因为虚假材料
-         */
-        if (username.equals("hongfengchang") || username.equals("smx123456") || username.equals("bcqc123")){
-            return ResultParam.error("2018年第二期提交营业执照副本复印件虚假，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
-        }
-
-        if (flag){
+        if (flag) {
             return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
 
-        if (closeLogintime.getTime()<System.currentTimeMillis() && System.currentTimeMillis()<openLoginTime.getTime()){
+        if (closeLogintime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openLoginTime.getTime()) {
             return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
         }
 
@@ -122,12 +126,24 @@ public class SysLoginController {
             return ResultParam.error("验证码不正确");
         }
 
+
+        Integer status =fakeRecordCompanyService.findFakeRecordCompany(username);
+        if (status > 0){
+            return ResultParam.error("因提供虚假材料，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
+        }
+
         try {
             Subject subject = ShiroUtils.getSubject();
             //sha256加密
             password = new Sha256Hash(password).toHex();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             subject.login(token);
+            /*if (fakeRecordCompanyService.find(ShiroUtils.getUserEntity().getSocietyCode()) > 0) {
+                ShiroUtils.logout();
+                return ResultParam.error("因提供虚假材料，根据津发改社会【2018】26号文件精神，取消以后3年内申报资格！");
+            }*/
+
+
         } catch (UnknownAccountException e) {
             return ResultParam.error(e.getMessage());
         } catch (IncorrectCredentialsException e) {
