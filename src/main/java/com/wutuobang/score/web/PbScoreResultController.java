@@ -59,6 +59,9 @@ public class PbScoreResultController {
     @Autowired
     private IPbScoreRecordService pbScoreRecordService;
 
+    @Autowired
+    private IFakeRecordService fakeRecordService;
+
     /**
      * 跳转到积分查询页面
      *
@@ -159,6 +162,13 @@ public class PbScoreResultController {
 
         try {
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+
+            /*
+            根据身份证号判断虚假材料库中是否有此人
+            1、若有，传到浏览器端展示；
+            2、若无，忽略；
+             */
+            FakeRecordModel fakeRecordModel = fakeRecordService.getByIdNumber("522425199410282199");
 
             BatchConfModel batchconfModel = batchConfService.getById(identityInfo.getBatchId());
             Map<Integer, PbScoreResultModel> pbScoreResultMap = this.findAllMapPassScoreResult(batchconfModel);
