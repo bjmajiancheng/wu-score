@@ -131,8 +131,13 @@ public class FileUploadController {
             String savePath = uploadFolder + "/" + "businessLicenseSrc" + "/" + DateUtil
                     .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
             String path = request.getContextPath();
+//            String downloadPath =
+//                    request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+//                            + "/shopPic/" + "businessLicenseSrc" + "/" + DateUtil
+//                            .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+
             String downloadPath =
-                    request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+                    "http://218.67.246.52:80/wu-score"
                             + "/shopPic/" + "businessLicenseSrc" + "/" + DateUtil
                             .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 

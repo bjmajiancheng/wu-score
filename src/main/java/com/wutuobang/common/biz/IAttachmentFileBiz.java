@@ -53,8 +53,13 @@ public class IAttachmentFileBiz {
                 .DateToString(currDate, DateStyle.YYYYMMDD) + "/";*/
 
         String path = request.getContextPath();
+//        String downloadPath =
+//                request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+//                        + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+//                        .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+
         String downloadPath =
-                request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+                "http://218.67.246.52:80/wu-score"
                         + "/shopPic/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
                         .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
