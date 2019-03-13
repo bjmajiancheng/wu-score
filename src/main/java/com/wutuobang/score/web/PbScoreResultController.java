@@ -168,11 +168,9 @@ public class PbScoreResultController {
             1、若有，传到浏览器端展示；
             2、若无，忽略；
              */
-            FakeRecordModel fakeRecordModel = fakeRecordService.getByIdNumber("522425199410282199");
+//            FakeRecordModel fakeRecordModel = fakeRecordService.getByIdNumber("522425199410282199");
 
             BatchConfModel batchconfModel = batchConfService.getById(identityInfo.getBatchId());
-            Map<Integer, PbScoreResultModel> pbScoreResultMap = this.findAllMapPassScoreResult(batchconfModel);
-
             if (identityInfo == null) {
                 return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
             }
@@ -233,12 +231,8 @@ public class PbScoreResultController {
                 pbScoreRecord_other.add(pbScoreRecord_14.get(0));
             }
 
-
             mv.addObject("identityInfo", identityInfo);
-//            mv.addObject("pbScoreResults", pbScoreResults);
             mv.addObject("pbScoreRecords",pbScoreRecord_other);
-
-//            mv.addObject("status", pbScoreResultMap.get(identityInfo.getId()) == null ? 0 : 1);
             mv.addObject("status", (identityInfo.getHallStatus()==8) ? 0 : 1);
 
         } catch (Exception e) {
