@@ -128,7 +128,10 @@
             component.$update();
             pageCount = result.pageCount;
         });
-
+        if (pageCount>1){
+            $('.empty_score_table').removeAttrs("style");
+            $('.empty_score_table').attr("style","display: none;");
+        }
         return pageCount;
     }
 
