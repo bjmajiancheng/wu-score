@@ -1965,6 +1965,13 @@
             return false;
         }
 
+        if($('#marriageStatus').val()==7 || $('#marriageStatus').val()==8 || $('#marriageStatus').val()==9){
+            if($('#spouseMarriageStatus').val() == 0){
+                layer.msg("请选择配偶婚姻状况");
+                return false;
+            }
+        }
+
         if (!$("#identityInfoForm").valid()) {
             validateFlag = false;
         }
