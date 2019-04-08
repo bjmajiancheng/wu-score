@@ -350,6 +350,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td class="color-red" style="display: none;" id="hasDescendant">请在下方添加子女详细信息</td>
+                    </tr>
+                    <tr>
                         <td class="">有无子女</td>
                         <td>
                             <input class="input_radio" type="radio" name="haveSon" value="1" id="haveSon"
@@ -558,7 +562,7 @@
                                     <input type="hidden" name="id">
                                     <input type="checkbox" name="check" class="checkRelation">
                                 </td>
-                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息</span>
+                                <td colspan="6" style="text-align: center"><span style="font-size: 14px">子女个人信息（勾选左边的勾选框后可以删除添加的子女信息）</span>
                                 </td>
                             </tr>
                             <tr>
@@ -914,8 +918,8 @@
                 <!-- table表格部分1 子女关系表 -->
                 <!-- 子女关系表 控制按钮 -->
                 <div class="integral-paging-device-wrap">
-                    <div class="interal-main-btn m15 fr mt10" id="delRelation">删除</div>
-                    <div class="interal-main-btn m15 fr mt10" id="addRelation">增加子女信息</div>
+                    <div class="interal-main-btn m15 fr mt10" id="addRelation" style="width: 120px;float:left;">点击增加子女信息</div>
+                    <div class="interal-main-btn m15 fr mt10" id="delRelation" style="width: 120px;float:left;">删除添加的子女信息</div>
                 </div>
             </div>
         </div>
@@ -1826,6 +1830,15 @@
             } else {
                 $("#degree").attr("disabled", "disabled");
                 $("#degree").val('$!{houseOtherModel.degree}');
+            }
+        }).change();
+
+        $("#sonNumber").on("change", function () {
+            var index = $("#sonNumber").val();
+            if (index>0){
+                $("#hasDescendant").attr('style','display:block;line-height:20px;padding-top:20px;');
+            }else {
+                $("#hasDescendant").attr('style','display:none;');
             }
         }).change();
 
