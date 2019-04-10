@@ -2602,12 +2602,22 @@
         //配偶验证
         $("#spouseForm").validate({
             rules: {
+                name: {
+                    required: false,
+                    maxlength: 20,
+                    isUserName: true
+                },
                 idNumber: {
                     required: false,
                     isIdCardNo: true
                 }
             },
             messages: {
+                name: {
+                    required: "请输入姓名",
+                    maxlength: "姓名长度不能大于 20 个字母",
+                    isUserName: "请输入正确的姓名"
+                },
                 idNumber: {
                     required: "身份证号码格式不正确"
                 }
