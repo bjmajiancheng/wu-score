@@ -291,7 +291,7 @@
         /*
          读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
          */
-        var flag = true;
+        var flag = false;
         $.ajax({
             type: "POST",
             url: "sys/getCloseOrOpenFunTime",
@@ -299,7 +299,7 @@
             dataType: "json",
             success: function (result) {
                 if (result.code == 20) {//后台定义的20为
-                    flag = false;
+                    flag = true;
                 }
             }
         });
@@ -440,7 +440,7 @@
         /*
          读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
          */
-        var flag = true;
+        var flag = false;
         $.ajax({
             type: "POST",
             url: "sys/getCloseOrOpenFunTime",
@@ -448,7 +448,7 @@
             dataType: "json",
             success: function (result) {
                 if (result.code == 20) {//后台定义的20为
-                    flag = false;
+                    flag = true;
                 }
             }
         });
