@@ -80,7 +80,7 @@ public class PbScoreResultController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResultParam list(HttpServletRequest request, @RequestParam("searchParam") String searchParam) {
         if (StringUtils.isEmpty(searchParam)) {
             return ResultParam.PARAM_ERROR_RESULT;
@@ -127,13 +127,21 @@ public class PbScoreResultController {
                 param.put("acceptNumber", searchScoreView.getAcceptNumber());
             }
             /*if (StringUtils.isNotEmpty(searchScoreView.getUserName())) {
-                param.put("userName", searchScoreView.getUserName());
+                param.put("name", searchScoreView.getUserName());
             }*/
             if (StringUtils.isNotEmpty(searchScoreView.getIdCardNumber())) {
                 param.put("idNumber", searchScoreView.getIdCardNumber());
             }
             param.put("batchId", batchConfModel.getId());
             PageData<IdentityInfoModel> pageData = identityInfoService.findPage(param, searchScoreView.getPageNo());
+
+            /*
+            2019年6月6日
+            积分查询页面添加
+             */
+            if(!pageData.getData().get(0).getName().equals(searchScoreView.getUserName())){
+                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
+            }
 
             for (IdentityInfoModel identityInfo : pageData.getData()) {
                 identityInfo.setIdNumber(IdNumberReplaceUtil.replaceIdNumber(identityInfo.getIdNumber()));
@@ -191,11 +199,13 @@ public class PbScoreResultController {
             List<PbScoreRecordModel> pbScoreRecords = pbScoreRecordService.getByPersonId(identityInfoId);
             /*
             公布申请人是“打分完成”状态；申请人是取消资格状态的，只公布“取消资格”，不公布其它信息。
+            2019年6月10日
+            人社部门提出的需求：本期“积分查询”的时候，取消资格的申请人也公布积分的明细，然后注明取消资格，这个应该是需要改代码
              */
-            if (pbScoreRecords.size()>0 && identityInfo.getCancelStatus()==0) {
+            if (pbScoreRecords.size()>0 ) { //&& identityInfo.getCancelStatus()==0
 
                 for (PbScoreRecordModel p : pbScoreRecords){
-                    p.setScore_value(p.getScore_value().setScale(2));
+                    p.setScore_value(p.getScore_value().setScale(2, BigDecimal.ROUND_HALF_UP));
                     if (p.getIndicator_id()==3){
                         pbScoreRecord_3.add(p);
                     }

@@ -33,13 +33,14 @@
         <script type="text/regular" id="rows">
             <div class="interal-tab-title-input1">
                 <!--<div class="interal-input-title">登记编号</div>
-                <input type="text" name="acceptNumber" />
-                <div class="interal-input-title">用户名称</div>
-                <input type="text" name="userName" />-->
+                <input type="text" name="acceptNumber" />-->
+                <div class="interal-input-title">姓名</div>
+                <input type="text" name="userName" placeholder="请输入申请人姓名" />
                 <div class="interal-input-title">身份证号</div>
-                <input type="text" name="idCardNumber" placeholder="请输入正确的身份证号进行查询" style="width: 280px;" />
+                <input type="text" name="idCardNumber" placeholder="请输入正确的身份证号" style="width: 220px;" />
 
                 <div class="interal-input-btn" on-click={this.load()}>查询</div>
+                <div style="padding-top: 15px;"><span class="color-red">注：请同时输入姓名与身份证号查询</span></div>
             </div>
 
             <table class="integral-table score_table">
@@ -134,10 +135,10 @@
         var pageCount = 0;
 
         var acceptNumber = $("input[name=acceptNumber]").val();
-        /*var userName = $("input[name=userName]").val();*/
+        var userName = $("input[name=userName]").val();
         var idCardNumber = $("input[name=idCardNumber]").val();
 
-        var searchParam = JSON.stringify({"acceptNumber": acceptNumber, "idCardNumber":idCardNumber, "pageNo": page_index});
+        var searchParam = JSON.stringify({"acceptNumber": acceptNumber, "idCardNumber":idCardNumber, "userName":userName, "pageNo": page_index});
         getSyncResultData("${rc.contextPath}/pbScoreResult/list", {"searchParam": searchParam}, function(result){
             component.data.identityInfos = result.data;
             component.$update();

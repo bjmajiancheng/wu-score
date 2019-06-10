@@ -65,7 +65,7 @@ function getResultData(url, data, callback) {
  */
 function getSyncResultData(url, data, callback) {
     $.ajax({
-        type: "GET",
+        type: "post",
         url: url,
         data: data,
         dataType: "json",
