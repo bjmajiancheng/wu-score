@@ -61,7 +61,7 @@
                 ) a
                 group by a.person_id_num  order by score_value desc
                 ) t2
-            where t1.id_number = t2.person_id_num and t1.hall_status=6
+            where upper(t1.id_number) = upper(t2.person_id_num) and t1.hall_status=6 and t1.CANCEL_STATUS=0 and t1.batch_id=#{batch_id}
     </select>
 
     <!-- 分页查询 -->
@@ -81,7 +81,7 @@
         ) t2
 
         <where>
-            t1.id_number = t2.person_id_num and t1.hall_status=6
+            upper(t1.id_number) = upper(t2.person_id_num) and t1.hall_status=6 and t1.CANCEL_STATUS=0 and t1.batch_id=#{batch_id}
             <!--<if test="indicatorType == 0">
                 AND rownum &lt;= ${indicatorValue}
             </if>-->
@@ -107,7 +107,7 @@
         ) t2
 
         <where>
-            t1.id_number = t2.person_id_num and t1.hall_status=6
+            upper(t1.id_number) = upper(t2.person_id_num) and t1.hall_status=6 and t1.CANCEL_STATUS=0 and t1.batch_id=#{batch_id}
             <if test="indicatorValue != null">
                 AND t2.score_value &lt;=${indicatorValue}
             </if>
@@ -130,7 +130,7 @@
         ) t2
 
         <where>
-            t1.id_number = t2.person_id_num and t1.hall_status=6
+            upper(t1.id_number) = upper(t2.person_id_num) and t1.hall_status=6 and t1.CANCEL_STATUS=0 and t1.batch_id=#{batch_id}
 
             <if test="id_number != null">
                 AND t2.person_id_num='${id_number}' order by score_value desc
