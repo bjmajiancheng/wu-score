@@ -93,7 +93,7 @@
                                    value="$!{identityInfo.name}">
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                         <td class="">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                         <td>
                             <input class="input_radio" type="radio" name="sex" value="1" id="male"
@@ -104,14 +104,14 @@
                             <label for="female">女</label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                         <td class="">出生日期：</td>
                         <td>
                             <input class="integral-input w450" type="text" name="birthday" id="birthday"
                                    value="$!{identityInfo.birthday}">
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                         <td class="">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                         <td>
                             <input class="integral-input w450" type="number" id="age" name="age"
@@ -253,10 +253,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="">现户口性质：</td>
+                        <!--<td class="">现户口性质：</td>-->
+                        <td class="">落户性质：</td>
                         <td>
-                            <select name="houseNature" id="houseNature">
-                                <!--<option value="0">请选择</option>-->
+<!--                            <select name="houseNature" id="houseNature">
+                                &lt;!&ndash;<option value="0">请选择</option>&ndash;&gt;
                                 <option value="1">未落常住户口</option>
                                 <option value="2">非农业家庭户口</option>
                                 <option value="3">农业家庭户口</option>
@@ -267,13 +268,13 @@
                                 <option value="8">暂住户口</option>
                                 <option value="9">地方城镇居民户口</option>
                                 <option value="10">其他户口</option>
-                            </select>
-                            <span class="integral-td-title ml50">落户性质：</span>
+                            </select>-->
+                            <!--<span class="integral-td-title ml50">落户性质：</span>-->
                             <select name="settledNature" id="settledNature">
                                 <!--<option value="0">请选择</option>-->
-                                <option value="1">本单位集体户口</option>
-                                <option value="2">非本单位集体户口</option>
-                                <option value="3">家庭户口</option>
+                                <option value="1">本单位集体户</option>
+                                <option value="2">非本单位集体户</option>
+                                <option value="3">家庭户</option>
                             </select>
                         </td>
                     </tr>
@@ -315,7 +316,7 @@
                                    value="$!{houseMoveModel.witnessAddress}">
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none">
                         <td class="">拟落户地区：</td>
                         <td>
                             <select name="region" id="region">
@@ -336,13 +337,15 @@
                                 <option value="35">静海区</option>
                                 <option value="36">蓟州区</option>
                             </select>
-                            <span class="integral-td-title ml50">婚姻状况：</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">婚姻状况：</td>
+                        <td>
                             <select name="marriageStatus" id="marriageStatus">
                                 <option value="7">初婚</option>
                                 <option value="8">复婚</option>
                                 <option value="9">再婚</option>
-
-                                <!--<option value="1">已婚</option>-->
                                 <option value="2">未婚</option>
                                 <option value="3">丧偶</option>
                                 <option value="4">离异</option>
@@ -2357,9 +2360,9 @@
                     required: true,
                     maxlength: 100
                 },
-                houseNature: {
-                    required: true
-                },
+//                houseNature: {
+//                    required: true
+//                },
                 settledNature: {
                     required: true
                 },
@@ -2408,9 +2411,9 @@
                     required: "请输入现户籍登记机关",
                     maxlength: "现户籍登记机关长度不能大于 100 个字母"
                 },
-                houseNature: {
-                    required: "请输入现户口性质"
-                },
+//                houseNature: {
+//                    required: "请输入现户口性质"
+//                },
                 settledNature: {
                     required: "请输入落户性质"
                 },
@@ -2704,7 +2707,7 @@
         $("#pregnantWeek").val('$!{identityInfo.pregnantWeek}');
 
         //户籍迁移信息
-        $("#houseNature").val('$!{houseMoveModel.houseNature}');
+//        $("#houseNature").val('$!{houseMoveModel.houseNature}');
         $("#settledNature").val('$!{houseMoveModel.settledNature}');
         $("#region").val('$!{houseMoveModel.region}');
         $("#marriageStatus").val('$!{houseMoveModel.marriageStatus}');
