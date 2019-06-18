@@ -46,7 +46,7 @@ public class RegionController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/child/regions/{regionId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/child/regions/{regionId}")
     public ResultParam getChildRegions(HttpServletRequest request, @PathVariable("regionId") Integer regionId) {
         if (regionId == null) {
             return ResultParam.PARAM_ERROR_RESULT;

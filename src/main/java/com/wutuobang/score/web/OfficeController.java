@@ -48,7 +48,7 @@ public class OfficeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/getOffices", method = RequestMethod.GET)
+    @RequestMapping(value = "/getOffices")
     public ResultParam getOffices(HttpServletRequest request, @RequestParam("parentId") Integer parentId) {
         if(parentId == null) {
             return ResultParam.PARAM_ERROR_RESULT;
