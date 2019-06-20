@@ -629,6 +629,7 @@ public class IdentityInfoController {
             //预约地点后, 设置公安预审过期时间、人社预审过期时间
             Date currZeroTime = DateUtil.getTheDayZeroTime(new Date());
             currZeroTime = DateUtil.addDay(currZeroTime, 8);
+            updateIdentityInfo.setPreApprove(new Date());
             updateIdentityInfo.setUnionApprove1Et(currZeroTime);
             updateIdentityInfo.setUnionApprove2Et(currZeroTime);
 

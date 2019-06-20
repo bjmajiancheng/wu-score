@@ -104,6 +104,8 @@ public class IdentityInfoModel implements Serializable {
 
     private Integer reservationTime;//"剩余可预约次数"
 
+    private Date preApprove;//预审时间
+
     private Date unionApprove1Et;//"公安预审过期时间"
 
     private Date unionApprove2Et;//"人社预审过期时间"
@@ -506,6 +508,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setMaterialStatus(Integer materialStatus) {
         this.materialStatus = materialStatus;
+    }
+
+    public Date getPreApprove() {
+        return preApprove;
+    }
+
+    public void setPreApprove(Date preApprove) {
+        this.preApprove = preApprove;
     }
 }
 
