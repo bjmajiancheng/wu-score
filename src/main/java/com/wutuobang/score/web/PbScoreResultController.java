@@ -413,7 +413,8 @@ public class PbScoreResultController {
             List<PbScoreRecordModel> pbScoreRecordModel = pbScoreRecordService.findOnePbScoreRecord(queryStr, batchConfModel.getId());
             if (pbScoreRecordModel.size()>0){
                 if(pbScoreRecordModel.get(0).getScore_value().compareTo(new BigDecimal(batchConfModel.getScoreValue()))==-1){
-                    return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+//                    return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+                    return ResultParam.error("请确认您的身份证号是否正确！");
                 }
                 pbScoreRecordModel.get(0).setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(pbScoreRecordModel.get(0).getPerson_id_num()));
                 PageData<PbScoreRecordModel> pageData_one = new PageData<PbScoreRecordModel>();
