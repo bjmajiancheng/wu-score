@@ -421,7 +421,8 @@ public class PbScoreResultController {
                 pageData_one.setPageCount(1);
                 return new ResultParam(ResultParam.SUCCESS_RESULT,pageData_one);
             }
-            return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
+//            return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
+            return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
