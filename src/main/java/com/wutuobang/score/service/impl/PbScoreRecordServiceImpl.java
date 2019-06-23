@@ -50,6 +50,7 @@ public class PbScoreRecordServiceImpl implements IPbScoreRecordService {
         param.put("batch_id",bc.getId());
         param.put("indicatorType",bc.getIndicatorType());
         param.put("indicatorValue", bc.getIndicatorValue());
+        param.put("scoreValue",bc.getScoreValue());
 
         int count = 0;
         if (bc.getIndicatorType() == 0){
