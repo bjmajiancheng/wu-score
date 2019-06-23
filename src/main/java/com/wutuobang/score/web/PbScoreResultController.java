@@ -421,8 +421,7 @@ public class PbScoreResultController {
                 pageData_one.setPageCount(1);
                 return new ResultParam(ResultParam.SUCCESS_RESULT,pageData_one);
             }
-//            return new ResultParam(ResultParam.SUCCESS_RESULT, new ArrayList<PbScoreResultModel>());
-            return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+            return ResultParam.error("请确认您的身份证号是否正确！");
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
