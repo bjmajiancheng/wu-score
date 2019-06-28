@@ -58,12 +58,13 @@
             <tr>
                 <th style="width: 8%">分类</th>
                 <th style="width: 10%">上传材料项</th>
-                <th style="width: 42%">材料清单</th>
+                <th style="width: 22%">材料清单</th>
                 <th style="width: 8%">上传说明</th>
                 <th style="width: 8%">操作</th>
                 <th style="width: 8%">上传查看</th>
                 <th style="width: 8%">模板样式</th>
                 <th style="width: 8%">删除</th>
+                <th style="width: 20%">提示信息</th>
             </tr>
             </thead>
             <tbody id="materialTableTbody">
@@ -108,9 +109,14 @@
                     <a class="integral-table-btn integral-table-btn2 deleteFile">删除</a>
                     #end
 
+                    <!--#if($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1)-->
+                    <!--<a class="integral-table-btn integral-table-btn2 " href="javascript:void(0);"-->
+                       <!--onclick="showReason('$!{materialInfo.onlinePersonMaterial.reason}')">失败原因</a>-->
+                    <!--#end-->
+                </td>
+                <td>
                     #if($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1)
-                    <a class="integral-table-btn integral-table-btn2 " href="javascript:void(0);"
-                       onclick="showReason('$!{materialInfo.onlinePersonMaterial.reason}')">失败原因</a>
+                    ${materialInfo.onlinePersonMaterial.reason}
                     #end
                 </td>
             </tr>
