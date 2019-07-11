@@ -130,7 +130,7 @@ public class MaterialInfoController {
 
             //判断当前状态是否是重新上传材料
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
-            if (identityInfo.getUnionApproveStatus1() == 4 || identityInfo.getUnionApproveStatus2() == 4
+            if (identityInfo.getUnionApproveStatus1() == 4 || identityInfo.getReservationStatus() == 7 || identityInfo.getReservationStatus() == 8 || identityInfo.getReservationStatus() == 10 || identityInfo.getReservationStatus() == 11
                     || identityInfo.getPoliceApproveStatus() == 2 || identityInfo.getRensheAcceptStatus() == 2) {
                 mv.addObject("reUpload", 1);
             } else {

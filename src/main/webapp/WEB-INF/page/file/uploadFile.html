@@ -88,8 +88,7 @@
                 <td>
                     <span class="attachmentName">$!{materialInfo.onlinePersonMaterial.materialName}</span>
                     <input type="hidden" name="materialId" value="$!{materialInfo.onlinePersonMaterial.materialId}"/>
-                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} ==
-                    1))
+                    #if(($!{reUpload} == 0) or ($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1))
                     <span class="integral-table-btn td_upload integral-table-btn2">上传</span>
                     <input class="upload_input" type="file" id="updateFile_${velocityCount}" name="updateFile"
                            style="display: none"
