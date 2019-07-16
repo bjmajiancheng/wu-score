@@ -42,6 +42,11 @@ public class HouseOtherModel implements Serializable {
 
 	private String companyAddress;//"单位地址"
 
+	/*
+	2019年7月16日添加字段：申请人办公地址
+	 */
+	private String applyOfficeAddress;// 申请人办公地址
+
 	private String jobTitle;//"当前工作岗位"
 
 	private String jobContent;//"主要从事工作内容"
@@ -242,6 +247,14 @@ public class HouseOtherModel implements Serializable {
 
 	public Date getCtime() {
 		return this.ctime;
+	}
+
+	public String getApplyOfficeAddress() {
+		return applyOfficeAddress;
+	}
+
+	public void setApplyOfficeAddress(String applyOfficeAddress) {
+		this.applyOfficeAddress = applyOfficeAddress;
 	}
 
 	public Map<String, Object> getParam() {

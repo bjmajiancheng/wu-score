@@ -84,6 +84,9 @@
                                        value=""/>
 
                             </div>
+                            <div style="float: left;padding-top: 30px;">
+                                <span class="color-red">&nbsp;&nbsp;提示：请上传身份证原件（彩色原件），背景色为白色。</span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -91,6 +94,7 @@
                         <td>
                             <input class="integral-input w450" type="text" name="name" id="name"
                                    value="$!{identityInfo.name}">
+                            <span class="color-red">&nbsp;&nbsp;提示：请再次核对所填信息是否一致。</span>
                         </td>
                     </tr>
                     <tr style="display:none">
@@ -375,21 +379,6 @@
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
                             </select>
                         </td>
                     </tr>
@@ -414,6 +403,14 @@
                                    value="$!{spouseHouseRelationshipModel.idNumber}">
                         </td>
                     </tr>
+
+                    <tr class="spouseModel">
+                        <td class=""></td>
+                        <td style="line-height:20px;">
+                            <span class="color-red">提示：请再次与身份证信息核实。</span>
+                        </td>
+                    </tr>
+
                     <tr class="spouseModel">
                         <td class=""></td>
                         <td style="line-height:20px;padding-top:20px;">
@@ -1026,6 +1023,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="">申请人办公地址：</td>
+                        <td>
+                            <input class="integral-input w518" type="text" name="applyOfficeAddress"
+                                   placeholder="天津市XX区XX路（道）XX号"
+                                   value="$!{houseOtherModel.applyOfficeAddress}">
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="">当前工作岗位：</td>
                         <td>
                             <input class="integral-input w200" type="text" name="jobTitle"
@@ -1086,7 +1091,7 @@
                                    #if(${houseOtherModel.taxes}== 2) checked #end>
                             &nbsp;&nbsp;&nbsp;
                             <label for="radio6">否</label>
-                            <span class="grey-color">近3年在本市依法缴纳个人所得税累计10万元及以上</span>
+                            <span class="grey-color">是否近3年在本市依法缴纳个人所得税累计10万元及以上</span>
                         </td>
                     </tr>
                     <tr>
@@ -1100,7 +1105,7 @@
                                    #if(${houseOtherModel.detention}== 2) checked #end>
                             &nbsp;&nbsp;&nbsp;
                             <label for="radio8">否</label>
-                            <span class="grey-color">积分期间有无行政拘留记录</span>
+                            <span class="grey-color">是否积分期间有无行政拘留记录</span>
                         </td>
                     </tr>
                     <tr>
@@ -1114,7 +1119,7 @@
                                    #if(${houseOtherModel.penalty}== 2) checked #end>
                             &nbsp;&nbsp;&nbsp;
                             <label for="radio10">否</label>
-                            <span class="grey-color">积分期间有无犯罪获刑记录</span>
+                            <span class="grey-color">是否积分期间有无犯罪获刑记录</span>
                         </td>
                     </tr>
                     <tr>

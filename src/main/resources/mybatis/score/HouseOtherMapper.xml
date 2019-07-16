@@ -18,6 +18,7 @@
 		<result property="jobTitle" column="job_title"/>
 		<result property="jobContent" column="job_content"/>
         <result property="companyAddress" column="company_address"/>
+		<result property="applyOfficeAddress" column="apply_office_address"/>
         <result property="companyPhone" column="company_phone"/>
         <result property="selfPhone" column="self_phone"/>
         <result property="applicationDate" column="application_date"/>
@@ -33,7 +34,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content, company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time
+        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content, company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address
 	    ]]>
 	</sql>
 	
@@ -64,7 +65,8 @@
 	        detention  ,
 	        penalty  ,
 	        awards_title  ,
-	        c_time  
+	        c_time  ,
+	        apply_office_address
         ) VALUES (
         	${id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -87,7 +89,8 @@
         	#{detention, jdbcType=INTEGER} ,
         	#{penalty, jdbcType=INTEGER} ,
         	#{awardsTitle, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP} 
+        	#{ctime, jdbcType=TIMESTAMP}
+        	#{applyOfficeAddress, jdbcType=VARCHAR} ,
         )
     ]]>
     </insert>
@@ -105,6 +108,7 @@
 			<if test="jobTitle != null">job_title = #{jobTitle, jdbcType=VARCHAR} ,</if>
 			<if test="jobContent != null">job_content = #{jobContent, jdbcType=VARCHAR} ,</if>
 	        <if test="companyAddress != null">company_address = #{companyAddress, jdbcType=VARCHAR} ,</if>
+			<if test="applyOfficeAddress != null">apply_office_address = #{applyOfficeAddress, jdbcType=VARCHAR} ,</if>
 	        <if test="companyPhone != null">company_phone = #{companyPhone, jdbcType=VARCHAR} ,</if>
 	        <if test="selfPhone != null">self_phone = #{selfPhone, jdbcType=VARCHAR} ,</if>
 	        <if test="applicationDate != null">application_date = #{applicationDate, jdbcType=VARCHAR} ,</if>
