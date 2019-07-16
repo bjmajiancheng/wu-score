@@ -67,6 +67,14 @@ public class HouseOtherModel implements Serializable {
 
 	private Integer penalty;//"获刑情况, 1、是；2、否"
 
+	private Integer isAnotherInsurance; //  申请人是否存在同时在异地缴纳社会保险情况，1、是；2、否
+
+	private Integer isApplyRegiste; // 申请人是否在申请单位进行就业登记，1、是；2、否
+
+	private Integer isInsurance;// 申请人是否在2008年以前在开发区有社保缴费记录，1、是；2、否
+
+	private Integer isSpouseInsurance;// 配偶是否在本市缴纳5险且满2年以上，1、是；2、否
+
 	private Integer awardsTitle;//"奖项荣誉称号,1、拥有有效的中国发明专利；2、获得党中央、国务院授予的奖项和荣誉称号；3、获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的奖项和荣誉称号；4、获得省（自治区、直辖市）党委、政府或中央和国家机关部委等授予的劳动模范或先进工作者荣誉称号，并享受省部级劳动模范或先进工作者待遇"
 
 	private Date ctime;//"创建时间"
@@ -255,6 +263,38 @@ public class HouseOtherModel implements Serializable {
 
 	public void setApplyOfficeAddress(String applyOfficeAddress) {
 		this.applyOfficeAddress = applyOfficeAddress;
+	}
+
+	public Integer getIsAnotherInsurance() {
+		return isAnotherInsurance;
+	}
+
+	public void setIsAnotherInsurance(Integer isAnotherInsurance) {
+		this.isAnotherInsurance = isAnotherInsurance;
+	}
+
+	public Integer getIsApplyRegiste() {
+		return isApplyRegiste;
+	}
+
+	public void setIsApplyRegiste(Integer isApplyRegiste) {
+		this.isApplyRegiste = isApplyRegiste;
+	}
+
+	public Integer getIsInsurance() {
+		return isInsurance;
+	}
+
+	public void setIsInsurance(Integer isInsurance) {
+		this.isInsurance = isInsurance;
+	}
+
+	public Integer getIsSpouseInsurance() {
+		return isSpouseInsurance;
+	}
+
+	public void setIsSpouseInsurance(Integer isSpouseInsurance) {
+		this.isSpouseInsurance = isSpouseInsurance;
 	}
 
 	public Map<String, Object> getParam() {

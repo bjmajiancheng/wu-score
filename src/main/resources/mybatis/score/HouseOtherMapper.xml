@@ -29,12 +29,19 @@
         <result property="penalty" column="penalty"/>
         <result property="awardsTitle" column="awards_title"/>
         <result property="ctime" column="c_time"/>
+
+		<result property="isAnotherInsurance" column="isAnotherInsurance"/>
+		<result property="isApplyRegiste" column="isApplyRegiste"/>
+		<result property="isInsurance" column="isInsurance"/>
+		<result property="isSpouseInsurance" column="isSpouseInsurance"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content, company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address
+        id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content,
+		company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address,
+		isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance
 	    ]]>
 	</sql>
 	
@@ -66,7 +73,8 @@
 	        penalty  ,
 	        awards_title  ,
 	        c_time  ,
-	        apply_office_address
+	        apply_office_address,
+	        isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance
         ) VALUES (
         	${id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -89,8 +97,12 @@
         	#{detention, jdbcType=INTEGER} ,
         	#{penalty, jdbcType=INTEGER} ,
         	#{awardsTitle, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP}
+        	#{ctime, jdbcType=TIMESTAMP},
         	#{applyOfficeAddress, jdbcType=VARCHAR} ,
+        	#{isAnotherInsurance, jdbcType=INTEGER} ,
+        	#{isApplyRegiste, jdbcType=INTEGER} ,
+        	#{isInsurance, jdbcType=INTEGER} ,
+        	#{isSpouseInsurance, jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -119,6 +131,10 @@
 	        <if test="penalty != null">penalty = #{penalty, jdbcType=INTEGER} ,</if>
 	        <if test="awardsTitle != null">awards_title = #{awardsTitle, jdbcType=INTEGER} ,</if>
 	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+			<if test="isAnotherInsurance != null">isAnotherInsurance = #{isAnotherInsurance, jdbcType=INTEGER} ,</if>
+			<if test="isApplyRegiste != null">isApplyRegiste = #{isApplyRegiste, jdbcType=INTEGER} ,</if>
+			<if test="isInsurance != null">isInsurance = #{isInsurance, jdbcType=INTEGER} ,</if>
+			<if test="isSpouseInsurance != null">isSpouseInsurance = #{isSpouseInsurance, jdbcType=INTEGER} ,</if>
 			id = #{id}
         WHERE 
 	        id = #{id} 

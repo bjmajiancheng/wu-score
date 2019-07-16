@@ -1057,6 +1057,33 @@
                                    value="$!{houseOtherModel.applicationDate}">
                         </td>
                     </tr>
+
+
+                    <tr>
+                        <td class="">异地保险：</td>
+                        <td>
+                            <input class="input_radio" type="radio" name="isAnotherInsurance" value="1" id="redio11"
+                                   #if(${houseOtherModel.isAnotherInsurance}== 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio11">是</label>
+                            <input class="input_radio ml30" type="radio" name="isAnotherInsurance" value="2" id="redio12"
+                                   #if(${houseOtherModel.isAnotherInsurance}== 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio12">否</label>
+                            <span class="grey-color">申请人是否存在同时在异地缴纳社会保险情况</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">就业登记：</td>
+                        <td>
+                            <input class="input_radio" type="radio" name="isApplyRegiste" value="1" id="redio21"
+                                   #if(${houseOtherModel.isApplyRegiste}== 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio21">是</label>
+                            <input class="input_radio ml30" type="radio" name="isApplyRegiste" value="2" id="redio22"
+                                   #if(${houseOtherModel.isApplyRegiste}== 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio22">否</label>
+                            <span class="grey-color">申请人是否在申请单位进行就业登记</span>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td class="">社保缴纳：</td>
                         <td>
@@ -1069,6 +1096,32 @@
                             <span class="grey-color">是否缴纳社保</span>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="">开发区：</td>
+                        <td>
+                            <input class="input_radio" type="radio" name="isInsurance" value="1" id="redio31"
+                                   #if(${houseOtherModel.isInsurance}== 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio31">是</label>
+                            <input class="input_radio ml30" type="radio" name="isInsurance" value="2" id="redio32"
+                                   #if(${houseOtherModel.isInsurance}== 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio32">否</label>
+                            <span class="grey-color">申请人是否在2008年以前在开发区有社保缴费记录</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">配偶：</td>
+                        <td>
+                            <input class="input_radio" type="radio" name="isSpouseInsurance" value="1" id="redio41"
+                                   #if(${houseOtherModel.isSpouseInsurance}== 1) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio41">是</label>
+                            <input class="input_radio ml30" type="radio" name="isSpouseInsurance" value="2" id="redio42"
+                                   #if(${houseOtherModel.isSpouseInsurance}== 2) checked #end>
+                            &nbsp;&nbsp;&nbsp;<label for="redio42">否</label>
+                            <span class="grey-color">配偶是否在本市缴纳5险且满2年以上</span>
+                        </td>
+                    </tr>
+
+
                     <tr>
                         <td class="">公积金：</td>
                         <td>
