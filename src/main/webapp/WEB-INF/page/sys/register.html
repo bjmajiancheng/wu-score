@@ -123,13 +123,22 @@
                                        class="upload_input" accept="image/*"
                                        onchange="changeImg(this)" attr-inp="businessLicenseSrc"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">
-                                    点击上传营业执照副本<span class="color-red">彩色原件</span>
+                                    点击上传营业执照副本
                                 </div>
                                 <div class="title_idcard" style="display:none;">营业执照</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)"
                                      style="display:none;"></div>
                                 <input id="businessLicenseSrc" name="businessLicenseSrc"
                                        type="hidden" value=""/>
+                            </div>
+                            <div style="float: left;padding-top: 60px;">
+                                <!-- 2019年7月16日 添加提示 -->
+                                <div class="color-red" style="font-size: 13px;padding: 5px 5px 5px 5px;line-height: 20px">
+                                    上传营业执照提示：
+                                    <br>1、营业执照副本原件（彩色原件）；
+                                    <br>2、背景色为白色；
+                                    <br>3、满屏拍照；
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -227,7 +236,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>联系地址：
+                            <span class="color-red">*</span>实际经营地址：
                         </td>
                         <td>
                             <input class="integral-input w450" placeholder="" id="operatorAddress"
@@ -247,7 +256,11 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div class="color-red">*注：标有红色 * 为必填项</div>
+                            <div class="color-red" style="line-height: 20px;padding-top:30px;">
+                                *注：标有红色 * 为必填项<br>
+                                提示：按照津人社局发[2018]3号文件第十四条规定：“用人单位为本单位积分申请人申请人提供虚假证明材料，<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该申请人取消当期申报资格，用人单位自次期起3年内不得申报。
+                            </div>
                         </td>
                     </tr>
                 </table>
