@@ -2578,6 +2578,10 @@
                     required: true,
                     maxlength: 100
                 },
+                applyOfficeAddress: {
+                    required: true,
+                    maxlength: 100
+                },
                 companyPhone: {
                     required: true,
                     isPhone: true
@@ -2589,7 +2593,19 @@
                 applicationDate: {
                     required: true
                 },
+                isAnotherInsurance: {
+                    required: true
+                },
+                isApplyRegiste: {
+                    required: true
+                },
                 socialSecurityPay: {
+                    required: true
+                },
+                isInsurance: {
+                    required: true
+                },
+                isSpouseInsurance: {
                     required: true
                 },
                 providentFund: {
@@ -2644,6 +2660,10 @@
                     required: "主要从事工作内容",
                     maxlength: 100
                 },
+                applyOfficeAddress: {
+                    required: "申请人办公地址",
+                    maxlength: 100
+                },
                 companyPhone: {
                     required: "请输入单位座机电话"
                 },
@@ -2655,6 +2675,18 @@
                 },
                 socialSecurityPay: {
                     required: "请输入社保缴纳"
+                },
+                isAnotherInsurance: {
+                    required: "请输入申请人是否存在同时在异地缴纳社会保险情况"
+                },
+                isApplyRegiste: {
+                    required: "请输入申请人是否在申请单位进行就业登记"
+                },
+                isInsurance: {
+                    required: "请输入申请人是否在2008年以前在开发区有社保缴费记录"
+                },
+                isSpouseInsurance: {
+                    required: "请输入配偶是否在本市缴纳5险且满2年以上"
                 },
                 providentFund: {
                     required: "请输入公积金"
