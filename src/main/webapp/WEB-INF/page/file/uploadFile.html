@@ -22,7 +22,7 @@
             申请人材料上传
         </div>
         <div class="color-red" style="font-size: 14px;padding: 5px 5px;">
-            温馨提示：1.目前上传材料只支持照片格式，大小不要超过1M。
+            温馨提示：1.目前上传材料只支持照片格式，大小不要超过1.5M。
         </div>
         <div class="color-red" style="font-size: 14px;padding: 5px 5px 5px 75px;">
             2.以下材料项未上传的，视为不提交此项材料，受理期内不再接受材料补充。
@@ -287,13 +287,13 @@
 
             var file = document.getElementById($(this).attr("id"));
             var fileSize = 0;
-            var fileMaxSize = 1024;//1M
+            var fileMaxSize = 1536;//1.5M
             var filePath = file.value;
             if (filePath) {
                 fileSize = file.files[0].size;
                 var size = fileSize / 1024;
                 if (size > fileMaxSize) {
-                    layer.alert("文件大小不能大于1M！");
+                    layer.alert("文件大小不能大于1.5M！请上传清晰图片，不要模糊的，否则会被驳回上传的图片！");
                     file.value = "";
                     return false;
                 }
