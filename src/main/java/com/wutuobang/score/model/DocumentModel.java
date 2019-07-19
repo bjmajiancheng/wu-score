@@ -28,6 +28,16 @@ public class DocumentModel implements Serializable {
 
 	private String url;//"附件url"
 
+	private Integer sequence;
+
+	public Integer getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
+	}
+
 	//columns END
 		
 	public void setId(Integer id) {

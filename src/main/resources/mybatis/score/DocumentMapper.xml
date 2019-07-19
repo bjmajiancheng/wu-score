@@ -9,12 +9,13 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="url" column="url"/>
+		<result property="sequence" column="sequence"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,name ,url 
+        id ,name ,url ,sequence
 	    ]]>
 	</sql>
 	
@@ -26,11 +27,13 @@
         INSERT INTO t_document (
 	        id  ,
 	        name  ,
-	        url  
+	        url  ,
+	        sequence
         ) VALUES (
         	${id} ,
         	#{name, jdbcType=VARCHAR} ,
-        	#{url, jdbcType=VARCHAR} 
+        	#{url, jdbcType=VARCHAR} ,
+        	#{sequence, jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -81,9 +84,10 @@
     <select id="findPage" resultMap="Document">
     	SELECT <include refid="columns"/> FROM t_document 
 		<include refid="findWhere"/>
-		<if test="sortColumns != null">
+		order by SEQUENCE desc
+<!--		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
-		</if>
+		</if>-->
     </select>
 
 	
