@@ -17,7 +17,7 @@ p {line-height: 40px;}
 <meta content="03" name="author">
 </head>
 <body>
-<div class="b1 b2">
+<div class="b1 b2" style="width: 1000px;">
 <div class="p1">
 <span>天津市居住证积分网上预约凭证</span>
 </div>

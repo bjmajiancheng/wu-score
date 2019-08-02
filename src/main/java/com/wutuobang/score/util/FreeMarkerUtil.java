@@ -26,7 +26,7 @@ public class FreeMarkerUtil {
 
     public static Template getTemplate(String name) {
         try {
-            Template template = configuration.getTemplate(name);
+            Template template = configuration.getTemplate(name,"utf-8");
 
             return template;
         } catch (IOException e) {
