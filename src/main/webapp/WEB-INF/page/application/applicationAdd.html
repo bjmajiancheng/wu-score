@@ -618,11 +618,11 @@
                             </tr>
                             <tr>
                                 <td>文化程度:</td>
-                                <td colspan="1">
+                                <td colspan="2">
                                     <input class="integral-input"
                                            type="text" name="cultureDegree">
                                 </td>
-                                <td colspan="2">是否随迁:&nbsp;&nbsp;&nbsp;&nbsp;
+                                <td colspan="3">是否随迁:&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label>
                                         <input class="input_radio" type="radio" name="isRemove"
                                                value="1">是
@@ -632,7 +632,10 @@
                                                value="2">否
                                     </label>
                                 </td>
-                                <td colspan="2">
+                            </tr>
+
+                            <tr>
+                                <td colspan="3">
                                     收养子女:&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label>
                                         <input class="input_radio" type="radio" name="isAdopt"
@@ -643,7 +646,19 @@
                                                value="2">否
                                     </label>
                                 </td>
+                                <td colspan="3">
+                                    申请人本人亲生子女:&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>
+                                        <input class="input_radio" type="radio" name="isNaturalChild" onclick="changeIsNaturalChild($(this))"
+                                               value="1">是
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>
+                                        <input class="input_radio" type="radio" name="isNaturalChild"
+                                               value="2">否
+                                    </label>
+                                </td>
                             </tr>
+
                             <tr>
                                 <td>出生地:</td>
                                 <td colspan="3">
@@ -794,11 +809,11 @@
                             </tr>
                             <tr>
                                 <td>文化程度:</td>
-                                <td colspan="1">
+                                <td colspan="2">
                                     <input class="integral-input"
                                            value="$!{houseRelationship.cultureDegree}" type="text" name="cultureDegree">
                                 </td>
-                                <td colspan="2">是否随迁:&nbsp;&nbsp;&nbsp;&nbsp;
+                                <td colspan="3">是否随迁:&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label>
                                         <input class="input_radio" type="radio" name="isRemove"
                                                #if(${houseRelationship.isRemove}== 1) checked #end value="1">是
@@ -808,7 +823,9 @@
                                                #if(${houseRelationship.isRemove}== 2) checked #end value="2">否
                                     </label>
                                 </td>
-                                <td colspan="2">
+                            </tr>
+                            <tr>
+                                <td colspan="3">
                                     收养子女:&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label>
                                         <input class="input_radio" type="radio" name="isAdopt"
@@ -817,6 +834,17 @@
                                     <label>
                                         <input class="input_radio" type="radio" name="isAdopt"
                                                #if(${houseRelationship.isAdopt}== 2) checked #end value="2">否
+                                    </label>
+                                </td>
+                                <td colspan="3">
+                                    申请人本人亲生子女:&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>
+                                        <input class="input_radio" type="radio" name="isNaturalChild"
+                                               #if(${houseRelationship.isNaturalChild}== 1) checked #end value="1">是
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>
+                                        <input class="input_radio" type="radio" name="isNaturalChild"
+                                               #if(${houseRelationship.isNaturalChild}== 2) checked #end value="2">否
                                     </label>
                                 </td>
                             </tr>
@@ -2973,7 +3001,18 @@
         changeZaishengyuCheck(findParentDom(select, "FORM"), select.val() == "政策内多孩");
     }
 
+    function changeIsNaturalChild($ele) {
+        // 2019年8月6日“申请人本人亲生子女”与“收养子女”有逻辑关系，需要添加
+//        $("input[name='isAdopt']").each(function () {
+//            console.log($(this).val())
+//        });
+    }
+
     function changeZaishengyuCheck(form, boolean) {
+        /*
+        2019年8月6日，【再生育审批情况】设置为非必填项，取消与【政策属性】之间的逻辑关系
+         */
+        boolean = false;
         if (boolean) {
             form.find("input").each(function () {
                 switch ($(this).attr("name")) {

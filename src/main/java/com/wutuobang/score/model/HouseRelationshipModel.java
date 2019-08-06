@@ -74,6 +74,16 @@ public class HouseRelationshipModel implements Serializable {
 
 	private String approval_custody;//"抚养权归属"
 
+	private String isNaturalChild;// 申请人本人亲生子女,1：是，2：否；
+
+	public String getIsNaturalChild() {
+		return isNaturalChild;
+	}
+
+	public void setIsNaturalChild(String isNaturalChild) {
+		this.isNaturalChild = isNaturalChild;
+	}
+
 	//2019-1-9添加卫健委信息END
 
 	//2019-1-17增加字段

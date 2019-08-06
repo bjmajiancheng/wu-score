@@ -32,6 +32,7 @@
 		<result property="approval_which" column="approval_which"/>
 		<result property="approval_custody" column="approval_custody"/>
 		<result property="marriageStatus" column="marriageStatus"/>
+		<result property="isNaturalChild" column="isNaturalChild"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -62,7 +63,8 @@
         approval_spouse,
         approval_which,
         approval_custody,
-        marriageStatus
+        marriageStatus,
+		isNaturalChild
         ]]>
 	</sql>
 
@@ -97,7 +99,8 @@
         	approval_spouse,
 			approval_which,
 			approval_custody,
-            marriageStatus
+            marriageStatus,
+            isNaturalChild
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -124,7 +127,8 @@
         	#{approval_spouse, jdbcType=VARCHAR} ,
             #{approval_which, jdbcType=VARCHAR} ,
             #{approval_custody, jdbcType=VARCHAR},
-            #{marriageStatus, jdbcType=INTEGER}
+            #{marriageStatus, jdbcType=INTEGER},
+            #{isNaturalChild, jdbcType=INTEGER}
         )
     ]]>
 	</insert>
@@ -156,6 +160,7 @@
 		<if test="approval_which != null">approval_which = #{approval_which, jdbcType=VARCHAR} ,</if>
 		<if test="approval_custody != null">approval_custody = #{approval_custody, jdbcType=VARCHAR} ,</if>
 		<if test="marriageStatus != null">marriageStatus = #{marriageStatus, jdbcType=INTEGER} ,</if>
+		<if test="isNaturalChild != null">isNaturalChild = #{isNaturalChild, jdbcType=INTEGER} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}
