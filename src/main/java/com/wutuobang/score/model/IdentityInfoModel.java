@@ -182,6 +182,7 @@ public class IdentityInfoModel implements Serializable {
     }
 
     public void setName(String name) {
+        name = name.replace(" ","");
         this.name = name;
     }
 
