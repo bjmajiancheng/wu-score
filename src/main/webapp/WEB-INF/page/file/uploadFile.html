@@ -413,6 +413,36 @@
                     }
                 });
 
+                /*
+                * 2019年8月14日
+                * 当申请人上传结婚证后，必须上传配偶的身份证，否则不用上传
+                * */
+                var marriage_flag_1 = false;
+                var marriage_flag_2 = false;
+                var spouse_id_flag_1 = false;
+                var spouse_id_flag_2 = false;
+                for(var i=0;i<materialInfoArr.length;i++){
+                    if(materialInfoArr[i].materialInfoId==17){// 结婚证第一页（上传页详见模板）
+                        marriage_flag_1 = true;
+                    }
+                    if (materialInfoArr[i].materialInfoId==1080){ // 结婚证第二页（上传页详见模板）
+                        marriage_flag_2 = true;
+                    }
+                    if(materialInfoArr[i].materialInfoId==18){// 配偶身份证正面
+                        spouse_id_flag_1 = true;
+                    }
+                    if(materialInfoArr[i].materialInfoId==1090){// 配偶身份证反面
+                        spouse_id_flag_2 = true;
+                    }
+                }
+
+                if (marriage_flag_1 || marriage_flag_2){
+                    if (!(spouse_id_flag_1 && spouse_id_flag_2)){
+                        layer.alert("若上传了结婚证，必须上传配偶身份证的正反面！！");
+                        return false;
+                    }
+                }
+
                 var materialInfoJson = JSON.stringify(materialInfoArr);
 
                 var flag = false;
