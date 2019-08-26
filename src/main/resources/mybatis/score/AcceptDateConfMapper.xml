@@ -122,9 +122,10 @@
 	<select id="find" resultMap="AcceptDateConf">
 	    SELECT <include refid="columns"/> FROM t_accept_date_conf 
 		<include refid="findWhere"/>
-		<if test="sortColumns != null">
+		order by accept_date ASC
+		<!--<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
-		</if>
+		</if>-->
     </select>
 
 	<update id="amSubtractionOne">
