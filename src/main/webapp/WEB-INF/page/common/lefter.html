@@ -36,7 +36,7 @@
         <p class="fl publicityList">
             <img src="${rc.contextPath}/$static.curr_ver()/img/public.png" alt="" style="margin-right: 10px">名单公示</p>
     </a>
-    #if($shiro.hasLogin())
+<!--    #if($shiro.hasLogin())
     <div class="menuCard clearFix scoreMenu">
         <p class="fl jifen" id="dv1">
             <img src="${rc.contextPath}/$static.curr_ver()/img/papers.png" alt="" style="margin-right: 13px">居住证积分
@@ -59,7 +59,20 @@
 
         </div>
     </div>
+    #end-->
+
+    #if($shiro.hasLogin())
+        <a class="menuCard clearFix" href="${rc.contextPath}/identityInfo/index.html">
+            <p class="identityList" style="font-size: 13px;padding-left:40px">申请人列表</p>
+        </a>
+        <a id="applicationWrInfo" class="menuCard clearFix" >
+            <p class="addIdentity" style="font-size: 13px;padding-left:40px">申请人信息填写</p>
+        </a>
+        <a class="menuCard clearFix" href="${rc.contextPath}/companyInfo/companyEdit.html">
+            <p class="companyEdit" style="font-size: 13px;padding-left:40px">企业信息修改</p>
+        </a>
     #end
+
     <!--<div class="menuCard clearFix scoreMenu">
         <p class="fl jifen">
             <img src="${rc.contextPath}/$static.curr_ver()/img/papers.png" alt="" style="margin-right: 10px">居住证积分
