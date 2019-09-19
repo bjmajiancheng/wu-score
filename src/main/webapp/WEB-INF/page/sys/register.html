@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             <input class="integral-input w450 ml50" id="password" name="password"
-                                   placeholder="请使用5--12位" type="password">
+                                   placeholder="请使用8--20位" type="password">
                         </td>
                     </tr>
                     <tr>
@@ -317,6 +317,15 @@
     });
 
     $(function () {
+
+        // 自定义校验规则
+        $.validator.addMethod("passwordCheck",function(value, element){
+            var returnVal = false;
+            //var chrnum = /^[0-9]*$/;
+            var chrnum = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(.{8,})$/;
+            return this.optional(element) || (chrnum.test(value));
+        },"必须填入小写字母、大写字母、数字");
+
         $("#companyForm").validate({
             rules: {
                 userName: {
@@ -326,12 +335,13 @@
                 },
                 password: {
                     required: true,
-                    minlength: 5,
-                    maxlength: 12
+                    passwordCheck:true,
+                    minlength: 8,
+                    maxlength: 20
                 },
                 passwordConfirm: {
                     required: true,
-                    minlength: 5,
+                    minlength: 8,
                     equalTo: "#password"
                 },
                 companyName: {
@@ -383,12 +393,12 @@
                 },
                 password: {
                     required: "请输入密码",
-                    minlength: "用户名最少由 5 个字母组成",
-                    maxlength: "用户名最多由 12 个字母组成"
+                    minlength: "用户名最少由 8 个字母数字组成",
+                    maxlength: "用户名最多由 20 个字母数字组成"
                 },
                 passwordConfirm: {
                     required: "请输入密码",
-                    minlength: "密码长度不能小于 5 个字母",
+                    minlength: "密码长度不能小于 8 个字母",
                     equalTo: "两次密码输入不一致"
                 },
                 companyName: {
