@@ -71,6 +71,10 @@ public class BatchConfModel implements Serializable {
 	private Date openLoginTime;
 
 	/*
+	2019年10月24日，关闭申请人预约交件时间
+	 */
+	private Date closeOrder;
+	/*
 	2019年1月4日
 	 */
 	private Double scoreValue;//"指标值"
@@ -266,6 +270,14 @@ public class BatchConfModel implements Serializable {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("", "");
 		return param;
+	}
+
+	public Date getCloseOrder() {
+		return closeOrder;
+	}
+
+	public void setCloseOrder(Date closeOrder) {
+		this.closeOrder = closeOrder;
 	}
 }
 

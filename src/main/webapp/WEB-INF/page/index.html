@@ -328,15 +328,33 @@
      * @param id
      */
     function reservationTime(id) {
-        //询问框
-        var index = layer.confirm('确定要预约时间吗？', {
-            btn: ['确认', '取消'] //按钮
-        }, function () {
-            window.open("${rc.contextPath}/reservation/reserveTime/" + id + ".html");
-            layer.close(index);
-        }, function () {
-            layer.close(index);
+        var flag = false;
+        $.ajax({
+            type: "POST",
+            url: "${rc.contextPath}/identityInfo/sys/getCloseOrder",
+            data: null,
+            dataType: "json",
+            success: function (result) {
+                if (result.code == 20) {//后台定义的20为
+                    flag = true;
+                    if(flag){
+                        layer.msg('此时间段不受理积分落户，详情请关注重要通知！');
+                        return false;
+                    }
+                }else {
+                    //询问框
+                    var index = layer.confirm('确定要预约时间吗？', {
+                        btn: ['确认', '取消'] //按钮
+                    }, function () {
+                        window.open("${rc.contextPath}/reservation/reserveTime/" + id + ".html");
+                        layer.close(index);
+                    }, function () {
+                        layer.close(index);
+                    });
+                }
+            }
         });
+
     }
 
     /**

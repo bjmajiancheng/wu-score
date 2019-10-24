@@ -1112,4 +1112,29 @@ public class IdentityInfoController {
         }
     }
 
+    /*
+    2019年10月24日，关闭申请人的预约交件时间
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sys/getCloseOrder", method = RequestMethod.POST)
+    public ResultParam getCloseOrder(){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date closeOrder = new Date();
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
+                closeOrder = batchConf.getCloseOrder();
+            }
+        }
+
+        if (System.currentTimeMillis()>closeOrder.getTime()){
+            return ResultParam.closeOrderMsg();
+        }else {
+            return ResultParam.ok();
+        }
+
+    }
+
 }

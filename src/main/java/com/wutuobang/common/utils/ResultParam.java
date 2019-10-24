@@ -21,6 +21,9 @@ public class ResultParam {
      */
     public static final ResultParam closeOrOpenFun = new ResultParam(20,"居住证积分受理阶段网上注册、预审已经关闭，详情请关注网站重要通知。");
 
+
+    public static final ResultParam closeOrderMsg = new ResultParam(20,"居住证积分受理阶段预约时间已经关闭，详情请关注网站重要通知。");
+
     /**
      * 系统异常
      */
@@ -82,6 +85,10 @@ public class ResultParam {
 
     public static ResultParam cloOrOpen(){
         return closeOrOpenFun;
+    }
+
+    public static ResultParam closeOrderMsg(){
+        return closeOrderMsg;
     }
 
 
