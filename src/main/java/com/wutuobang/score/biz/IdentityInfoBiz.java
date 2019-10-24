@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.wutuobang.common.constant.CommonConstant;
 import com.wutuobang.common.message.SmsUtil;
 import com.wutuobang.common.service.IAttachmentService;
+import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.constant.Constant;
 import com.wutuobang.score.model.*;
@@ -104,6 +105,39 @@ public class IdentityInfoBiz {
                 RegionModel regionModel = regionService.getById(region);
                 if (regionModel != null) {
                     identityInfoModel.setRegionName(regionModel.getName());
+                }
+            }
+
+            /**
+             * 2019年10月23日，判断年龄字段是否存在并正确
+             */
+            String str =identityInfoModel.getIdNumber();
+            int year = Integer.parseInt(str.substring(6,10));
+            int month = Integer.parseInt(str.substring(10,12));
+            int day = Integer.parseInt(str.substring(12,14));
+
+            // 录入信息那天的数据
+            int year2 = DateUtil.getYear(new Date());
+            int month2 = DateUtil.getMonth(new Date())+1;
+            int day2 = DateUtil.getDay(new Date());
+
+            if (month2>month){
+                identityInfoModel.setAge(year2-year);
+            } else if (month2==month && day2>day){
+                identityInfoModel.setAge(year2-year);
+            } else{
+                identityInfoModel.setAge(year2-year-1);
+            }
+
+            /*
+            2019年10月24日，补丁性别，出问题的概率为5千分之一，在此修正下
+             */
+            if (identityInfoModel.getSex()==null){
+                String sex = str.substring(str.length()-2,str.length()-1);
+                if (Integer.parseInt(sex)%2!=0){
+                    identityInfoModel.setSex(1);
+                } else {
+                    identityInfoModel.setSex(2);
                 }
             }
 
