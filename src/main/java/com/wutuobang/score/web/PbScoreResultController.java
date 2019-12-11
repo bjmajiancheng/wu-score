@@ -205,40 +205,46 @@ public class PbScoreResultController {
             if (pbScoreRecords.size()>0 ) { //&& identityInfo.getCancelStatus()==0
 
                 for (PbScoreRecordModel p : pbScoreRecords){
-                    p.setScore_value(p.getScore_value().setScale(2, BigDecimal.ROUND_HALF_UP));
-                    if (p.getIndicator_id()==3){
-                        pbScoreRecord_3.add(p);
-                    }
-                    if (p.getIndicator_id() == 14){
-                        pbScoreRecord_14.add(p);
-                    }
+                    if (p.getScore_value()!=null){
+                        p.setScore_value(p.getScore_value().setScale(2, BigDecimal.ROUND_HALF_UP));
+                        if (p.getIndicator_id()==3){
+                            pbScoreRecord_3.add(p);
+                        }
+                        if (p.getIndicator_id() == 14){
+                            pbScoreRecord_14.add(p);
+                        }
 
-                    if (p.getIndicator_id() != 3 && p.getIndicator_id() != 14){
-                        pbScoreRecord_other.add(p);
+                        if (p.getIndicator_id() != 3 && p.getIndicator_id() != 14){
+                            pbScoreRecord_other.add(p);
+                        }
                     }
                 }
 
                 /*
                 1、受教育程度，只显示1条，人社和市教委，哪个分高显示哪个
                  */
-                if (pbScoreRecord_3.get(0).getScore_value().longValue() > pbScoreRecord_3.get(1).getScore_value().longValue()){
-                    pbScoreRecord_other.add(pbScoreRecord_3.get(0));
-                }else {
-                    pbScoreRecord_other.add(pbScoreRecord_3.get(1));
+                if (pbScoreRecord_3.size()>1){
+                    if (pbScoreRecord_3.get(0).getScore_value().longValue() > pbScoreRecord_3.get(1).getScore_value().longValue()){
+                        pbScoreRecord_other.add(pbScoreRecord_3.get(0));
+                    }else {
+                        pbScoreRecord_other.add(pbScoreRecord_3.get(1));
+                    }
                 }
                 /*
                 2、婚姻情况，只显示1条，人社打分和市民政局打分相加等于20时，显示10分，否则显示0分
                  */
-                Long l1 = pbScoreRecord_14.get(0).getScore_value().longValue();
-                Long l2 = pbScoreRecord_14.get(1).getScore_value().longValue();
-                BigDecimal value_10 = new BigDecimal(10.00);
-                BigDecimal value_0 = new BigDecimal(0.00);
-                if ((l1+l2)==20.00){
-                    pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2));
-                }else {
-                    pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2));
+                if (pbScoreRecord_14.size()>1){
+                    Long l1 = pbScoreRecord_14.get(0).getScore_value().longValue();
+                    Long l2 = pbScoreRecord_14.get(1).getScore_value().longValue();
+                    BigDecimal value_10 = new BigDecimal(10.00);
+                    BigDecimal value_0 = new BigDecimal(0.00);
+                    if ((l1+l2)==20.00){
+                        pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2));
+                    }else {
+                        pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2));
+                    }
+                    pbScoreRecord_other.add(pbScoreRecord_14.get(0));
                 }
-                pbScoreRecord_other.add(pbScoreRecord_14.get(0));
             }
 
             mv.addObject("identityInfo", identityInfo);
