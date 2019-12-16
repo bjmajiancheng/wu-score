@@ -111,9 +111,9 @@ public class PbScoreResultController {
 //                }
             }
 
-            if (batchConfModel.getProcess() != 2) {
-                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
-            }
+//            if (batchConfModel.getProcess() != 2) {
+//                return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
+//            }
 
             /*
             2018年12月6日，“积分查询”页面只能让申请人看到自己的信息，看不到其他人的信息
