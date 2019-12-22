@@ -126,7 +126,7 @@
         getSyncResultData("${rc.contextPath}/pbScoreResult/publicityList2", {"searchParam": searchParam}, function(result){
             component.data.identityInfos = result.data;
             component.$update();
-            pageCount = result.pageCount;
+            pageCount = result.data.length;
         });
         if (pageCount>1){
             $('.empty_score_table').removeAttrs("style");
