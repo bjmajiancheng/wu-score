@@ -45,4 +45,14 @@ public interface IAcceptDateConfService{
 	 * @return
 	 */
 	public int pmSubtractionOne(Integer id);
+
+
+	/**
+	 * 根据批次、申请人的预约地点、预约日期，查询当天的名额情况
+	 * @param batch_id
+	 * @param address_id
+	 * @param dateStr
+	 * @return
+	 */
+	public AcceptDateConfModel getByBatchidAndAddressidAndAcceptdate(Integer batch_id,Integer address_id, String dateStr);
 }

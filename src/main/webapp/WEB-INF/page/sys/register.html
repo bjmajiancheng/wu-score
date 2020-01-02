@@ -11,6 +11,9 @@
 
 <!-- 主体部分 -->
 <div class="integral-main-box">
+    <!--需要显示转圈圈直接调用 showLoading(true);取消转圈圈直接调用showLoading(false);-->
+    <div id="foo" style="width: 100%; height: 100%"></div>
+
     <!-- 内容展示区  登录和注册等不带导航模块需要加 样式 ”cont-center“-->
     <div class="integral-cont ml105">
         <!-- 网上注册 -->
@@ -34,16 +37,17 @@
                         <td></td>
                         <td class="color-red" style="line-height: 20px;padding-left:45px;">
                             <span>提示：1、请在电脑上操作，不要在手机上操作。</span><br/>
-                            <span style="padding-left:42px;">2、推荐使用Google Chrome（谷歌）、Firefox（火狐）、IE9+浏览器，IE版本过低的请升级9以上</span>
+                            <span style="padding-left:42px;">2、推荐使用Google Chrome（谷歌）、Firefox（火狐）、IE9+浏览器，IE版本过低的请升级9以上</span><br/>
+                            <span style="padding-left:42px;">3、统一社会信用代码为用户名</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>用&nbsp; 户 &nbsp;名：
+                            <span class="color-red">*</span>统一社会信用代码：
                         </td>
                         <td>
                             <input class="integral-input w450 ml50" id="userName" name="userName"
-                                   placeholder="请使用英文或数字，6–20位，请注意区分大小写" type="text">
+                                   placeholder="请输入统一社会信用代码" type="text">
                         </td>
                     </tr>
                     <tr>
@@ -100,49 +104,98 @@
                             <label for="simpleCompany">个体工商户</label>
                         </td>
                     </tr>
+                   <!-- 2019年12月23日
+                    添加“申请人预约地点”：
+                        1、市级行政许可中心；
+                        2、滨海新区行政许可中心；-->
                     <tr>
-                        <td>
-                            <span class="color-red">*</span>统一社会信用代码：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="societyCode" name="societyCode"
-                                   placeholder="18位统一社会信用代码必须与营业执照一致" type="text">
+                        <td></td>
+                        <td style="line-height:20px;padding-top:20px;">
+                        <span class="color-red">提示：1、申请人有子女随迁的，必须到公安窗口审核材料，请根据实际情况选择受理点；
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、每个单位只能选择一个受理点，同一单位的全部申请人都按照此选择进行审核；
+                        </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>申报单位统一社会信用<br/>代码营业执照副本<span class="color-red">彩色原件</span>：
+                            <span class="color-red">*</span>本单位申请人预约地点：
+                        </td>
+                        <td>
+                            <input class="input_radio" type="radio" name="operatorMobile2" value="1" id="shiji">&nbsp;&nbsp;&nbsp;
+                            <label for="shiji">天津市政务服务中心</label>
+                            <input class="input_radio ml30" type="radio" name="operatorMobile2" value="2"
+                                   id="binhai">&nbsp;&nbsp;&nbsp;
+                            <label for="binhai">滨海新区政务服务中心</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>身份证原件正面
                         </td>
                         <td>
                             <div class="integral-businesslicense-img">
                                 <img class="addImg pointer"
-                                     src="${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png"
+                                     src="${rc.contextPath}/$static.curr_ver()/img/IDcard1.png"
                                      onclick="integral.clickImg(this);">
-                                <img class="preview" id="preview" alt="" name="pic" width="160" height="220"
+                                <img class="preview" id="preview" alt="" name="pic" width="152" height="100"
                                      style="display: none"/>
                                 <input id="business_license" name="business_license" type="file"
                                        class="upload_input" accept="image/*"
                                        onchange="changeImg(this)" attr-inp="businessLicenseSrc"/>
                                 <div class="pointer title_click" onclick="integral.clickImg(this);">
-                                    点击上传营业执照副本
+                                    点击上传身份证原件
                                 </div>
-                                <div class="title_idcard" style="display:none;">营业执照</div>
+                                <div class="title_idcard" style="display:none;">身份证原件</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)"
                                      style="display:none;"></div>
                                 <input id="businessLicenseSrc" name="businessLicenseSrc"
                                        type="hidden" value=""/>
                             </div>
-                            <div style="float: left;padding-top: 60px;">
+                            <div style="float: left;padding-top: 30px;">
                                 <!-- 2019年7月16日 添加提示 -->
                                 <div class="color-red" style="font-size: 13px;padding: 5px 5px 5px 5px;line-height: 20px">
-                                    上传营业执照提示：
-                                    <br>1、营业执照副本原件（彩色原件）；
+                                    上传身份证原件提示：
+                                    <br>1、身份证原件（彩色原件）；
                                     <br>2、背景色为白色；
-                                    <br>3、满屏拍照；
                                 </div>
                             </div>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>身份证原件反面<br/>
+                        </td>
+                        <td>
+                            <div class="integral-businesslicense-img">
+                                <img class="addImg pointer"
+                                     src="${rc.contextPath}/$static.curr_ver()/img/IDcard2.png"
+                                     onclick="integral.clickImg(this);">
+                                <img class="preview" id="back" alt="" name="pic" width="152" height="100"
+                                     style="display: none"/>
+                                <input id="business_license2" name="business_license" type="file"
+                                       class="upload_input" accept="image/*"
+                                       onchange="changeImg(this)" attr-inp="operator2"/>
+                                <div class="pointer title_click" onclick="integral.clickImg(this);">
+                                    点击上传身份证原件反面
+                                </div>
+                                <div class="title_idcard" style="display:none;">身份证原件反面</div>
+                                <div class="del_idcard" onclick="integral.deleteImg(this)"
+                                     style="display:none;"></div>
+                                <input id="operator2" name="operator2"
+                                       type="hidden" value=""/>
+                            </div>
+                            <div style="float: left;padding-top: 30px;">
+                                <!-- 2019年7月16日 添加提示 -->
+                                <div class="color-red" style="font-size: 13px;padding: 5px 5px 5px 5px;line-height: 20px">
+                                    上传身份证原件提示：
+                                    <br>1、身份证原件（彩色原件）；
+                                    <br>2、背景色为白色；
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>
                             <span class="color-red">*</span>单位联系电话：
@@ -163,7 +216,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1：
+                            <span class="color-red">*</span>经办人：
                         </td>
                         <td>
                             <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三"
@@ -185,7 +238,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1联系手机：
+                            <span class="color-red">*</span>经办人联系手机：
                         </td>
                         <td>
                             <input class="integral-input w450" id="operatorMobile" name="operatorMobile"
@@ -194,20 +247,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>经办人1身份证号：
+                            <span class="color-red">*</span>经办人身份证号：
                         </td>
                         <td>
                             <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1"
                                    placeholder="请输入身份证号" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>经办人2：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="operator2" name="operator2" placeholder="如：李四"
-                                   type="text">
                         </td>
                     </tr>
                     <!--<tr>
@@ -216,7 +260,7 @@
                             <span class="color-red">*请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码</span>
                         </td>
                     </tr>-->
-                    <tr>
+                    <!--<tr>
                         <td>
                             <span class="color-red">*</span>经办人2联系手机：
                         </td>
@@ -224,17 +268,7 @@
                             <input class="integral-input w450" id="operatorMobile2" name="operatorMobile2"
                                    placeholder="请输入11位手机号码" type="text">
                         </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>经办人2身份证号：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="idCardNumber_2" name="idCardNumber_2"
-                                   placeholder="请输入身份证号" type="text">
-                        </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>
                             <span class="color-red">*</span>实际经营地址：
@@ -289,9 +323,9 @@
     //点击注册按钮，2018年7月18日，添加提示
     $("#register").on("click", function () {
         if ($('#userName').val().indexOf(" ") !== -1) {
-            layer.alert("用户名中不能有空格！");
+            layer.alert("统一社会信用代码中不能有空格！");
         } else if ($('#businessLicenseSrc').val().trim() == "") {
-            layer.alert("请上传营业执照照片！");
+            layer.alert("请上传经办人身份证正反面！");
         } else {
             var index = layer.confirm('一旦注册成功，本期不可修改，确定要注册吗？', {
                 btn: ['确认', '取消']
@@ -331,7 +365,7 @@
             rules: {
                 userName: {
                     required: true,
-                    minlength: 6,
+                    minlength: 10,
                     maxlength: 20
                 },
                 password: {
@@ -349,10 +383,6 @@
                     required: true,
                     maxlength: 100
                 },
-                societyCode: {
-                    required: true,
-                    maxlength: 50
-                },
                 companyMobile: {
                     required: true,
                     isMobile: true
@@ -370,8 +400,8 @@
                     isMobile: true
                 },
                 operatorMobile2: {
-                    required: true,
-                    isMobile: true
+                    required: true
+//                    isMobile: true
                 },
                 idCardNumber_1: {
                     required: true,
@@ -388,9 +418,9 @@
             },
             messages: {
                 userName: {
-                    required: "请输入用户名",
-                    minlength: "用户名最少由 6 个字母组成",
-                    maxlength: "用户名最多由 20 个字母组成"
+                    required: "请输入统一社会信用代码",
+                    minlength: "统一社会信用代码最少由 10 个字母组成",
+                    maxlength: "统一社会信用代码最多由 20 个字母组成"
                 },
                 password: {
                     required: "请输入密码",
@@ -405,10 +435,6 @@
                 companyName: {
                     required: "请输入单位名称",
                     maxlength: "单位名称不能大于 100 个字母"
-                },
-                societyCode: {
-                    required: "请输入统一社会信用代码",
-                    maxlength: "密码长度不能大于 50 个字母"
                 },
                 companyMobile: {
                     required: "请输入单位联系电话"
@@ -425,7 +451,7 @@
                     required: "请输入联系手机"
                 },
                 operatorMobile2: {
-                    required: "请输入联系手机"
+                    required: "请选择申请人预约地点"
                 },
                 idCardNumber_1: {
                     required: "请输入身份证号"
@@ -446,26 +472,125 @@
                 delete companyInfo['passwordConfirm'];
                 delete companyInfo['captcha'];
 
-                var societyCode = $("input[name=societyCode]").val();
+                var societyCode = $("input[name=userName]").val(); // 2019年12月23日，因根据需求将统一社会信用代码改为用户名，这里用来验证用户名（uniscid）是否合规
                 if (!checkSocialCreditCode(societyCode)) {
                     return false;
                 }
 
+                // 需要显示转圈圈直接调用 showLoading(true);取消转圈圈直接调用showLoading(false);
+                showLoading(true);
+                /*
+                 2019年12月20日
+                 1、组装参数
+                 2、获取企业信息
+                 */
+                var uniscid = $('#userName').val();
+                var companyName2 = $('#companyName').val();
+                var formData = new FormData();
+                formData.append("otherParam",'{"orgno":"'+uniscid+'","entname":"'+companyName2+'"}');
+                formData.append("busiCode","xxx");
+                formData.append("certCode","tj_scw_cer_007");
+                formData.append("itemCode","xxx");
+
+                var isFlag = true;
                 $.ajax({
                     type: "POST",
-                    url: "${rc.contextPath}/companyInfo/register",
-                    data: {"companyInfo": JSON.stringify(companyInfo), "captcha": captcha},
+                    url: "http://60.28.163.53:9000/yztb/rest/certificate",
+                    data: formData,
+                    contentType:false,
+                    processData:false,
                     dataType: "json",
                     success: function (result) {
-                        if (result.code == 0) {//注册成功
-                            parent.location.href = '../login.html';
-                        } else {
-                            layer.alert(result.message);
-
-                            refreshCode();
+                        isFlag = result.certs[0].certData.indexOf("存续")>1;
+                        /*
+                         2019年12月24日
+                         如果企业不是“存续”状态，不允许注册
+                         */
+                        if(!isFlag){
+                            layer.alert("统一社会信用代码、企业名称不对，请输入准确的信息；或者企业不是存续状态，不能注册！");
+                            return false;
                         }
+
+                        /*
+                        验证经办人的有效性；
+                        1、先通过接口《互联互通公安接口文档》中的请求地址：http://60.28.163.53:9002/yztb/rest/police
+                           请求参数：身份证号、姓名、手机号
+                           返回参数：用户ID、身份证号
+                        2、通过第 1 步获得的返回参数，通过接口：公安全国人口库接口，获取申请人的详细信息；
+                        3、通过验证后，返回成功的status，允许申请人注册；
+                         */
+                        var operator = $('#operator').val();
+                        var operatorMobile = $('#operatorMobile').val();
+                        var idCardNumber_1 = $('#idCardNumber_1').val();
+
+                        var formDataPerson = new FormData();
+                        formDataPerson.append("busiCode","xxx");
+                        formDataPerson.append("cerNo","xxx");
+                        formDataPerson.append("certCode","tj_gaj_cer_098");
+                        formDataPerson.append("itemCode","xxx");
+                        formDataPerson.append("institution","xxx");
+                        formDataPerson.append("method","getUserRegistration");
+                        formDataPerson.append("otherParam",'{"id_card":"'+idCardNumber_1+'","phone":"'+operatorMobile+'","name":"'+operator+'"}');
+                        $.ajax({
+                            type:"POST",
+                            url:"http://60.28.163.53:9002/yztb/rest/police",
+                            data:formDataPerson,
+                            contentType:false,
+                            processData:false,
+                            dataType: "json",
+                            success: function (result) {
+                                var isTrue = result.data.data.id_card==idCardNumber_1;
+
+                                var user_id = result.data.data.user_id;
+                                var formDataGongan = new FormData();
+                                formDataGongan.append("busiCode","xxx");
+                                formDataGongan.append("cerNo","xxx");
+                                formDataGongan.append("certCode","tj_gaj_cer_151");
+                                formDataGongan.append("itemCode","xxx");
+                                formDataGongan.append("Institution","xxx");
+                                formDataGongan.append("method","nationwidePopulationLibrary");
+                                formDataGongan.append("otherParam",'{"idcard":"'+idCardNumber_1+'","user_id":"'+user_id+'"}');
+                                $.ajax({
+                                    type:"POST",
+                                    url:"http://60.28.163.53:9002/yztb/rest/police",
+                                    data:formDataGongan,
+                                    contentType:false,
+                                    processData:false,
+                                    dataType: "json",
+                                    success: function (result) {
+
+                                        if(result.data.status==0){
+                                            // 开始注册
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "${rc.contextPath}/companyInfo/register",
+                                                data: {"companyInfo": JSON.stringify(companyInfo), "captcha": captcha},
+                                                dataType: "json",
+                                                success: function (result) {
+                                                    if (result.code == 0) {//注册成功
+                                                        showLoading(false);
+                                                        parent.location.href = '../login.html';
+                                                    } else {
+                                                        layer.alert(result.message);
+
+                                                        refreshCode();
+                                                    }
+                                                }
+                                            });
+                                        }else {
+                                            layer.alert("经办人姓名与身份证号不一致，请确保一致！");
+                                            return false;
+                                        }
+
+                                    }
+                                });
+
+                            }
+                        });
+
                     }
                 });
+
             }
         });
     });
@@ -537,11 +662,42 @@
         integral.change(object);
         _updateFileChange($(object));
     }
+    var opts = {
+        lines: 9, // The number of lines to draw
+        length: 0, // The length of each line
+        width: 10, // The line thickness
+        radius: 15, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        color: '#fff', // #rgb or #rrggbb
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '400px', // Top position relative to parent in px
+        left: '900px' // Left position relative to parent in px
+    };
+    var spinner = new Spinner(opts);
+    //显示与隐藏加载动画
+    function showLoading(result) {
+        var spinContainer = document.getElementById("foo");
+        if (result) {
+            var target = $(spinContainer).get(0);
+            spinner.spin(target);
+            spinContainer.style.height = document.documentElement.clientHeight + "px";
+            $(spinContainer).show();
+        } else {
+            spinner.spin();
+            $(spinContainer).hide();
+        }
+    }
 </script>
 <style type="text/css">
     .integral-businesslicense-img {
         width: 180px;
-        height: 268px;
+        height: 158px;
         float: left;
         background: #FBFCFF;
         text-align: center;
@@ -549,6 +705,18 @@
         padding: 10px;
         margin-right: 10px;
         position: relative;
+    }
+    #foo {
+        position: fixed;
+        left: 0;
+        top: 0;
+        _position: absolute;
+        width: 100%;
+        background: #000;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        z-index: 999;
+        display: none;
     }
 </style>
 </html>

@@ -45,5 +45,8 @@ public interface IAcceptDateConfDao {
 	 * @return
 	 */
 	public int pmSubtractionOne(@Param("id") Integer id);
+
+	public AcceptDateConfModel getByBatchidAndAddressidAndAcceptdate(@Param("batch_id") Integer batch_id, @Param("address_id") Integer address_id, @Param("dateStr") String dateStr);
+
 	
 }

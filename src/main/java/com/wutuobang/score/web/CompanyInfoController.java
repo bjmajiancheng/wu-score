@@ -155,7 +155,8 @@ public class CompanyInfoController {
             if (StringUtils.isEmpty(companyInfoModel.getOperatorAddress())) {
                 companyInfoModel.setOperatorAddress(StringUtils.EMPTY);
             }
-
+            companyInfoModel.setUserName(companyInfoModel.getUserName().toUpperCase());
+            companyInfoModel.setSocietyCode(companyInfoModel.getUserName());
             companyInfoService.insert(companyInfoModel);
 
             return ResultParam.SUCCESS_RESULT;

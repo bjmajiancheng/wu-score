@@ -85,6 +85,10 @@ public class SysLoginController {
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     public ResultParam login(String username, String password, String captcha) throws IOException {
+        /*
+        2019年12月23日，将用户名的字母全部转换为大写字母
+         */
+        username = username.toUpperCase();
 
 
         /*

@@ -753,6 +753,73 @@ public class IdentityInfoController {
         }
     }
 
+
+    /*
+    2019年12月26日
+    1、申请审核后，数据在后台公安前置审核“待审核”显示
+    2、给申请人发短信申请审核成功
+     */
+    @ResponseBody
+    @RequestMapping(value = "/examineAndVerify", method = RequestMethod.POST)
+    public ResultParam examineAndVerify(HttpServletRequest request, @RequestParam("id") Integer id){
+        if (id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+        BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+        if (batchConfModel == null) {
+            return ResultParam.error("当前没有落户批次信息,请联系官网确认!!");
+        }
+
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+        /*
+        2019年12月27日
+        根据申请人所在的预约地点，先确认当天是否还有预约名额
+            市政务办每天有260个名额（上午130，下午130），滨海新区每天有160个名额（上午80个，下午80个）
+        若有名额，就允许申请人预约，否则不能预约；
+         */
+
+        AcceptDateConfModel acceptDateConf = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(identityInfoModel.getBatchId(), identityInfoModel.getAcceptAddressId(),DateUtil.getDate(new Date()));
+        if(acceptDateConf == null){
+            return ResultParam.error("当天没有审核名额");
+        }
+        // 当天剩余的预约名额 leftoverCount
+        Integer leftoverCount = acceptDateConf.getAmRemainingCount()+acceptDateConf.getPmRemainingCount();
+        if (leftoverCount<=0){
+            // 不可以预约
+            return ResultParam.error("当天的审核名额已经用完");
+        }else{
+            // 可以预约
+            if (acceptDateConf.getAmRemainingCount()>0){
+                acceptDateConf.setAmRemainingCount(acceptDateConf.getAmRemainingCount()-1);
+            }else if(acceptDateConf.getAmRemainingCount()==0 && acceptDateConf.getPmRemainingCount()>0){
+                acceptDateConf.setPmRemainingCount(acceptDateConf.getPmRemainingCount()-1);
+            }
+        }
+        identityInfoModel.setReservationStatus(11); // 申请审核状态
+        identityInfoModel.setHallStatus(0);
+        identityInfoModel.setUnionApproveStatus1(2);
+        identityInfoModel.setUnionApproveStatus2(2);
+        identityInfoModel.setPoliceApproveStatus(1);// 公安前置审核“待审核”
+        identityInfoModel.setRensheAcceptStatus(1);// 人社受理“待审核”
+        identityInfoModel.setReservationDate(new Date()); // 原来存储预约日期，现在存储申请审核的日期
+        String acceptNumber = identityInfoService.generAcceptNumber(identityInfoModel, batchConfModel);
+        identityInfoModel.setAcceptNumber(acceptNumber);
+        identityInfoService.update(identityInfoModel);
+
+        //记录状态日志信息
+        DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_11);
+        if (dictModel != null) {
+            PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                    dictModel, "添加申请人信息成功");
+            recordModel.setStatusTypeDesc("申请人申请审核");
+            recordModel.setStatusStr("申请成功");
+            recordModel.setStatusTime(new Date());
+            recordModel.setStatusReason("申请审核包含预约地点、预约时间两个节点，系统升级改造");
+            personBatchStatusRecordService.insert(recordModel);
+        }
+        return ResultParam.ok("申请审核成功！");
+    }
+
     /**
      * 验证身份证号信息
      *

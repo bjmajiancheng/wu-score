@@ -58,6 +58,19 @@
                         </tr>
                         <tr>
                             <td>
+                                <span class="color-red">*</span>本单位申请人预约地点：
+                            </td>
+                            <td>
+                                <input class="input_radio" type="radio" name="operatorMobile2"
+                                       r-model={companyInfo.operatorMobile2} value="1"
+                                       disabled="disabled">&nbsp;&nbsp;&nbsp;天津市政务服务中心
+                                <input class="input_radio ml30" type="radio" name="operatorMobile2"
+                                       r-model={companyInfo.operatorMobile2} value="2"
+                                       disabled="disabled">&nbsp;&nbsp;&nbsp;滨海新区政务服务中心
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <span class="color-red">*</span>统一社会信用代码：
                             </td>
                             <td>
@@ -69,12 +82,12 @@
                         </tr>
                         <tr>
                             <td>
-                                <span class="color-red">*</span>单位营业执照：
+                                <span class="color-red">*</span>经办人身份证正面：
                             </td>
                             <td>
                                 <div class="integral-businesslicense-img" id="businessLicenseDiv">
                                     <img id="businessLicenseSrcImg" name="businessLicenseSrcImg"
-                                         width="160" height="220">
+                                         width="180" height="158">
                                          <input id="businessLicenseSrc" name="businessLicenseSrc" type="hidden" value=""/>
                                 </div>
                             </td>
@@ -97,7 +110,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span class="color-red">*</span>经办人1：
+                                <span class="color-red">*</span>经办人：
                             </td>
                             <td>
                                 <input id="operator" class="integral-input w450"
@@ -107,7 +120,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span class="color-red">*</span>经办人1联系手机：
+                                <span class="color-red">*</span>经办人联系手机：
                             </td>
                             <td>
                                 <input id="operatorMobile" class="integral-input w450"
@@ -117,41 +130,12 @@
                         </tr>
                         <tr>
                             <td>
-                                <span class="color-red">*</span>经办人1身份证号：
+                                <span class="color-red">*</span>经办人身份证号：
                             </td>
                             <td>
                                 <input id="idCardNumber_1" class="integral-input w450"
                                        type="text" name="idCardNumber_1"
                                        r-model={companyInfo.idCardNumber_1}>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="color-red">*</span>经办人2：
-                            </td>
-                            <td>
-                                <input id="operator2" class="integral-input w450"
-                                       placeholder="单位指定办理专员" type="text"
-                                       name="operator2" r-model={companyInfo.operator2}>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="color-red">*</span>经办人2联系手机：
-                            </td>
-                            <td>
-                                <input id="operatorMobile2" class="integral-input w450" type="text"
-                                       name="operatorMobile2" r-model={companyInfo.operatorMobile2}>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="color-red">*</span>经办人2身份证号：
-                            </td>
-                            <td>
-                                <input id="idCardNumber_2" class="integral-input w450"
-                                       type="text" name="idCardNumber_2"
-                                       r-model={companyInfo.idCardNumber_2}>
                             </td>
                         </tr>
                         <tr>
@@ -230,10 +214,6 @@
                     required: true,
                     maxlength: 10
                 },
-                operator2: {
-                    required: true,
-                    maxlength: 10
-                },
                 operatorMobile: {
                     required: true,
                     isMobile: true
@@ -255,11 +235,7 @@
                     required: "请输入单位联系电话"
                 },
                 operator: {
-                    required: "请输入经办人1",
-                    maxlength: "密码长度不能大于 10 个字母"
-                },
-                operator2: {
-                    required: "请输入经办人2",
+                    required: "请输入经办人",
                     maxlength: "密码长度不能大于 10 个字母"
                 },
                 operatorMobile: {
@@ -334,7 +310,7 @@
                     $('#businessLicenseDiv').append("<img class=\"addImg pointer\"\n" +
                         "                                     src=\"${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png\"\n" +
                         "                                     onclick=\"integral.clickImg(this);\">\n" +
-                        "                                <img class=\"preview\" id=\"preview\" alt=\"\" name=\"pic\" width=\"160\" height=\"220\"\n" +
+                        "                                <img class=\"preview\" id=\"preview\" alt=\"\" name=\"pic\" width=\"180\" height=\"158\"\n" +
                         "                                     style=\"display: none\"/>\n" +
                         "                                <input id=\"business_license\" name=\"business_license\" type=\"file\" class=\"upload_input\"\n" +
                         "                                       accept=\"image/*\" onchange=\"changeImg(this)\" attr-inp=\"businessLicenseSrc\"/>\n" +
@@ -355,11 +331,8 @@
 
     function setDisabled() {
         $('#operator').attr("disabled", "disabled");
-        $('#operator2').attr("disabled", "disabled");
         $('#operatorMobile').attr("disabled", "disabled");
-        $('#operatorMobile2').attr("disabled", "disabled");
         $('#idCardNumber_1').attr("disabled", "disabled");
-        $('#idCardNumber_2').attr("disabled", "disabled");
         $('#companyMobile').attr("disabled", "disabled");
         $('#operatorAddress').attr("disabled", "disabled");
     }
@@ -435,8 +408,8 @@
 </script>
 <style type="text/css">
     .integral-businesslicense-img {
-        width: 180px;
-        height: 268px;
+        width: 200px;
+        height: 168px;
         float: left;
         background: #FBFCFF;
         text-align: center;

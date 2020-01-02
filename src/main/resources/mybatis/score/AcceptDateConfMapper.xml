@@ -83,6 +83,15 @@
 	    ]]>
     </select>
 
+	<select id="getByBatchidAndAddressidAndAcceptdate" resultMap="AcceptDateConf">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+	        FROM t_accept_date_conf
+	        WHERE
+		        batch_id = #{batch_id} AND address_id=#{address_id} AND to_char(ACCEPT_DATE,'yyyy-MM-dd') = #{dateStr}
+	    ]]>
+	</select>
+
 	<sql id="findWhere">
 	    <where>
 			<if test="weekDay != null">

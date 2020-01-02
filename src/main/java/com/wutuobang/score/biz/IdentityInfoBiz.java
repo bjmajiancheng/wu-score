@@ -69,6 +69,9 @@ public class IdentityInfoBiz {
     @Autowired
     private IAttachmentService attachmentService;
 
+    @Autowired
+    private ICompanyInfoService companyInfoService;
+
     /**
      * 新增申请人信息
      *
@@ -83,9 +86,14 @@ public class IdentityInfoBiz {
                                    CompanyInfoModel currUser, Integer attachment_id_card_positive, Integer attachment_id_card_opposite) throws Exception {
 
         Date currDate = new Date();
+        CompanyInfoModel company = companyInfoService.getById(currUser.getId());
         if (identityInfoModel != null) {
             identityInfoModel.setBatchId(batchConfModel.getId());
             identityInfoModel.setCompanyId(currUser.getId());
+            /*
+            2019年12月25日，将注册时的申请人预约地点，复制给申请人
+             */
+            identityInfoModel.setAcceptAddressId(Integer.parseInt(company.getOperatorMobile2()));
             //初始化状态信息
             identityInfoModel.setReservationStatus(Constant.reservationStatus_1);//申请预约状态
             identityInfoModel.setHallStatus(Constant.hallStatus_0);//预约大厅状态
@@ -420,35 +428,53 @@ public class IdentityInfoBiz {
                         //缴费满60个月的，自满60个月的下一月起，每年最高积18分，
                         //其中：参加基本养老保险（6分），参加基本医疗保险、失业保险、工伤保险、生育保险（各3分）。
 
+                        /*
+                        2019年12月16日
+                        最新分数打分规则：社会保险
+
+                        “请输入在津单位正常缴纳社会保险月数”
+                        单位正常缴纳基本养老保险    月	a
+                        单位正常缴纳基本医疗保险    月	b
+                        单位正常缴纳失业保险    月	c
+                        单位正常缴纳工伤保险    月	d
+                        单位正常缴纳生育保险    月	e
+                        计算公式：
+                        条件	结果	        条件	结果
+                        a>60	40+10/12*(a-60)	a<=60	8/12*a
+                        b>60	10+3/12*(b-60)	b<=60	2/12*b
+                        c>60	10+3/12*(c-60)	c<=60	2/12*c
+                        d>60	10+3/12*(d-60)	d<=60	2/12*d
+                        e>60	10+3/12*(e-60)	e<=60	2/12*e
+                         */
                         int pensionScore = 0;
-                        if (indicatorView.getPensionMonth() >= 60) {
-                            pensionScore = indicatorView.getPensionMonth() / 2;
+                        if (indicatorView.getPensionMonth() > 60) {
+                            pensionScore = 40 + (indicatorView.getPensionMonth()-60)*10 / 12;
                         } else {
-                            pensionScore = indicatorView.getPensionMonth() / 3;
+                            pensionScore = indicatorView.getPensionMonth()*8 / 12;
                         }
                         int medicalScore = 0;
-                        if (indicatorView.getMedicalMonth() >= 60) {
-                            medicalScore = indicatorView.getMedicalMonth() / 4;
+                        if (indicatorView.getMedicalMonth() > 60) {
+                            medicalScore = 10 + (indicatorView.getMedicalMonth()-60)*3 / 12;
                         } else {
-                            medicalScore = indicatorView.getMedicalMonth() / 6;
+                            medicalScore = (indicatorView.getMedicalMonth()*2) / 12;
                         }
                         int unemploymentScore = 0;
-                        if (indicatorView.getUnemploymentMonth() >= 60) {
-                            unemploymentScore = indicatorView.getUnemploymentMonth() / 4;
+                        if (indicatorView.getUnemploymentMonth() > 60) {
+                            unemploymentScore = 10 + (indicatorView.getUnemploymentMonth()-60)*3 / 12;
                         } else {
-                            unemploymentScore = indicatorView.getUnemploymentMonth() / 6;
+                            unemploymentScore = (indicatorView.getUnemploymentMonth()*2) / 12;
                         }
                         int workInjuryScore = 0;
-                        if (indicatorView.getWorkInjuryMonth() >= 60) {
-                            workInjuryScore = indicatorView.getWorkInjuryMonth() / 4;
+                        if (indicatorView.getWorkInjuryMonth() > 60) {
+                            workInjuryScore = 10 + (indicatorView.getWorkInjuryMonth()-60)*3 / 12;
                         } else {
-                            workInjuryScore = indicatorView.getWorkInjuryMonth() / 6;
+                            workInjuryScore = (indicatorView.getWorkInjuryMonth()*2) / 12;
                         }
                         int fertilityScore = 0;
-                        if (indicatorView.getFertilityMonth() >= 60) {
-                            fertilityScore = indicatorView.getFertilityMonth() / 4;
+                        if (indicatorView.getFertilityMonth() > 60) {
+                            fertilityScore = 10 + (indicatorView.getFertilityMonth()-60)*3 / 12;
                         } else {
-                            fertilityScore = indicatorView.getFertilityMonth() / 6;
+                            fertilityScore = (indicatorView.getFertilityMonth()*2) / 12;
                         }
                         int totalScore =
                                 pensionScore + medicalScore + unemploymentScore + workInjuryScore + fertilityScore;
@@ -466,7 +492,19 @@ public class IdentityInfoBiz {
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
                     } else if (indicatorItemView.getIndexNum() == 5) {
                         //参加住房公积金的每年积2分。
-                        int fundScore = indicatorView.getFundMonth() / 6;
+                        /*
+                        2019年12月16日，开始新的打分规则
+                        3、住房公积金
+                        “请输入在津缴纳住房公积金月数”
+                        条件	结果	        条件	结果
+                        f>60	15+4/12*(f-60)	f<=60	3/12*f
+                         */
+                        int fundScore = 0;
+                        if(indicatorView.getFundMonth()>60){
+                            fundScore = (indicatorView.getFundMonth()-60) / 3;
+                        }else {
+                            fundScore = indicatorView.getFundMonth() / 4;
+                        }
                         indicatorItemView.setScoreValue(new BigDecimal(fundScore));
                         monthMap.put("fundMonth", new Integer[]{indicatorView.getFundMonth(), fundScore});
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));

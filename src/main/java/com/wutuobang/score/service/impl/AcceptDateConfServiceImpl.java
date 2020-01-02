@@ -90,5 +90,9 @@ public class AcceptDateConfServiceImpl implements IAcceptDateConfService{
 
 		return acceptDateConfDao.pmSubtractionOne(id);
 	}
-	
+
+	@Override
+	public AcceptDateConfModel getByBatchidAndAddressidAndAcceptdate(Integer batch_id, Integer address_id, String dateStr) {
+		return acceptDateConfDao.getByBatchidAndAddressidAndAcceptdate(batch_id, address_id, dateStr);
+	}
 }
