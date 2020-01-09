@@ -25,6 +25,10 @@ public class IndicatorView implements Serializable {
 
     private Integer liveYear;//居住年限(年)
 
+    private Integer rentHouseMonth;// 租赁住房月数
+
+    private Integer buyHouseMonth;// 购买住房月数
+
     private List<IndicatorItemView> indicatorItemList;//指标选项信息
 
     public Integer getIdentityInfoId() {
@@ -89,6 +93,22 @@ public class IndicatorView implements Serializable {
 
     public void setLiveYear(Integer liveYear) {
         this.liveYear = liveYear;
+    }
+
+    public Integer getRentHouseMonth() {
+        return rentHouseMonth;
+    }
+
+    public void setRentHouseMonth(Integer rentHouseMonth) {
+        this.rentHouseMonth = rentHouseMonth;
+    }
+
+    public Integer getBuyHouseMonth() {
+        return buyHouseMonth;
+    }
+
+    public void setBuyHouseMonth(Integer buyHouseMonth) {
+        this.buyHouseMonth = buyHouseMonth;
     }
 
     public List<IndicatorItemView> getIndicatorItemList() {

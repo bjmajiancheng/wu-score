@@ -71,6 +71,10 @@
                                     公积金&nbsp;&nbsp;&nbsp;<input type="number" name="fundMonth" min="0" step="1"/>(月)
                                 #elseif(${indicatorModel.indexNum} == 7)
                                     请输入&nbsp;&nbsp;&nbsp;<input type="number" name="liveYear" min="0" step="1"/>(年)
+                                #elseif(${indicatorModel.indexNum} == 23)
+                                    请输入&nbsp;&nbsp;&nbsp;<input type="number" name="rentHouseMonth" min="0" step="1"/>(月)
+                                #elseif(${indicatorModel.indexNum} == 26)
+                                    请输入&nbsp;&nbsp;&nbsp;<input type="number" name="buyHouseMonth" min="0" step="1"/>(月)
                                 #end
                             #end
                         </td>
@@ -162,6 +166,12 @@
             var fertilityMonth = $.trim($("input[name=fertilityMonth]").val());
             var fundMonth = $.trim($("input[name=fundMonth]").val());
             var liveYear = $.trim($("input[name=liveYear]").val());
+            if($("input[name=rentHouseMonth]").length>0){
+                var rentHouseMonth = $.trim($("input[name=rentHouseMonth]").val());
+            }
+            if($("input[name=buyHouseMonth]").length){
+                var buyHouseMonth = $.trim($("input[name=buyHouseMonth]").val());
+            }
 
             var validFlag = true;
             //验证文本信息
@@ -222,6 +232,18 @@
                 layer.msg("请输入居住年限");
                 return false;
             }
+            if($("input[name=rentHouseMonth]").length>0){
+                if(rentHouseMonth == ''){
+                    layer.msg("请输入公积金");
+                    return false;
+                }
+            }
+            if($("input[name=buyHouseMonth]").length){
+                if(buyHouseMonth == ''){
+                    layer.msg("请输入公积金");
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -249,10 +271,19 @@
             var fertilityMonth = $("input[name=fertilityMonth]").val();
             var fundMonth = $("input[name=fundMonth]").val();
             var liveYear = $("input[name=liveYear]").val();
+            // 2020年1月9日，定义传到后台的值，若页面中没有那个input 元素，则传到后台为0；
+            var rentHouseMonth = 0;
+            var buyHouseMonth = 0;
+            if($("input[name=rentHouseMonth]").length>0){
+                rentHouseMonth = $("input[name=rentHouseMonth]").val();
+            }
+            if($("input[name=buyHouseMonth]").length){
+                buyHouseMonth = $("input[name=buyHouseMonth]").val();
+            }
 
 
             var indicatorView = {"identityInfoId":identityInfoId, "pensionMonth":pensionMonth, "medicalMonth":medicalMonth, "unemploymentMonth":unemploymentMonth,"workInjuryMonth":workInjuryMonth,
-                "fertilityMonth":fertilityMonth, "fundMonth":fundMonth, "liveYear":liveYear, "indicatorItemList":indicatorArr};
+                "fertilityMonth":fertilityMonth, "fundMonth":fundMonth, "liveYear":liveYear, "rentHouseMonth":rentHouseMonth, "buyHouseMonth":buyHouseMonth , "indicatorItemList":indicatorArr};
 
             return indicatorView;
         }

@@ -344,8 +344,15 @@ public class IdentityInfoController {
             List<IndicatorModel> finalIndicators = new ArrayList<IndicatorModel>();
             if (CollectionUtils.isNotEmpty(indicatorModels)) {
                 for (IndicatorModel indicatorModel : indicatorModels) {
-                    if (indicatorModel.getIndexNum() != 16) {
-                        finalIndicators.add(indicatorModel);
+                    if (identityInfo.getIs201826Doc() == 0){
+                        if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 24 && indicatorModel.getIndexNum() != 25) {
+                            finalIndicators.add(indicatorModel);
+                        }
+                    }
+                    if (identityInfo.getIs201826Doc() == 1){
+                        if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 26 && indicatorModel.getIndexNum() != 27) {
+                            finalIndicators.add(indicatorModel);
+                        }
                     }
 
                 }

@@ -129,6 +129,19 @@ public class IdentityInfoModel implements Serializable {
     private String companyName;//公司名称
     //自定义属性 END
 
+    /*
+    2020年1月8日，
+     */
+    private Integer is201826Doc;//"公安前置预审状态"
+
+    public Integer getIs201826Doc() {
+        return is201826Doc;
+    }
+
+    public void setIs201826Doc(Integer is201826Doc) {
+        this.is201826Doc = is201826Doc;
+    }
+
     public Integer getId() {
         return id;
     }

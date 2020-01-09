@@ -417,6 +417,21 @@ public class IdentityInfoBiz {
         Map<Integer, IndicatorModel> indicatorModelMap = indicatorService.getAllMapIndicator();
 
         if (CollectionUtils.isNotEmpty(indicatorView.getIndicatorItemList())) {
+
+            /*
+            2020年1月9日，获取“住房区域”
+            区域分值：
+                “和平区/河东区/河西区/南开区/河北区/红桥区”10分；
+                “东丽区/西青区/津南区/北辰区”11分；
+                “武清区/宝坻区/宁河区/静海区/蓟州区”12分；
+                “滨海新区”15分。
+             */
+            int area = 0;
+            for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
+                if(indicatorItemView.getIndexNum() == 27){
+                    area = indicatorItemView.getIndicatorItemId();
+                }
+            }
             //初始化评测信息
             for (IndicatorItemView indicatorItemView : indicatorView.getIndicatorItemList()) {
                 IndicatorModel indicatorModel = indicatorModelMap.get((int) indicatorItemView.getIndicatorId());
@@ -512,6 +527,47 @@ public class IdentityInfoBiz {
                         int liveYearScore = indicatorView.getLiveYear() * 6;
                         indicatorItemView.setScoreValue(new BigDecimal(liveYearScore));
                         monthMap.put("liveYear", new Integer[]{indicatorView.getLiveYear(), liveYearScore});
+                        indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
+                    } else if (indicatorItemView.getIndexNum() == 23) { // 租赁住房月数
+                        /*
+                        2020年1月9日
+                        输入项：租赁住房月数，租赁积分=租赁月份数×6/12
+                         */
+                        int rentHouseMonth = indicatorView.getRentHouseMonth()/2;
+                        indicatorItemView.setScoreValue(new BigDecimal(rentHouseMonth));
+                        monthMap.put("rentHouseMonth", new Integer[]{indicatorView.getRentHouseMonth(), rentHouseMonth});
+                        indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
+                    } else if (indicatorItemView.getIndexNum() == 26) { // 购买住房月数
+                        /*
+                        页面3中：如选择“不按照“津发改社会〔2018〕26号”文件计算”
+                        输入项：购买住房月数，住房积分=有效住房持有月份数×住房所在区域年积分分值/12
+
+                        区域分值：“和平区/河东区/河西区/南开区/河北区/红桥区”10分；
+                                  “东丽区/西青区/津南区/北辰区”11分；
+                                  “武清区/宝坻区/宁河区/静海区/蓟州区”12分；
+                                  “滨海新区”15分。
+                         */
+                        int areaScore = 0;
+                        switch (area){
+                            case 1037:
+                                areaScore = 10;
+                                break;
+                            case 1038:
+                                areaScore = 11;
+                                break;
+                            case 1039:
+                                areaScore = 12;
+                                break;
+                            case 1040:
+                                areaScore = 15;
+                                break;
+                            case 1041:
+                                areaScore = 0;
+                                break;
+                        }
+                        int buyHouseMonth = indicatorView.getBuyHouseMonth()*areaScore/12;
+                        indicatorItemView.setScoreValue(new BigDecimal(buyHouseMonth));
+                        monthMap.put("buyHouseMonth", new Integer[]{indicatorView.getLiveYear(), buyHouseMonth});
                         indicatorItemView.setScoreDetail(JSON.toJSONString(monthMap));
                     } else {
                         List<IndicatorItemModel> indicatorItems = indicatorModel.getIndicatorItems();
