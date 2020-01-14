@@ -76,6 +76,28 @@ public class HouseMoveModel implements Serializable {
 
 	//2019-1-17增加字段End
 
+	/*
+	2020年1月13日 添加字段
+	 */
+	private Integer moveIsProvince;//"缴纳地点（省）"
+	private Integer moveIsCity;//"缴纳地点（省）"
+
+	public Integer getMoveIsProvince() {
+		return moveIsProvince;
+	}
+
+	public void setMoveIsProvince(Integer moveIsProvince) {
+		this.moveIsProvince = moveIsProvince;
+	}
+
+	public Integer getMoveIsCity() {
+		return moveIsCity;
+	}
+
+	public void setMoveIsCity(Integer moveIsCity) {
+		this.moveIsCity = moveIsCity;
+	}
+
 	//columns END
 
 	public void setId(Integer id) {

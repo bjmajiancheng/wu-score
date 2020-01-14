@@ -34,6 +34,15 @@
 		<result property="isApplyRegiste" column="isApplyRegiste"/>
 		<result property="isInsurance" column="isInsurance"/>
 		<result property="isSpouseInsurance" column="isSpouseInsurance"/>
+
+		<result property="penaltyDate" column="penaltyDate"/>
+		<result property="penaltyContent" column="penaltyContent"/>
+		<result property="penaltyResults" column="penaltyResults"/>
+		<result property="socialSecurityType" column="socialSecurityType"/>
+		<result property="dispatch" column="dispatch"/>
+		<result property="industry" column="industry"/>
+		<result property="jobDate" column="jobDate"/>
+
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -41,7 +50,14 @@
 	    <![CDATA[
         id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content,
 		company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address,
-		isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance
+		isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance,
+		penaltyDate,
+		penaltyContent,
+		penaltyResults,
+		socialSecurityType,
+		dispatch,
+		industry,
+		jobDate
 	    ]]>
 	</sql>
 	
@@ -74,7 +90,14 @@
 	        awards_title  ,
 	        c_time  ,
 	        apply_office_address,
-	        isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance
+	        isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance,
+	        penaltyDate,
+			penaltyContent,
+			penaltyResults,
+			socialSecurityType,
+			dispatch,
+			industry,
+			jobDate
         ) VALUES (
         	${id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -102,7 +125,15 @@
         	#{isAnotherInsurance, jdbcType=INTEGER} ,
         	#{isApplyRegiste, jdbcType=INTEGER} ,
         	#{isInsurance, jdbcType=INTEGER} ,
-        	#{isSpouseInsurance, jdbcType=INTEGER}
+        	#{isSpouseInsurance, jdbcType=INTEGER},
+
+        	#{penaltyDate, jdbcType=TIMESTAMP} ,
+        	#{penaltyContent, jdbcType=VARCHAR} ,
+        	#{penaltyResults, jdbcType=VARCHAR} ,
+        	#{socialSecurityType, jdbcType=VARCHAR} ,
+        	#{dispatch, jdbcType=INTEGER} ,
+        	#{industry, jdbcType=VARCHAR} ,
+        	#{jobDate, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
@@ -135,6 +166,15 @@
 			<if test="isApplyRegiste != null">isApplyRegiste = #{isApplyRegiste, jdbcType=INTEGER} ,</if>
 			<if test="isInsurance != null">isInsurance = #{isInsurance, jdbcType=INTEGER} ,</if>
 			<if test="isSpouseInsurance != null">isSpouseInsurance = #{isSpouseInsurance, jdbcType=INTEGER} ,</if>
+
+			<if test="penaltyDate != null">penaltyDate = #{penaltyDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="penaltyContent != null">penaltyContent = #{penaltyContent, jdbcType=VARCHAR} ,</if>
+			<if test="penaltyResults != null">penaltyResults = #{penaltyResults, jdbcType=VARCHAR} ,</if>
+			<if test="socialSecurityType != null">socialSecurityType = #{socialSecurityType, jdbcType=VARCHAR} ,</if>
+			<if test="dispatch != null">dispatch = #{dispatch, jdbcType=INTEGER} ,</if>
+			<if test="industry != null">industry = #{industry, jdbcType=VARCHAR} ,</if>
+			<if test="jobDate != null">jobDate = #{jobDate, jdbcType=TIMESTAMP} ,</if>
+
 			id = #{id}
         WHERE 
 	        id = #{id} 

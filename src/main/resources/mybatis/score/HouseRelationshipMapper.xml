@@ -33,6 +33,8 @@
 		<result property="approval_custody" column="approval_custody"/>
 		<result property="marriageStatus" column="marriageStatus"/>
 		<result property="isNaturalChild" column="isNaturalChild"/>
+		<result property="isChinese" column="isChinese"/>
+		<result property="inTianjin" column="inTianjin"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -64,7 +66,9 @@
         approval_which,
         approval_custody,
         marriageStatus,
-		isNaturalChild
+		isNaturalChild,
+		isChinese,
+		inTianjin
         ]]>
 	</sql>
 
@@ -100,7 +104,9 @@
 			approval_which,
 			approval_custody,
             marriageStatus,
-            isNaturalChild
+            isNaturalChild,
+            isChinese,
+			inTianjin
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -129,6 +135,8 @@
             #{approval_custody, jdbcType=VARCHAR},
             #{marriageStatus, jdbcType=INTEGER},
             #{isNaturalChild, jdbcType=INTEGER}
+            #{isChinese, jdbcType=INTEGER}
+            #{inTianjin, jdbcType=INTEGER}
         )
     ]]>
 	</insert>
@@ -161,6 +169,8 @@
 		<if test="approval_custody != null">approval_custody = #{approval_custody, jdbcType=VARCHAR} ,</if>
 		<if test="marriageStatus != null">marriageStatus = #{marriageStatus, jdbcType=INTEGER} ,</if>
 		<if test="isNaturalChild != null">isNaturalChild = #{isNaturalChild, jdbcType=INTEGER} ,</if>
+		<if test="isChinese != null">isChinese = #{isChinese, jdbcType=INTEGER} ,</if>
+		<if test="inTianjin != null">inTianjin = #{inTianjin, jdbcType=INTEGER} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

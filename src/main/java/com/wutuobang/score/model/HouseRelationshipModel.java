@@ -90,6 +90,9 @@ public class HouseRelationshipModel implements Serializable {
 
 	private Integer marriageStatus;  //配偶婚姻状况 0.请选择 7.初婚 8.复婚 9.再婚
 
+	private Integer isChinese;  //是否为中国国籍
+	private Integer inTianjin;  //配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月
+
 	public Integer getMarriageStatus() {
 		return marriageStatus;
 	}

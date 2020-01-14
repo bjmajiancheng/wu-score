@@ -48,8 +48,91 @@ public class HouseProfessionModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 
+	private String awardsName;//"奖项名称"
+	private String awardsOffical;//"授奖机关"
+	private Date awardsDate;//"获奖日期"
+	private String graduateSchool;//"毕业院校"
+	private String professional;//"专    业"
+	private String office;//"发证机关"
+	private Date officeDate;//"发证日期"
+	private String jobTypeName;//"取得相对应的高级技能证书工种名称"
+	private Date jobTypeDate;//"取得相对应的高级技能证书发证日期"
+
 	//columns END
-		
+
+
+	public String getAwardsName() {
+		return awardsName;
+	}
+
+	public void setAwardsName(String awardsName) {
+		this.awardsName = awardsName;
+	}
+
+	public String getAwardsOffical() {
+		return awardsOffical;
+	}
+
+	public void setAwardsOffical(String awardsOffical) {
+		this.awardsOffical = awardsOffical;
+	}
+
+	public Date getAwardsDate() {
+		return awardsDate;
+	}
+
+	public void setAwardsDate(Date awardsDate) {
+		this.awardsDate = awardsDate;
+	}
+
+	public String getGraduateSchool() {
+		return graduateSchool;
+	}
+
+	public void setGraduateSchool(String graduateSchool) {
+		this.graduateSchool = graduateSchool;
+	}
+
+	public String getProfessional() {
+		return professional;
+	}
+
+	public void setProfessional(String professional) {
+		this.professional = professional;
+	}
+
+	public String getOffice() {
+		return office;
+	}
+
+	public void setOffice(String office) {
+		this.office = office;
+	}
+
+	public Date getOfficeDate() {
+		return officeDate;
+	}
+
+	public void setOfficeDate(Date officeDate) {
+		this.officeDate = officeDate;
+	}
+
+	public String getJobTypeName() {
+		return jobTypeName;
+	}
+
+	public void setJobTypeName(String jobTypeName) {
+		this.jobTypeName = jobTypeName;
+	}
+
+	public Date getJobTypeDate() {
+		return jobTypeDate;
+	}
+
+	public void setJobTypeDate(Date jobTypeDate) {
+		this.jobTypeDate = jobTypeDate;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

@@ -44,6 +44,22 @@
 		<result property="reservationTime" column="reservation_time"/>
 		<result property="rejectReason" column="reject_reason"/>
 		<result property="is201826Doc" column="is201826Doc"/>
+
+		<result property="rentHouseAddress" column="rentHouseAddress"/>
+		<result property="rentIdNumber" column="rentIdNumber"/>
+		<result property="rentHouseStartDate" column="rentHouseStartDate"/>
+		<result property="rentHouseEndDate" column="rentHouseEndDate"/>
+		<result property="ourHouse" column="ourHouse"/>
+		<result property="ourBuyHouse" column="ourBuyHouse"/>
+		<result property="housingArea" column="housingArea"/>
+		<result property="houseAddress" column="houseAddress"/>
+		<result property="houseUse" column="houseUse"/>
+		<result property="rightProperty" column="rightProperty"/>
+		<result property="rightPropertyTr" column="rightPropertyTr"/>
+		<result property="houseOurNumber" column="houseOurNumber"/>
+		<result property="houseProperty" column="houseProperty"/>
+		<result property="housePactDate" column="housePactDate"/>
+		<result property="housePactNumber" column="housePactNumber"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -86,7 +102,22 @@
         reservation_time,
         reject_reason,
         materialStatus,
-		is201826Doc
+		is201826Doc,
+		rentHouseAddress,
+		rentIdNumber,
+		rentHouseStartDate,
+		rentHouseEndDate,
+		ourHouse,
+		ourBuyHouse,
+		housingArea,
+		houseAddress,
+		houseUse,
+		rightProperty,
+		rightPropertyTr,
+		houseOurNumber,
+		houseProperty,
+		housePactDate,
+		housePactNumber
         ]]>
 	</sql>
 
@@ -126,7 +157,22 @@
 	        auto_test_num  ,
 	        reservation_time ,
 	        materialStatus,
-	        is201826Doc
+	        is201826Doc,
+	        rentHouseAddress,
+			rentIdNumber,
+			rentHouseStartDate,
+			rentHouseEndDate,
+			ourHouse,
+			ourBuyHouse,
+			housingArea,
+			houseAddress,
+			houseUse,
+			rightProperty,
+			rightPropertyTr,
+			houseOurNumber,
+			houseProperty,
+			housePactDate,
+			housePactNumber
         ) VALUES (
         	${id} ,
         	#{idNumber, jdbcType=VARCHAR} ,
@@ -158,7 +204,24 @@
         	#{autoTestNum, jdbcType=INTEGER},
         	#{reservationTime, jdbcType=INTEGER} ,
         	#{materialStatus, jdbcType=INTEGER},
-        	#{is201826Doc, jdbcType=INTEGER}
+        	#{is201826Doc, jdbcType=INTEGER},
+
+        	#{rentHouseAddress, jdbcType=VARCHAR} ,
+        	#{rentIdNumber, jdbcType=VARCHAR} ,
+        	#{rentHouseStartDate, jdbcType=VARCHAR} ,
+        	#{rentHouseEndDate, jdbcType=VARCHAR} ,
+        	#{ourHouse, jdbcType=VARCHAR} ,
+        	#{ourBuyHouse, jdbcType=VARCHAR} ,
+        	#{housingArea, jdbcType=VARCHAR} ,
+        	#{houseAddress, jdbcType=VARCHAR} ,
+        	#{houseUse, jdbcType=VARCHAR} ,
+        	#{rightProperty, jdbcType=VARCHAR} ,
+
+        	#{rightPropertyTr, jdbcType=TIMESTAMP} ,
+        	#{houseOurNumber, jdbcType=VARCHAR} ,
+        	#{houseProperty, jdbcType=VARCHAR} ,
+        	#{housePactDate, jdbcType=TIMESTAMP} ,
+        	#{housePactNumber, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
@@ -205,6 +268,23 @@
 		<if test="unionApprove2Et != null">union_approve_2_et = #{unionApprove2Et, jdbcType=DATE},</if>
 		<if test="materialStatus != null">materialStatus = #{materialStatus, jdbcType=INTEGER} ,</if>
 		<if test="is201826Doc != null">is201826Doc = #{is201826Doc, jdbcType=INTEGER} ,</if>
+
+		<if test="rentHouseAddress != null">rentHouseAddress = #{rentHouseAddress, jdbcType=VARCHAR} ,</if>
+		<if test="rentIdNumber != null">rentIdNumber = #{rentIdNumber, jdbcType=VARCHAR} ,</if>
+		<if test="rentHouseStartDate != null">rentHouseStartDate = #{rentHouseStartDate, jdbcType=VARCHAR} ,</if>
+		<if test="rentHouseEndDate != null">rentHouseEndDate = #{rentHouseEndDate, jdbcType=VARCHAR} ,</if>
+		<if test="ourHouse != null">ourHouse = #{ourHouse, jdbcType=VARCHAR} ,</if>
+		<if test="ourBuyHouse != null">ourBuyHouse = #{ourBuyHouse, jdbcType=VARCHAR} ,</if>
+		<if test="housingArea != null">housingArea = #{housingArea, jdbcType=VARCHAR} ,</if>
+		<if test="houseAddress != null">houseAddress = #{houseAddress, jdbcType=VARCHAR} ,</if>
+		<if test="houseUse != null">houseUse = #{houseUse, jdbcType=VARCHAR} ,</if>
+		<if test="rightProperty != null">rightProperty = #{rightProperty, jdbcType=VARCHAR} ,</if>
+		<if test="rightPropertyTr != null">rightPropertyTr = #{rightPropertyTr, jdbcType=TIMESTAMP} ,</if>
+		<if test="houseOurNumber != null">houseOurNumber = #{houseOurNumber, jdbcType=VARCHAR} ,</if>
+		<if test="houseProperty != null">houseProperty = #{houseProperty, jdbcType=VARCHAR} ,</if>
+		<if test="housePactDate != null">housePactDate = #{housePactDate, jdbcType=TIMESTAMP} ,</if>
+		<if test="housePactNumber != null">housePactNumber = #{housePactNumber, jdbcType=VARCHAR} ,</if>
+
 		id = #{id}
 		WHERE
 		id = #{id}

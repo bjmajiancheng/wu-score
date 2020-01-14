@@ -27,12 +27,16 @@
 		<result property="sonNumber" column="son_number"/>
 		<result property="ctime" column="c_time"/>
 		<result property="moveNowAddress" column="moveNowAddress"/>
+		<result property="moveIsProvince" column="moveIsProvince"/>
+		<result property="moveIsCity" column="moveIsCity"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 		<![CDATA[
-        id ,identity_info_id ,move_province ,move_city ,move_region ,move_address ,move_registered_office ,house_nature ,settled_nature ,registered_office ,registered_region, address ,witness ,witness_phone ,witness_address ,region ,marriage_status ,have_son ,son_number ,c_time,moveNowAddress
+        id ,identity_info_id ,move_province ,move_city ,move_region ,move_address ,move_registered_office ,house_nature ,settled_nature ,registered_office ,registered_region,
+		address ,witness ,witness_phone ,witness_address ,region ,marriage_status ,have_son ,son_number ,c_time,moveNowAddress,
+		moveIsProvince,moveIsCity
 	    ]]>
 	</sql>
 
@@ -62,7 +66,8 @@
 	        have_son  ,
 	        son_number  ,
 	        c_time  ,
-			moveNowAddress
+			moveNowAddress,
+			moveIsProvince,moveIsCity
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -84,7 +89,9 @@
         	#{haveSon, jdbcType=INTEGER} ,
         	#{sonNumber, jdbcType=INTEGER} ,
         	#{ctime, jdbcType=TIMESTAMP} ,
-            #{moveNowAddress, jdbcType=VARCHAR}
+            #{moveNowAddress, jdbcType=VARCHAR},
+            #{moveIsProvince, jdbcType=INTEGER} ,
+            #{moveIsCity, jdbcType=INTEGER}
         )
     ]]>
 	</insert>
@@ -111,6 +118,8 @@
 		<if test="sonNumber != null">son_number = #{sonNumber, jdbcType=INTEGER} ,</if>
 		<if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
 		<if test="moveNowAddress != null">moveNowAddress = #{moveNowAddress, jdbcType=VARCHAR} ,</if>
+		<if test="moveIsProvince != null">moveIsProvince = #{moveIsProvince, jdbcType=INTEGER} ,</if>
+		<if test="moveIsCity != null">moveIsCity = #{moveIsCity, jdbcType=INTEGER} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

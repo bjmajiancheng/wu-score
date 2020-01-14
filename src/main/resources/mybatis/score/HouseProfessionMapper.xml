@@ -19,12 +19,32 @@
 		<result property="jobName" column="job_name"/>
         <result property="jobType" column="job_type"/>
         <result property="ctime" column="c_time"/>
+
+		<result property="awardsName" column="awardsName"/>
+		<result property="awardsOffical" column="awardsOffical"/>
+		<result property="awardsDate" column="awardsDate"/>
+		<result property="graduateSchool" column="graduateSchool"/>
+		<result property="professional" column="professional"/>
+
+		<result property="office" column="office"/>
+		<result property="officeDate" column="officeDate"/>
+		<result property="jobTypeName" column="jobTypeName"/>
+		<result property="jobTypeDate" column="jobTypeDate"/>
     </resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-        id ,identity_info_id ,profession_type ,profession_title ,job_title_level ,job_position ,issuing_authority ,issuing_date ,certificate_code ,job_level , job_name,job_type ,c_time
+        id ,identity_info_id ,profession_type ,profession_title ,job_title_level ,job_position ,issuing_authority ,issuing_date ,certificate_code ,job_level , job_name,job_type ,c_time,
+		awardsName,
+		awardsOffical,
+		awardsDate,
+		graduateSchool,
+		professional,
+		office,
+		officeDate,
+		jobTypeName,
+		jobTypeDate
 	    ]]>
 	</sql>
 	
@@ -46,7 +66,16 @@
 	        job_level  ,
 	        job_name  ,
 	        job_type  ,
-	        c_time  
+	        c_time  ,
+	        awardsName,
+			awardsOffical,
+			awardsDate,
+			graduateSchool,
+			professional,
+			office,
+			officeDate,
+			jobTypeName,
+			jobTypeDate
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -60,7 +89,17 @@
         	#{jobLevel, jdbcType=INTEGER} ,
         	#{jobName, jdbcType=INTEGER} ,
         	#{jobType, jdbcType=INTEGER} ,
-        	#{ctime, jdbcType=TIMESTAMP} 
+        	#{ctime, jdbcType=TIMESTAMP},
+
+        	 #{awardsName, jdbcType=VARCHAR} ,
+        	 #{awardsOffical, jdbcType=VARCHAR} ,
+        	 #{awardsDate, jdbcType=TIMESTAMP} ,
+        	 #{graduateSchool, jdbcType=VARCHAR} ,
+        	 #{professional, jdbcType=VARCHAR} ,
+        	 #{office, jdbcType=VARCHAR} ,
+        	 #{officeDate, jdbcType=TIMESTAMP} ,
+        	 #{jobTypeName, jdbcType=VARCHAR} ,
+        	 #{jobTypeDate, jdbcType=TIMESTAMP}
         )
     ]]>
     </insert>
@@ -79,6 +118,16 @@
 			<if test="jobName != null">job_name = #{jobName, jdbcType=INTEGER} ,</if>
 	        <if test="jobType != null">job_type = #{jobType, jdbcType=INTEGER} ,</if>
 	        <if test="ctime != null">c_time = #{ctime, jdbcType=TIMESTAMP} ,</if>
+
+			<if test="awardsName != null">awardsName = #{awardsName, jdbcType=VARCHAR} ,</if>
+			<if test="awardsOffical != null">awardsOffical = #{awardsOffical, jdbcType=VARCHAR} ,</if>
+			<if test="awardsDate != null">awardsDate = #{awardsDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="graduateSchool != null">graduateSchool = #{graduateSchool, jdbcType=VARCHAR} ,</if>
+			<if test="professional != null">professional = #{professional, jdbcType=VARCHAR} ,</if>
+			<if test="office != null">office = #{office, jdbcType=VARCHAR} ,</if>
+			<if test="officeDate != null">officeDate = #{officeDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="jobTypeName != null">jobTypeName = #{jobTypeName, jdbcType=VARCHAR} ,</if>
+			<if test="jobTypeDate != null">jobTypeDate = #{jobTypeDate, jdbcType=TIMESTAMP} ,</if>
 			id = #{id}
         WHERE 
 	        id = #{id} 

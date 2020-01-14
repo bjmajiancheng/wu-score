@@ -344,12 +344,28 @@ public class IdentityInfoController {
             List<IndicatorModel> finalIndicators = new ArrayList<IndicatorModel>();
             if (CollectionUtils.isNotEmpty(indicatorModels)) {
                 for (IndicatorModel indicatorModel : indicatorModels) {
-                    if (identityInfo.getIs201826Doc() == 0){
+                    /*
+                    输入项：租赁住房月数，租赁积分=租赁月份数×6/12
+
+                    页面3中：如选择“按照“津发改社会〔2018〕26号”文件计算”
+                    显示“在天津市有本人产权住房或者与配偶、父母、子女共有产权住房（40分）。”积分40分。24
+                    住房所在区“武清区/宝坻区/宁河区/静海区/蓟州区”15分，“滨海新区”20分。              25
+
+                    页面3中：如选择“不按照“津发改社会〔2018〕26号”文件计算”
+                    输入项：购买住房月数，住房积分=有效住房持有月份数×住房所在区域年积分分值/12
+                    区域分值：“和平区/河东区/河西区/南开区/河北区/红桥区”10分；“东丽区/西青区/津南区/北辰区”11分；“武清区/宝坻区/宁河区/静海区/蓟州区”12分；“滨海新区”15分。
+                     */
+                    if (identityInfo.getIs201826Doc()==null){
+                        if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 24 && indicatorModel.getIndexNum() != 25 && indicatorModel.getIndexNum() != 26 && indicatorModel.getIndexNum() != 27) {
+                            finalIndicators.add(indicatorModel);
+                        }
+                    }
+                    if (identityInfo.getIs201826Doc()!=null && identityInfo.getIs201826Doc() == 0){
                         if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 24 && indicatorModel.getIndexNum() != 25) {
                             finalIndicators.add(indicatorModel);
                         }
                     }
-                    if (identityInfo.getIs201826Doc() == 1){
+                    if (identityInfo.getIs201826Doc()!=null && identityInfo.getIs201826Doc() == 1){
                         if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 26 && indicatorModel.getIndexNum() != 27) {
                             finalIndicators.add(indicatorModel);
                         }

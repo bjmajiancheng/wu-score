@@ -79,8 +79,74 @@ public class HouseOtherModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 
+	private Date penaltyDate;//"犯罪日期"
+	private String penaltyContent;//"犯罪内容"
+	private String penaltyResults;//"处罚结果"
+	private String socialSecurityType;//"缴纳类型"
+
+	// 人社相关信息
+	private Integer dispatch;//"是否为派遣制用工"
+	private String industry;//"实际用工单位所属行业"
+	private String jobDate;//"自??年??月在此岗位工作"
+
 	//columns END
-		
+
+	public Date getPenaltyDate() {
+		return penaltyDate;
+	}
+
+	public void setPenaltyDate(Date penaltyDate) {
+		this.penaltyDate = penaltyDate;
+	}
+
+	public String getPenaltyContent() {
+		return penaltyContent;
+	}
+
+	public void setPenaltyContent(String penaltyContent) {
+		this.penaltyContent = penaltyContent;
+	}
+
+	public String getPenaltyResults() {
+		return penaltyResults;
+	}
+
+	public void setPenaltyResults(String penaltyResults) {
+		this.penaltyResults = penaltyResults;
+	}
+
+	public String getSocialSecurityType() {
+		return socialSecurityType;
+	}
+
+	public void setSocialSecurityType(String socialSecurityType) {
+		this.socialSecurityType = socialSecurityType;
+	}
+
+	public Integer getDispatch() {
+		return dispatch;
+	}
+
+	public void setDispatch(Integer dispatch) {
+		this.dispatch = dispatch;
+	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public String getJobDate() {
+		return jobDate;
+	}
+
+	public void setJobDate(String jobDate) {
+		this.jobDate = jobDate;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -88,7 +154,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-		
+
 	public void setIdentityInfoId(Integer identityInfoId) {
 		this.identityInfoId = identityInfoId;
 	}
@@ -96,7 +162,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getIdentityInfoId() {
 		return this.identityInfoId;
 	}
-		
+
 	public void setApplicantType(Integer applicantType) {
 		this.applicantType = applicantType;
 	}
@@ -104,7 +170,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getApplicantType() {
 		return this.applicantType;
 	}
-		
+
 	public void setPoliticalStatus(Integer politicalStatus) {
 		this.politicalStatus = politicalStatus;
 	}
@@ -112,7 +178,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getPoliticalStatus() {
 		return this.politicalStatus;
 	}
-		
+
 	public void setSoldierMeritorious(Integer soldierMeritorious) {
 		this.soldierMeritorious = soldierMeritorious;
 	}
@@ -120,7 +186,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getSoldierMeritorious() {
 		return this.soldierMeritorious;
 	}
-		
+
 	public void setCultureDegree(Integer cultureDegree) {
 		this.cultureDegree = cultureDegree;
 	}
@@ -128,7 +194,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getCultureDegree() {
 		return this.cultureDegree;
 	}
-		
+
 	public void setDegree(Integer degree) {
 		this.degree = degree;
 	}
@@ -136,7 +202,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getDegree() {
 		return this.degree;
 	}
-		
+
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
@@ -144,7 +210,7 @@ public class HouseOtherModel implements Serializable {
 	public String getProfession() {
 		return this.profession;
 	}
-		
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
@@ -152,7 +218,7 @@ public class HouseOtherModel implements Serializable {
 	public String getCompanyName() {
 		return this.companyName;
 	}
-		
+
 	public void setCompanyAddress(String companyAddress) {
 		this.companyAddress = companyAddress;
 	}
@@ -184,7 +250,7 @@ public class HouseOtherModel implements Serializable {
 	public String getCompanyPhone() {
 		return this.companyPhone;
 	}
-		
+
 	public void setSelfPhone(String selfPhone) {
 		this.selfPhone = selfPhone;
 	}
@@ -192,7 +258,7 @@ public class HouseOtherModel implements Serializable {
 	public String getSelfPhone() {
 		return this.selfPhone;
 	}
-		
+
 	public void setApplicationDate(String applicationDate) {
 		this.applicationDate = applicationDate;
 	}
@@ -200,7 +266,7 @@ public class HouseOtherModel implements Serializable {
 	public String getApplicationDate() {
 		return this.applicationDate;
 	}
-		
+
 	public void setSocialSecurityPay(Integer socialSecurityPay) {
 		this.socialSecurityPay = socialSecurityPay;
 	}
@@ -208,7 +274,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getSocialSecurityPay() {
 		return this.socialSecurityPay;
 	}
-		
+
 	public void setProvidentFund(Integer providentFund) {
 		this.providentFund = providentFund;
 	}
@@ -216,7 +282,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getProvidentFund() {
 		return this.providentFund;
 	}
-		
+
 	public void setTaxes(Integer taxes) {
 		this.taxes = taxes;
 	}
@@ -224,7 +290,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getTaxes() {
 		return this.taxes;
 	}
-		
+
 	public void setDetention(Integer detention) {
 		this.detention = detention;
 	}
@@ -232,7 +298,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getDetention() {
 		return this.detention;
 	}
-		
+
 	public void setPenalty(Integer penalty) {
 		this.penalty = penalty;
 	}
@@ -240,7 +306,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getPenalty() {
 		return this.penalty;
 	}
-		
+
 	public void setAwardsTitle(Integer awardsTitle) {
 		this.awardsTitle = awardsTitle;
 	}
@@ -248,7 +314,7 @@ public class HouseOtherModel implements Serializable {
 	public Integer getAwardsTitle() {
 		return this.awardsTitle;
 	}
-		
+
 	public void setCtime(Date ctime) {
 		this.ctime = ctime;
 	}
