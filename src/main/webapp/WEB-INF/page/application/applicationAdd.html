@@ -2988,8 +2988,8 @@
         identityInfo.housePactDate = $("#housePactDate").val();
         identityInfo.housePactNumber = $("#housePactNumber").val();
         identityInfo.thirdPregnantPromise = $("#thirdPregnantPromise").val();
-        identityInfo.id_card_positive = $("#attachment_id_card_positive").val();
-        identityInfo.id_card_opposite = $("#attachment_id_card_opposite").val();
+        identityInfo.id_card_positive = $("input[name='id_card_positive']").val();
+        identityInfo.id_card_opposite = $("input[name='id_card_opposite']").val();
 
         // 与表t _house_move 对应 户籍迁移信息
         var houseMoveInfo = {};
