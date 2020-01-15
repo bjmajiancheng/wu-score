@@ -82,6 +82,11 @@ public class HouseMoveModel implements Serializable {
 	private Integer moveIsProvince;//"缴纳地点（省）"
 	private Integer moveIsCity;//"缴纳地点（省）"
 
+	private String  rentHouseAddress; // 租赁房屋地址
+	private String  rentIdNumber; // 租赁登记备案证明编号
+	private String  rentHouseStartDate; // 租赁备案起始日
+	private String  rentHouseEndDate; // 租赁合同终止日
+
 	public Integer getMoveIsProvince() {
 		return moveIsProvince;
 	}
@@ -99,6 +104,39 @@ public class HouseMoveModel implements Serializable {
 	}
 
 	//columns END
+
+
+	public String getRentHouseAddress() {
+		return rentHouseAddress;
+	}
+
+	public void setRentHouseAddress(String rentHouseAddress) {
+		this.rentHouseAddress = rentHouseAddress;
+	}
+
+	public String getRentIdNumber() {
+		return rentIdNumber;
+	}
+
+	public void setRentIdNumber(String rentIdNumber) {
+		this.rentIdNumber = rentIdNumber;
+	}
+
+	public String getRentHouseStartDate() {
+		return rentHouseStartDate;
+	}
+
+	public void setRentHouseStartDate(String rentHouseStartDate) {
+		this.rentHouseStartDate = rentHouseStartDate;
+	}
+
+	public String getRentHouseEndDate() {
+		return rentHouseEndDate;
+	}
+
+	public void setRentHouseEndDate(String rentHouseEndDate) {
+		this.rentHouseEndDate = rentHouseEndDate;
+	}
 
 	public void setId(Integer id) {
 		this.id = id;

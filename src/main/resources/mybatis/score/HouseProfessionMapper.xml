@@ -93,13 +93,13 @@
 
         	 #{awardsName, jdbcType=VARCHAR} ,
         	 #{awardsOffical, jdbcType=VARCHAR} ,
-        	 #{awardsDate, jdbcType=TIMESTAMP} ,
+        	 #{awardsDate, jdbcType=VARCHAR} ,
         	 #{graduateSchool, jdbcType=VARCHAR} ,
         	 #{professional, jdbcType=VARCHAR} ,
         	 #{office, jdbcType=VARCHAR} ,
-        	 #{officeDate, jdbcType=TIMESTAMP} ,
+        	 #{officeDate, jdbcType=VARCHAR} ,
         	 #{jobTypeName, jdbcType=VARCHAR} ,
-        	 #{jobTypeDate, jdbcType=TIMESTAMP}
+        	 #{jobTypeDate, jdbcType=VARCHAR}
         )
     ]]>
     </insert>
@@ -121,13 +121,13 @@
 
 			<if test="awardsName != null">awardsName = #{awardsName, jdbcType=VARCHAR} ,</if>
 			<if test="awardsOffical != null">awardsOffical = #{awardsOffical, jdbcType=VARCHAR} ,</if>
-			<if test="awardsDate != null">awardsDate = #{awardsDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="awardsDate != null">awardsDate = #{awardsDate, jdbcType=VARCHAR} ,</if>
 			<if test="graduateSchool != null">graduateSchool = #{graduateSchool, jdbcType=VARCHAR} ,</if>
 			<if test="professional != null">professional = #{professional, jdbcType=VARCHAR} ,</if>
 			<if test="office != null">office = #{office, jdbcType=VARCHAR} ,</if>
-			<if test="officeDate != null">officeDate = #{officeDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="officeDate != null">officeDate = #{officeDate, jdbcType=VARCHAR} ,</if>
 			<if test="jobTypeName != null">jobTypeName = #{jobTypeName, jdbcType=VARCHAR} ,</if>
-			<if test="jobTypeDate != null">jobTypeDate = #{jobTypeDate, jdbcType=TIMESTAMP} ,</if>
+			<if test="jobTypeDate != null">jobTypeDate = #{jobTypeDate, jdbcType=VARCHAR} ,</if>
 			id = #{id}
         WHERE 
 	        id = #{id} 

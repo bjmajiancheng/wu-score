@@ -50,13 +50,13 @@ public class HouseProfessionModel implements Serializable {
 
 	private String awardsName;//"奖项名称"
 	private String awardsOffical;//"授奖机关"
-	private Date awardsDate;//"获奖日期"
+	private String awardsDate;//"获奖日期"
 	private String graduateSchool;//"毕业院校"
 	private String professional;//"专    业"
 	private String office;//"发证机关"
-	private Date officeDate;//"发证日期"
+	private String officeDate;//"发证日期"
 	private String jobTypeName;//"取得相对应的高级技能证书工种名称"
-	private Date jobTypeDate;//"取得相对应的高级技能证书发证日期"
+	private String jobTypeDate;//"取得相对应的高级技能证书发证日期"
 
 	//columns END
 
@@ -77,11 +77,11 @@ public class HouseProfessionModel implements Serializable {
 		this.awardsOffical = awardsOffical;
 	}
 
-	public Date getAwardsDate() {
+	public String getAwardsDate() {
 		return awardsDate;
 	}
 
-	public void setAwardsDate(Date awardsDate) {
+	public void setAwardsDate(String awardsDate) {
 		this.awardsDate = awardsDate;
 	}
 
@@ -109,11 +109,11 @@ public class HouseProfessionModel implements Serializable {
 		this.office = office;
 	}
 
-	public Date getOfficeDate() {
+	public String getOfficeDate() {
 		return officeDate;
 	}
 
-	public void setOfficeDate(Date officeDate) {
+	public void setOfficeDate(String officeDate) {
 		this.officeDate = officeDate;
 	}
 
@@ -125,11 +125,11 @@ public class HouseProfessionModel implements Serializable {
 		this.jobTypeName = jobTypeName;
 	}
 
-	public Date getJobTypeDate() {
+	public String getJobTypeDate() {
 		return jobTypeDate;
 	}
 
-	public void setJobTypeDate(Date jobTypeDate) {
+	public void setJobTypeDate(String jobTypeDate) {
 		this.jobTypeDate = jobTypeDate;
 	}
 

@@ -147,10 +147,10 @@ public class IdentityInfoModel implements Serializable {
     private String houseUse; // 房屋设计用途
     private String rightProperty; // 持有
 
-    private Date   rightPropertyTr; // 不动产权证取得日期
+    private String   houseOurDate; // 不动产权证取得日期
     private String houseOurNumber; // 不动产权登记号
     private String houseProperty; // 房屋产权情况
-    private Date   housePactDate; // 购房合同签署日期
+    private String   housePactDate; // 购房合同签署日期
     private String housePactNumber; // 购房合同编号
 
 
@@ -242,12 +242,12 @@ public class IdentityInfoModel implements Serializable {
         this.rightProperty = rightProperty;
     }
 
-    public Date getRightPropertyTr() {
-        return rightPropertyTr;
+    public String getHouseOurDate() {
+        return houseOurDate;
     }
 
-    public void setRightPropertyTr(Date rightPropertyTr) {
-        this.rightPropertyTr = rightPropertyTr;
+    public void setHouseOurDate(String houseOurDate) {
+        this.houseOurDate = houseOurDate;
     }
 
     public String getHouseOurNumber() {
@@ -266,11 +266,11 @@ public class IdentityInfoModel implements Serializable {
         this.houseProperty = houseProperty;
     }
 
-    public Date getHousePactDate() {
+    public String getHousePactDate() {
         return housePactDate;
     }
 
-    public void setHousePactDate(Date housePactDate) {
+    public void setHousePactDate(String housePactDate) {
         this.housePactDate = housePactDate;
     }
 

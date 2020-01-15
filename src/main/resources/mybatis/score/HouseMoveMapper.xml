@@ -29,6 +29,10 @@
 		<result property="moveNowAddress" column="moveNowAddress"/>
 		<result property="moveIsProvince" column="moveIsProvince"/>
 		<result property="moveIsCity" column="moveIsCity"/>
+		<result property="rentHouseAddress" column="rentHouseAddress"/>
+		<result property="rentIdNumber" column="rentIdNumber"/>
+		<result property="rentHouseStartDate" column="rentHouseStartDate"/>
+		<result property="rentHouseEndDate" column="rentHouseEndDate"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -36,7 +40,11 @@
 		<![CDATA[
         id ,identity_info_id ,move_province ,move_city ,move_region ,move_address ,move_registered_office ,house_nature ,settled_nature ,registered_office ,registered_region,
 		address ,witness ,witness_phone ,witness_address ,region ,marriage_status ,have_son ,son_number ,c_time,moveNowAddress,
-		moveIsProvince,moveIsCity
+		moveIsProvince,moveIsCity,
+		rentHouseAddress,
+		rentIdNumber,
+		rentHouseStartDate,
+		rentHouseEndDate
 	    ]]>
 	</sql>
 
@@ -67,7 +75,11 @@
 	        son_number  ,
 	        c_time  ,
 			moveNowAddress,
-			moveIsProvince,moveIsCity
+			moveIsProvince,moveIsCity,
+			rentHouseAddress,
+			rentIdNumber,
+			rentHouseStartDate,
+			rentHouseEndDate
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -91,7 +103,11 @@
         	#{ctime, jdbcType=TIMESTAMP} ,
             #{moveNowAddress, jdbcType=VARCHAR},
             #{moveIsProvince, jdbcType=INTEGER} ,
-            #{moveIsCity, jdbcType=INTEGER}
+            #{moveIsCity, jdbcType=INTEGER},
+            #{rentHouseAddress, jdbcType=VARCHAR} ,
+        	#{rentIdNumber, jdbcType=VARCHAR} ,
+        	#{rentHouseStartDate, jdbcType=VARCHAR} ,
+        	#{rentHouseEndDate, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
@@ -120,6 +136,10 @@
 		<if test="moveNowAddress != null">moveNowAddress = #{moveNowAddress, jdbcType=VARCHAR} ,</if>
 		<if test="moveIsProvince != null">moveIsProvince = #{moveIsProvince, jdbcType=INTEGER} ,</if>
 		<if test="moveIsCity != null">moveIsCity = #{moveIsCity, jdbcType=INTEGER} ,</if>
+		<if test="rentHouseAddress != null">rentHouseAddress = #{rentHouseAddress, jdbcType=VARCHAR} ,</if>
+		<if test="rentIdNumber != null">rentIdNumber = #{rentIdNumber, jdbcType=VARCHAR} ,</if>
+		<if test="rentHouseStartDate != null">rentHouseStartDate = #{rentHouseStartDate, jdbcType=VARCHAR} ,</if>
+		<if test="rentHouseEndDate != null">rentHouseEndDate = #{rentHouseEndDate, jdbcType=VARCHAR} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

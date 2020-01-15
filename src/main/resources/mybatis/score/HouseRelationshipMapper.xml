@@ -134,8 +134,8 @@
             #{approval_which, jdbcType=VARCHAR} ,
             #{approval_custody, jdbcType=VARCHAR},
             #{marriageStatus, jdbcType=INTEGER},
-            #{isNaturalChild, jdbcType=INTEGER}
-            #{isChinese, jdbcType=INTEGER}
+            #{isNaturalChild, jdbcType=INTEGER},
+            #{isChinese, jdbcType=INTEGER},
             #{inTianjin, jdbcType=INTEGER}
         )
     ]]>

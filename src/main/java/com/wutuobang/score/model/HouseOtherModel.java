@@ -79,7 +79,7 @@ public class HouseOtherModel implements Serializable {
 
 	private Date ctime;//"创建时间"
 
-	private Date penaltyDate;//"犯罪日期"
+	private String penaltyDate;//"犯罪日期"
 	private String penaltyContent;//"犯罪内容"
 	private String penaltyResults;//"处罚结果"
 	private String socialSecurityType;//"缴纳类型"
@@ -91,11 +91,11 @@ public class HouseOtherModel implements Serializable {
 
 	//columns END
 
-	public Date getPenaltyDate() {
+	public String getPenaltyDate() {
 		return penaltyDate;
 	}
 
-	public void setPenaltyDate(Date penaltyDate) {
+	public void setPenaltyDate(String penaltyDate) {
 		this.penaltyDate = penaltyDate;
 	}
 

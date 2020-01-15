@@ -55,7 +55,7 @@
 		<result property="houseAddress" column="houseAddress"/>
 		<result property="houseUse" column="houseUse"/>
 		<result property="rightProperty" column="rightProperty"/>
-		<result property="rightPropertyTr" column="rightPropertyTr"/>
+		<result property="houseOurDate" column="houseOurDate"/>
 		<result property="houseOurNumber" column="houseOurNumber"/>
 		<result property="houseProperty" column="houseProperty"/>
 		<result property="housePactDate" column="housePactDate"/>
@@ -113,7 +113,7 @@
 		houseAddress,
 		houseUse,
 		rightProperty,
-		rightPropertyTr,
+		houseOurDate,
 		houseOurNumber,
 		houseProperty,
 		housePactDate,
@@ -168,7 +168,7 @@
 			houseAddress,
 			houseUse,
 			rightProperty,
-			rightPropertyTr,
+			houseOurDate,
 			houseOurNumber,
 			houseProperty,
 			housePactDate,
@@ -217,10 +217,10 @@
         	#{houseUse, jdbcType=VARCHAR} ,
         	#{rightProperty, jdbcType=VARCHAR} ,
 
-        	#{rightPropertyTr, jdbcType=TIMESTAMP} ,
+        	#{houseOurDate, jdbcType=VARCHAR} ,
         	#{houseOurNumber, jdbcType=VARCHAR} ,
         	#{houseProperty, jdbcType=VARCHAR} ,
-        	#{housePactDate, jdbcType=TIMESTAMP} ,
+        	#{housePactDate, jdbcType=VARCHAR} ,
         	#{housePactNumber, jdbcType=VARCHAR}
         )
     ]]>
@@ -279,10 +279,10 @@
 		<if test="houseAddress != null">houseAddress = #{houseAddress, jdbcType=VARCHAR} ,</if>
 		<if test="houseUse != null">houseUse = #{houseUse, jdbcType=VARCHAR} ,</if>
 		<if test="rightProperty != null">rightProperty = #{rightProperty, jdbcType=VARCHAR} ,</if>
-		<if test="rightPropertyTr != null">rightPropertyTr = #{rightPropertyTr, jdbcType=TIMESTAMP} ,</if>
+		<if test="houseOurDate != null">houseOurDate = #{houseOurDate, jdbcType=VARCHAR} ,</if>
 		<if test="houseOurNumber != null">houseOurNumber = #{houseOurNumber, jdbcType=VARCHAR} ,</if>
 		<if test="houseProperty != null">houseProperty = #{houseProperty, jdbcType=VARCHAR} ,</if>
-		<if test="housePactDate != null">housePactDate = #{housePactDate, jdbcType=TIMESTAMP} ,</if>
+		<if test="housePactDate != null">housePactDate = #{housePactDate, jdbcType=VARCHAR} ,</if>
 		<if test="housePactNumber != null">housePactNumber = #{housePactNumber, jdbcType=VARCHAR} ,</if>
 
 		id = #{id}
