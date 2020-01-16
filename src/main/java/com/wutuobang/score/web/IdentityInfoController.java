@@ -547,12 +547,43 @@ public class IdentityInfoController {
 
             mv.addObject("identityInfo", identityInfo);
             mv.addObject("houseMoveModel", identityInfo.getHouseMoveModel());
+            /*
+            2020年1月16日
+            “增加租赁备案信息”
+            若申请人点击了上面的按钮“增加租赁备案信息”，则要回显显示内容
+             */
+            List<HouseMoveModel> houseInformationList = new ArrayList<HouseMoveModel>();
+            if (identityInfo.getHouseMoveModel().getRentHouseAddress() != null){
+                HouseMoveModel houseMoveModel = identityInfo.getHouseMoveModel();
+
+                String strRentIdNumber = houseMoveModel.getRentIdNumber().replace("\"",""); // 租赁登记备案证明编号
+                String strRentHouseAddress = houseMoveModel.getRentHouseAddress().replace("\"",""); // 租赁房屋地址
+                String strRenHouseStartDate = houseMoveModel.getRentHouseStartDate().replace("\"",""); // 租赁备案起始日
+                String strRentHouseEndDate = houseMoveModel.getRentHouseEndDate().replace("\"",""); // 租赁合同终止日
+
+                String[] renIdNumberArr = strRentIdNumber.substring(1,strRentIdNumber.length()-1).split(",");
+                String[] strRentHouseAddressArr = strRentHouseAddress.substring(1,strRentHouseAddress.length()-1).split(",");
+                String[] strRenHouseStartDateArr = strRenHouseStartDate.substring(1,strRenHouseStartDate.length()-1).split(",");
+                String[] strRentHouseEndDateArr = strRentHouseEndDate.substring(1,strRentHouseEndDate.length()-1).split(",");
+
+                for (int i=0; i<renIdNumberArr.length; i++){
+                    HouseMoveModel hv = new HouseMoveModel();
+                    hv.setRentIdNumber(renIdNumberArr[i]);
+                    hv.setRentHouseAddress(strRentHouseAddressArr[i]);
+                    hv.setRentHouseStartDate(strRenHouseStartDateArr[i]);
+                    hv.setRentHouseEndDate(strRentHouseEndDateArr[i]);
+
+                    houseInformationList.add(hv);
+                }
+
+            }
             List<HouseRelationshipModel> houseRelationshipList = identityInfo.getHouseRelationshipModelList();
             for (HouseRelationshipModel houseRelationshipModel : houseRelationshipList) {
                 if ("配偶".equals(houseRelationshipModel.getRelationship())) {
                     mv.addObject("spouseHouseRelationshipModel", houseRelationshipModel);
                 }
             }
+            mv.addObject("houseInformationList", houseInformationList);
             mv.addObject("houseRelationshipList", houseRelationshipList);
             mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());
             mv.addObject("houseProfessionModel", identityInfo.getHouseProfessionModel());

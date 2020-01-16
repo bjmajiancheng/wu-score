@@ -93,6 +93,22 @@ public class HouseRelationshipModel implements Serializable {
 	private Integer isChinese;  //是否为中国国籍
 	private Integer inTianjin;  //配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月
 
+	public Integer getIsChinese() {
+		return isChinese;
+	}
+
+	public void setIsChinese(Integer isChinese) {
+		this.isChinese = isChinese;
+	}
+
+	public Integer getInTianjin() {
+		return inTianjin;
+	}
+
+	public void setInTianjin(Integer inTianjin) {
+		this.inTianjin = inTianjin;
+	}
+
 	public Integer getMarriageStatus() {
 		return marriageStatus;
 	}

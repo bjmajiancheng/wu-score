@@ -143,7 +143,7 @@
                                        #if(${houseOtherModel.providentFund}== 1) checked #end>
                                 &nbsp;&nbsp;&nbsp;<label>是</label>
                                 <input class="input_radio ml30" type="radio" name="providentFund" value="2"
-                                       #if(${houseMoveModel.providentFund}== 2) checked #end>
+                                       #if(${houseOtherModel.providentFund}== 2) checked #end>
                                 &nbsp;&nbsp;&nbsp;<label>否</label>
                             </div>
                         </td>
@@ -199,7 +199,6 @@
                                    #if(${houseMoveModel.haveSon}== 1) checked #end>
                             &nbsp;&nbsp;&nbsp; <label for="haveSon">有</label>
                             <input class="input_radio ml30" type="radio" name="haveSon" value="2" id="haveNoSon"
-                                   checked
                                    #if(${houseMoveModel.haveSon}== 2) checked #end>
                             &nbsp;&nbsp;&nbsp;<label for="haveNoSon">无</label>
                             <span class="integral-td-title ml50">子女数量：</span>
@@ -332,7 +331,7 @@
                             <br>
                         </div>
                         #foreach(${houseRelationship} in $!{houseRelationshipList})
-                        #if ($houseRelationship.relationship!="子女")
+                        #if ($houseRelationship.relationship!="配偶")
                         <div class="integral-cont-table sonOneForm">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
@@ -1235,10 +1234,10 @@
                             <td colspan="2">
                                 本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女
                                 <input class="input_radio" type="radio" name="thirdPregnantPromise" value="1"
-                                       #if(${houseOtherModel.thirdPregnantPromise}== 1) checked #end>
+                                       #if(${identityInfo.thirdPregnantPromise}== 1) checked #end>
                                 &nbsp;&nbsp;<label>是</label>
-                                <input class="input_radio ml30" type="radio" name="pregnantPromise" value="2"
-                                       #if(${houseOtherModel.thirdPregnantPromise}== 2) checked #end>
+                                <input class="input_radio ml30" type="radio" name="thirdPregnantPromise" value="2"
+                                       #if(${identityInfo.thirdPregnantPromise}== 2) checked #end>
                                 &nbsp;&nbsp;<label>否</label>
                             </td>
                         </tr>
@@ -1485,7 +1484,7 @@
                             <br>
                         </div>
                         #foreach(${houseRelationship} in $!{houseRelationshipList})
-                        #if ($houseRelationship.relationship!="子女")
+                        #if ($houseRelationship.relationship!="配偶")
                         <div class="integral-cont-table sonTwoForm">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
@@ -1835,14 +1834,14 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseAddress"
                                                placeholder="天津市房屋租赁登记备案证明所载房屋坐落"
-                                               value="$!{houseMoveModel.rentHouseAddress}">
+                                               value="$!{houseInformation.rentHouseAddress}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>租赁登记备案证明编号:</td>
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentIdNumber"
-                                               value="$!{houseMoveModel.rentIdNumber}">
+                                               value="$!{houseInformation.rentIdNumber}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1850,7 +1849,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseStartDate"
                                                placeholder="天津市房屋租赁登记备案证明核发日"
-                                               value="$!{houseMoveModel.rentHouseStartDate}">
+                                               value="$!{houseInformation.rentHouseStartDate}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1858,7 +1857,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseEndDate"
                                                placeholder="房屋租赁合同约定租赁合同终止日"
-                                               value="$!{houseMoveModel.rentHouseEndDate}">
+                                               value="$!{houseInformation.rentHouseEndDate}">
                                     </td>
                                 </tr>
                             </table>
@@ -3091,6 +3090,9 @@
                     }
                 }
                 console.log(spouse);
+                // 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月
+                var inTianjin = $("input[name='inTianjin']:checked").val();
+                spouse["inTianjin"]=inTianjin;
                 houseRelationshipInfos.push(spouse);
                 break;
             case '2':
@@ -3107,6 +3109,34 @@
                 break;
         }
 
+        // 处理“增加租赁备案信息”
+        var a = [];
+        var b = [];
+        var c = [];
+        var d = [];
+        $("input[name='rentHouseAddress']").each(function () {
+            a.push($(this).val());
+        });
+        $("input[name='rentIdNumber']").each(function () {
+            b.push($(this).val());
+        });
+        $("input[name='rentHouseStartDate']").each(function () {
+            c.push($(this).val());
+        });
+        $("input[name='rentHouseEndDate']").each(function () {
+            d.push($(this).val());
+        });
+        houseMoveInfo.rentHouseAddress=a;
+        houseMoveInfo.rentIdNumber=b;
+        houseMoveInfo.rentHouseStartDate=c;
+        houseMoveInfo.rentHouseEndDate=d;
+
+        // 因select 选择框不能被form 元素抓取到，需要手动添加上
+        var marriageStatus = $("#marriageStatus option:selected").val();
+        var thirdPregnantPromise = $("input[name='thirdPregnantPromise']:checked").val();
+        identityInfo["thirdPregnantPromise"]=thirdPregnantPromise;
+        houseMoveInfo["marriageStatus"] = marriageStatus;
+
         identityInfo["houseMoveModel"] = houseMoveInfo;
         identityInfo["houseOtherModel"] = houseOtherInfo;
         identityInfo["houseProfessionModel"] = houseProfessionInfo;
@@ -3116,6 +3146,7 @@
 
         var captcha = $("input[name=captcha]").val();
         var identityInfoJson = JSON.stringify(identityInfo);
+        console.log("identityInfoJson:" + identityInfoJson);
 
         var formData = {
             "identityInfoJson": identityInfoJson,
