@@ -578,11 +578,23 @@ public class IdentityInfoController {
 
             }
             List<HouseRelationshipModel> houseRelationshipList = identityInfo.getHouseRelationshipModelList();
+            List<HouseRelationshipModel> zinvInfoList = new ArrayList<HouseRelationshipModel>(); // 保存第一页的子女信息的4个字段
             for (HouseRelationshipModel houseRelationshipModel : houseRelationshipList) {
                 if ("配偶".equals(houseRelationshipModel.getRelationship())) {
                     mv.addObject("spouseHouseRelationshipModel", houseRelationshipModel);
+                }else{
+                    HouseRelationshipModel hrm = new HouseRelationshipModel();
+                    hrm.setName(houseRelationshipModel.getName());// 姓名
+                    hrm.setIdNumber(houseRelationshipModel.getIdNumber());
+                    hrm.setIsChinese(houseRelationshipModel.getIsChinese());// 是否为中国国籍
+                    hrm.setIsRemove(houseRelationshipModel.getIsRemove());
+                    zinvInfoList.add(hrm);
                 }
             }
+            // 处理第一页的子女个人信息的4个字段
+
+
+            mv.addObject("zinvInfoList", zinvInfoList);
             mv.addObject("houseInformationList", houseInformationList);
             mv.addObject("houseRelationshipList", houseRelationshipList);
             mv.addObject("houseOtherModel", identityInfo.getHouseOtherModel());

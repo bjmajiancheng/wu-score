@@ -145,14 +145,22 @@ public class IdentityInfoModel implements Serializable {
     private String housingArea; // 住房所在区
     private String houseAddress; // 住房详细坐落
     private String houseUse; // 房屋设计用途
-    private String rightProperty; // 持有
 
     private String   houseOurDate; // 不动产权证取得日期
     private String houseOurNumber; // 不动产权登记号
     private String houseProperty; // 房屋产权情况
     private String   housePactDate; // 购房合同签署日期
     private String housePactNumber; // 购房合同编号
+    private String rightProperty;// 持有
 
+
+    public String getRightProperty() {
+        return rightProperty;
+    }
+
+    public void setRightProperty(String rightProperty) {
+        this.rightProperty = rightProperty;
+    }
 
     public Integer getIs201826Doc() {
         return is201826Doc;
@@ -232,14 +240,6 @@ public class IdentityInfoModel implements Serializable {
 
     public void setHouseUse(String houseUse) {
         this.houseUse = houseUse;
-    }
-
-    public String getRightProperty() {
-        return rightProperty;
-    }
-
-    public void setRightProperty(String rightProperty) {
-        this.rightProperty = rightProperty;
     }
 
     public String getHouseOurDate() {

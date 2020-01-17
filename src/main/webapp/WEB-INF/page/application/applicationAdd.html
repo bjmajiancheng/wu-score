@@ -37,7 +37,7 @@
                 <div class="title-bar-head title-bar-sfz">综合信息</div>
             </div>
             <!--申请人信息-->
-            <form class="identityInfoForm" id="identityInfoForm">
+            <form class="identityInfoForm" id="identityInfoForm1">
                 <input type="hidden" name="id" value="$!{identityInfo.id}" id="identityInfoId"/>
                 <table class="integral-cont-table">
                     <tr>
@@ -118,23 +118,17 @@
                                    value="$!{identityInfo.formerName}">
                         </td>
                     </tr>
-                    <tr>
-                        <td class="">婚姻状况：</td>
-                        <td>
-                            <select name="marriageStatus" id="marriageStatus">
-                                <option value="7">初婚</option>
-                                <option value="8">复婚</option>
-                                <option value="9">再婚</option>
-                                <option value="2">未婚</option>
-                                <option value="3">丧偶</option>
-                                <option value="4">离异</option>
-                            </select>
-                        </td>
-                    </tr>
                 </table>
             </form>
-            <form class="houseOtherForm">
+            <form class="houseOtherForm" id="houseOtherForm1">
+                <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                 <table class="integral-cont-table">
+                    <tr>
+                        <td class="" colspan="2">申请人手机号：
+                            <input class="integral-input w350" type="text" name="selfPhone" id="selfPhone"
+                                   value="$!{houseOtherModel.selfPhone}">
+                        </td>
+                    </tr>
                     <tr class="spouseModel">
                         <td class="">是否缴存住房公积金：</td>
                         <td>
@@ -149,7 +143,7 @@
                         </td>
                     </tr>
                     <tr class="spouseModel">
-                        <td class="" colspan="2">
+                        <td class="">
                             是否在开发区缴纳外资企业住房公积金：
                         </td>
                         <td>
@@ -165,9 +159,22 @@
                     </tr>
                 </table>
             </form>
-            <form class="houseMoveForm">
+            <form class="houseMoveForm" id="houseMoveForm1">
                 <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                 <table class="integral-cont-table">
+                    <tr>
+                        <td class="">婚姻状况：</td>
+                        <td>
+                            <select name="marriageStatus" id="marriageStatus">
+                                <option value="7">初婚</option>
+                                <option value="8">复婚</option>
+                                <option value="9">再婚</option>
+                                <option value="2">未婚</option>
+                                <option value="3">丧偶</option>
+                                <option value="4">离异</option>
+                            </select>
+                        </td>
+                    </tr>
                     <tr>
                         <td class=""></td>
                         <td colspan="2" style="line-height:20px;padding-top:20px;">
@@ -215,7 +222,7 @@
                 </table>
             </form>
             <!--配偶信息-->
-            <form class="spouseForm" id="spouseForm">
+            <form class="spouseForm" id="spouseForm1">
                 <div id="spouseInformation" style="display: block;">
                     <table class="integral-cont-table">
                         <tr class="spouseModel">
@@ -284,7 +291,7 @@
                 </div>
             </form>
             <!--子女信息-->
-            <form class="" id="houseRelationshipsForm">
+            <form class="houseRelationshipsFormOne" id="houseRelationshipsForm">
                 <div id="children-table">
                     <div id="sonOneRelationshipsDiv">
                         <div class="integral-cont-table sonOneForm" id="sonOneClone">
@@ -330,7 +337,7 @@
                             </table>
                             <br>
                         </div>
-                        #foreach(${houseRelationship} in $!{houseRelationshipList})
+                        #foreach(${houseRelationship} in $!{houseRelationSonList})
                         #if ($houseRelationship.relationship!="配偶")
                         <div class="integral-cont-table sonOneForm">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
@@ -429,7 +436,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseMoveForm" id="houseMoveForm">
+                <form class="houseMoveForm" id="houseMoveForm2">
                     <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -502,7 +509,7 @@
                         </tr>
                     </table>
                 </form>
-                <form class="houseOtherForm" id="houseOtherForm">
+                <form class="houseOtherForm" id="houseOtherForm2">
                     <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -516,13 +523,12 @@
                                        #if(${houseOtherModel.penalty}== 2) checked #end>
                                 &nbsp;&nbsp;&nbsp;
                                 <label for="radio10">否</label>
-                                <span class="grey-color">申请人是否积分期间有无刑事犯罪记录</span>
                             </td>
                         </tr>
                     </table>
                     <table class="integral-cont-table penaltyTr" style="display: none">
                         <tr>
-                            <td>犯罪日期:</td>
+                            <td>犯罪日期：</td>
                             <td>
 
                                 <input class="integral-input w200" type="text" name="penaltyDate" id="penaltyDate"
@@ -530,16 +536,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>犯罪内容:</td>
+                            <td>犯罪内容：</td>
                             <td>
-                                <input class="integral-input w518" type="text" name="penaltyContent"
+                                <input class="integral-input w518" type="text" name="penaltyContent" id="penaltyContent"
                                        value="$!{houseOtherModel.penaltyContent}">
                             </td>
                         </tr>
                         <tr>
-                            <td>处罚结果:</td>
+                            <td>处罚结果：</td>
                             <td>
-                                <input class="integral-input w518" type="text" name="penaltyResults"
+                                <input class="integral-input w518" type="text" name="penaltyResults" id="penaltyResults"
                                        value="$!{houseOtherModel.penaltyResults}">
                             </td>
                         </tr>
@@ -555,7 +561,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseOtherForm">
+                <form class="houseOtherForm" id="houseOtherForm3">
                     <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -620,9 +626,53 @@
                                        value="$!{houseOtherModel.jobDate}">
                             </td>
                         </tr>
+                        <tr>
+                            <td class="" colspan="2">奖项和荣誉称号情况：</td>
+                            <td>
+                                <select name="awardsTitle" id="awardsTitle" style="width:325px;"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="" colspan="2">是否存在同时在异地缴纳社会保险情况：</td>
+                            <td>
+                                <input class="input_radio" type="radio" name="isAnotherInsurance" value="1"
+                                       id="redio11"
+                                       #if(${houseOtherModel.isAnotherInsurance}== 1) checked #end>
+                                &nbsp;&nbsp;&nbsp;<label for="redio11">是</label>
+                                <input class="input_radio ml30" type="radio" name="isAnotherInsurance" value="2"
+                                       id="redio12"
+                                       #if(${houseOtherModel.isAnotherInsurance}== 2) checked #end>
+                                &nbsp;&nbsp;&nbsp;<label for="redio12">否</label>
+                            </td>
+                        </tr>
+                        <tr class="moveIs_2" style="display: none">
+                            <td colspan="2">缴纳类型：</td>
+                            <td>
+                                <input class="integral-input w325" type="text" name="socialSecurityType"
+                                       value="$!{houseOtherModel.socialSecurityType}">
+                            </td>
+                        </tr>
                     </table>
                 </form>
-                <form class="houseProfessionForm" id="houseProfessionForm">
+                <form class="houseMoveForm" id="houseMoveForm3">
+                    <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
+                    <table class="integral-cont-table">
+                        <tr class="moveIs_1" style="display: none">
+                            <td>缴纳地点：</td>
+                            <td>
+                                <select name="moveIsProvince" id="moveIsProvince" style="width:125px;">
+                                    <option value="0">请选择</option>
+                                </select>
+                                省
+                                <select class="ml40" name="moveIsCity" id="moveIsCity" style="width:125px;">
+                                    <option value="0">请选择</option>
+                                </select>
+                                市
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <form class="houseProfessionForm" id="houseProfessionForm1">
                     <input type="hidden" name="id" value="$!{houseProfessionModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -630,8 +680,7 @@
                             <td>
                                 <input class="input_radio" type="radio" name="professionType" value="1" id="radio16"
                                        #if(${addFlag}) checked #end #if(${houseProfessionModel.professionType}== 1)
-                                       checked
-                                       #end>
+                                       checked #end>
                                 &nbsp;&nbsp;&nbsp;
                                 <label for="radio16">无</label>
                                 <input class="input_radio ml30" type="radio" name="professionType" value="2"
@@ -944,22 +993,6 @@
                                 </select>
                             </td>
                         </tr>
-                    </table>
-                </form>
-                <form class="houseOtherForm">
-                    <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
-                    <table class="integral-cont-table">
-                        <tr>
-                            <td class="" colspan="2">奖项和荣誉称号情况：</td>
-                            <td>
-                                <select name="awardsTitle" id="awardsTitle" style="width:325px;"></select>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <form class="houseProfessionForm">
-                    <input type="hidden" name="id" value="$!{houseProfessionModel.id}"/>
-                    <table class="integral-cont-table">
                         <tr class="awardsTr" style="display: none">
                             <td colspan="2">奖项名称：</td>
                             <td>
@@ -983,49 +1016,6 @@
                         </tr>
                     </table>
                 </form>
-                <form class="houseOtherForm">
-                    <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
-                    <table class="integral-cont-table">
-                        <tr>
-                            <td class="" colspan="2">是否存在同时在异地缴纳社会保险情况：</td>
-                            <td>
-                                <input class="input_radio" type="radio" name="isAnotherInsurance" value="1"
-                                       id="redio11"
-                                       #if(${houseOtherModel.isAnotherInsurance}== 1) checked #end>
-                                &nbsp;&nbsp;&nbsp;<label for="redio11">是</label>
-                                <input class="input_radio ml30" type="radio" name="isAnotherInsurance" value="2"
-                                       id="redio12"
-                                       #if(${houseOtherModel.isAnotherInsurance}== 2) checked #end>
-                                &nbsp;&nbsp;&nbsp;<label for="redio12">否</label>
-                            </td>
-                        </tr>
-                        <tr class="moveIs_2" style="display: none">
-                            <td colspan="2">缴纳类型：</td>
-                            <td>
-                                <input class="integral-input w518" type="text" name="socialSecurityType"
-                                       value="$!{houseOtherModel.socialSecurityType}">
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <form class="houseMoveForm">
-                    <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
-                    <table class="integral-cont-table">
-                        <tr class="moveIs_1" style="display: none">
-                            <td colspan="2">缴纳地点：</td>
-                            <td>
-                                <select name="moveIsProvince" id="moveIsProvince" style="width:125px;">
-                                    <option value="0">请选择</option>
-                                </select>
-                                省
-                                <select class="ml40" name="moveIsCity" id="moveIsCity" style="width:125px;">
-                                    <option value="0">请选择</option>
-                                </select>
-                                市
-                            </td>
-                        </tr>
-                    </table>
-                </form>
             </div>
         </div>
         <!--第四页 教育相关信息-->
@@ -1036,7 +1026,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseOtherForm">
+                <form class="houseOtherForm" id="houseOtherForm4">
                     <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                     <table class="integral-cont-table">
                         <tr class=" ">
@@ -1048,7 +1038,7 @@
                         </tr>
                     </table>
                 </form>
-                <form class="houseProfessionForm">
+                <form class="houseProfessionForm" id="houseProfessionForm2">
                     <input type="hidden" name="id" value="$!{houseProfessionModel.id}"/>
                     <table class="integral-cont-table">
                         <tr class="eduS1" style="display: none">
@@ -1106,11 +1096,11 @@
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
                 <!--申请人信息-->
-                <form class="identityInfoForm">
-                    <input type="hidden" name="id" value="$!{houseProfessionModel.id}"/>
+                <form class="identityInfoForm" id="identityInfoForm2">
+                    <input type="hidden" name="id" value="$!{identityInfo.id}"/>
                     <table class="integral-cont-table groupIndex6_Spouse">
                         <tr>
-                            <td class=""></span>申请人身份证号码：</td>
+                            <td class="">申请人身份证号码：</td>
                             <td>
                                 <input class="integral-input w450" type="text" id="sqr_idNumber" name="idNumber"
                                        value="$!{identityInfo.idNumber}" onkeyup="this.value=this.value.toUpperCase()">
@@ -1127,16 +1117,18 @@
                                     <option value="3">丧偶</option>
                                     <option value="4">离异</option>
                                 </select>
-                                <span class="integral-td-title ml50">子女数量：</span>
-                                <select name="sonNumber" id="sqr_sonNumber">
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>子女数量：</td>
+                            <td><select name="sonNumber" id="sqr_sonNumber">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
                         </tr>
                         <tr>
                             <td class="">申请人曾用名：</td>
@@ -1156,7 +1148,7 @@
                                 <br/>
                                 <span>1、点击下拉框选择“已怀孕”或者“未怀孕”；</span>
                                 <br>
-                                <span>2、点击下拉框选择“处于”或者“未处于”.</span>
+                                <span>2、点击选择“处于”或者“未处于”.</span>
                             </td>
                         </tr>
                     </table>
@@ -1226,9 +1218,6 @@
                             </td>
                         </tr>
                     </table>
-                </form>
-                <form class="houseOtherForm">
-                    <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                     <table class="integral-cont-table">
                         <tr class="">
                             <td colspan="2">
@@ -1244,7 +1233,7 @@
                     </table>
                 </form>
                 <!--配偶信息-->
-                <form class="spouseForm" id="spouseFormTwo">
+                <form class="spouseForm" id="spouseForm2">
                     <table class="integral-cont-table groupIndex6_Spouse">
                         <tr class="spouseModels_11">
                             <td>配偶姓名：</td>
@@ -1263,7 +1252,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="color-red" colspan="2">请确认以上信息，如需修改请至基本信息页面修改。</td>
+                            <td class="color-red" colspan="2">请确认以上信息，如需修改请至综合信息页面修改。</td>
                         </tr>
                         <tr class="spouseModels_11">
                             <td class=""></td>
@@ -1279,7 +1268,7 @@
                             <td class="">配偶户籍地地址：</td>
                             <td>
                                 <input class="integral-input w518" type="text" placeholder="无配偶不用填写"
-                                       name="spouse_HJAddress"
+                                       name="spouse_HJAddress" id="spouse_HJAddress"
                                        value="$!{spouseHouseRelationshipModel.spouse_HJAddress}">
                             </td>
                         </tr>
@@ -1305,7 +1294,7 @@
                     </table>
                 </form>
                 <!--子女信息-->
-                <form class="houseRelationshipsForm">
+                <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                     <div id="sonTwoRelationshipsDiv">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
@@ -1355,7 +1344,9 @@
                                         </select>
                                     </td>
                                     <td>文化程度:</td>
-                                    <td colspan="2"><input class="integral-input" type="text" name="cultureDegree"></td>
+                                    <td colspan="2">
+                                        <input class="integral-input" type="text" name="cultureDegree">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>出生医学证明编号:</td>
@@ -1726,7 +1717,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseOtherForm">
+                <form class="houseOtherForm" id="houseOtherForm6">
                     <input type="hidden" name="id" value="$!{houseOtherModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -1748,7 +1739,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseMoveForm">
+                <form class="houseMoveForm" id="houseMoveForm4">
                     <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                     <table class="integral-cont-table">
                         <tr></tr>
@@ -1834,14 +1825,14 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseAddress"
                                                placeholder="天津市房屋租赁登记备案证明所载房屋坐落"
-                                               value="$!{houseInformation.rentHouseAddress}">
+                                               value="$!{houseMoveModel.rentHouseAddress}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>租赁登记备案证明编号:</td>
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentIdNumber"
-                                               value="$!{houseInformation.rentIdNumber}">
+                                               value="$!{houseMoveModel.rentIdNumber}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1849,7 +1840,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseStartDate"
                                                placeholder="天津市房屋租赁登记备案证明核发日"
-                                               value="$!{houseInformation.rentHouseStartDate}">
+                                               value="$!{houseMoveModel.rentHouseStartDate}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1857,7 +1848,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseEndDate"
                                                placeholder="房屋租赁合同约定租赁合同终止日"
-                                               value="$!{houseInformation.rentHouseEndDate}">
+                                               value="$!{houseMoveModel.rentHouseEndDate}">
                                     </td>
                                 </tr>
                             </table>
@@ -1866,8 +1857,8 @@
                         #end
                     </div>
                 </form>
-                <form class="identityInfoForm">
-                    <input type="hidden" name="id" value="$!{identityInfo.id}" id="identityInfoId"/>
+                <form class="identityInfoForm" id="identityInfoForm3">
+                    <input type="hidden" name="id" value="$!{identityInfo.id}"/>
                     <table class="integral-cont-table">
                         <tr>
                             <td class="">是否有自有住房:</td>
@@ -1982,18 +1973,13 @@
                         <tr class="ourHouseTable" style="display: none">
                             <td>持有:</td>
                             <td colspan="2">
-                                <select name="rightProperty " id="rightProperty">
+                                <select name="rightProperty" id="rightProperty">
                                     <option value="0">请选择</option>
                                     <option value="1">持有“不动产权证”</option>
                                     <option value="2">持有《天津市商品房买卖合同》或《天津市二手房买卖协议》，未取得“不动产权证”</option>
                                 </select>
                             </td>
                         </tr>
-                    </table>
-                </form>
-                <form class="identityInfoForm">
-                    <input type="hidden" name="id" value="$!{identityInfo.id}" id="identityInfoId"/>
-                    <table class="integral-cont-table">
                         <tr class="rightPropertyTr" style="display: none;">
                             <td>不动产权证取得日期:</td>
                             <td>
@@ -2005,7 +1991,7 @@
                             <td>不动产权登记号:</td>
                             <td>
                                 <input class="integral-input w450" type="text" name="houseOurNumber"
-                                       placeholder="不动产权证载发证日期" value="$!{identityInfo.houseOurNumber}">
+                                       placeholder="不动产权证载登记号" value="$!{identityInfo.houseOurNumber}">
                             </td>
                         </tr>
                         <tr class="rightPropertyTr" style="display: none;">
@@ -2076,7 +2062,7 @@
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
-                <form class="houseMoveForm">
+                <form class="houseMoveForm" id="houseMoveForm5">
                     <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
@@ -2145,10 +2131,6 @@
         </div>
     </div>
 </div>
-
-<!--<div class="layui-tab-item" style="text-align: center">-->
-<!--<div id="pageDemo"></div>-->
-<!--</div>-->
 <!-- 底部栏 footer -->
 #parse("common/footer.html")
 </body>
@@ -2175,7 +2157,7 @@
         //下一页
         $("#next").on('click', function () {
             var page = $("#pages").val();
-            if (page > 0 && page < 9) {
+            if (page > 0 && page < 8) {
                 $(".groupIndex" + page).css("display", "none");
                 page++;
                 $(".groupIndex" + page).css("display", "block");
@@ -2187,7 +2169,7 @@
         //上一页
         $("#prev").on('click', function () {
             var page = $("#pages").val();
-            if (page > 0 && page < 9) {
+            if (page > 1 && page < 9) {
                 $(".groupIndex" + page).css("display", "none");
                 page--;
                 $(".groupIndex" + page).css("display", "block");
@@ -2254,11 +2236,10 @@
         //人社相关信息-自??年??月在此岗位工作
         laydate.render({
             elem: '#jobDate'
-            , type: 'date'
-
+            , format: 'yyyy-MM-dd'
             , max: 0,
             done: function () {
-                //$('#jobDate').valid();
+                $('#jobDate').valid();
             }
         });
         //人社相关信息-获奖日期
@@ -2458,17 +2439,16 @@
             initOfficeInfo($(this).val(), $("#registeredRegion"), '$!{houseMoveModel.registeredRegion}');
         }).change();
         //2公安相关信息-获刑记录
-        $("input[name='penalty']").on('click', function () {
+        $("input[name='penalty']").on('change', function () {
             var index = $("input[name='penalty']:checked").val();
             if (index == "1") {
                 $(".penaltyTr").show();
             } else {
                 $(".penaltyTr").hide();
             }
-        });
+        }).change();
         //2公安相关信息-落户类别
         $("#settledNature").on("change", function () {
-
             var index = $("#settledNature").val();
             if (index > 1) {
                 $("#settledNatureRed").show();
@@ -2528,7 +2508,7 @@
 //        }).change();
 
         //3人社相关信息-异地保险
-        $("input[name='isAnotherInsurance']").on('click', function () {
+        $("input[name='isAnotherInsurance']").on('change', function () {
             var isValve = $("input[name='isAnotherInsurance']:checked").val();
             if (isValve == "1") {//是
                 $("tr.moveIs_1").show();
@@ -2537,7 +2517,7 @@
                 $("tr.moveIs_1").hide();
                 $("tr.moveIs_2").hide();
             }
-        });
+        }).change();
         //3人社相关信息-职业资格
         $("input[name=professionType]").on("change", function () {
             var professionType = $('input:radio[name="professionType"]:checked').val();
@@ -2558,15 +2538,43 @@
             }
         }).change();
         //3人社相关信息-奖项
+
         $("#awardsTitle").on('change', function () {
             var awardsTitle = $("#awardsTitle option:selected").val();
-            if (awardsTitle == "1021") {
+            if (awardsTitle == "9") {
                 $(".awardsTr").hide();
             } else {
                 $(".awardsTr").show();
             }
         }).change();
         //4教育相关信息-文化程度
+        setTimeout(function () {
+            var isValve = $("#cultureDegree option:selected").val();
+            if (isValve == "1011") {//高级技工学校高级班
+                $("tr.eduS1").show();
+            } else {
+                $("tr.eduS1").hide();
+            }
+
+            var awardsTitle = $("#awardsTitle option:selected").val();
+            if (awardsTitle == "9") {
+                $(".awardsTr").hide();
+            } else {
+                $(".awardsTr").show();
+            }
+
+            var index = $("#rightProperty option:selected").val();
+            if (index == 1) {
+                $(".rightPropertyTr").show();
+                $(".rightPropertyTr2").hide();
+            } else if (index == 2) {
+                $(".rightPropertyTr").hide();
+                $(".rightPropertyTr2").show();
+            } else if(index == 0){
+                $(".rightPropertyTr").hide();
+                $(".rightPropertyTr2").hide();
+            }
+        }, 1000); // 延时1秒
         $("#cultureDegree").on('change', function () {
             var isValve = $("#cultureDegree option:selected").val();
             if (isValve == "1011") {//高级技工学校高级班
@@ -2583,7 +2591,7 @@
                 elem: tempThis[0],
                 max: 0,
                 done: function () {
-                    //tempThis.valid();
+                    tempThis.valid();
                 }
             });
         });
@@ -2595,62 +2603,67 @@
 
         //7居住信息-添加租赁备案信息
         $("#addRelation").on("click", function () {
-            var parentDom = $('#houseInfoDiv');
-            var addDom = houseInfoClone.clone();
-            var rentHouseStartDate = addDom.find("input[name='rentHouseStartDate']");
-            laydate.render({
-                elem: rentHouseStartDate[0],
-                done: function () {
-                    //rentHouseStartDate.valid();
-                }
-            });
-            var rentHouseEndDate = addDom.find("input[name='rentHouseEndDate']");
-            laydate.render({
-                elem: rentHouseEndDate[0],
-                done: function () {
-                    //rentHouseEndDate.valid();
-                }
-            });
-            parentDom.append(addDom);
-//            addDom.validate({
-//                rules: {
-//                    rentHouseAddress: {
-//                        required: true
-//                    },
-//                    rentIdNumber: {
-//                        required: true
-//                    },
-//                    rentHouseStartDate: {
-//                        required: false
-//                    },
-//                    rentHouseEndDate: {
-//                        required: false
-//                    }
-//                },
-//                messages: {
-//                    rentHouseAddress: {
-//                        required: "请输入租赁房屋地址"
-//                    },
-//                    rentIdNumber: {
-//                        required: "请输入租赁登记备案证明编号"
-//                    },
-//                    rentHouseStartDate: {
-//                        required: "请选择租赁备案起始日"
-//                    },
-//                    rentHouseEndDate: {
-//                        required: "请选择租赁合同终止日"
-//                    }
-//                },
-//
-//                errorPlacement: function (error, element) {
-//                    if (element.is(':radio') || element.is(':checkbox')) {
-//                        error.appendTo(element.parent());
-//                    } else {
-//                        error.insertAfter(element);
-//                    }
-//                    element.focus();
-//                }
-//            });
+            var addLength = $(".houseInfoForm").length;
+            if (addLength < 3) {
+                var parentDom = $('#houseInfoDiv');
+                var addDom = houseInfoClone.clone();
+                var rentHouseStartDate = addDom.find("input[name='rentHouseStartDate']");
+                laydate.render({
+                    elem: rentHouseStartDate[0],
+                    done: function () {
+                        rentHouseStartDate.valid();
+                    }
+                });
+                var rentHouseEndDate = addDom.find("input[name='rentHouseEndDate']");
+                laydate.render({
+                    elem: rentHouseEndDate[0],
+                    done: function () {
+                        rentHouseEndDate.valid();
+                    }
+                });
+                parentDom.append(addDom);
+                addDom.validate({
+                    rules: {
+                        rentHouseAddress: {
+                            required: true
+                        },
+                        rentIdNumber: {
+                            required: true
+                        },
+                        rentHouseStartDate: {
+                            required: false
+                        },
+                        rentHouseEndDate: {
+                            required: false
+                        }
+                    },
+                    messages: {
+                        rentHouseAddress: {
+                            required: "请输入租赁房屋地址"
+                        },
+                        rentIdNumber: {
+                            required: "请输入租赁登记备案证明编号"
+                        },
+                        rentHouseStartDate: {
+                            required: "请选择租赁备案起始日"
+                        },
+                        rentHouseEndDate: {
+                            required: "请选择租赁合同终止日"
+                        }
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.is(':radio') || element.is(':checkbox')) {
+                            error.appendTo(element.parent());
+                        } else {
+                            error.insertAfter(element);
+                        }
+                        element.focus();
+                    }
+                });
+            } else {
+                return false;
+            }
         });
         //7居住信息-删除租赁备案信息
         $("#delRelation").on("click", function () {
@@ -2659,7 +2672,7 @@
             });
         });
         //7居住信息-自有住房
-        $("input[name='ourHouse']").on('click', function () {
+        $("input[name='ourHouse']").on('change', function () {
             var index = $("input[name='ourHouse']:checked").val();
             if (index > 1) {
                 $(".ourHouseTable").hide();
@@ -2690,7 +2703,7 @@
                     }
                 }
             }
-        });
+        }).change();
         //7居住信息-购买住房
         $("input[name='ourBuyHouse']").on('click', function () {
             var index = $("input[name='ourBuyHouse']:checked").val();
@@ -2709,7 +2722,7 @@
             } else if (index == 2) {
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").show();
-            } else {
+            } else if(index == 0){
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").hide();
             }
@@ -2740,12 +2753,11 @@
         });
 
         //验证表单信息
-        //registerValidateForm();
+        registerValidateForm();
 
         if ('${addFlag}' == 'false') {
             initIdentityInfo();
         }
-
 
         if ('$!{selectFlag}' == 'true') {
             disabledAll();
@@ -2767,10 +2779,6 @@
             $("#next").addClass("notclick");
         } else {
             $("#next").removeClass("notclick");
-        }
-        var sonNum = $("#sonNumber").val();
-        if (sonNum != "0") {
-
         }
     }
 
@@ -2845,7 +2853,7 @@
         postSyncResultData(url, formInfo, function (data) {
             flag = true;
         });
-
+        registerValidateForm();
         if (flag) {
             layer.msg('保存成功!!', {
                 time: 1000
@@ -2902,57 +2910,167 @@
     function getFormInfo() {
         var validateFlag = true;
 
-        //卫健委
+        //1综合
+        if (!$("#identityInfoForm1").valid()) {
+            validateFlag = false;
+        }
+
+        if (!$("#houseOtherForm1").valid()) {
+            validateFlag = false;
+        }
+
+        if (!$("#houseMoveForm1").valid()) {
+            validateFlag = false;
+        }
+
+        var marriageStatus = $("#marriageStatus option:selected").val();
+        if (marriageStatus == 7 || marriageStatus == 8 || marriageStatus == 9) {
+            if (!$("#spouseForm1").valid()) {
+                validateFlag = false;
+            }
+            var spouse_HJAddress = $("#spouse_HJAddress").val();
+            if(spouse_HJAddress == ''){
+                layer.msg("请输入卫健委相关信息页面配偶户籍地地址");
+                return false;
+            }
+            var spouse_LivingAddress = $("#spouse_LivingAddress").val();
+            if(spouse_LivingAddress == ''){
+                layer.msg("请输入卫健委相关信息页面配偶现居住地地址");
+                return false;
+            }
+            var spouseMarriageStatus = $("#spouseMarriageStatus option:selected").val();
+            if(spouseMarriageStatus == 0){
+                layer.msg("请选择卫健委相关信息页面配偶婚姻状况");
+                return false;
+            }
+        }
+
+        //2公安
+        if (!$("#houseMoveForm2").valid()) {
+            validateFlag = false;
+        }
+
+        if (!$("#houseOtherForm2").valid()) {
+            validateFlag = false;
+        }
+
+        //3人社
+        if (!$("#houseOtherForm3").valid()) {
+            validateFlag = false;
+        }
+
+        var professionType = $("input[name='professionType']:checked").val();
+        if (professionType > 1) {
+            if (!$("#houseProfessionForm1").valid()) {
+                validateFlag = false;
+            }
+        }
+
+        //4教育
+        var cultureDegree = $("#cultureDegree option:selected").val();
+        if (cultureDegree == 1011) {
+            if (!$("#houseProfessionForm2").valid()) {
+                validateFlag = false;
+            }
+        }
+
+        //7居住
+        if (!$("#identityInfoForm3").valid()) {
+            validateFlag = false;
+        }
+
+        //8邮寄
+        if (!$("#houseMoveForm5").valid()) {
+            validateFlag = false;
+        }
+
+        var isChinese = $("#spouseForm1>input[name='inChinese']:checked").val();
+        if (isChinese == 1) {
+            var idNumber = $("#relationshipID").val();
+            var flag = validateIdNumber(idNumber);
+            if (!flag) {
+                layer.msg("请输入综合信息页面配偶正确的身份证号!");
+                return false;
+            }
+        }
+
+        //1
+        //身份证验证(正面)
+        if ($("input[name=id_card_positive]").val() == '') {
+            layer.msg("请上传身份证正面图片。");
+            return false;
+        }
+        //身份证验证(反面)
+        if ($("input[name=id_card_opposite]").val() == '') {
+            layer.msg("请上传身份证反面图片。");
+            return false;
+        }
+        //1子女信息 校验
+        var sonNumber = $("#sonNumber option:selected").val();
+        if (sonNumber > 0) {
+            $(".houseRelationshipsForm").each(function () {
+                var isChinese = $(this).find("input[name='isChinese']:checked").val();
+                if (isChinese == 1) {
+                    var idNumber = $(this).find("input[name='idNumber']:checked").val();
+                    var flag = validateIdNumber(idNumber);
+                    if (!flag) {
+                        layer.msg("请输入卫健委信息页面子女正确的身份证号!");
+                        return false;
+                    }
+                }
+            });
+            $(".houseRelationshipsForm").each(function () {
+                if (!$(this).valid()) {
+                    validateFlag = false;
+                }
+            });
+        }
+        //公安-犯罪
+        var penalty = $("input[name='penalty']:checked").val();
+        if(penalty == 1){
+            var penaltyDate = $("#penaltyDate").val();
+            if(penaltyDate == "" || penaltyDate == undefined || penaltyDate == null){
+                layer.msg("请选择公安信息页面犯罪日期");
+                return false;
+            }
+            var penaltyContent = $("#penaltyContent").val();
+            if(penaltyContent == "" || penaltyContent == undefined || penaltyContent == null){
+                layer.msg("请输入公安信息页面犯罪内容");
+                return false;
+            }
+            var penaltyResults = $("#penaltyResults").val();
+            if(penaltyResults == "" || penaltyResults == undefined || penaltyResults == null){
+                layer.msg("请输入公安信息页面处罚结果");
+                return false;
+            }
+        }
+
+        //人社-社保
+        var isAnotherInsurance = $("input[name='isAnotherInsurance']:checked").val();
+        if(isAnotherInsurance == 1){
+            var socialSecurityType = $("#socialSecurityType").val();
+            if(penaltyDate == "" || penaltyDate == undefined || penaltyDate == null){
+                layer.msg("请输入人社相关信息页面缴纳类型");
+                return false;
+            }
+            switch (true) {
+                case $('#moveIsCity').val() == '0':
+                case $('#moveIsProvince').val() == '0':
+                    layer.msg("请选择人社相关信息页面缴纳地点");
+                    validateFlag = false;
+                    break;
+            }
+        }
+
+        //卫健委-承诺
         if ($('#pregnantPromise').val() == 0) {
-            layer.msg("请选择本人及配偶是否承诺目前已怀孕 周");
+            layer.msg("请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
             return false;
         }
         if ($('#thirdPregnantPromise').val() == 0) {
-            layer.msg("请选择本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
+            layer.msg("请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
-
-//        $(".identityInfoForm").each(function () {
-//            if (!$(this).valid()) {
-//                validateFlag = false;
-//            }
-//        });
-//
-//        if (!$("#spouseForm").valid()) {
-//            validateFlag = false;
-//        }
-//
-//        $(".houseRelationshipsForm").each(function () {
-//            if (!$(this).valid()) {
-//                validateFlag = false;
-//            }
-//        });
-//
-//        $(".houseMoveForm").each(function () {
-//            if (!$(this).valid()) {
-//                validateFlag = false;
-//            }
-//        });
-
-//        if (!$("#personForm").valid()) {
-//            validateFlag = false;
-//        }
-//
-//        if (!$("#cultureDegreeForm").valid()) {
-//            validateFlag = false;
-//        }
-//
-//        if (!$("#spouseFormTwo").valid()) {
-//            validateFlag = false;
-//        }
-//
-//        if (!$("#houseInfoForm").valid()) {
-//            validateFlag = false;
-//        }
-//
-//        if (!$("#postInfoForm").valid()) {
-//            validateFlag = false;
-//        }
 
         if (!validateFlag) {
             layer.msg("表单填写不完整");
@@ -2963,16 +3081,7 @@
             case $('#moveCity').val() == '0':
             case $('#moveProvince').val() == '0':
             case $('#moveRegion').val() == '0':
-                layer.msg("请选择迁出地区");
-                validateFlag = false;
-                break;
-        }
-
-        switch (true) {
-            case $('#moveIsCity').val() == '0':
-            case $('#moveIsProvince').val() == '0':
-            //case $('#moveRegion').val() == '0':
-                layer.msg("请选择缴纳地点");
+                layer.msg("请选择公安相关信息页面迁出地区");
                 validateFlag = false;
                 break;
         }
@@ -2986,41 +3095,13 @@
             }
         }
 
-        //身份证验证(正面)
-        if ($("input[name=id_card_positive]").val() == '') {
-            layer.msg("请上传身份证正面图片。");
-            return false;
-        }
-
-        //身份证验证(反面)
-        if ($("input[name=id_card_opposite]").val() == '') {
-            layer.msg("请上传身份证反面图片。");
-            return false;
-        }
-
         //验证职业资格证书信息
         var professionType = $('input:radio[name="professionType"]:checked').val();
         if (professionType != 1) {
-            if ($.trim($("#issuingAuthority").val()) == '') {
-                layer.msg("请填写发证机关。");
-                validateFlag = false;
-                return false;
-            }
-            if ($.trim($("#issuingDate").val()) == '') {
-                layer.msg("请填写发证日期。");
-                validateFlag = false;
-                return false;
-            }
-
-            if ($.trim($("#certificateCode").val()) == '') {
-                layer.msg("请填写证书编号。");
-                validateFlag = false;
-                return false;
-            }
-            var reg = /^[0-9a-zA-Z]*$/g
+            var reg = /^[0-9a-zA-Z]*$/g;
             var certificateCode = $.trim($("#certificateCode").val());
             if (!reg.test(certificateCode)) {
-                layer.msg("证书编号只能包含数字和字母, 请重新输入。");
+                layer.msg("人社相关信息页面证书编号只能包含数字和字母, 请重新输入。");
                 validateFlag = false;
                 return false;
             }
@@ -3050,10 +3131,15 @@
         houseProfessionInfo = serializeForm($(".houseProfessionForm"));
 
         //子女配偶信息
+        var houseRelationSonInfos = [];
+        $(".houseRelationshipsFormOne").each(function(){
+            var tempObject = serializeForm($(this));
+            houseRelationSonInfos.push(tempObject);
+        });
         // 与表 t_house_relationship 的一一对应关系
         var houseRelationshipInfos = [];
-        var sonNumber = $("#sonNumber option:selected").val();
-        if(sonNumber > 0){
+        var sonNumber = $("#sonNumber").val();
+        if (sonNumber > 0) {
             $(".houseRelationshipsForm").each(function () {
                 var tempObject = serializeForm($(this));
                 $(this).find("input[name='approval_rules']").each(function (index) {
@@ -3073,9 +3159,9 @@
                     }
                 });
                 houseRelationshipInfos.push(tempObject);
-                console.log(tempObject);
             });
         }
+
         //是否结婚
         switch ($("#marriageStatus").val()) {
             case '7':
@@ -3089,10 +3175,6 @@
                         return false;
                     }
                 }
-                console.log(spouse);
-                // 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月
-                var inTianjin = $("input[name='inTianjin']:checked").val();
-                spouse["inTianjin"]=inTianjin;
                 houseRelationshipInfos.push(spouse);
                 break;
             case '2':
@@ -3109,44 +3191,14 @@
                 break;
         }
 
-        // 处理“增加租赁备案信息”
-        var a = [];
-        var b = [];
-        var c = [];
-        var d = [];
-        $("input[name='rentHouseAddress']").each(function () {
-            a.push($(this).val());
-        });
-        $("input[name='rentIdNumber']").each(function () {
-            b.push($(this).val());
-        });
-        $("input[name='rentHouseStartDate']").each(function () {
-            c.push($(this).val());
-        });
-        $("input[name='rentHouseEndDate']").each(function () {
-            d.push($(this).val());
-        });
-        houseMoveInfo.rentHouseAddress=a;
-        houseMoveInfo.rentIdNumber=b;
-        houseMoveInfo.rentHouseStartDate=c;
-        houseMoveInfo.rentHouseEndDate=d;
-
-        // 因select 选择框不能被form 元素抓取到，需要手动添加上
-        var marriageStatus = $("#marriageStatus option:selected").val();
-        var thirdPregnantPromise = $("input[name='thirdPregnantPromise']:checked").val();
-        identityInfo["thirdPregnantPromise"]=thirdPregnantPromise;
-        houseMoveInfo["marriageStatus"] = marriageStatus;
-
         identityInfo["houseMoveModel"] = houseMoveInfo;
         identityInfo["houseOtherModel"] = houseOtherInfo;
         identityInfo["houseProfessionModel"] = houseProfessionInfo;
         identityInfo["houseRelationshipModelList"] = houseRelationshipInfos;
-
-
+        identityInfo["houseRelationSonModelList"] = houseRelationSonInfos;
 
         var captcha = $("input[name=captcha]").val();
         var identityInfoJson = JSON.stringify(identityInfo);
-        console.log("identityInfoJson:" + identityInfoJson);
 
         var formData = {
             "identityInfoJson": identityInfoJson,
@@ -3299,7 +3351,453 @@
         });
     }
 
-    //初始化申请人信息
+    //验证表单信息（添加）
+    function registerValidateForm() {
+        //1综合信息页面
+        //1.identityInfoForm1 校验
+        $("#identityInfoForm1").validate({
+            rules: {
+                name: {
+                    required: true,
+                    maxlength: 20,
+                    isUserName: true
+                },
+                idNumber: {
+                    required: true,
+                    isIdCardNo: true
+                },
+            },
+            messages: {
+                name: {
+                    required: "请输入姓名",
+                    maxlength: "姓名长度不能大于 20 个字母",
+                    isUserName: "请输入正确的姓名"
+                },
+                idNumber: {
+                    required: "请输入身份证号或身份证号格式不对"
+                },
+            },
+
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+        //1.houseOtherForm1 校验
+        $("#houseOtherForm1").validate({
+            rules: {
+                selfPhone: {
+                    required: true,
+                    isMobile: true
+                },
+                providentFund: {
+                    required: true
+                },
+                isInsurance: {
+                    required: true
+                }
+            },
+            messages: {
+                selfPhone: {
+                    required: "请输入申请人手机号",
+                    isMobile: "申请人手机号格式不正确"
+                },
+                providentFund: {
+                    required: "请选择是否缴纳住房公积金"
+                },
+                isInsurance: {
+                    required: "是否在开发区缴纳外资住房公积金"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+        //1.houseMoveForm1 校验
+        $("#houseMoveForm1").validate({
+            rules: {
+                moveAddress: {
+                    required: true
+                }
+            },
+            messages: {
+                moveAddress: {
+                    required: "请输入申请人现居住地址"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+        //spouseForm1 校验
+        //1综合信息页面-配偶信息验证
+        var marriageStatus = $("#marriageStatus option:selected").val();
+        if (marriageStatus == 7 || marriageStatus == 8 || marriageStatus == 9) {
+            $("#spouseForm1").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        maxlength: 20,
+                        isUserName: true
+                    },
+                    isChinese: {
+                        required: true
+                    },
+                    idNumber: {
+                        required: true
+                    },
+                    inTianjin: {
+                        required: true
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "请输入配偶姓名",
+                        maxlength: "姓名长度不能大于 20 个字母",
+                        isUserName: "请输入正确的姓名"
+                    },
+                    isChinese: {
+                        required: "请选择配偶是否为中国籍"
+                    },
+                    idNumber: {
+                        required: "请输入配偶身份证"
+                    },
+                    inTianjin: {
+                        required: "请选择配偶是否在天津就业且缴纳社会保险"
+                    },
+                },
+                errorPlacement: function (error, element) { //指定错误信息位置
+                    if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                        var eid = element.attr('name'); //获取元素的name属性
+                        error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                    } else {
+                        error.insertAfter(element);
+                    }
+
+                    element.focus();
+                }
+            });
+        }
+
+        //2公安相关信息页面
+        //houseMoveForm2 校验
+        $("#houseMoveForm2").validate({
+            rules: {
+                moveRegion: {
+                    required: true
+                },
+                moveRegisteredOffice: {
+                    required: true
+                },
+                address: {
+                    required: true
+                }
+            },
+            messages: {
+                moveRegion: {
+                    required: "请选择户口登记地址"
+                },
+                moveRegisteredOffice: {
+                    required: "请输入现户口地派出所"
+                },
+                address: {
+                    required: "请输入拟落户地址"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+        //houseOtherForm2 校验 判断添加
+        $("#houseOtherForm2").validate({
+            rules: {
+                penalty: {
+                    required: true
+                }
+            },
+            messages: {
+                penalty: {
+                    required: "请选择是否有犯罪记录"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+
+        //3人社相关信息页面
+        //houseOtherForm3 校验
+        $("#houseOtherForm3").validate({
+            rules: {
+                dispatch: {
+                    required: true
+                },
+                companyName: {
+                    required: true
+                },
+                companyAddress: {
+                    required: true
+                },
+                industry: {
+                    required: true
+                },
+                applyOfficeAddress: {
+                    required: true
+                },
+                jobTitle: {
+                    required: true
+                },
+                jobContent: {
+                    required: true
+                },
+                jobDate: {
+                    required: true
+                }
+            },
+            messages: {
+                dispatch: {
+                    required: "请选择是否为派遣制用工"
+                },
+                companyName: {
+                    required: "请输入实际用工单位名称"
+                },
+                companyAddress: {
+                    required: "请输入实际用工单位地址"
+                },
+                industry: {
+                    required: "请输入实际用工单位所属行业"
+                },
+                applyOfficeAddress: {
+                    required: "请输入申请人实际办工地址"
+                },
+                jobTitle: {
+                    required: "请输入申请人现工作岗位"
+                },
+                jobContent: {
+                    required: "请输入具体工作内容"
+                },
+                jobDate: {
+                    required: "请输入在此岗位工作时间"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+        //houseProfessionForm1 校验
+        var professionType = $("input[name='professionType']:checked").val();
+        if (professionType > 1) {
+            $("#houseProfessionForm1").validate({
+                rules: {
+                    issuingAuthority: {
+                        required: true,
+                        maxlength: 100
+                    },
+                    issuingDate: {
+                        required: true
+                    },
+                    certificateCode: {
+                        required: true
+                    }
+                },
+                messages: {
+                    issuingAuthority: {
+                        required: "请输入发证机关",
+                        maxlength: "发证机关长度不能超过100个字符"
+                    },
+                    issuingDate: {
+                        required: "请选择发证日期"
+                    },
+                    certificateCode: {
+                        required: "请输入证书编号"
+                    }
+                },
+                errorPlacement: function (error, element) { //指定错误信息位置
+                    if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                        var eid = element.attr('name'); //获取元素的name属性
+                        error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                    } else {
+                        error.insertAfter(element);
+                    }
+
+                    element.focus();
+                }
+            });
+        }
+
+        //4教育相关信息
+        var cultureDegree = $("#cultureDegree option:selected").val();
+        if (cultureDegree == 1011) {
+            $("#houseProfessionForm2").validate({
+                rules: {
+                    graduateSchool: {
+                        required: true,
+                        maxlength: 100
+                    },
+                    professional: {
+                        required: true,
+                        maxlength: 100
+                    },
+                    office: {
+                        required: true,
+                        maxlength: 100
+                    },
+                    officeDate: {
+                        required: true
+                    },
+                    jobTypeName: {
+                        required: true,
+                        maxlength: 100
+                    },
+                    jobTypeDate: {
+                        required: true
+                    }
+                },
+                messages: {
+                    graduateSchool: {
+                        required: "请输入毕业院校",
+                        maxlength: "毕业院校长度不能超过100个字符"
+                    },
+                    professional: {
+                        required: "请输入专业",
+                        maxlength: "专业长度不能超过100个字符"
+                    },
+                    office: {
+                        required: "请输入发证机关",
+                        maxlength: "发证机关长度不能超过100个字符"
+                    },
+                    officeDate: {
+                        required: "请选择发证日期"
+                    },
+                    jobTypeName: {
+                        required: "请输入高级技能证书工种名称",
+                        maxlength: "高级技能证书工种名称长度不能超过100个字符"
+                    },
+                    jobTypeDate: {
+                        required: "请选择高级技能证书发证日期"
+                    }
+                },
+                errorPlacement: function (error, element) { //指定错误信息位置
+                    if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                        var eid = element.attr('name'); //获取元素的name属性
+                        error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                    } else {
+                        error.insertAfter(element);
+                    }
+
+                    element.focus();
+                }
+            });
+        }
+
+        //7居住信息
+        //identityInfoForm3 校验
+        $("#identityInfoForm3").validate({
+            rules: {
+                ourHouse: {
+                    required: true
+                }
+            },
+            messages: {
+                ourHouse: {
+                    required: "请选择是否有自有住房"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    var eid = element.attr('name'); //获取元素的name属性
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+
+                element.focus();
+            }
+        });
+
+        //8邮寄信息页面
+        $("#houseMoveForm5").validate({
+            rules: {
+                witness: {
+                    required: true,
+                    maxlength: 50
+                },
+                witnessPhone: {
+                    required: true,
+                    isMobile: true
+                },
+                witnessAddress: {
+                    required: true,
+                    maxlength: 100
+                }
+            },
+            messages: {
+                witness: {
+                    required: "请输入证明收件人",
+                    maxlength: "姓名长度不能大于 50 个字母"
+                },
+                witnessPhone: {
+                    required: "请输入证明收件人电话"
+                },
+                witnessAddress: {
+                    required: "请输入证明收件地址",
+                    maxlength: "姓名长度不能大于 100 个字母"
+                }
+            },
+
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
+                } else {
+                    error.insertAfter(element);
+                }
+                element.focus();
+            }
+        });
+    }
+
+    //初始化信息-回显下拉框
     function initIdentityInfo() {
         //综合信息-申请人婚姻状况
         $("#marriageStatus").val('$!{houseMoveModel.marriageStatus}');
@@ -3321,30 +3819,33 @@
         $("#sqr_sonNumber").val('$!{houseMoveModel.sonNumber}');
         //卫健委-承诺怀孕几周
         $("#pregnantWeek").val('$!{identityInfo.pregnantWeek}');
+        //住房-住房所在区
+        $("#housingArea").val('$!{identityInfo.housingArea}');
+        //住房-持有
+        $("#rightProperty").val('$!{identityInfo.rightProperty}');
+        //住房-产权所有
+        $("#houseProperty").val('$!{identityInfo.houseProperty}');
+
     }
 
     //校验身份证号
     function validateIdNumber(idNumber) {
-        if (idNumber.length == 18) {
-            var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+        var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 
-            var sum = 0;
-            for (var i = 0; i < arr.length; i++) {
-                sum += parseInt(idNumber.charAt(i)) * arr[i];
-            }
-            //2、用加出来和除以11，看余数，
-            var c = sum % 11;
-
-            //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
-            var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-            var code = ch[c];
-            var last = idNumber.charAt(17);
-            last = last == 'x' ? 'X' : last;
-
-            return last == code;
+        var sum = 0;
+        for (var i = 0; i < arr.length; i++) {
+            sum += parseInt(idNumber.charAt(i)) * arr[i];
         }
+        //2、用加出来和除以11，看余数，
+        var c = sum % 11;
 
-        return true;
+        //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+        var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+        var code = ch[c];
+        var last = idNumber.charAt(17);
+        last = last == 'x' ? 'X' : last;
+
+        return last == code;
     }
     //职称级别
     function showInfo() {
@@ -3581,45 +4082,45 @@
         var parentDom = $('#sonOneRelationshipsDiv');
         var addDom = sonOneClone.clone();
         parentDom.append(addDom);
-//        addDom.validate({
-//            rules: {
-//                idNumber: {
-//                    required: true
-//                },
-//                name: {
-//                    required: true
-//                },
-//                isChinese: {
-//                    required: true
-//                },
-//                isRemove: {
-//                    required: true
-//                }
-//            },
-//            messages: {
-//                idNumber: {
-//                    required: "请输入身份证号码"
-//                },
-//                name: {
-//                    required: "请输入姓名"
-//                },
-//                isChinese: {
-//                    required: "请选择是否为中国籍"
-//                },
-//                isRemove: {
-//                    required: "请选择是否随迁"
-//                }
-//            },
-//
-//            errorPlacement: function (error, element) {
-//                if (element.is(':radio') || element.is(':checkbox')) {
-//                    error.appendTo(element.parent());
-//                } else {
-//                    error.insertAfter(element);
-//                }
-//                element.focus();
-//            }
-//        });
+        addDom.validate({
+            rules: {
+                idNumber: {
+                    required: true
+                },
+                name: {
+                    required: true
+                },
+                isChinese: {
+                    required: true
+                },
+                isRemove: {
+                    required: true
+                }
+            },
+            messages: {
+                idNumber: {
+                    required: "请输入身份证号码"
+                },
+                name: {
+                    required: "请输入姓名"
+                },
+                isChinese: {
+                    required: "请选择是否为中国籍"
+                },
+                isRemove: {
+                    required: "请选择是否随迁"
+                }
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is(':radio') || element.is(':checkbox')) {
+                    error.appendTo(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+                element.focus();
+            }
+        });
         chcekChildNum();
     }
 
@@ -3632,52 +4133,49 @@
             elem: approval_time[0],
             max: 0,
             done: function () {
-                //approval_time.valid();
+                approval_time.valid();
             }
         });
         parentDom.append(addDom);
-//        addDom.validate({
-//            rules: {
-//                idNumber: {//身份证号
-//                    required: true
-//                },
-//                name: {//姓名
-//                    required: true
-//                },
-//                sex: {//性别
-//                    required: true
-//                },
-//                formerName: {//曾用名
-//                    required: true
-//                },
-//                cultureDegree: {//文化程度
-//                    required: true
-//                }
-//            },
-//            messages: {
-//                idNumber: {
-//                    required: "请输入身份证号码"
-//                },
-//                name: {
-//                    required: "请输入姓名"
-//                },
-//                isChinese: {
-//                    required: "请选择是否为中国籍"
-//                },
-//                isRemove: {
-//                    required: "请选择是否随迁"
-//                }
-//            },
-//
-//            errorPlacement: function (error, element) {
-//                if (element.is(':radio') || element.is(':checkbox')) {
-//                    error.appendTo(element.parent());
-//                } else {
-//                    error.insertAfter(element);
-//                }
-//                element.focus();
-//            }
-//        });
+        addDom.validate({
+            rules: {
+                idNumber: {//身份证号
+                    required: true
+                },
+                name: {//姓名
+                    required: true
+                },
+                isChinese: {
+                    required: true
+                },
+                isRemove: {
+                    required: true
+                }
+            },
+            messages: {
+                idNumber: {
+                    required: "请输入身份证号码"
+                },
+                name: {
+                    required: "请输入姓名"
+                },
+                isChinese: {
+                    required: "请选择是否为中国籍"
+                },
+                isRemove: {
+                    required: "请选择是否随迁"
+                }
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is(':radio') || element.is(':checkbox')) {
+                    error.appendTo(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+                element.focus();
+            }
+        });
         chcekChildNum();
     }
 </script>
