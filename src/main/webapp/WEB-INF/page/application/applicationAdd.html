@@ -993,6 +993,13 @@
                                 </select>
                             </td>
                         </tr>
+                        <tr class="professionType_3 ">
+                            <td colspan="2">职业（工种）：</td>
+                            <td>
+                                <select name="jobType" id="jobType" onchange="showInfo3()">
+                                </select>
+                            </td>
+                        </tr>
                         <tr class="awardsTr" style="display: none">
                             <td colspan="2">奖项名称：</td>
                             <td>
@@ -2743,7 +2750,7 @@
 
             initIndicatorInfo_2(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');//人社相关信息-职业资格级别
 
-//            initIndicatorInfo(data["8"], $("#jobType"), '$!{houseProfessionModel.jobType}');
+            initIndicatorInfo(data["8"], $("#jobType"), '$!{houseProfessionModel.jobType}');//人社相关信息-工种
 
             initIndicatorInfo(data["13"], $("#awardsTitle"), '$!{houseOtherModel.awardsTitle}');//人社相关信息-奖项和荣誉称号情况
 
@@ -3874,6 +3881,22 @@
         }
     }
 
+    function showInfo3() {
+        var val = $("#jobType").val();
+        if (val == "27" || val == "28" || val == "29") {
+            //            $("#showInfo").show();
+            //            $("#showInfo").text("近12个月缴纳社会保险费基数必须高于本市上年度职工月平均工资，所持职业资格证书类别与所在用人单位主营业务、本人当前工作岗位职责一致的，予以确认相应积分。");
+            var index = layer.confirm('申请人申请职业（工种）紧缺程度积分的，其经确认的国家职业资格证书上所标明的职业（工种）应当与当年人力社保部门公布的天津市' +
+                '《职业市场需求程度及培训成本目录》中的职业（工种）名称一致，且与所在用人单位主营业务、营业执照批准经营范围、本人当前工作岗位职责相符。', {
+                btn: ['确认'] //按钮
+            }, function () {
+                layer.close(index);
+            });
+        } else {
+            //            $("#showInfo").hide();
+        }
+    }
+
     function inputType(object) {
         var returnStr = "other";
         switch (object[0].tagName) {
@@ -3924,8 +3947,8 @@
         }
     }
 
-    /*
-     2019年8月6日，【再生育审批情况】设置为非必填项，取消与【政策属性】之间的逻辑关系
+    /**
+     *2019年8月6日，【再生育审批情况】设置为非必填项，取消与【政策属性】之间的逻辑关系
      */
     function setZaishengyuCheck(select) {
         changeZaishengyuCheck(findParentDom(select, "FORM"), select.val() == "政策内多孩");
@@ -3939,8 +3962,8 @@
 //        });
     }
 
-    /*
-     2019年8月6日，【再生育审批情况】设置为非必填项，取消与【政策属性】之间的逻辑关系
+    /**
+     *2019年8月6日，【再生育审批情况】设置为非必填项，取消与【政策属性】之间的逻辑关系
      */
     function changeZaishengyuCheck(form, boolean) {
         boolean = false;
