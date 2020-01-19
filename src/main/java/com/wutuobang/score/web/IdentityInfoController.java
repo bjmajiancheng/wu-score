@@ -886,6 +886,42 @@ public class IdentityInfoController {
         return ResultParam.ok("申请审核成功！");
     }
 
+    /*
+    根据申请人id 删除申请人信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/deleteIdentityInfo", method = RequestMethod.POST)
+    public ResultParam deleteIdentityInfo(HttpServletRequest request, @RequestParam("id") Integer id){
+        if (id == null) {
+            return ResultParam.PARAM_ERROR_RESULT;
+        }
+        BatchConfModel batchConfModel = batchConfService.getBatchInfoByDate(new Date());
+        if (batchConfModel == null) {
+            return ResultParam.error("当前没有落户批次信息,请联系官网确认!!");
+        }
+
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+
+        identityInfoService.removeById(id);
+        houseMoveService.removeById(id);
+        houseOtherService.removeById(id);
+        houseProfessionService.removeById(id);
+        houseRelationshipService.removeById(id);
+
+        //记录状态日志信息
+        DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_11);
+        if (dictModel != null) {
+            PersonBatchStatusRecordModel recordModel = new PersonBatchStatusRecordModel(identityInfoModel,
+                    dictModel, "删除申请人信息成功");
+            recordModel.setStatusTypeDesc("删除申请人信息");
+            recordModel.setStatusStr("删除成功");
+            recordModel.setStatusTime(new Date());
+            recordModel.setStatusReason("申请人自己删除");
+            personBatchStatusRecordService.insert(recordModel);
+        }
+        return ResultParam.ok("删除成功！");
+    }
+
     /**
      * 验证身份证号信息
      *
