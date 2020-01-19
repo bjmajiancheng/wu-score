@@ -196,6 +196,24 @@ public class IdentityInfoBiz {
                 if (houseMoveModel.getSonNumber() == null) {
                     houseMoveModel.setSonNumber(0);
                 }
+                Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+                map.put(1	,21);
+                map.put(2	,22);
+                map.put(3	,23);
+                map.put(4	,24);
+                map.put(5	,25);
+                map.put(6	,26);
+                map.put(10	,27);
+                map.put(11	,28);
+                map.put(12	,29);
+                map.put(13	,30);
+                map.put(14	,31);
+                map.put(15	,32);
+                map.put(16	,34);
+                map.put(17	,35);
+                map.put(18	,36);
+                map.put(20	,33);
+                houseMoveModel.setRegion(map.get(Integer.parseInt(houseMoveModel.getRegisteredOffice())));
                 houseMoveService.insert(houseMoveModel);
             }
             //申请人家庭关系
@@ -291,13 +309,31 @@ public class IdentityInfoBiz {
         HouseMoveModel updateHouseMove = identityInfoModel.getHouseMoveModel();
         if (updateHouseMove != null) {
             if (updateHouseMove.getId() != null) {
+                Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+                map.put(1	,21);
+                map.put(2	,22);
+                map.put(3	,23);
+                map.put(4	,24);
+                map.put(5	,25);
+                map.put(6	,26);
+                map.put(10	,27);
+                map.put(11	,28);
+                map.put(12	,29);
+                map.put(13	,30);
+                map.put(14	,31);
+                map.put(15	,32);
+                map.put(16	,34);
+                map.put(17	,35);
+                map.put(18	,36);
+                map.put(20	,33);
+                String aa = updateHouseMove.getRegisteredOffice();
+                updateHouseMove.setRegion(map.get(Integer.parseInt(updateHouseMove.getRegisteredOffice())));
                 houseMoveService.update(updateHouseMove);
             } else {
                 updateHouseMove.setIdentityInfoId(identityInfoModel.getId());
                 if (updateHouseMove.getSonNumber() == null) {
                     updateHouseMove.setSonNumber(0);
                 }
-
                 houseMoveService.insert(updateHouseMove);
             }
         }
