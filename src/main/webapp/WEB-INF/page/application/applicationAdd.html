@@ -3010,13 +3010,13 @@
             layer.msg("请上传身份证反面图片。");
             return false;
         }
-        //1子女信息 校验
+        //卫健委-子女信息 校验
         var sonNumber = $("#sonNumber option:selected").val();
         if (sonNumber > 0) {
             $(".houseRelationshipsForm").each(function () {
                 var isChinese = $(this).find("input[name='isChinese']:checked").val();
                 if (isChinese == 1) {
-                    var idNumber = $(this).find("input[name='idNumber']:checked").val();
+                    var idNumber = $(this).find("input[name='idNumber']").val();
                     var flag = validateIdNumber(idNumber);
                     if (!flag) {
                         layer.msg("请输入卫健委信息页面子女正确的身份证号!");
