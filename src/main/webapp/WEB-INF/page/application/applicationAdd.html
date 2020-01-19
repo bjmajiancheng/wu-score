@@ -620,7 +620,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="" colspan="2">自??年??月在此岗位工作：</td>
+                            <td class="" colspan="2">在此岗位工作起始时间：</td>
                             <td>
                                 <input class="integral-input w200" type="text" id="jobDate" name="jobDate"
                                        value="$!{houseOtherModel.jobDate}">
@@ -1894,7 +1894,7 @@
                                 <br>
                                 <span>住房在滨海新区的，每年积15分。</span>
                                 <br>
-                                <span>申请人于2019年12月31日之前购买住房的，可仍按“津发改社会〔2018〕26号”文件计算住房、落户地区和在金连续居住年限积分。详见网站公告。</span>
+                                <span>申请人于2019年12月31日之前购买住房的，可仍按“津发改社会〔2018〕26号”文件计算住房、落户地区和在津连续居住年限积分。详见网站公告。</span>
                                 <br>
                             </td>
                         </tr>
@@ -2377,19 +2377,17 @@
                     $(".sonTwoForm").remove();
                 } else {
                     var delNum = indexs - index;
-                    //1.全选
-                    $(".checkSonRelation").prop("checked", "checked");
-                    //2.取消部分选中
-                    //2.找到最后一个form
+
                     for (var j = 0; j < delNum; j++) {
-                        $("#sonOneRelationshipsDiv>div:last").find(".checkSonRelation").removeAttr("checked");
+                        //选中最后一个
+                        $("#sonOneRelationshipsDiv>div:last").find(".checkSonRelation").attr("checked","checked");
+                        //3.删除-选中的
+                        $(".checkSonRelation:checked").each(function () {
+                            findParentDom($(this), "DIV").remove();
+                        });
                         //找到最后一个div并删除-卫健委-子女
                         $("#sonTwoRelationshipsDiv>div:last").remove();
                     }
-                    //3.删除-选中的
-                    $(".checkSonRelation:checked").each(function () {
-                        findParentDom($(this), "DIV").remove();
-                    });
                     if (index == 0) {
                         chcekChildNum();
                         $("#hasDescendant").attr('style', 'display:none;');
