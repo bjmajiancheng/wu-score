@@ -59,33 +59,7 @@
             7.请经办人到办理指南查阅当年第一版材料清单，确保材料提交完整。
         </div>
         <div class="color-red" style="font-size: 14px;padding: 5px 5px 5px 75px;">
-            8.根据自身住房的情况、所有权上传自己的材料，并非全部上传：
-            <br>&nbsp;&nbsp;&nbsp;一级选项：积分房产情况
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. 持有“不动产权证”的天津市不动产权证》、《天津市房地产权证》、《天津市房屋所有权证》等
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B. 持有“商品房买卖合同”，未取得“不动产权证”
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C. 持有“房产买卖协议”，未取得“不动产权证”
-            <br>&nbsp;&nbsp;&nbsp;二级选项：积分房产为
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.申请人个人所有
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.夫妻共有
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.与子女共有
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.与父母共有
-            <br>&nbsp;&nbsp;&nbsp;三级选项：共有产权情况（如前两级选择结果为Ab，出现三级选项）
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（a）有共有产权证
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（b）无共有产权证
-            <br>&nbsp;&nbsp;&nbsp;申请人根据自身情况提交不同的材料，不同数量的材料，最少1个，如下所示：
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aa：不动产权证
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ab（a）：不动产权证、不动产共有权证、配偶身份证、结婚证
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ab（b）：不动产权证、配偶身份证、结婚证、契税
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ac：不动产权证、不动产共有权证、共有子女身份证、亲属关系相关证明
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ad：不动产权证、不动产共有权证、共有父母身份证、亲属关系相关证明
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ba：商品房买卖合同、契税
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bb：商品房买卖合同、契税、配偶身份证、结婚证
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bc：商品房买卖合同、契税、共有子女身份证、亲属关系相关证明
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bd：商品房买卖合同、契税、共有父母身份证、亲属关系相关证明
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ca：房产买卖协议、契税
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cb：房产买卖协议、契税、配偶身份证、结婚证
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cc：房产买卖协议、契税、共有子女身份证或身份证明、亲属关系相关证明
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cd：房产买卖协议、契税、共有父母身份证或身份证明、亲属关系相关证明
+            8.根据自身住房的情况、所有权上传自己的材料：
             <br>&nbsp;&nbsp;&nbsp;材料说明：
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、“不动产权证”包括：《天津市不动产权证》、《天津市房地产权证》、《天津市房屋所有权证》等有效证件。证载土地信息不全或无土地信息，需提供由房产所在区县不动产登记部门开具的“天津市不动产登记薄查询证明”；
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、“不动产共有权证”包括：《天津市不动产共有权证》、《天津市房地产共有权证》、《天津市房屋共有权证》等有效证件；
@@ -100,7 +74,7 @@
             <thead>
             <tr>
                 <th style="width: 8%">分类</th>
-                <th style="width: 10%">上传材料项</th>
+                <!--<th style="width: 10%">上传材料项</th>-->
                 <th style="width: 22%">材料清单</th>
                 <th style="width: 8%">上传说明</th>
                 <th style="width: 8%">操作</th>
@@ -114,7 +88,7 @@
             #foreach(${materialInfo} in ${materialInfos})
             <tr class="materialInfoTr">
                 <td>$!{materialInfo.category}</td>
-                <td>$!{materialInfo.categoryRenshe}</td>
+                <!--<td>$!{materialInfo.categoryRenshe}</td>-->
                 <td>
                     <input type="hidden" name="id" value="$!{materialInfo.onlinePersonMaterial.id}"/>
                     <input type="hidden" name="materialInfoId" value="$!{materialInfo.id}"/>
