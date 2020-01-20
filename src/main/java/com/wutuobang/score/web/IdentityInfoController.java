@@ -1077,7 +1077,7 @@ public class IdentityInfoController {
         try {
 
             IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
-            if (identityInfoModel.getReservationStatus() == 6) {
+            if (identityInfoModel.getReservationStatus() >= 11) {
                 return ResultParam.error("您自助测评已通过, 不能再次测评!!");
             }
 
