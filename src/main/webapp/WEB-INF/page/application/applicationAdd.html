@@ -517,7 +517,7 @@
                     <table class="integral-cont-table">
                         <tr>
                             <td class="">五年内有无刑事犯罪记录：</td>
-                            <td>
+                            <td onchange="showInfo4();">
                                 <input class="input_radio" type="radio" name="penalty" value="1" id="radio9"
                                        #if(${houseOtherModel.penalty}== 1) checked #end>
                                 &nbsp;&nbsp;&nbsp;
@@ -3897,6 +3897,17 @@
             });
         } else {
             //            $("#showInfo").hide();
+        }
+    }
+    
+    function showInfo4() {
+        var penalty = $("input[name='penalty']:checked").val();
+        if (penalty == 2){
+            var index = layer.confirm('本人承诺5年内无刑事犯罪记录，如有隐瞒事实填报行为，一经查实公安部门将进行相关处理。', {
+                btn: ['确认'] //按钮
+            }, function () {
+                layer.close(index);
+            });
         }
     }
 
