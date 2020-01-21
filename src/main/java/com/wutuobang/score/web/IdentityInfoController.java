@@ -360,7 +360,7 @@ public class IdentityInfoController {
                             finalIndicators.add(indicatorModel);
                         }
                     }
-                    if (identityInfo.getIs201826Doc()!=null && identityInfo.getIs201826Doc() == 0){
+                    if (identityInfo.getIs201826Doc()!=null && identityInfo.getIs201826Doc() == 2){
                         if (indicatorModel.getIndexNum() != 16 && indicatorModel.getIndexNum() != 24 && indicatorModel.getIndexNum() != 25) {
                             finalIndicators.add(indicatorModel);
                         }
