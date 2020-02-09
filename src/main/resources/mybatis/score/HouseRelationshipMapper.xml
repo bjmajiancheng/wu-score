@@ -35,6 +35,7 @@
 		<result property="isNaturalChild" column="isNaturalChild"/>
 		<result property="isChinese" column="isChinese"/>
 		<result property="inTianjin" column="inTianjin"/>
+		<result property="isSpousesoldier" column="isSpousesoldier"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -68,7 +69,8 @@
         marriageStatus,
 		isNaturalChild,
 		isChinese,
-		inTianjin
+		inTianjin,
+		isSpousesoldier
         ]]>
 	</sql>
 
@@ -106,7 +108,8 @@
             marriageStatus,
             isNaturalChild,
             isChinese,
-			inTianjin
+			inTianjin,
+			isSpousesoldier
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -136,7 +139,8 @@
             #{marriageStatus, jdbcType=INTEGER},
             #{isNaturalChild, jdbcType=INTEGER},
             #{isChinese, jdbcType=INTEGER},
-            #{inTianjin, jdbcType=INTEGER}
+            #{inTianjin, jdbcType=INTEGER},
+            #{isSpousesoldier, jdbcType=INTEGER}
         )
     ]]>
 	</insert>
@@ -171,6 +175,7 @@
 		<if test="isNaturalChild != null">isNaturalChild = #{isNaturalChild, jdbcType=INTEGER} ,</if>
 		<if test="isChinese != null">isChinese = #{isChinese, jdbcType=INTEGER} ,</if>
 		<if test="inTianjin != null">inTianjin = #{inTianjin, jdbcType=INTEGER} ,</if>
+		<if test="isSpousesoldier != null">isSpousesoldier = #{isSpousesoldier, jdbcType=INTEGER} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

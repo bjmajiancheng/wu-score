@@ -287,6 +287,23 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- 2020年2月9日 添加配偶是否是现役军人 -->
+                        <tr class="spouseModel">
+                            <td class="" colspan="2">配偶是否是现役军人：</td>
+                            <td>
+                                <div id="isSpousesoldier">
+                                    <input class="input_radio" type="radio" name="isSpousesoldier" value="1" id="isspousesoldier2"
+                                           #if(${spouseHouseRelationshipModel.isSpousesoldier}== 1) checked #end>
+                                    &nbsp;&nbsp;&nbsp;<label>是</label>
+                                    <input class="input_radio ml30" type="radio" name="isspousesoldier" value="2"
+                                           id="noIsspousesoldier"
+                                           #if(${spouseHouseRelationshipModel.isSpousesoldier}== 2) checked #end>
+                                    &nbsp;&nbsp;&nbsp;<label>否</label>
+                                </div>
+                            </td>
+                        </tr>
+
                     </table>
                 </div>
             </form>
@@ -2367,7 +2384,7 @@
                 var delNum = index - indexs;
                 //增加子女
                 for (var k = 1; k <= delNum; k++) {
-                    addSonOne();
+                    //addSonOne();// 注释掉第一个页面的子女信息复制
                     addSonTwo();
                 }
                 $("#hasDescendant").attr('style', 'display:block;line-height:20px;padding-top:20px;');//综合信息-填写子女-提示
