@@ -1502,8 +1502,10 @@
                             </table>
                             <br>
                         </div>
+                            </form>
                         #foreach(${houseRelationship} in $!{houseRelationshipList})
                         #if ($houseRelationship.relationship!="配偶")
+                            <form class="houseRelationshipsForm" >
                         <div class="integral-cont-table sonTwoForm">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
@@ -1617,8 +1619,17 @@
                                         <input class="input_radio" type="radio" name="isNaturalChild" value="2"
                                                #if(${houseRelationship.isNaturalChild}== 2) checked #end>否
                                     </td>
-                                    <td></td>
-                                    <td colspan="2"></td>
+                                    <td>是否为中国籍:</td>
+                                    <td colspan="2">
+                                        <label>
+                                            <input class="input_radio" type="radio" name="isChinese"
+                                                   value="1" #if(${houseRelationship.isChinese}== 1) checked #end>是
+                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>
+                                            <input class="input_radio" type="radio" name="isChinese"
+                                                   value="2" #if(${houseRelationship.isChinese}== 2) checked #end>否
+                                        </label>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>出生地:</td>
@@ -1731,9 +1742,10 @@
                             </table>
                             <br>
                         </div>
+                            </form>
                         #end
                         #end
-                </form>
+
                     </div>
 
             </div>
@@ -2389,7 +2401,7 @@
                     addSonOne();// 注释掉第一个页面的子女信息复制
                     addSonTwo();
                 }
-                $('#sonTwoRelationshipsDiv form:first').remove();
+                //$('#sonTwoRelationshipsDiv form:first').remove();
                 $("#hasDescendant").attr('style', 'display:block;line-height:20px;padding-top:20px;');//综合信息-填写子女-提示
                 $("#children-footer").show();//综合信息-提示
             } else if (index < indexs) {
@@ -3299,7 +3311,7 @@
             "attachment_id_card_positive": $('#attachment_id_card_positive').val(),
             "attachment_id_card_opposite": $('#attachment_id_card_opposite').val()
         };
-
+        console.log("formData:"+formData);
         return formData;
     }
 

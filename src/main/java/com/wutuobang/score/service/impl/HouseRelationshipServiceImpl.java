@@ -83,7 +83,9 @@ public class HouseRelationshipServiceImpl implements IHouseRelationshipService {
             if(houseRelationship.getRelationship()!=null && houseRelationship.getRelationship().equals("配偶")){
                 houseRelationship.setIsRemove(2);
             }
-            count += this.insert(houseRelationship);
+            if (houseRelationship.getIdNumber() != null){
+                count += this.insert(houseRelationship);
+            }
         }
         return count;
     }
