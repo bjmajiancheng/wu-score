@@ -1321,8 +1321,9 @@
                     </table>
                 </form>
                 <!--子女信息-->
-                <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
+
                     <div id="sonTwoRelationshipsDiv">
+                        <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
@@ -1732,8 +1733,9 @@
                         </div>
                         #end
                         #end
-                    </div>
                 </form>
+                    </div>
+
             </div>
         </div>
         <!--第六页 退役军人事务局相关信息-->
@@ -2210,7 +2212,7 @@
         sonOneClone = $('#sonOneClone').clone();
         $('#sonOneClone').remove();
         //5卫健委信息-复制子女表格
-        sonTwoClone = $('#sonTwoClone').clone();
+        sonTwoClone = $('#houseRelationshipsForm2').clone();
         $('#sonTwoClone').remove();
         //居住信息-复制房屋租赁信息
         houseInfoClone = $("#houseInfoClone").clone();
@@ -2371,7 +2373,7 @@
                 $("#hasDescendant").attr('style', 'display:none;');
                 $("#children-footer").hide();
                 //删除卫健委-子女信息
-                $("#sonTwoRelationshipsDiv>div").remove();
+                $("#sonTwoRelationshipsDiv>form").remove();
             }
         }).change();
         //1综合信息-子女数量
@@ -2384,9 +2386,10 @@
                 var delNum = index - indexs;
                 //增加子女
                 for (var k = 1; k <= delNum; k++) {
-                    //addSonOne();// 注释掉第一个页面的子女信息复制
+                    addSonOne();// 注释掉第一个页面的子女信息复制
                     addSonTwo();
                 }
+                $('#sonTwoRelationshipsDiv form:first').remove();
                 $("#hasDescendant").attr('style', 'display:block;line-height:20px;padding-top:20px;');//综合信息-填写子女-提示
                 $("#children-footer").show();//综合信息-提示
             } else if (index < indexs) {
@@ -2413,7 +2416,7 @@
                             findParentDom($(this), "DIV").remove();
                         });
                         //找到最后一个div并删除-卫健委-子女
-                        $("#sonTwoRelationshipsDiv>div:last").remove();
+                        $("#sonTwoRelationshipsDiv>form:last").remove();
                     }
                     if (index == 0) {
                         chcekChildNum();
@@ -2431,7 +2434,7 @@
                     $("#hasDescendant").attr('style', 'display:none;');
                     $("#children-footer").hide();
                     //删除卫健委-子女信息
-                    $("#sonTwoRelationshipsDiv>div").remove();
+                    $("#sonTwoRelationshipsDiv>form").remove();
                 }
             }
         }).change();
@@ -2448,6 +2451,71 @@
                     layer.msg('每期身份必须唯一, 请修改身份证信息!!');
                 }
             });
+        });
+
+        $("#selfPhone").on("blur", function () {
+
+            // 2020年2月9日，与公安全国人口库关联
+            /*
+             验证经办人的有效性；
+             1、先通过接口《互联互通公安接口文档》中的请求地址：http://60.28.163.53:9002/yztb/rest/police
+             请求参数：身份证号、姓名、手机号
+             返回参数：用户ID、身份证号
+             2、通过第 1 步获得的返回参数，通过接口：公安全国人口库接口，获取申请人的详细信息；
+             3、通过验证后，返回成功的status，允许申请人注册；
+             */
+            var name = $('#name').val();
+            var selfPhone = $('#selfPhone').val();
+            var idNumber = $('#idNumber').val();
+
+            var formDataPerson = new FormData();
+            formDataPerson.append("busiCode","xxx");
+            formDataPerson.append("cerNo","xxx");
+            formDataPerson.append("certCode","tj_gaj_cer_098");
+            formDataPerson.append("itemCode","xxx");
+            formDataPerson.append("institution","xxx");
+            formDataPerson.append("method","getUserRegistration");
+            formDataPerson.append("otherParam",'{"id_card":"'+idNumber+'","phone":"'+selfPhone+'","name":"'+name+'"}');
+            $.ajax({
+                type:"POST",
+                url:"http://60.28.163.53:9002/yztb/rest/police",
+                data:formDataPerson,
+                contentType:false,
+                processData:false,
+                dataType: "json",
+                success: function (result) {
+
+                    var user_id = result.data.data.user_id;
+                    var formDataGongan = new FormData();
+                    formDataGongan.append("busiCode","xxx");
+                    formDataGongan.append("cerNo","xxx");
+                    formDataGongan.append("certCode","tj_gaj_cer_151");
+                    formDataGongan.append("itemCode","xxx");
+                    formDataGongan.append("Institution","xxx");
+                    formDataGongan.append("method","nationwidePopulationLibrary");
+                    formDataGongan.append("otherParam",'{"idcard":"'+idNumber+'","user_id":"'+user_id+'"}');
+                    $.ajax({
+                        type:"POST",
+                        url:"http://60.28.163.53:9002/yztb/rest/police",
+                        data:formDataGongan,
+                        contentType:false,
+                        processData:false,
+                        dataType: "json",
+                        success: function (result) {
+
+                            if(result.data.status==0){
+                                // 验证成功，就什么也不做
+                            }else {
+                                layer.alert("请输入真实、有效、正确的姓名、身份证号、手机号！");
+                                return false;
+                            }
+
+                        }
+                    });
+
+                }
+            });
+
         });
 
         //2公安相关信息-初始化省份信息-现户口登记地址
@@ -4097,7 +4165,7 @@
     //让有无子女和子女数量与table保持一致
     function chcekChildNum() {
         var sonNumber = $('#sonNumber');
-        sonNumber.val($(".sonOneForm").length);
+        //sonNumber.val($(".sonOneForm").length);
         if (sonNumber.val() == 0) {
             $('#haveNoSon')[0].checked = true;
             $("#children-footer").hide();
@@ -4133,7 +4201,7 @@
     function addSonOne() {
         var parentDom = $('#sonOneRelationshipsDiv');
         var addDom = sonOneClone.clone();
-        parentDom.append(addDom);
+        //parentDom.append(addDom);
         addDom.validate({
             rules: {
                 idNumber: {
