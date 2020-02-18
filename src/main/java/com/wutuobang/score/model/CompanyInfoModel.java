@@ -39,7 +39,7 @@ public class CompanyInfoModel implements Serializable {
 
     private String operator;//"经办人1姓名"
 
-    private String operator2;//"经办人2姓名"
+    private String operator2;//"经办人2姓名" ，2019年12月23日后废弃经办人2的业务，改为经办人1的身份证反面
 
     private String operatorMobile;//"经办人1联系手机"
 

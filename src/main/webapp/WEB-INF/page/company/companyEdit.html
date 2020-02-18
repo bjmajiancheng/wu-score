@@ -93,6 +93,18 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>
+                                <span class="color-red">*</span>经办人身份证反面：
+                            </td>
+                            <td>
+                                <div class="integral-businesslicense-img" id="operator2">
+                                    <img id="businessLicenseSrcImg2" name="businessLicenseSrcImg"
+                                         width="180" height="158">
+                                         <input id="operator2" name="operator2" type="hidden" value=""/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2">
                         <span class="color-red">提示：保存成功后，下列用人单位信息每开办一期只可以修改一次。
                         </span>
@@ -304,6 +316,11 @@
                 if (data.hasOwnProperty("businessLicenseSrc") && data['businessLicenseSrc'] != null) {
                     $('#businessLicenseSrcImg').attr("src", data['businessLicenseSrc']);
                     $('#businessLicenseSrc').val(data['businessLicenseSrc']);
+                    /*
+                    2020年2月18日，身份证反面
+                     */
+                    $('#businessLicenseSrcImg2').attr("src", data['operator2']);
+                    $('#operator2').val(data['operator2']);
                 } else {
                     layer.alert("请先上传经办人身份证");
                     $('#businessLicenseDiv').empty();
