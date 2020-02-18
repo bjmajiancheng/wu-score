@@ -197,7 +197,7 @@
                 <table class="integral-cont-table">
                     <tr>
                         <td></td>
-                        <td class="color-red" style="display: none;" id="hasDescendant">请在下方添加子女详细信息</td>
+                        <!--<td class="color-red" style="display: none;" id="hasDescendant">请在下方添加子女详细信息</td>-->
                     </tr>
                     <tr>
                         <td class="">有无子女：</td>
@@ -409,44 +409,7 @@
                 </div>
             </form>
             <!--提示-->
-            <div id="children-footer" style="display: none;">
-                <table class="color-red" style="font-size:100px;">
-                    <!--<tr>
-                        <td>
-                            <p style="font-size:20px;font-weight: bold">提交审核后，申请人携带以下材料到窗口提交随迁子女申请：</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>1、结婚证（随迁子女父母离异的需提供《离婚证》、确定子女抚养关系的离婚协议书或者生效的人民法院判决书、民事调解书）</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><p>2、随迁子女《出生医学证明》</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>3、随迁子女居民户口簿整本</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>4、请申请人在5个工作日内到居住证积分落户公安窗口提交随迁子女相关材料。超过时限未到现场提交材料，按照无子女随迁情况进入打分环节。</p></td>
-                    </tr>-->
-                    <tr>
-                        <td><p style="font-size:20px;font-weight: bold">申请子女随迁需满足以下条件：</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>1、随迁子女不满18周岁；</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证》；</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>3、随迁子女户籍与申请人在同一户内；</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>4、申请人离异的需取得随迁子女的抚养权；</p></td>
-                    </tr>
-                </table>
-            </div>
+
         </div>
         <!--第二页 公安相关信息-->
         <div class="integral-cont-table-wrap groupIndex2" style="display: none;height: auto">
@@ -525,6 +488,27 @@
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class="color-red" id="settledNatureRed" style="display: none">此选项不允许子女随迁</label>
+                            </td>
+                        </tr>
+                        <!-- 2020年2月18日 -->
+                        <tr>
+                            <td class="">落户天津的人员：</td>
+                            <td>
+                                <select name="settledItem" id="settledItem">
+                                    <option value="0">请选择</option>
+                                    <option value="1">申请本人</option>
+                                    <option value="2">申请本人及子女</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="color-red" id="settledItemRed" style="display: none;">
+                            <td colspan="2">
+                                <div style="line-height: 20px;">
+                                1、随迁子女不满18周岁；<br>
+                                2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证书》；<br>
+                                3、随迁子女户籍与申请人在同一户内，并且居民户口簿亲属关系明确；<br>
+                                4、申请人离异的需取得随迁子女的抚养权。并系统默认：《不动产权证》、《结婚证》或《离婚证》及离婚协议书（结婚状态和离婚状态可选择一项）并做上传、《出生医学证明》、《居民户口簿》（整本）为必上传项目。
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -1323,6 +1307,44 @@
                 <!--子女信息-->
 
                     <div id="sonTwoRelationshipsDiv">
+                        <div id="children-footer" style="display: none;">
+                            <table class="color-red" style="font-size:100px;">
+                                <!--<tr>
+                                    <td>
+                                        <p style="font-size:20px;font-weight: bold">提交审核后，申请人携带以下材料到窗口提交随迁子女申请：</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>1、结婚证（随迁子女父母离异的需提供《离婚证》、确定子女抚养关系的离婚协议书或者生效的人民法院判决书、民事调解书）</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>2、随迁子女《出生医学证明》</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>3、随迁子女居民户口簿整本</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>4、请申请人在5个工作日内到居住证积分落户公安窗口提交随迁子女相关材料。超过时限未到现场提交材料，按照无子女随迁情况进入打分环节。</p></td>
+                                </tr>-->
+                                <tr>
+                                    <td><p style="font-size:20px;font-weight: bold">申请子女随迁需满足以下条件：</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>1、随迁子女不满18周岁；</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证》；</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>3、随迁子女户籍与申请人在同一户内；</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>4、申请人离异的需取得随迁子女的抚养权；</p></td>
+                                </tr>
+                            </table>
+                        </div>
                         <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
@@ -2561,6 +2583,20 @@
                 $("#settledNatureRed").hide();
             }
         }).change();
+
+        // 一、在公安填报信息页，增加两个选填：申请本人；申请本人及子女。如申请人选择本人，可按照正常程序填报相关内容。
+        // 如申请人选择本人及子女，系统提示：1、随迁子女不满18周岁；2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证书》；
+        // 3、随迁子女户籍与申请人在同一户内，并且居民户口簿亲属关系明确；4、申请人离异的需取得随迁子女的抚养权。并系统默认：
+        // 《不动产权证》、《结婚证》或《离婚证》及离婚协议书（结婚状态和离婚状态可选择一项）并做上传、《出生医学证明》、《居民户口簿》（整本）为必上传项目
+        $("#settledItem").on("change", function () {
+           var index = $("#settledItem").val();
+           if(index>1){
+               $("#settledItemRed").show();
+           }else{
+               $("#settledItemRed").hide();
+           }
+        });
+
         //2公安相关信息-拟落户地区联动
 //        $("#registeredOffice").on("change", function () {
 //            var regionOffice = $(this).find("option:selected").text();
@@ -3910,6 +3946,8 @@
         $("#sonNumber").val('$!{houseMoveModel.sonNumber}');
         //公安信息-落户类别
         $("#settledNature").val('$!{houseMoveModel.settledNature}');
+        //1:申请本人；2:申请本人及子女
+        $("#settledItem").val('$!{houseMoveModel.settledItem}');
         //人社信息-专业名称
         $("#professionTitle").val('$!{houseProfessionModel.professionTitle}');
         //人社信息-职称级别

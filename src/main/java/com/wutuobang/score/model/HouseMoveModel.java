@@ -40,6 +40,8 @@ public class HouseMoveModel implements Serializable {
 
 	private Integer settledNature;//"落户性质"
 
+	private Integer settledItem; // 1:申请本人；2:申请本人及子女
+
 	private String registeredOffice;//"迁入户籍登记机关"
 
 	private Integer registeredRegion;//"登记地区"
@@ -208,6 +210,14 @@ public class HouseMoveModel implements Serializable {
 
 	public Integer getSettledNature() {
 		return this.settledNature;
+	}
+
+	public Integer getSettledItem() {
+		return settledItem;
+	}
+
+	public void setSettledItem(Integer settledItem) {
+		this.settledItem = settledItem;
 	}
 
 	public void setRegisteredOffice(String registeredOffice) {

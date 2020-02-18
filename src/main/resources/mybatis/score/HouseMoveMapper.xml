@@ -15,6 +15,7 @@
 		<result property="moveRegisteredOffice" column="move_registered_office"/>
 		<result property="houseNature" column="house_nature"/>
 		<result property="settledNature" column="settled_nature"/>
+		<result property="settledItem" column="settledItem"/>
 		<result property="registeredOffice" column="registered_office"/>
 		<result property="registeredRegion" column="registered_region"/>
 		<result property="address" column="address"/>
@@ -38,7 +39,7 @@
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 		<![CDATA[
-        id ,identity_info_id ,move_province ,move_city ,move_region ,move_address ,move_registered_office ,house_nature ,settled_nature ,registered_office ,registered_region,
+        id ,identity_info_id ,move_province ,move_city ,move_region ,move_address ,move_registered_office ,house_nature ,settled_nature ,registered_office ,registered_region,settledItem,
 		address ,witness ,witness_phone ,witness_address ,region ,marriage_status ,have_son ,son_number ,c_time,moveNowAddress,
 		moveIsProvince,moveIsCity,
 		rentHouseAddress,
@@ -63,6 +64,7 @@
 	        move_registered_office  ,
 	        house_nature  ,
 	        settled_nature  ,
+	        settledItem,
 	        registered_office  ,
 	        registered_region  ,
 	        address  ,
@@ -90,6 +92,7 @@
         	#{moveRegisteredOffice, jdbcType=VARCHAR} ,
         	#{houseNature, jdbcType=INTEGER} ,
         	#{settledNature, jdbcType=INTEGER} ,
+        	#{settledItem, jdbcType=INTEGER} ,
         	#{registeredOffice, jdbcType=VARCHAR} ,
         	#{registeredRegion, jdbcType=INTEGER} ,
         	#{address, jdbcType=VARCHAR} ,
@@ -122,6 +125,7 @@
 		<if test="moveRegisteredOffice != null">move_registered_office = #{moveRegisteredOffice, jdbcType=VARCHAR} ,</if>
 		<if test="houseNature != null">house_nature = #{houseNature, jdbcType=INTEGER} ,</if>
 		<if test="settledNature != null">settled_nature = #{settledNature, jdbcType=INTEGER} ,</if>
+		<if test="settledItem != null">settledItem = #{settledItem, jdbcType=INTEGER} ,</if>
 		<if test="registeredOffice != null">registered_office = #{registeredOffice, jdbcType=VARCHAR} ,</if>
 		<if test="registeredRegion != null">registered_region = #{registeredRegion, jdbcType=INTEGER} ,</if>
 		<if test="address != null">address = #{address, jdbcType=VARCHAR} ,</if>
