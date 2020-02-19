@@ -53,7 +53,7 @@
                 select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
                 from
                 (
-                select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+                    select min(t.PERSON_NAME) PERSON_NAME, min(t.OP_ROLE) OP_ROLE,min(t.person_id_num) person_id_num,sum(t.score_value)  score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}  group by t.indicator_id
                        union all
                 select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
                        union all
@@ -71,7 +71,7 @@
         select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
         from
         (
-        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        select min(t.PERSON_NAME) PERSON_NAME, min(t.OP_ROLE) OP_ROLE,min(t.person_id_num) person_id_num,sum(t.score_value)  score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}  group by t.indicator_id
         union all
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
         union all
@@ -97,7 +97,7 @@
         select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
         from
         (
-        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        select min(t.PERSON_NAME) PERSON_NAME, min(t.OP_ROLE) OP_ROLE,min(t.person_id_num) person_id_num,sum(t.score_value)  score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}  group by t.indicator_id
         union all
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
         union all
@@ -118,7 +118,7 @@
         select a.person_id_num,max(a.person_name) person_name,round(nvl(sum(a.SCORE), 0),2) score_value
         from
         (
-        select t.PERSON_NAME, t.OP_ROLE,t.person_id_num,t.score_value as score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}
+        select min(t.PERSON_NAME) PERSON_NAME, min(t.OP_ROLE) OP_ROLE,min(t.person_id_num) person_id_num,sum(t.score_value)  score from t_pb_score_record t where t.indicator_id!=3 and t.indicator_id!=14 and batch_id = #{batch_id}  group by t.indicator_id
         union all
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, max(t.score_value) as score from t_pb_score_record t where t.indicator_id=3 and t.batch_id = #{batch_id} group by t.person_id_num
         union all
