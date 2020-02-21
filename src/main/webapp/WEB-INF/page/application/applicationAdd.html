@@ -31,7 +31,7 @@
         </div>
         <!-- 表单主体部分  用table实现布局 -->
         <!--第一页 综合信息-->
-        <div class="integral-cont-table-wrap groupIndex1" style="display: block;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex1" style="display: block;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-sfz">综合信息</div>
@@ -412,7 +412,7 @@
 
         </div>
         <!--第二页 公安相关信息-->
-        <div class="integral-cont-table-wrap groupIndex2" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex2" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">公安相关信息</div>
@@ -558,7 +558,7 @@
             </div>
         </div>
         <!--第三页 人社相关信息-->
-        <div class="integral-cont-table-wrap groupIndex3" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex3" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">人社相关信息</div>
@@ -1030,7 +1030,7 @@
             </div>
         </div>
         <!--第四页 教育相关信息-->
-        <div class="integral-cont-table-wrap groupIndex4" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex4" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">教育相关信息</div>
@@ -1099,7 +1099,7 @@
             </div>
         </div>
         <!--第五页 卫健委相关信息-->
-        <div class="integral-cont-table-wrap groupIndex5" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex5" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-sfz">卫健委相关信息</div>
@@ -1773,7 +1773,7 @@
             </div>
         </div>
         <!--第六页 退役军人事务局相关信息-->
-        <div class="integral-cont-table-wrap groupIndex6" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex6" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">退役军人事务局相关信息</div>
@@ -1795,7 +1795,7 @@
             </div>
         </div>
         <!--第七页 居住信息-->
-        <div class="integral-cont-table-wrap groupIndex7" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex7" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">居住信息</div>
@@ -2118,7 +2118,7 @@
             </div>
         </div>
         <!--第八页 准迁证邮寄信息-->
-        <div class="integral-cont-table-wrap groupIndex8" style="display: none;height: auto">
+        <div class="integral-cont-table-wrap pageTable groupIndex8" style="display: none;height: auto">
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">准迁证邮寄信息</div>
@@ -2177,8 +2177,9 @@
         <div class="integral-bottom-btn-group" style="margin-bottom: 10px;">
             <div class="interal-main-btn big-btn m15" id="prev">上一页</div>
             <div class="interal-main-btn big-btn ml5" id="page">1/8</div>
-            <div class="interal-main-btn big-btn ml5" style="display: none;">
-                <select id="pages">
+            <div class="interal-main-btn big-btn ml5" style="height: 70px;"><!-- style="display: none;" -->
+                <div>可选择跳转的页面</div>
+                <select id="pages" onchange="selectPage()">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -2187,7 +2188,6 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                     <option value="8">8</option>
-                    <option value="9">9</option>
                 </select>
             </div>
             <div class="interal-main-btn big-btn ml5" id="next">下一页</div>
@@ -4101,6 +4101,50 @@
      */
     function setZaishengyuCheck(select) {
         changeZaishengyuCheck(findParentDom(select, "FORM"), select.val() == "政策内多孩");
+    }
+
+    /*
+     * 2020年2月21日，添加页面跳转按钮，思路如下：
+     * 1、先判断是否为第一页，
+     *   若是：将页面显示为第一页，改变“上一页”、显示的分数页数
+     * 2、若二最后一页（第8页）
+     *   与上面第一页的逻辑相反
+     * 3、其余页面
+     * */
+    //        $("#pages").on('onchange', function () {
+    //
+    //        });
+
+    function selectPage() {
+        var selectedPage = $("#pages").val();
+        console.log("选择的页面："+ selectedPage);
+        if(selectedPage==1){
+            $("#prev").addClass("notclick");
+            $("#prev").unbind('click');
+            $(".pageTable").css("display", "none");
+            $(".groupIndex" + selectedPage).css("display", "block");
+            $("#page").text(selectedPage + "/8");
+            $("#pages").val(selectedPage);
+            pagesChange();
+
+        }else if(selectedPage==8){
+            $("#next").addClass("notclick");
+            $("#next").unbind('click');
+            $(".pageTable").css("display", "none");
+            $(".groupIndex" + selectedPage).css("display", "block");
+            $("#page").text(selectedPage + "/8");
+            $("#pages").val(selectedPage);
+            pagesChange();
+
+        }else{
+            $("#prev").removeClass("notclick");
+            $("#prev").bind('click');
+            $(".pageTable").css("display", "none");
+            $(".groupIndex" + selectedPage).css("display", "block");
+            $("#page").text(selectedPage + "/8");
+            $("#pages").val(selectedPage);
+            pagesChange();
+        }
     }
 
     //申请人本人亲生子女”与“收养子女”有逻辑关系(暂时没用)
