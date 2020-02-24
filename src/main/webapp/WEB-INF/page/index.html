@@ -28,6 +28,7 @@
         <div class="integral-desc-title">
             申请人列表
         </div>
+        <div style="margin-left:20px;margin-bottom:10px;">今天申请审核剩余名额：<span id="remain"></span></div>
         <!-- 表格搜索框和按钮部分 -->
         <div id="app">
             <script type="text/regular" id="identityRows">
@@ -276,6 +277,8 @@
             "pageNo": page_index
         }, function (result) {
             component.data.identityInfos = result.data;
+            console.log(result.countmsg);
+            $("#remain").html(result.countmsg);
             component.$update();
             pageCount = result.pageCount;
         });
@@ -317,7 +320,7 @@
                     }
                 }else {
                     //询问框
-                    var index = layer.confirm('材料上传结束后，可以申请审核（申请人有子女随迁的，必须到公安窗口审核材料；否则不用到窗口），确定要申请审核吗？', {
+                    var index = layer.confirm('材料上传结束后，可以申请审核，确定要申请审核吗？', {
                         btn: ['确认', '取消'] //按钮
                     }, function () {
 

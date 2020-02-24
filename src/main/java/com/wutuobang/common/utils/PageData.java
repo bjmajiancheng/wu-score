@@ -25,6 +25,16 @@ public class PageData<T> implements java.io.Serializable{
 
 	private int pageCount;
 
+	private String countmsg;
+
+	public String getCountmsg() {
+		return countmsg;
+	}
+
+	public void setCountmsg(String countmsg) {
+		this.countmsg = countmsg;
+	}
+
 	public List<T> getData() {
 		return data;
 	}

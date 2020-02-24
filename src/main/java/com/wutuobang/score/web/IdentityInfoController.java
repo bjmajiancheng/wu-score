@@ -307,6 +307,18 @@ public class IdentityInfoController {
             PageData<IdentityInfoModel> pageData = identityInfoService
                     .findPage(currUser, batchConfModel.getId(), queryStr, pageNo);
 
+            AcceptDateConfModel acceptDateConf_shiqu = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(batchConfModel.getId(), 1,DateUtil.getDate(new Date()));
+            AcceptDateConfModel acceptDateConf_binhai = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(batchConfModel.getId(), 2,DateUtil.getDate(new Date()));
+            int count1 = 0;
+            int count2 = 0;
+            if (acceptDateConf_shiqu != null){
+                count1 = acceptDateConf_shiqu.getAmRemainingCount() + acceptDateConf_shiqu.getPmRemainingCount();
+            }
+            if (acceptDateConf_binhai != null){
+                count2 = acceptDateConf_binhai.getAmRemainingCount() + acceptDateConf_binhai.getPmRemainingCount();
+            }
+            pageData.setCountmsg("市区："+count1+"；滨海新区："+ count2);
+
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {
             e.printStackTrace();
