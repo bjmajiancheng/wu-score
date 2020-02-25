@@ -63,6 +63,151 @@ public class CompanyInfoModel implements Serializable {
 
     private Integer recordId;
 
+    private String apprdate;
+    private String dom;
+    private String entname;
+    private String enttype;
+    private String estdate;
+    private String lerep;
+    private String opfrom;
+    private String opscope;
+    private String opto;
+    private String regcap;
+    private String regcapcur;
+    private String regno;
+    private String regorg;
+    private String regstate;
+    private String orgno;
+    private String compform;
+
+    public String getApprdate() {
+        return apprdate;
+    }
+
+    public void setApprdate(String apprdate) {
+        this.apprdate = apprdate;
+    }
+
+    public String getDom() {
+        return dom;
+    }
+
+    public void setDom(String dom) {
+        this.dom = dom;
+    }
+
+    public String getEntname() {
+        return entname;
+    }
+
+    public void setEntname(String entname) {
+        this.entname = entname;
+    }
+
+    public String getEnttype() {
+        return enttype;
+    }
+
+    public void setEnttype(String enttype) {
+        this.enttype = enttype;
+    }
+
+    public String getEstdate() {
+        return estdate;
+    }
+
+    public void setEstdate(String estdate) {
+        this.estdate = estdate;
+    }
+
+    public String getLerep() {
+        return lerep;
+    }
+
+    public void setLerep(String lerep) {
+        this.lerep = lerep;
+    }
+
+    public String getOpfrom() {
+        return opfrom;
+    }
+
+    public void setOpfrom(String opfrom) {
+        this.opfrom = opfrom;
+    }
+
+    public String getOpscope() {
+        return opscope;
+    }
+
+    public void setOpscope(String opscope) {
+        this.opscope = opscope;
+    }
+
+    public String getOpto() {
+        return opto;
+    }
+
+    public void setOpto(String opto) {
+        this.opto = opto;
+    }
+
+    public String getRegcap() {
+        return regcap;
+    }
+
+    public void setRegcap(String regcap) {
+        this.regcap = regcap;
+    }
+
+    public String getRegcapcur() {
+        return regcapcur;
+    }
+
+    public void setRegcapcur(String regcapcur) {
+        this.regcapcur = regcapcur;
+    }
+
+    public String getRegno() {
+        return regno;
+    }
+
+    public void setRegno(String regno) {
+        this.regno = regno;
+    }
+
+    public String getRegorg() {
+        return regorg;
+    }
+
+    public void setRegorg(String regorg) {
+        this.regorg = regorg;
+    }
+
+    public String getRegstate() {
+        return regstate;
+    }
+
+    public void setRegstate(String regstate) {
+        this.regstate = regstate;
+    }
+
+    public String getOrgno() {
+        return orgno;
+    }
+
+    public void setOrgno(String orgno) {
+        this.orgno = orgno;
+    }
+
+    public String getCompform() {
+        return compform;
+    }
+
+    public void setCompform(String compform) {
+        this.compform = compform;
+    }
+
     public Integer getRecordId() {
         return recordId;
     }

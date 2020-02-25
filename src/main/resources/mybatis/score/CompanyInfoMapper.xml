@@ -24,13 +24,49 @@
 		<result property="idCardNumber_2" column="idCardNumber_2"></result>
 		<result property="status" column="status"></result>
 		<result property="businessLicenseSrc" column="businessLicenseSrc"/>
+
+		<result property="apprdate" column="apprdate"/>
+		<result property="dom" column="dom"/>
+		<result property="entname" column="entname"/>
+		<result property="enttype" column="enttype"/>
+		<result property="estdate" column="estdate"/>
+		<result property="lerep" column="lerep"/>
+		<result property="opfrom" column="opfrom"/>
+		<result property="opscope" column="opscope"/>
+
+		<result property="opto" column="opto"/>
+		<result property="regcap" column="regcap"/>
+		<result property="regcapcur" column="regcapcur"/>
+		<result property="regno" column="regno"/>
+		<result property="regorg" column="regorg"/>
+		<result property="regstate" column="regstate"/>
+		<result property="orgno" column="orgno"/>
+		<result property="compform" column="compform"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 		<![CDATA[
-        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,create_time,operator_obile2,idCardNumber_1,idCardNumber_2,status,businessLicenseSrc
-	    ]]>
+        id ,user_name ,password ,company_name ,company_type ,society_code ,company_mobile ,operator, operator2, operator_mobile ,operator_address ,remark ,
+        create_time,operator_obile2,idCardNumber_1,idCardNumber_2,status,businessLicenseSrc
+		,apprdate
+		,dom
+		,entname
+		,enttype
+		,estdate
+		,lerep
+		,opfrom
+		,opscope
+		,opto
+		,regcap
+		,regcapcur
+		,regno
+		,regorg
+		,regstate
+		,orgno
+		,compform
+
+		]]>
 	</sql>
 
 	<insert id="insert" >
@@ -56,7 +92,23 @@
 	        idCardNumber_1,
 	        idCardNumber_2,
 			status,
-businessLicenseSrc
+			businessLicenseSrc
+			,apprdate
+			,dom
+			,entname
+			,enttype
+			,estdate
+			,lerep
+			,opfrom
+			,opscope
+			,opto
+			,regcap
+			,regcapcur
+			,regno
+			,regorg
+			,regstate
+			,orgno
+			,compform
         ) VALUES (
         	${id} ,
         	#{userName, jdbcType=VARCHAR} ,
@@ -75,7 +127,23 @@ businessLicenseSrc
         	#{idCardNumber_1, jdbcType=VARCHAR},
         	#{idCardNumber_2, jdbcType=VARCHAR},
         	#{status,jdbcType=INTEGER},
-		#{businessLicenseSrc, jdbcType=VARCHAR}
+			#{businessLicenseSrc, jdbcType=VARCHAR},
+			#{apprdate, jdbcType=VARCHAR},
+			#{dom,      jdbcType=VARCHAR},
+			#{entname,  jdbcType=VARCHAR},
+			#{enttype,  jdbcType=VARCHAR},
+			#{estdate,  jdbcType=VARCHAR},
+			#{lerep,    jdbcType=VARCHAR},
+			#{opfrom,   jdbcType=VARCHAR},
+			#{opscope,  jdbcType=VARCHAR},
+			#{opto,     jdbcType=VARCHAR},
+			#{regcap,   jdbcType=VARCHAR},
+			#{regcapcur,jdbcType=VARCHAR},
+			#{regno,    jdbcType=VARCHAR},
+			#{regorg,   jdbcType=VARCHAR},
+			#{regstate, jdbcType=VARCHAR},
+			#{orgno,    jdbcType=VARCHAR},
+			#{compform, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
@@ -106,6 +174,22 @@ businessLicenseSrc
 			status,
 			businessLicenseSrc,
 			c_time
+			,apprdate
+			,dom
+			,entname
+			,enttype
+			,estdate
+			,lerep
+			,opfrom
+			,opscope
+			,opto
+			,regcap
+			,regcapcur
+			,regno
+			,regorg
+			,regstate
+			,orgno
+			,compform
         ) VALUES (
         	${recordId} ,
             #{id, jdbcType=INTEGER} ,
@@ -126,7 +210,23 @@ businessLicenseSrc
         	#{idCardNumber_2, jdbcType=VARCHAR},
         	#{status,jdbcType=INTEGER},
 			#{businessLicenseSrc, jdbcType=VARCHAR},
-			sysdate
+			sysdate,
+			#{apprdate, jdbcType=VARCHAR},
+			#{dom,      jdbcType=VARCHAR},
+			#{entname,  jdbcType=VARCHAR},
+			#{enttype,  jdbcType=VARCHAR},
+			#{estdate,  jdbcType=VARCHAR},
+			#{lerep,    jdbcType=VARCHAR},
+			#{opfrom,   jdbcType=VARCHAR},
+			#{opscope,  jdbcType=VARCHAR},
+			#{opto,     jdbcType=VARCHAR},
+			#{regcap,   jdbcType=VARCHAR},
+			#{regcapcur,jdbcType=VARCHAR},
+			#{regno,    jdbcType=VARCHAR},
+			#{regorg,   jdbcType=VARCHAR},
+			#{regstate, jdbcType=VARCHAR},
+			#{orgno,    jdbcType=VARCHAR},
+			#{compform, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
