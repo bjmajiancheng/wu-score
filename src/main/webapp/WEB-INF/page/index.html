@@ -92,11 +92,47 @@
                                 <span>取消预约超限</span>
                                 {/if}
                             {\#elseif identityInfo.reservationStatus == 11}
-                                {\#if identityInfo.hallStatus == 0}
-                                    <!--<span>公安前置预审待审核</span>-->
-                                    <span>预约成功</span>
-                                {\#elseif identityInfo.hallStatus == 1}
-                                    <span>公安前置预审不通过</span>
+                                {\#if identityInfo.policeApproveStatus == 1 && (identityInfo.rensheAcceptStatus == 1  || identityInfo.rensheAcceptStatus == 5)}
+                                    <span>审核中</span>
+                                {\#elseif identityInfo.policeApproveStatus == 1 && identityInfo.rensheAcceptStatus == 2}
+                                    <span>公安审核中</span><br>
+                                    <span>人社要求补正</span>
+                                {\#elseif identityInfo.policeApproveStatus == 1 && identityInfo.rensheAcceptStatus == 3}
+                                    <span>公安审核中</span><br>
+                                    <span>人社受理通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 1 && identityInfo.rensheAcceptStatus == 4}
+                                    <span>人社受理不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 2 && (identityInfo.rensheAcceptStatus == 1 || identityInfo.rensheAcceptStatus == 5)}
+                                    <span>公安要求补正</span><br>
+                                    <span>人社受理审核中</span>
+                                {\#elseif identityInfo.policeApproveStatus == 2 && identityInfo.rensheAcceptStatus == 2}
+                                    <span>公安要求补正</span><br>
+                                    <span>人社要求补正</span>
+                                {\#elseif identityInfo.policeApproveStatus == 2 && identityInfo.rensheAcceptStatus == 3}
+                                    <span>公安要求补正</span><br>
+                                    <span>人社受理通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 2 && identityInfo.rensheAcceptStatus == 4}
+                                    <span>人社受理不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 3 && (identityInfo.rensheAcceptStatus == 1 || identityInfo.rensheAcceptStatus == 5)}
+                                    <span>公安审核通过</span><br>
+                                    <span>人社受理审核中</span>
+                                {\#elseif identityInfo.policeApproveStatus == 3 && identityInfo.rensheAcceptStatus == 2}
+                                    <span>公安审核通过</span><br>
+                                    <span>人社要求补正</span>
+                                {\#elseif identityInfo.policeApproveStatus == 3 && identityInfo.rensheAcceptStatus == 3}
+                                    <span>公安审核通过</span><br>
+                                    <span>人社受理通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 3 && identityInfo.rensheAcceptStatus == 4}
+                                    <span>人社受理不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 4 && (identityInfo.rensheAcceptStatus == 1 || identityInfo.rensheAcceptStatus == 5)}
+                                    <span>公安审核不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 4 && identityInfo.rensheAcceptStatus == 2}
+                                    <span>公安审核不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 4 && identityInfo.rensheAcceptStatus == 3}
+                                    <span>公安审核不通过</span>
+                                {\#elseif identityInfo.policeApproveStatus == 4 && identityInfo.rensheAcceptStatus == 4}
+                                    <span>公安审核不通过</span><br>
+                                    <span>人社受理不通过</span>
                                 {\#elseif identityInfo.hallStatus == 2}
                                     <span>公安前置预审通过</span>
                                 {\#elseif identityInfo.hallStatus == 3}
@@ -116,7 +152,7 @@
                                 {/if}
                                 <!--<span>预约成功</span>-->
                             {/if}
-                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4 || identityInfo.policeApproveStatus == 2 || identityInfo.rensheAcceptStatus == 2}
+                            {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4}
                                 {\#if identityInfo.reservationStatus != 9}
                                     <span>待补件</span>
                                 {/if}
