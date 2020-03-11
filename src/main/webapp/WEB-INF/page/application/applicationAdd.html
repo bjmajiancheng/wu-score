@@ -2826,7 +2826,7 @@
         //7居住信息-删除租赁备案信息
         $("#delRelation").on("click", function () {
             $(".checkHouseInformation:checked").each(function () {
-                findParentDom($(this), "TABLE").remove();
+                findParentDom($(this), "DIV").remove();
             });
         });
         //7居住信息-自有住房
