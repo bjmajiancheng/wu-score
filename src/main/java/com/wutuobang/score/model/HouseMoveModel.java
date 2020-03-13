@@ -88,6 +88,15 @@ public class HouseMoveModel implements Serializable {
 	private String  rentIdNumber; // 租赁登记备案证明编号
 	private String  rentHouseStartDate; // 租赁备案起始日
 	private String  rentHouseEndDate; // 租赁合同终止日
+	private String  currentRegisteredAddress;// 2020年3月13日 现户口登记地址
+
+	public String getCurrentRegisteredAddress() {
+		return currentRegisteredAddress;
+	}
+
+	public void setCurrentRegisteredAddress(String currentRegisteredAddress) {
+		this.currentRegisteredAddress = currentRegisteredAddress;
+	}
 
 	public Integer getMoveIsProvince() {
 		return moveIsProvince;

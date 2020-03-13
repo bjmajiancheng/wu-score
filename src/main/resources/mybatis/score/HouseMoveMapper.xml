@@ -34,6 +34,7 @@
 		<result property="rentIdNumber" column="rentIdNumber"/>
 		<result property="rentHouseStartDate" column="rentHouseStartDate"/>
 		<result property="rentHouseEndDate" column="rentHouseEndDate"/>
+		<result property="currentRegisteredAddress" column="currentRegisteredAddress"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -45,7 +46,8 @@
 		rentHouseAddress,
 		rentIdNumber,
 		rentHouseStartDate,
-		rentHouseEndDate
+		rentHouseEndDate,
+		currentRegisteredAddress
 	    ]]>
 	</sql>
 
@@ -81,7 +83,8 @@
 			rentHouseAddress,
 			rentIdNumber,
 			rentHouseStartDate,
-			rentHouseEndDate
+			rentHouseEndDate,
+			currentRegisteredAddress
         ) VALUES (
         	${id} ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -110,7 +113,8 @@
             #{rentHouseAddress, jdbcType=VARCHAR} ,
         	#{rentIdNumber, jdbcType=VARCHAR} ,
         	#{rentHouseStartDate, jdbcType=VARCHAR} ,
-        	#{rentHouseEndDate, jdbcType=VARCHAR}
+        	#{rentHouseEndDate, jdbcType=VARCHAR},
+        	#{currentRegisteredAddress, jdbcType=VARCHAR}
         )
     ]]>
 	</insert>
@@ -144,6 +148,7 @@
 		<if test="rentIdNumber != null">rentIdNumber = #{rentIdNumber, jdbcType=VARCHAR} ,</if>
 		<if test="rentHouseStartDate != null">rentHouseStartDate = #{rentHouseStartDate, jdbcType=VARCHAR} ,</if>
 		<if test="rentHouseEndDate != null">rentHouseEndDate = #{rentHouseEndDate, jdbcType=VARCHAR} ,</if>
+		<if test="currentRegisteredAddress != null">currentRegisteredAddress = #{currentRegisteredAddress, jdbcType=VARCHAR} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}
