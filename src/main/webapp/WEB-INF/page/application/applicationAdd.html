@@ -451,6 +451,15 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="">现户口登记地址详细地址：</td>
+                            <td>
+                                <input class="integral-input w518" type="text" name="currentRegisteredAddress"
+                                       id="currentRegisteredAddress"
+                                       placeholder=""
+                                       value="$!{houseMoveModel.currentRegisteredAddress}">
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="">现户口地派出所：</td>
                             <td>
                                 <input class="integral-input w518" type="text" name="moveRegisteredOffice"
@@ -3081,6 +3090,228 @@
             validateFlag = false;
         }
 
+
+        //第一页
+        // 姓名
+        if($("#name").val().trim()==""){
+            layer.msg("第1页，请输入 姓名");
+            return false;
+        }
+        if($("#idNumber").val().trim()==""){
+            layer.msg("第1页，请输入 公民身份号码");
+            return false;
+        }
+        if($("#selfPhone").val().trim()==""){
+            layer.msg("第1页，请输入 申请人手机号");
+            return false;
+        }
+        if ($("input[name='providentFund']:checked").val() == null) {
+            layer.msg("第1页，请选择 是否缴存住房公积金");
+            return false;
+        }
+        if ($("input[name='isInsurance']:checked").val() == null) {
+            layer.msg("第1页，请选择 是否在开发区缴纳外资企业住房公积金");
+            return false;
+        }
+        if($("#moveAddress").val().trim()==""){
+            layer.msg("第1页，请输入现居住地址");
+            return false;
+        }
+        if($("#marriageStatus").val()==7 || $("#marriageStatus").val()==8 || $("#marriageStatus").val()==9){
+            if($("#relationshipName").val().trim()==""){
+                layer.msg("第1页，请输入配偶姓名");
+                return false;
+            }
+            if ($("input[name='isChinese']:checked").val() == null) {
+                layer.msg("第1页，请选择 配偶是否为中国籍");
+                return false;
+            }
+            if($("#relationshipID_3").val().trim()==""){
+                layer.msg("第1页，请输入配偶身份证号");
+                return false;
+            }
+            if ($("input[name='inTianjin']:checked").val() == null) {
+                layer.msg("第1页，请选择 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月");
+                return false;
+            }
+            if ($("input[name='isSpousesoldier']:checked").val() == null) {
+                layer.msg("第1页，请选择 配偶是否是现役军人");
+                return false;
+            }
+        }
+
+        //第二页
+        if($("#moveProvince").val().trim()==0 || $("#moveCity").val().trim()==0 || $("#moveRegion").val().trim()==0){
+            layer.msg("第2页，请选择 现户口登记地址");
+            return false;
+        }
+        if($("#currentRegisteredAddress").val().trim()==""){
+            layer.msg("第2页，请输入 现户口登记地址详细地址");
+            return false;
+        }
+        if($("#moveRegisteredOffice").val().trim()==""){
+            layer.msg("第2页，请输入 现户口地派出所");
+            return false;
+        }
+        if($("#address").val().trim()==""){
+            layer.msg("第2页，请输入 拟落户地址");
+            return false;
+        }
+        if($("#settledItem").val().trim()==0){
+            layer.msg("第2页，请选择 落户天津的人员");
+            return false;
+        }
+        if ($("input[name='penalty']:checked").val() == null) {
+            layer.msg("第2页，请选择 五年内有无刑事犯罪记录");
+            return false;
+        }
+        if($("input[name='penalty']:checked").val() ==1){
+            if($("#penaltyDate").val().trim()==""){
+                layer.msg("第2页，请输入 犯罪日期");
+                return false;
+            }
+            if($("#penaltyContent").val().trim()==""){
+                layer.msg("第2页，请输入 犯罪内容");
+                return false;
+            }
+            if($("#penaltyResults").val().trim()==""){
+                layer.msg("第2页，请输入 处罚结果");
+                return false;
+            }
+        }
+
+        //第三页
+        if ($("input[name='dispatch']:checked").val() == null) {
+            layer.msg("第3页，请选择 是否为派遣制用工");
+            return false;
+        }
+        if($("input[name='companyName']").val().trim()==""){
+            layer.msg("第3页，请输入 实际用工单位名称");
+            return false;
+        }
+        if($("input[name='companyAddress']").val().trim()==""){
+            layer.msg("第3页，请输入 实际用工单位地址");
+            return false;
+        }
+        if($("input[name='industry']").val().trim()==""){
+            layer.msg("第3页，请输入 实际用工单位所属行业");
+            return false;
+        }
+        if($("input[name='applyOfficeAddress']").val().trim()==""){
+            layer.msg("第3页，请输入 申请人实际办工地址");
+            return false;
+        }
+        if($("input[name='jobTitle']").val().trim()==""){
+            layer.msg("第3页，请输入 申请人现工作岗位");
+            return false;
+        }
+        if($("input[name='jobContent']").val().trim()==""){
+            layer.msg("第3页，请输入 具体工作内容");
+            return false;
+        }
+        if($("input[name='jobDate']").val().trim()==""){
+            layer.msg("第3页，请输入 在此岗位工作起始时间");
+            return false;
+        }
+        if ($("input[name='isAnotherInsurance']:checked").val() == null) {
+            layer.msg("第3页，请选择 是否存在同时在异地缴纳社会保险情况");
+            return false;
+        }
+        if ($("input[name='professionType']:checked").val() == null) {
+            layer.msg("第3页，请选择 是否具有国家职业资格");
+            return false;
+        }
+        if($("#awardsTitle").val()!=46){
+            if($("input[name='awardsName']").val().trim()==""){
+                layer.msg("第3页，请输入 奖项名称");
+                return false;
+            }
+            if($("input[name='awardsDate']").val().trim()==""){
+                layer.msg("第3页，请输入 获奖日期");
+                return false;
+            }
+            if($("input[name='awardsOffical']").val().trim()==""){
+                layer.msg("第3页，请输入 授奖机关");
+                return false;
+            }
+        }
+
+        // 第四页
+        if($("#cultureDegree").val() == 1011){
+            if($("input[name='graduateSchool']").val().trim()==""){
+                layer.msg("第4页，请输入 毕业院校");
+                return false;
+            }
+            if($("input[name='professional']").val().trim()==""){
+                layer.msg("第4页，请输入 专业");
+                return false;
+            }
+            if($("input[name='office']").val().trim()==""){
+                layer.msg("第4页，请输入 发证机关");
+                return false;
+            }
+            if($("input[name='officeDate']").val().trim()==""){
+                layer.msg("第4页，请输入 发证日期");
+                return false;
+            }
+            if($("input[name='jobTypeName']").val().trim()==""){
+                layer.msg("第4页，请输入 取得相对应的高级技能证书工种名称");
+                return false;
+            }
+            if($("input[name='jobTypeDate']").val().trim()==""){
+                layer.msg("第4页，请输入 取得相对应的高级技能证书发证日期");
+                return false;
+            }
+        }
+
+        // 第七页
+        if ($("input[name='ourHouse']:checked").val() == null) {
+            layer.msg("第7页，请选择 是否有自有住房");
+            return false;
+        }
+        if ($("input[name='ourHouse']:checked").val() == 1) {
+            if($("input[name='ourBuyHouse']:checked").val()==null){
+                layer.msg("第7页，请选择 是否于2019年12月31日之前购买住房");
+                return false;
+            }
+            if($("input[name='is201826Doc']:checked").val()==null){
+                layer.msg("第7页，请选择 是否按照“津发改社会〔2018〕26号”文件计算");
+                return false;
+            }
+            if($("input[name='houseAddress']").val().trim()==""){
+                layer.msg("第7页，请选择 住房详细坐落");
+                return false;
+            }
+            if($("input[name='houseUse']").val().trim()==""){
+                layer.msg("第7页，请选择 房屋设计用途");
+                return false;
+            }
+            if($("#rightProperty").val().trim()==0){
+                layer.msg("第7页，请选择 持有");
+                return false;
+            }
+            if($("#rightProperty").val().trim()==1){
+                if($("input[name='houseOurDate']").val().trim()==""){
+                    layer.msg("第7页，请选择 不动产权证取得日期");
+                    return false;
+                }
+                if($("input[name='houseOurNumber']").val().trim()==""){
+                    layer.msg("第7页，请选择 不动产权登记号");
+                    return false;
+                }
+            }
+            if($("#rightProperty").val().trim()==2){
+                if($("input[name='housePactDate']").val().trim()==""){
+                    layer.msg("第7页，请选择 购房合同签署日期");
+                    return false;
+                }
+                if($("input[name='housePactNumber']").val().trim()==""){
+                    layer.msg("第7页，请选择 购房合同编号");
+                    return false;
+                }
+            }
+        }
+
         var marriageStatus = $("#marriageStatus option:selected").val();
         if (marriageStatus == 7 || marriageStatus == 8 || marriageStatus == 9) {
             if (!$("#spouseForm1").valid()) {
@@ -3088,17 +3319,17 @@
             }
             var spouse_HJAddress = $("#spouse_HJAddress").val();
             if(spouse_HJAddress == ''){
-                layer.msg("请输入卫健委相关信息页面配偶户籍地地址");
+                layer.msg("第5页 请输入卫健委相关信息页面配偶户籍地地址");
                 return false;
             }
             var spouse_LivingAddress = $("#spouse_LivingAddress").val();
             if(spouse_LivingAddress == ''){
-                layer.msg("请输入卫健委相关信息页面配偶现居住地地址");
+                layer.msg("第5页 请输入卫健委相关信息页面配偶现居住地地址");
                 return false;
             }
             var spouseMarriageStatus = $("#spouseMarriageStatus option:selected").val();
             if(spouseMarriageStatus == 0){
-                layer.msg("请选择卫健委相关信息页面配偶婚姻状况");
+                layer.msg("第5页 请选择卫健委相关信息页面配偶婚姻状况");
                 return false;
             }
         }
@@ -3107,7 +3338,6 @@
         if (!$("#houseMoveForm2").valid()) {
             validateFlag = false;
         }
-
         if (!$("#houseOtherForm2").valid()) {
             validateFlag = false;
         }
@@ -3172,7 +3402,7 @@
                     var idNumber = $(this).find("input[name='idNumber']").val();
                     var flag = validateIdNumber(idNumber);
                     if (!flag) {
-                        layer.msg("请输入卫健委信息页面子女正确的身份证号!");
+                        layer.msg("第5页 请输入卫健委信息页面子女正确的身份证号!");
                         return false;
                     }
                 }
@@ -3222,11 +3452,11 @@
 
         //卫健委-承诺
         if ($('#pregnantPromise').val() == 0) {
-            layer.msg("请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
+            layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
             return false;
         }
-        if ($('#thirdPregnantPromise').val() == 0) {
-            layer.msg("请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
+        if ($('.thirdPregnantPromise').val() == "") {
+            layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
 
@@ -3669,6 +3899,9 @@
                 },
                 address: {
                     required: true
+                },
+                currentRegisteredAddress:{
+                    required: true
                 }
             },
             messages: {
@@ -3680,11 +3913,13 @@
                 },
                 address: {
                     required: "请输入拟落户地址"
+                },
+                currentRegisteredAddress: {
+                    required: "请输入现户口登记地址"
                 }
             },
             errorPlacement: function (error, element) { //指定错误信息位置
                 if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
-                    var eid = element.attr('name'); //获取元素的name属性
                     error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面
                 } else {
                     error.insertAfter(element);
