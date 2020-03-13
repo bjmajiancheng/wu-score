@@ -239,7 +239,7 @@ public class IdentityInfoController {
             }
 
             IdentityInfoModel infoModelDatebase = identityInfoService.getById(identityInfoModel.getId());
-            if (infoModelDatebase != null && infoModelDatebase.getReservationStatus() >= 6) {
+            if (infoModelDatebase != null && infoModelDatebase.getReservationStatus() > 6) {
                 return ResultParam.error("您当前状态不能修改申请人信息");
             }
 
