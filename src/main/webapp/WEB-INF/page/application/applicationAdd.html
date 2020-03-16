@@ -2605,6 +2605,8 @@
             var index = $("#settledNature").val();
             if (index > 1) {
                 $("#settledNatureRed").show();
+                $("#settledItem").val("1");
+                $("#settledItem").attr("disabled",true);
             } else {
                 $("#settledNatureRed").hide();
             }
