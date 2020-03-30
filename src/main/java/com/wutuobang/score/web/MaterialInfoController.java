@@ -390,15 +390,15 @@ public class MaterialInfoController {
                                     || materialInfos.get(i).getId()==1161
                                     || materialInfos.get(i).getId()==1162
                                     || materialInfos.get(i).getId()==1163){
-                                materialInfos.remove(i--);
+                               // materialInfos.remove(i--);
                             }
                         }
                         if (identityInfo.getHouseProperty()!=null && Integer.parseInt(identityInfo.getHouseProperty()) != 1){
-                            if (materialInfos.get(i).getId()==1020
+                            if (/*materialInfos.get(i).getId()==1020
                                     || materialInfos.get(i).getId()==1161
                                     || materialInfos.get(i).getId()==1162
-                                    || materialInfos.get(i).getId()==1163
-                                    || materialInfos.get(i).getId()==1094
+                                    || materialInfos.get(i).getId()==1163*/
+                                     materialInfos.get(i).getId()==1094
                                     || materialInfos.get(i).getId()==1110
                                     || materialInfos.get(i).getId()==1166
                                     || materialInfos.get(i).getId()==1167
