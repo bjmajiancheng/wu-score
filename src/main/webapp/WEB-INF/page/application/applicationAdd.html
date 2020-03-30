@@ -565,6 +565,10 @@
                         </tr>
                     </table>
                 </form>
+                <div class="color-red">
+                    温馨提示：<br>
+                    取得本期积分落户资格的申请人，到拟落户地派出所办理落户手续时还需携带公安材料清单中的所有原件。
+                </div>
             </div>
         </div>
         <!--第三页 人社相关信息-->
@@ -2609,6 +2613,9 @@
                 $("#settledItem").attr("disabled",true);
             } else {
                 $("#settledNatureRed").hide();
+                $("#settledItem").attr("disabled",false);
+                $("#settledItem").val("2");
+                $("#settledItem").attr("disabled",true);
             }
         }).change();
 
