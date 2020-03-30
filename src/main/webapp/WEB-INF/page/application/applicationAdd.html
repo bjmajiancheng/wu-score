@@ -1990,7 +1990,7 @@
                                 <br>
                             </td>
                         </tr>
-                        <tr class="ourHouseTable" style="display: none">
+<!--                        <tr class="ourHouseTable" style="display: none">
                             <td class="">购买住房的合同/产权证:</td>
                             <td>
                                 <input class="input_radio" type="radio" name="contractCertificate" value="1"
@@ -2001,7 +2001,7 @@
                                        #if(${identityInfo.contractCertificate}== 2) checked #end>&nbsp;
                                 <label>房屋购买产权证</label>
                             </td>
-                        </tr>
+                        </tr>-->
                         <tr class="ourHouseTable" style="display: none">
                             <td class="">是否于2019年12月31日之前购买住房:</td>
                             <td>
@@ -3289,10 +3289,10 @@
             return false;
         }
         if ($("input[name='ourHouse']:checked").val() == 1) {
-            if($("input[name='contractCertificate']:checked").val()==null){
+/*            if($("input[name='contractCertificate']:checked").val()==null){
                 layer.msg("第7页，请选择 购买住房合同/产权证");
                 return false;
-            }
+            }*/
             if($("input[name='ourBuyHouse']:checked").val()==null){
                 layer.msg("第7页，请选择 是否于2019年12月31日之前购买住房");
                 return false;
