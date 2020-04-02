@@ -498,32 +498,32 @@ public class IdentityInfoBiz {
                         e>60	10+3/12*(e-60)	e<=60	2/12*e
                          */
                         int pensionScore = 0;
-                        if (indicatorView.getPensionMonth() > 60) {
-                            pensionScore = 40 + (indicatorView.getPensionMonth()-60)*10 / 12;
+                        if (indicatorView.getPensionMonth() > 36) {
+                            pensionScore = 40 + (indicatorView.getPensionMonth()-36)*10 / 12;
                         } else {
                             pensionScore = indicatorView.getPensionMonth()*8 / 12;
                         }
                         int medicalScore = 0;
-                        if (indicatorView.getMedicalMonth() > 60) {
-                            medicalScore = 10 + (indicatorView.getMedicalMonth()-60)*3 / 12;
+                        if (indicatorView.getMedicalMonth() > 36) {
+                            medicalScore = 10 + (indicatorView.getMedicalMonth()-36)*3 / 12;
                         } else {
                             medicalScore = (indicatorView.getMedicalMonth()*2) / 12;
                         }
                         int unemploymentScore = 0;
-                        if (indicatorView.getUnemploymentMonth() > 60) {
-                            unemploymentScore = 10 + (indicatorView.getUnemploymentMonth()-60)*3 / 12;
+                        if (indicatorView.getUnemploymentMonth() > 36) {
+                            unemploymentScore = 10 + (indicatorView.getUnemploymentMonth()-36)*3 / 12;
                         } else {
                             unemploymentScore = (indicatorView.getUnemploymentMonth()*2) / 12;
                         }
                         int workInjuryScore = 0;
-                        if (indicatorView.getWorkInjuryMonth() > 60) {
-                            workInjuryScore = 10 + (indicatorView.getWorkInjuryMonth()-60)*3 / 12;
+                        if (indicatorView.getWorkInjuryMonth() > 36) {
+                            workInjuryScore = 10 + (indicatorView.getWorkInjuryMonth()-36)*3 / 12;
                         } else {
                             workInjuryScore = (indicatorView.getWorkInjuryMonth()*2) / 12;
                         }
                         int fertilityScore = 0;
-                        if (indicatorView.getFertilityMonth() > 60) {
-                            fertilityScore = 10 + (indicatorView.getFertilityMonth()-60)*3 / 12;
+                        if (indicatorView.getFertilityMonth() > 36) {
+                            fertilityScore = 10 + (indicatorView.getFertilityMonth()-36)*3 / 12;
                         } else {
                             fertilityScore = (indicatorView.getFertilityMonth()*2) / 12;
                         }
