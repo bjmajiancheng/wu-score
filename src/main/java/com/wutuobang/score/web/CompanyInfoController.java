@@ -246,7 +246,7 @@ public class CompanyInfoController {
                 if ("用人单位信息修改成功!".equals(message)) {
                     currCompany.setChangeDate(companyInfoModel);
                     companyInfoService.update(currCompany);
-                    companyInfoService.insertCompanyEditRecord(currCompany);
+                    //companyInfoService.insertCompanyEditRecord(currCompany);
                     return new ResultParam(0, message);
                 } else {
                     return new ResultParam(3, message);

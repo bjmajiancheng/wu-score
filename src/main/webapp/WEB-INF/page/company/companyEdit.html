@@ -85,11 +85,13 @@
                                 <span class="color-red">*</span>经办人身份证正面：
                             </td>
                             <td>
-                                <div class="integral-businesslicense-img" id="businessLicenseDiv">
-                                    <img id="businessLicenseSrcImg" name="businessLicenseSrcImg"
-                                         width="180" height="158">
-                                         <input id="businessLicenseSrc" name="businessLicenseSrc" type="hidden" value=""/>
-                                </div>
+                                <div class="integral-businesslicense-img" id="businessLicenseDiv"><img class="addImg pointer" width="180" height="158" src="{companyInfo.businessLicenseSrc}" onclick="integral.clickImg(this);" style="display: inline;">
+                                <img class="preview" id="preview" alt="" name="pic" width="180" height="158" style="display: none;" src="">
+                                <input id="business_license" name="business_license" type="file" class="upload_input" accept="image/*" onchange="changeImg(this)" attr-inp="businessLicenseSrc">
+                                <div class="pointer title_click" onclick="integral.clickImg(this);" style="display: none;">点击上传</div>
+                                <div class="title_idcard" style=""></div>
+                                <div class="del_idcard" onclick="integral.deleteImg(this)" style="display: none;"></div>
+                                <input id="businessLicenseSrc" name="businessLicenseSrc" type="hidden" value="{companyInfo.businessLicenseSrc}"></div>
                             </td>
                         </tr>
                         <tr>
@@ -97,13 +99,17 @@
                                 <span class="color-red">*</span>经办人身份证反面：
                             </td>
                             <td>
-                                <div class="integral-businesslicense-img" id="operator2">
-                                    <img id="businessLicenseSrcImg2" name="businessLicenseSrcImg"
-                                         width="180" height="158">
-                                         <input id="operator2" name="operator2" type="hidden" value=""/>
-                                </div>
+                                <div class="integral-businesslicense-img" id="businessLicenseDiv"><img class="addImg pointer" width="180" height="158" src="{companyInfo.operator2}" onclick="integral.clickImg(this);" style="display: inline;">
+                                <img class="preview" id="preview" alt="" name="pic" width="180" height="158" style="display: none;" src="">
+                                <input id="business2_license" name="business2_license" type="file" class="upload_input" accept="image/*" onchange="changeImg(this)" attr-inp="operator2">
+                                <div class="pointer title_click" onclick="integral.clickImg(this);" style="display: none;">点击上传</div>
+                                <div class="title_idcard" style=""></div>
+                                <div class="del_idcard" onclick="integral.deleteImg(this)" style="display: none;"></div>
+                                <input id="operator2" name="operator2" type="hidden" value="{companyInfo.operator2}"></div>
                             </td>
                         </tr>
+                        <br>
+                        <br>
                         <tr>
                             <td colspan="2">
                         <span class="color-red">提示：保存成功后，下列用人单位信息每开办一期只可以修改一次。
@@ -314,13 +320,13 @@
                 }
 
                 if (data.hasOwnProperty("businessLicenseSrc") && data['businessLicenseSrc'] != null) {
-                    $('#businessLicenseSrcImg').attr("src", data['businessLicenseSrc']);
-                    $('#businessLicenseSrc').val(data['businessLicenseSrc']);
+//                    $('#businessLicenseSrcImg').attr("src", data['businessLicenseSrc']);
+//                    $('#businessLicenseSrc').val(data['businessLicenseSrc']);
                     /*
                     2020年2月18日，身份证反面
                      */
-                    $('#businessLicenseSrcImg2').attr("src", data['operator2']);
-                    $('#operator2').val(data['operator2']);
+//                    $('#businessLicenseSrcImg2').attr("src", data['operator2']);
+//                    $('#operator2').val(data['operator2']);
                 } else {
                     layer.alert("请先上传经办人身份证");
                     $('#businessLicenseDiv').empty();
