@@ -572,18 +572,36 @@
                             processData:false,
                             dataType: "json",
                             success: function (result) {
-                                var isTrue = result.data.data.id_card==idCardNumber_1;
-
-                                var user_id = result.data.data.user_id;
-                                var formDataGongan = new FormData();
-                                formDataGongan.append("busiCode","xxx");
-                                formDataGongan.append("cerNo","xxx");
-                                formDataGongan.append("certCode","tj_gaj_cer_151");
-                                formDataGongan.append("itemCode","xxx");
-                                formDataGongan.append("Institution","xxx");
-                                formDataGongan.append("method","nationwidePopulationLibrary");
-                                formDataGongan.append("otherParam",'{"idcard":"'+idCardNumber_1+'","user_id":"'+user_id+'"}');
+                                // 开始注册
                                 $.ajax({
+                                    type: "POST",
+                                    url: "${rc.contextPath}/companyInfo/register",
+                                    data: {"companyInfo": JSON.stringify(companyInfo), "captcha": captcha},
+                                    dataType: "json",
+                                    success: function (result) {
+                                        if (result.code == 0) {//注册成功
+                                            showLoading(false);
+                                            parent.location.href = '../login.html';
+                                        } else {
+                                            layer.alert(result.message);
+
+                                            refreshCode();
+                                            window.open("${rc.contextPath}/systemNotice/systemNotice.html");// 跳转到重要通知页面
+                                        }
+                                    }
+                                });
+                                //var isTrue = result.data.data.id_card==idCardNumber_1;
+
+//                                var user_id = result.data.data.user_id;
+//                                var formDataGongan = new FormData();
+//                                formDataGongan.append("busiCode","xxx");
+//                                formDataGongan.append("cerNo","xxx");
+//                                formDataGongan.append("certCode","tj_gaj_cer_151");
+//                                formDataGongan.append("itemCode","xxx");
+//                                formDataGongan.append("Institution","xxx");
+//                                formDataGongan.append("method","nationwidePopulationLibrary");
+//                                formDataGongan.append("otherParam",'{"idcard":"'+idCardNumber_1+'","user_id":"'+user_id+'"}');
+                                /*$.ajax({
                                     type:"POST",
                                     url:"http://60.28.163.53:9002/yztb/rest/police",
                                     data:formDataGongan,
@@ -617,7 +635,7 @@
                                         }
 
                                     }
-                                });
+                                });*/
 
                             }
                         });
