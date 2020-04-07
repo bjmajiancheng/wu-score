@@ -379,7 +379,7 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1175
                             || materialInfos.get(i).getId()==1176
                             || materialInfos.get(i).getId()==1177
-                            || materialInfos.get(i).getId()==1178){
+                            || materialInfos.get(i).getId()==1201){
                         materialInfos.remove(i--);
                     }
                 }
@@ -417,7 +417,7 @@ public class MaterialInfoController {
                                 || materialInfos.get(i).getId()==1175
                                 || materialInfos.get(i).getId()==1176
                                 || materialInfos.get(i).getId()==1177
-                                || materialInfos.get(i).getId()==1178){
+                                || materialInfos.get(i).getId()==1201){
                             materialInfos.remove(i--);
                         }
                     }
