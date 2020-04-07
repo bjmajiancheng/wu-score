@@ -335,14 +335,14 @@ public class MaterialInfoController {
                         materialInfos.remove(i--);
                     }
                 }
-                if (houseProfessionModel.getProfessionType()!=null && houseProfessionModel.getProfessionType()==2){ // 具有专业技术人员职业资格
+                if (houseProfessionModel.getProfessionType()!=null && houseProfessionModel.getProfessionType()==3){ // 具有技能人员职业资格
                     if (materialInfos.get(i).getId()==10
                             || materialInfos.get(i).getId()==1046
                             || materialInfos.get(i).getId()==11){
                         materialInfos.remove(i--);
                     }
                 }
-                if (houseProfessionModel.getProfessionType()!=null && houseProfessionModel.getProfessionType()==3){ // 具有技能人员职业资格
+                if (houseProfessionModel.getProfessionType()!=null && houseProfessionModel.getProfessionType()==2){ // 具有专业技术人员职业资格
                     if (materialInfos.get(i).getId()==10
                             || materialInfos.get(i).getId()==1046
                             || materialInfos.get(i).getId()==11){
