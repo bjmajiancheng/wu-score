@@ -510,26 +510,31 @@
                     dataType: "json",
                     success: function (result) {
                         isFlag = result.certs[0].certData.indexOf("存续")>1;
-                        var kk;
-                        kk = JSON.parse(result.certs[0].certData.replace("[","").replace("]",""));
+                        var starNum = uniscid.substring(0,1);
+                        if(starNum==9){
+                            var kk;
+                            kk = JSON.parse(result.certs[0].certData.replace("[","").replace("]",""));
 
-                        companyInfo["apprdate"] = kk.apprdate;
-                        companyInfo["dom"] = kk.dom;
-                        companyInfo["entname"] = kk.entname;
-                        companyInfo["enttype"] = kk.enttype;
-                        companyInfo["estdate"] = kk.estdate;
-                        companyInfo["lerep"] = kk.lerep;
-                        companyInfo["opfrom"] = kk.opfrom;
-                        companyInfo["opscope"] = kk.opscope;
-                        companyInfo["opto"] = kk.opto;
-                        companyInfo["regcap"] = kk.regcap;
-                        companyInfo["regcapcur"] = kk.regcapcur;
-                        companyInfo["regno"] = kk.regno;
-                        companyInfo["regorg"] = kk.regorg;
-                        companyInfo["regstate"] = kk.regstate;
-                        companyInfo["orgno"] = kk.orgno;
-                        companyInfo["compform"] = kk.compform;
-
+                            companyInfo["apprdate"] = kk.apprdate;
+                            companyInfo["dom"] = kk.dom;
+                            companyInfo["entname"] = kk.entname;
+                            companyInfo["enttype"] = kk.enttype;
+                            companyInfo["estdate"] = kk.estdate;
+                            companyInfo["lerep"] = kk.lerep;
+                            companyInfo["opfrom"] = kk.opfrom;
+                            companyInfo["opscope"] = kk.opscope;
+                            companyInfo["opto"] = kk.opto;
+                            companyInfo["regcap"] = kk.regcap;
+                            companyInfo["regcapcur"] = kk.regcapcur;
+                            companyInfo["regno"] = kk.regno;
+                            companyInfo["regorg"] = kk.regorg;
+                            companyInfo["regstate"] = kk.regstate;
+                            companyInfo["orgno"] = kk.orgno;
+                            companyInfo["compform"] = kk.compform;
+                        }
+                        if(starNum!=9){
+                            isFlag = true;
+                        }
 
                         if(companyType==2){
                             isFlag = true;
