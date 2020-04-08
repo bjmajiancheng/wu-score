@@ -380,7 +380,8 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1176
                             || materialInfos.get(i).getId()==1177
                             || materialInfos.get(i).getId()==1201){
-                        materialInfos.remove(i--);
+                        // 2020年4月8日
+                        //materialInfos.remove(i--);
                     }
                 }
                 if (identityInfo.getOurHouse()!=null && Integer.parseInt(identityInfo.getOurHouse())==1){ // 是否自有住房，1：是
@@ -418,7 +419,8 @@ public class MaterialInfoController {
                                 || materialInfos.get(i).getId()==1176
                                 || materialInfos.get(i).getId()==1177
                                 || materialInfos.get(i).getId()==1201){
-                            materialInfos.remove(i--);
+                            // 2020年4月8日
+                            //materialInfos.remove(i--);
                         }
                     }
                 }
