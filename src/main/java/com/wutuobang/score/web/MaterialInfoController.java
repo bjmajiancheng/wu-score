@@ -365,8 +365,8 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1161
                             || materialInfos.get(i).getId()==1162
                             || materialInfos.get(i).getId()==1163
-                            || materialInfos.get(i).getId()==1094
-                            || materialInfos.get(i).getId()==1110
+//                            || materialInfos.get(i).getId()==1094
+//                            || materialInfos.get(i).getId()==1110
                             || materialInfos.get(i).getId()==1166
                             || materialInfos.get(i).getId()==1167
                             || materialInfos.get(i).getId()==1168
@@ -398,9 +398,9 @@ public class MaterialInfoController {
                                     || materialInfos.get(i).getId()==1161
                                     || materialInfos.get(i).getId()==1162
                                     || materialInfos.get(i).getId()==1163*/
-                                     materialInfos.get(i).getId()==1094
-                                    || materialInfos.get(i).getId()==1110
-                                    || materialInfos.get(i).getId()==1166
+//                                     materialInfos.get(i).getId()==1094
+//                                    || materialInfos.get(i).getId()==1110
+                                     materialInfos.get(i).getId()==1166
                                     || materialInfos.get(i).getId()==1167
                                     || materialInfos.get(i).getId()==1168){
                                 materialInfos.remove(i--);
