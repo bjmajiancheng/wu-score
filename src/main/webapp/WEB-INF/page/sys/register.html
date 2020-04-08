@@ -37,7 +37,7 @@
                         <td></td>
                         <td class="color-red" style="line-height: 20px;padding-left:45px;">
                             <span>提示：1、请在电脑上操作，不要在手机上操作。</span><br/>
-                            <span style="padding-left:42px;">2、推荐使用Google Chrome（谷歌）、Firefox（火狐）、IE9+浏览器，IE版本过低的请升级9以上</span><br/>
+                            <span style="padding-left:42px;">2、推荐使用Google Chrome（谷歌）、IE9+浏览器，IE版本过低的请升级9以上</span><br/>
                             <span style="padding-left:42px;">3、统一社会信用代码为用户名</span>
                         </td>
                     </tr>
@@ -511,8 +511,37 @@
                     success: function (result) {
                         isFlag = result.certs[0].certData.indexOf("存续")>1;
                         var starNum = uniscid.substring(0,1);
+
+                        if(starNum!=9){
+                            isFlag = true;
+                        }
+
+                        if(companyType==2){
+                            isFlag = true;
+                        }
+
+                        /*
+                         2019年12月24日
+                         如果企业不是“存续”状态，不允许注册
+                         */
+                        if(!isFlag){
+                            //layer.alert("统一社会信用代码、企业名称不对，请输入准确的信息；或者企业不是存续状态，不能注册！请核对信息。");
+
+                            //询问框
+                            var index = layer.confirm('统一社会信用代码、企业名称不对，请输入准确的信息；或者企业不是存续状态，不能注册！请核对信息。', {
+                                btn: ['确定', '取消'] //按钮
+                            }, function () {
+                                window.open("${rc.contextPath}/sys/register.html");
+                                layer.close(index);
+                            }, function () {
+                                layer.close(index);
+                            });
+
+                            return false;
+                        }
                         if(starNum==9){
                             var kk;
+                            console.log("result.certs[0]:"+result.certs[0]);
                             kk = JSON.parse(result.certs[0].certData.replace("[","").replace("]",""));
 
                             companyInfo["apprdate"] = kk.apprdate;
@@ -532,23 +561,6 @@
                             companyInfo["orgno"] = kk.orgno;
                             companyInfo["compform"] = kk.compform;
                         }
-                        if(starNum!=9){
-                            isFlag = true;
-                        }
-
-                        if(companyType==2){
-                            isFlag = true;
-                        }
-
-                        /*
-                         2019年12月24日
-                         如果企业不是“存续”状态，不允许注册
-                         */
-                        if(!isFlag){
-                            layer.alert("统一社会信用代码、企业名称不对，请输入准确的信息；或者企业不是存续状态，不能注册！");
-                            return false;
-                        }
-
                         /*
                         验证经办人的有效性；
                         1、先通过接口《互联互通公安接口文档》中的请求地址：http://60.28.163.53:9002/yztb/rest/police
