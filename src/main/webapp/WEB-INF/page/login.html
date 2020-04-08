@@ -152,7 +152,7 @@
             }
 
             postResult("${rc.contextPath}/companyInfo/retrievePasswd", {"userName": userName, "captcha":captcha}, function (data) {
-                layer.prompt({title: '验证码已发送到经办人手机, 请输入短信验证码', formType: 0}, function(pass, index){
+                layer.prompt({title: '验证码已发送到经办人手机'+data.data+', 请输入短信验证码', formType: 0}, function(pass, index){
                     postResultData("${rc.contextPath}/companyInfo/validMsgCode", {"userName": userName, "msgCode": pass}, function(data){
                         layer.close(index);
                         layer.msg("短信码验证成功", {

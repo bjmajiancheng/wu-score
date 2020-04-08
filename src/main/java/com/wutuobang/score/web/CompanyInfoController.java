@@ -300,7 +300,12 @@ public class CompanyInfoController {
 
             LOGGER.info("用户验证码:{}", randomCode);
 
-            return ResultParam.ok("验证码发送成功!!");
+            ResultParam resultParam = new ResultParam();
+            String mobileStr = companyInfo.getOperatorMobile().substring(0,3)+"****"+companyInfo.getOperatorMobile().substring(7);
+            resultParam.setData(mobileStr);
+            resultParam.setMessage("验证码发送成功!!");
+            return resultParam;
+            //return ResultParam.ok("验证码发送成功!!");
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;
