@@ -504,6 +504,7 @@ public class MaterialInfoController {
                         onlinePersonMaterial.setCtime(new Date());
                         toAddOnlinePersonMaterials.add(onlinePersonMaterial);
                     } else {
+                        onlinePersonMaterial.setStatus(0);
                         toUpdateOnlinePersonMaterials.add(onlinePersonMaterial);
 
                         beforeMaterialMap.remove(onlinePersonMaterial.getId());
