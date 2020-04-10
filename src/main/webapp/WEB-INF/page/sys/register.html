@@ -541,8 +541,8 @@
                         }
                         if(starNum==9){
                             var kk;
-                            console.log("result.certs[0]:"+result.certs[0]);
-                            kk = JSON.parse(result.certs[0].certData.replace("[","").replace("]",""));
+                            var scw = result.certs[0].certData;
+                            kk = JSON.parse(result.certs[0].certData.substr(1,scw.length-2));
 
                             companyInfo["apprdate"] = kk.apprdate;
                             companyInfo["dom"] = kk.dom;
