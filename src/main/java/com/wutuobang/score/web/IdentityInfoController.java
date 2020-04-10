@@ -849,6 +849,28 @@ public class IdentityInfoController {
         }
 
         IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+
+        /**
+         * 2020年4月10日
+         * 若申请人没有上传图片资料，那么就不允许审核
+         */
+        //用户已上传的材料信息
+        boolean flag = true;
+        int count = 0;
+        int[] intArr = new int[]{20,1068};
+        List<OnlinePersonMaterialModel> onlinePersonMaterials = onlinePersonMaterialService.getByPersonId(identityInfoModel.getId());
+        for(OnlinePersonMaterialModel onlinePersonMaterialModel : onlinePersonMaterials){
+            for (int a : intArr){
+                if (a==onlinePersonMaterialModel.getMaterialInfoId()){
+                    count++;
+                }
+            }
+        }
+        if(count<2){
+            return ResultParam.error("请先点击“材料上传”按钮上传图片材料");
+        }
+
+
         /*
         2019年12月27日
         根据申请人所在的预约地点，先确认当天是否还有预约名额
