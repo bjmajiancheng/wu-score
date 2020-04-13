@@ -329,9 +329,9 @@ public class MaterialInfoController {
                     if (materialInfos.get(i).getId()==10
                             || materialInfos.get(i).getId()==1046
                             || materialInfos.get(i).getId()==11
-                            || materialInfos.get(i).getId()==13
+                            /*|| materialInfos.get(i).getId()==13
                             || materialInfos.get(i).getId()==12
-                            || materialInfos.get(i).getId()==1047){
+                            || materialInfos.get(i).getId()==1047*/){
                         materialInfos.remove(i--);
                     }
                 }
@@ -343,11 +343,11 @@ public class MaterialInfoController {
                     }
                 }
                 if (houseProfessionModel.getProfessionType()!=null && houseProfessionModel.getProfessionType()==2){ // 具有专业技术人员职业资格
-                    if (materialInfos.get(i).getId()==13
-                            || materialInfos.get(i).getId()==12
-                            || materialInfos.get(i).getId()==1047){
-                        materialInfos.remove(i--);
-                    }
+//                    if (materialInfos.get(i).getId()==13
+//                            || materialInfos.get(i).getId()==12
+//                            || materialInfos.get(i).getId()==1047){
+//                        materialInfos.remove(i--);
+//                    }
                 }
                 if (houseOtherModel.getAwardsTitle()!=null && houseOtherModel.getAwardsTitle()==46){
                     if (materialInfos.get(i).getId()==22
@@ -404,7 +404,7 @@ public class MaterialInfoController {
                                      materialInfos.get(i).getId()==1166
                                     || materialInfos.get(i).getId()==1167
                                     || materialInfos.get(i).getId()==1168){
-                                materialInfos.remove(i--);
+                                //materialInfos.remove(i--);
                             }
                         }
                     }
