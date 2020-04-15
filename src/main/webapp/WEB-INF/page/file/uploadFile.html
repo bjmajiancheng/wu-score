@@ -124,7 +124,7 @@
                     <!--#end-->
                 </td>
                 <td>
-                    #if($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1)
+                    #if(($!{reUpload} == 1 and $!{materialInfo.onlinePersonMaterial.status} == 1) or $!{materialInfo.onlinePersonMaterial.status} == 2 )
                     ${materialInfo.onlinePersonMaterial.reason}
                     #end
                 </td>
