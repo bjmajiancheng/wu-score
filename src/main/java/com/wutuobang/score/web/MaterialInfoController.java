@@ -284,7 +284,7 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1158
                             || materialInfos.get(i).getId()==1159
                             || materialInfos.get(i).getId()==1160){
-                        materialInfos.remove(i--);
+                        //materialInfos.remove(i--);
                     }
                 }
                 if (houseMoveModel.getSettledNature()!=null && houseMoveModel.getSettledNature()==2){
@@ -294,7 +294,7 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1158
                             || materialInfos.get(i).getId()==1159
                             || materialInfos.get(i).getId()==1160){
-                        materialInfos.remove(i--);
+                        //materialInfos.remove(i--);
                     }
                 }
                 if (houseMoveModel.getSettledNature()!=null && houseMoveModel.getSettledNature()==3){
@@ -317,7 +317,7 @@ public class MaterialInfoController {
                             || materialInfos.get(i).getId()==1155
                             || materialInfos.get(i).getId()==1158
                             || materialInfos.get(i).getId()==1159){
-                        materialInfos.remove(i--);
+                        //materialInfos.remove(i--);
                     }
                 }
 
