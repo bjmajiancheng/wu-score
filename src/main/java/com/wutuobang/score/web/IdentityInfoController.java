@@ -684,6 +684,28 @@ public class IdentityInfoController {
 
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/testAll", method = RequestMethod.POST)
+    public ResultParam testAll(HttpServletRequest request,
+                                       @RequestParam("identityInfoId") Integer identityInfoId) {
+
+        try {
+
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+            HouseOtherModel houseOtherModel = houseOtherService.getByIdentityInfoId(identityInfoModel.getId());
+            HouseProfessionModel houseProfessionModel = houseProfessionService.getByIdentityInfoId(identityInfoModel.getId());
+            if (houseOtherModel==null || houseProfessionModel==null){
+                return ResultParam.error("请先点击编辑按钮，完善信息后，操作下一步。");
+            }
+
+            return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
     /**
      * 预约地点
      *

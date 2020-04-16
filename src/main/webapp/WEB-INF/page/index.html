@@ -588,8 +588,23 @@
                     var index = layer.confirm('确定要上传材料吗？', {
                         btn: ['确认', '取消'] //按钮
                     }, function () {
-                        window.open("${rc.contextPath}/materialInfo/updateFile/" + id + ".html");
-                        layer.close(index);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "${rc.contextPath}/identityInfo/testAll",
+                            data: {"identityInfoId":id},
+                            dataType: "json",
+                            success: function (result) {
+                                if(result.code == 500){
+                                    layer.msg('请先点击编辑按钮，完善信息后，操作下一步！');
+                                    return false;
+                                }else{
+                                    window.open("${rc.contextPath}/materialInfo/updateFile/" + id + ".html");
+                                    layer.close(index);
+                                }
+                            }
+                        });
+
                     }, function () {
                         layer.close(index);
                     });
