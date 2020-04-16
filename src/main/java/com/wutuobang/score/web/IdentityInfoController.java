@@ -19,6 +19,7 @@ import com.wutuobang.score.service.*;
 import com.wutuobang.score.util.FreeMarkerUtil;
 import com.wutuobang.score.view.IndicatorView;
 import com.wutuobang.shiro.utils.ShiroUtils;
+import freemarker.template.SimpleDate;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -149,6 +151,19 @@ public class IdentityInfoController {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
+        String Agent = request.getHeader("User-Agent");
+        StringTokenizer st = new StringTokenizer(Agent,";");
+        st.nextToken();
+//得到用户的浏览器名
+        String userbrowser = st.nextToken();
+//得到用户的操作系统名
+        String useros = st.nextToken();
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String str = sdf.format(date);
+        System.out.println(str + "第一次保存申请人信息浏览器信息，操作系统："+userbrowser+"--"+useros);
+        System.out.println(str + "第一次保存申请人信息："+identityInfoJson);
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return ResultParam.CAPTCHA_ERROR_RESULT;
@@ -212,6 +227,10 @@ public class IdentityInfoController {
             return ResultParam.PARAM_ERROR_RESULT;
         }
 
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String str = sdf.format(date);
+        System.out.println(str + ":更新申请人信息："+identityInfoJson);
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return ResultParam.CAPTCHA_ERROR_RESULT;
