@@ -186,6 +186,9 @@ public class IdentityInfoController {
             //申请人信息
 
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
+            if (identityInfoModel.getThirdPregnantPromise()==null || identityInfoModel.getThirdPregnantPromise()==""){
+                return ResultParam.error("请使用谷歌浏览器填写信息！");
+            }
 
             Map<String, Object> param = new HashMap<>();
             param.put("batchId", batchConfModel.getId());
