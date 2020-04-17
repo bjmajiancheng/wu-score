@@ -985,10 +985,10 @@ public class IdentityInfoController {
         IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
 
         identityInfoService.removeById(id);
-        houseMoveService.removeById(id);
-        houseOtherService.removeById(id);
-        houseProfessionService.removeById(id);
-        houseRelationshipService.removeById(id);
+//        houseMoveService.removeById(id);
+//        houseOtherService.removeById(id);
+//        houseProfessionService.removeById(id);
+//        houseRelationshipService.removeById(id);
 
         //记录状态日志信息
         DictModel dictModel = dictService.findByAliasAndValue("reservationStatus", Constant.reservationStatus_11);
