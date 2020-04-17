@@ -695,6 +695,10 @@ public class IdentityInfoController {
             IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
             HouseOtherModel houseOtherModel = houseOtherService.getByIdentityInfoId(identityInfoModel.getId());
             HouseProfessionModel houseProfessionModel = houseProfessionService.getByIdentityInfoId(identityInfoModel.getId());
+            HouseMoveModel houseMoveModel = houseMoveService.getByIdentityInfoId(identityInfoModel.getId());
+            if(houseMoveModel==null){
+                return ResultParam.error("您的信息保存不完善，请点击删除重新录入一遍，再进行测评。");
+            }
             if (houseOtherModel==null || houseProfessionModel==null){
                 return ResultParam.error("请先点击编辑按钮，完善信息后，操作下一步。");
             }
