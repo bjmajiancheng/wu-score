@@ -587,7 +587,7 @@ public class IdentityInfoController {
             若申请人点击了上面的按钮“增加租赁备案信息”，则要回显显示内容
              */
             List<HouseMoveModel> houseInformationList = new ArrayList<HouseMoveModel>();
-            if (identityInfo.getHouseMoveModel().getRentHouseAddress() != null){
+            if (identityInfo.getHouseMoveModel()!=null && identityInfo.getHouseMoveModel().getRentHouseAddress() != null){
                 HouseMoveModel houseMoveModel = identityInfo.getHouseMoveModel();
 
                 String strRentIdNumber = houseMoveModel.getRentIdNumber().replace("\"",""); // 租赁登记备案证明编号
@@ -697,7 +697,7 @@ public class IdentityInfoController {
             HouseProfessionModel houseProfessionModel = houseProfessionService.getByIdentityInfoId(identityInfoModel.getId());
             HouseMoveModel houseMoveModel = houseMoveService.getByIdentityInfoId(identityInfoModel.getId());
             if(houseMoveModel==null){
-                return ResultParam.error("您的信息保存不完善，请点击删除重新录入一遍，再进行测评。");
+                return ResultParam.error("请先点击编辑按钮，完善信息后，操作下一步。");
             }
             if (houseOtherModel==null || houseProfessionModel==null){
                 return ResultParam.error("请先点击编辑按钮，完善信息后，操作下一步。");

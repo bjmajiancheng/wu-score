@@ -198,7 +198,7 @@ public class MaterialInfoController {
 
                     2：未婚；3：丧偶；4：离异
                  */
-                if (houseMoveModel.getMarriageStatus()!=null && (houseMoveModel.getMarriageStatus()==2 || houseMoveModel.getMarriageStatus()==3 || houseMoveModel.getMarriageStatus()==4) ){
+                if (houseMoveModel!=null && houseMoveModel.getMarriageStatus()!=null && (houseMoveModel.getMarriageStatus()==2 || houseMoveModel.getMarriageStatus()==3 || houseMoveModel.getMarriageStatus()==4) ){
                     if (materialInfos.get(i).getId()==17 || materialInfos.get(i).getId()==18 || materialInfos.get(i).getId()==1080 || materialInfos.get(i).getId()==1090 || materialInfos.get(i).getId()==1153){
                         materialInfos.remove(i--);
                     }
