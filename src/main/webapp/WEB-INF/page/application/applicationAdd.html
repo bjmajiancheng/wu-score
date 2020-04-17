@@ -3526,6 +3526,10 @@
         var identityInfo = {};
         identityInfo = serializeForm($(".identityInfoForm"));
 
+        if ($("input[name='thirdPregnantPromise']:checked").val() != undefined) {
+            identityInfo["thirdPregnantPromise"] = $("input[name='thirdPregnantPromise']:checked").val();
+        }
+
         //户籍迁移信息
         // 与表t _house_move 对应 户籍迁移信息
         var houseMoveInfo = {};
