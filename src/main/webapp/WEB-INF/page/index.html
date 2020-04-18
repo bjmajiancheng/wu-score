@@ -360,24 +360,38 @@
                         btn: ['确认申请审核', '暂不申请审核'] //按钮
                     }, function () {
 
-                        /*
-                         2019年12月26日
-                         1、流程修改，申请人点击“申请审核”按钮后，不再跳转到预约地点页面，即注释掉下面的window.open.....
-                         2、去掉公安预审、人社预审两个阶段，直接跨度到公安前置审核；
-                         3、之后的点击“预约时间”按钮也去掉：
-                            1、预约人数的：天津市政务服务中心，每天允许260个申请人；滨海新区政务服务中心，每天允许160个申请人
-                            2、预约现场审核的时间：变为申请人点击这个审核按钮的时间 new date() 生成；
-                         4、后续不变
-                         */
-                        //window.open("${rc.contextPath}/reservation/reserveLocation/" + id + ".html");
-                        // 申请审核
-                        postResult("${rc.contextPath}/identityInfo/examineAndVerify", {"id": id}, function (data) {
-                            component.load();
-                            layer.alert(data.message);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "${rc.contextPath}/identityInfo/testAll",
+                            data: {"identityInfoId":id},
+                            dataType: "json",
+                            success: function (result) {
+                                if(result.code == 500){
+                                    layer.msg('请先点击编辑按钮，完善信息后，操作下一步！');
+                                    return false;
+                                }else{
+                                    /*
+                                     2019年12月26日
+                                     1、流程修改，申请人点击“申请审核”按钮后，不再跳转到预约地点页面，即注释掉下面的window.open.....
+                                     2、去掉公安预审、人社预审两个阶段，直接跨度到公安前置审核；
+                                     3、之后的点击“预约时间”按钮也去掉：
+                                     1、预约人数的：天津市政务服务中心，每天允许260个申请人；滨海新区政务服务中心，每天允许160个申请人
+                                     2、预约现场审核的时间：变为申请人点击这个审核按钮的时间 new date() 生成；
+                                     4、后续不变
+                                     */
+                                    //window.open("${rc.contextPath}/reservation/reserveLocation/" + id + ".html");
+                                    // 申请审核
+                                    postResult("${rc.contextPath}/identityInfo/examineAndVerify", {"id": id}, function (data) {
+                                        component.load();
+                                        layer.alert(data.message);
+                                    });
+                                    layer.close(index);
+                                }
+                            }
                         });
 
 
-                        layer.close(index);
                     }, function () {
                         layer.close(index);
                     });
