@@ -187,7 +187,7 @@ public class IdentityInfoController {
 
             IdentityInfoModel identityInfoModel = JSON.parseObject(identityInfoJson, IdentityInfoModel.class);
             if (identityInfoModel.getThirdPregnantPromise()==null || identityInfoModel.getThirdPregnantPromise()==""){
-                return ResultParam.error("请使用谷歌浏览器填写信息！");
+                return ResultParam.error("第5页，本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女 没有勾选！");
             }
 
             Map<String, Object> param = new HashMap<>();
