@@ -152,7 +152,7 @@
 
 	<select id="getByPersonId" resultMap="OnlinePersonMaterial">
 		SELECT <include refid="columns"/> FROM t_online_person_material
-		WHERE person_id = #{personId} AND status IN(0, 1,2)
+		WHERE person_id = #{personId} AND status IN(0, 1)
 	</select>
 	
 </mapper>
