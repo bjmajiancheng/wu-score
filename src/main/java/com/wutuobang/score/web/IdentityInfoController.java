@@ -329,6 +329,12 @@ public class IdentityInfoController {
             PageData<IdentityInfoModel> pageData = identityInfoService
                     .findPage(currUser, batchConfModel.getId(), queryStr, pageNo);
 
+            for (IdentityInfoModel identityInfoModel : pageData.getData()){
+                if (Integer.parseInt(identityInfoModel.getThirdPregnantPromise())==0 && identityInfoModel.getReservationStatus()>6){
+                    identityInfoModel.setSaveStatus(1);// 补录出现的状态设为1
+                }
+            }
+
             AcceptDateConfModel acceptDateConf_shiqu = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(batchConfModel.getId(), 1,DateUtil.getDate(new Date()));
             AcceptDateConfModel acceptDateConf_binhai = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(batchConfModel.getId(), 2,DateUtil.getDate(new Date()));
             int count1 = 0;
@@ -702,8 +708,50 @@ public class IdentityInfoController {
             if (houseOtherModel==null || houseProfessionModel==null){
                 return ResultParam.error("请先点击编辑按钮，完善信息后，操作下一步。");
             }
+            if (Integer.parseInt(identityInfoModel.getThirdPregnantPromise())==0){
+                ResultParam resultParam = new ResultParam();
+                resultParam.setCode(1005);
+                resultParam.setMessage("第5页，本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女 没有勾选！请 编辑 完善个人信息！");
+                return resultParam;
+            }
 
             return ResultParam.SUCCESS_RESULT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+    }
+
+
+    /**
+     * 2020年4月18日
+     * 补充申请人没有填写的一个字段
+     * @param request
+     * @param identityInfoId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/saveIdentityInfo", method = RequestMethod.POST)
+    public ResultParam saveIdentityInfo(HttpServletRequest request,
+                               @RequestParam("identityInfoId") Integer identityInfoId,
+                               @RequestParam("thirdPregnantPromiseValue") Integer thirdPregnantPromiseValue) {
+
+        try {
+
+            IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+            identityInfoModel.setThirdPregnantPromise(thirdPregnantPromiseValue.toString());
+            identityInfoService.update(identityInfoModel);
+
+            IdentityInfoModel identityInfoModel2 = identityInfoService.getById(identityInfoId);
+
+            if (Integer.parseInt(identityInfoModel2.getThirdPregnantPromise())>0){
+                return ResultParam.SUCCESS_RESULT;
+            }else {
+                return ResultParam.error("您的补录操作失败，请再次补录");
+            }
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;

@@ -163,6 +163,10 @@
                                 <span class="integral-table-btn integral-table-btn1 edit" onclick="deleteIdentityInfo({identityInfo.id})">删除</span>
                             {/if}
 
+                            {\#if identityInfo.saveStatus == 1  }
+                                <span class="integral-table-btn integral-table-btn1 edit" onclick="saveIdentityInfo({identityInfo.id})">补录</span>
+                            {/if}
+
                             {\#if identityInfo.reservationStatus == 1 || identityInfo.reservationStatus == 6 || (identityInfo.reservationStatus == 5 && identityInfo.autoTestNum > 0)}
                             <span class="integral-table-btn integral-table-btn1 edit" onclick="editIdentityInfo({identityInfo.id})">编辑</span>
                             {/if}
@@ -367,6 +371,10 @@
                             data: {"identityInfoId":id},
                             dataType: "json",
                             success: function (result) {
+                                if(result.code == 1005) {
+                                    layer.msg('第5页，本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女 没有勾选！');
+                                    return false;
+                                }
                                 if(result.code == 500){
                                     layer.msg('请先点击编辑按钮，完善信息后，操作下一步！');
                                     return false;
@@ -609,6 +617,10 @@
                             data: {"identityInfoId":id},
                             dataType: "json",
                             success: function (result) {
+                                if(result.code == 1005) {
+                                    layer.msg('第5页，本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女 没有勾选！请 编辑 完善个人信息！');
+                                    return false;
+                                }
                                 if(result.code == 500){
                                     layer.msg('请先点击编辑按钮，完善信息后，操作下一步！');
                                     return false;
@@ -674,6 +686,57 @@
         }, function () {
             layer.close(index);
         });
+    }
+
+
+    // 2020年4月18日，因有少部分申请人没有填写这个字段，加一个弹窗用来收集补充这个字段值，第5页卫健委的字段值：本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于。。。
+    function saveIdentityInfo(id) {
+        var index = layer.confirm("<div class='layui-input-block'>" +
+            "<table class='integral-cont-table' style='margin: 20px 20px;'>" +
+            "<tr>" +
+            "<td>" +
+            "<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女</span>" +
+            "</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td>" +
+            "<input class='input_radio' type='radio' style='margin-left: 190px;' name='thirdPregnantPromiseOpen' value='1'><label>是</label>" +
+            "<input class='input_radio ml30' type='radio' name='thirdPregnantPromiseOpen' value='2'><label>否</label>" +
+            "</td>" +
+            "</tr>" +
+            "</table>" +
+            "</div>",
+            {
+                type: 1,
+                skin: 'layui-layer-rim layui-layer-molv',
+                title: "请认真阅读并勾选",
+                btn: ['确认'],
+                area: ['500px', '290px']
+            }, function (index, layero) {
+                var thirdPregnantPromiseValue = $("input[name='thirdPregnantPromiseOpen']:checked").val();
+                if (thirdPregnantPromiseValue != undefined) {
+                    $.ajax({
+                        url: "${rc.contextPath}/identityInfo/saveIdentityInfo",
+                        data:{"identityInfoId":id , "thirdPregnantPromiseValue":thirdPregnantPromiseValue},
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (result) {
+                            layer.close(index);
+                            component.load();
+                        }, error: function (result) {
+                            layer.alert(result.message);
+                            layer.close(index);
+                            component.load();
+                        }
+                    });
+                } else {
+                    layer.msg('请选择是或否', {
+                        type: 1
+                    });
+                    return false;
+                }
+
+            });
     }
 
     /**

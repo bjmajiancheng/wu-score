@@ -52,6 +52,8 @@ public class IdentityInfoModel implements Serializable {
 
     private String thirdPregnantPromise;//本人或配偶 0:请选择（没啥用）； 1.承诺 2.不承诺目前未处于政策外第三个及以上子女怀孕期间
 
+    private Integer saveStatus;//"申请预约状态"
+
     //2019-1-9添加卫健委信息END
 
     private Integer sex;//"性别：1、男；2、女"
@@ -154,6 +156,13 @@ public class IdentityInfoModel implements Serializable {
     private String housePactNumber; // 购房合同编号
     private String rightProperty;// 持有
 
+    public Integer getSaveStatus() {
+        return saveStatus;
+    }
+
+    public void setSaveStatus(Integer saveStatus) {
+        this.saveStatus = saveStatus;
+    }
 
     public Integer getContractCertificate() {
         return contractCertificate;
