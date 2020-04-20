@@ -151,18 +151,18 @@ public class IdentityInfoController {
         if (StringUtils.isEmpty(identityInfoJson)) {
             return ResultParam.PARAM_ERROR_RESULT;
         }
-        String Agent = request.getHeader("User-Agent");
-        StringTokenizer st = new StringTokenizer(Agent,";");
-        st.nextToken();
+        //String Agent = request.getHeader("User-Agent");
+        //StringTokenizer st = new StringTokenizer(Agent,";");
+        //st.nextToken();
 //得到用户的浏览器名
-        String userbrowser = st.nextToken();
+        //String userbrowser = st.nextToken();
 //得到用户的操作系统名
-        String useros = st.nextToken();
+        //String useros = st.nextToken();
 
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String str = sdf.format(date);
-        System.out.println(str + "第一次保存申请人信息浏览器信息，操作系统："+userbrowser+"--"+useros);
+        //System.out.println(str + "第一次保存申请人信息浏览器信息，操作系统："+userbrowser+"--"+useros);
         System.out.println(str + "第一次保存申请人信息："+identityInfoJson);
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
@@ -596,10 +596,30 @@ public class IdentityInfoController {
             if (identityInfo.getHouseMoveModel()!=null && identityInfo.getHouseMoveModel().getRentHouseAddress() != null){
                 HouseMoveModel houseMoveModel = identityInfo.getHouseMoveModel();
 
-                String strRentIdNumber = houseMoveModel.getRentIdNumber().replace("\"",""); // 租赁登记备案证明编号
-                String strRentHouseAddress = houseMoveModel.getRentHouseAddress().replace("\"",""); // 租赁房屋地址
-                String strRenHouseStartDate = houseMoveModel.getRentHouseStartDate().replace("\"",""); // 租赁备案起始日
-                String strRentHouseEndDate = houseMoveModel.getRentHouseEndDate().replace("\"",""); // 租赁合同终止日
+                String strRentIdNumber = "";
+                if(houseMoveModel.getRentIdNumber()==null){
+                    strRentIdNumber = "申请人没填写";
+                }else {
+                    strRentIdNumber = houseMoveModel.getRentIdNumber().replace("\"",""); // 租赁登记备案证明编号
+                }
+                String strRentHouseAddress = "";
+                if (houseMoveModel.getRentHouseAddress()==null){
+                    strRentHouseAddress = "申请人没填写";
+                }else {
+                    strRentHouseAddress = houseMoveModel.getRentHouseAddress().replace("\"",""); // 租赁房屋地址
+                }
+                String strRenHouseStartDate = "";
+                if (houseMoveModel.getRentHouseStartDate()==null){
+                    strRenHouseStartDate = "申请人没填写";
+                }else {
+                    strRenHouseStartDate = houseMoveModel.getRentHouseStartDate().replace("\"",""); // 租赁备案起始日
+                }
+                String strRentHouseEndDate = "";
+                if (houseMoveModel.getRentHouseEndDate()==null){
+                    strRentHouseEndDate = "申请人没填写";
+                }else {
+                    strRentHouseEndDate = houseMoveModel.getRentHouseEndDate().replace("\"",""); // 租赁合同终止日
+                }
 
                 String[] renIdNumberArr = strRentIdNumber.substring(1,strRentIdNumber.length()-1).split(",");
                 String[] strRentHouseAddressArr = strRentHouseAddress.substring(1,strRentHouseAddress.length()-1).split(",");
