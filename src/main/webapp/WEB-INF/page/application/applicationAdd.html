@@ -3120,6 +3120,31 @@
             layer.msg("第1页，请输入 公民身份号码");
             return false;
         }
+
+        if($("#idNumber").val().trim().length==18){
+            var idNumber = $("#idNumber").val().trim();
+            console.log("idNumber:"+idNumber);
+            var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+
+            var sum = 0;
+            for(var i=0; i<arr.length; i++){
+                sum += parseInt(idNumber.charAt(i)) * arr[i];
+            }
+            //2、用加出来和除以11，看余数，
+            var c = sum % 11;
+
+            //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+            var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+            var code = ch[c];
+            var last = idNumber.charAt(17);
+            last = last=='x' ? 'X': last;
+            console.log("---------:"+last != code)
+            if(last != code){
+                layer.msg("第1页，请输入 正确的公民身份号码");
+                return false;
+            }
+        }
+
         if($("#selfPhone").val().trim()==""){
             layer.msg("第1页，请输入 申请人手机号");
             return false;
