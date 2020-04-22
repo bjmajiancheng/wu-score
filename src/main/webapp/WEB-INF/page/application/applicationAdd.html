@@ -3121,6 +3121,11 @@
             return false;
         }
 
+        if($("#idNumber").val().trim().length!=18){
+            layer.msg("第1页，请输入 18位长度的公民身份号码");
+            return false;
+        }
+
         if($("#idNumber").val().trim().length==18){
             var idNumber = $("#idNumber").val().trim();
             console.log("idNumber:"+idNumber);
