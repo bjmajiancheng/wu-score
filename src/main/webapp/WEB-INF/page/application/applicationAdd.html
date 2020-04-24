@@ -667,7 +667,7 @@
                         <tr class="moveIs_2" style="display: none">
                             <td colspan="2">缴纳类型：</td>
                             <td>
-                                <input class="integral-input w325" type="text" name="socialSecurityType"
+                                <input class="integral-input w325" type="text" name="socialSecurityType" id="socialSecurityType"
                                        value="$!{houseOtherModel.socialSecurityType}">
                             </td>
                         </tr>
@@ -3490,17 +3490,21 @@
         var isAnotherInsurance = $("input[name='isAnotherInsurance']:checked").val();
         if(isAnotherInsurance == 1){
             var socialSecurityType = $("#socialSecurityType").val();
-            if(penaltyDate == "" || penaltyDate == undefined || penaltyDate == null){
-                layer.msg("请输入人社相关信息页面缴纳类型");
+            if(socialSecurityType == "" || socialSecurityType == undefined || socialSecurityType == null){
+                layer.msg("第3页 请输入人社相关信息页面缴纳类型");
                 return false;
             }
-            switch (true) {
-                case $('#moveIsCity').val() == '0':
-                case $('#moveIsProvince').val() == '0':
-                    layer.msg("请选择人社相关信息页面缴纳地点");
-                    validateFlag = false;
-                    break;
+            if($('#moveIsCity').val() == '0' || $('#moveIsProvince').val() == '0'){
+                layer.msg("第3页 请选择人社相关信息页面缴纳地点");
+                return false;
             }
+//            switch (true) {
+//                case $('#moveIsCity').val() == '0':
+//                case $('#moveIsProvince').val() == '0':
+//                    layer.msg("第3页 请选择人社相关信息页面缴纳地点");
+//                    validateFlag = false;
+//                    break;
+//            }
         }
 
         //卫健委-承诺
@@ -3508,13 +3512,13 @@
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
             return false;
         }
-        if ($('.thirdPregnantPromise').val() == "") {
+        if ($("input[name='thirdPregnantPromise']:checked").val() == undefined) {
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
 
         if (!validateFlag) {
-            layer.msg("表单填写不完整");
+            layer.msg("请检查信息是否填写完毕");
             return false;
         }
 
