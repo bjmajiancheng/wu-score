@@ -220,6 +220,9 @@ public class CompanyInfoController {
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
 
             CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
+            String strHistory = "公司名字："+currCompany.getCompanyName()+"；单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名："+currCompany.getOperator() +
+                    "；经办人联系手机："+currCompany.getOperatorMobile()+"；经办人身份证号："+currCompany.getIdCardNumber_1()+"；联系地址："+currCompany.getOperatorAddress()
+                    +"；图片正面："+currCompany.getBusinessLicenseSrc()+"；图片反面："+currCompany.getOperator2();
 
             if (currCompany != null) {
                 String message = "用人单位信息修改成功!";
@@ -245,6 +248,7 @@ public class CompanyInfoController {
 
                 if ("用人单位信息修改成功!".equals(message)) {
                     currCompany.setChangeDate(companyInfoModel);
+                    currCompany.setIdCardNumber_2(strHistory); // 保存申请人的修改历史信息
                     companyInfoService.update(currCompany);
                     //companyInfoService.insertCompanyEditRecord(currCompany);
                     return new ResultParam(0, message);
