@@ -1424,6 +1424,22 @@ public class IdentityInfoController {
                 openFunctionTime = batchConf.getOpenFunctionTime();
             }
         }
+        Date closeRegisterTime = new Date();
+        Date openRegisterTime = new Date();
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
+                closeRegisterTime = batchConf.getCloseRegisterTime();
+                openRegisterTime = batchConf.getOpenRegisterTime();
+            }
+        }
+
+        if(System.currentTimeMillis()>closeRegisterTime.getTime()){
+            ResultParam resultParam = new ResultParam();
+            resultParam.setMessage("积分注册、申请审核阶段已停止，请关注重要通知页面内容");
+            resultParam.setCode(11);
+            resultParam.setData(null);
+            return resultParam;
+        }
         if (closeFunctionTime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openFunctionTime.getTime()) {
             return ResultParam.cloOrOpen();
         } else {

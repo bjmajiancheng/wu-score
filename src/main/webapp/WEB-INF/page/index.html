@@ -365,7 +365,10 @@
             data: null,
             dataType: "json",
             success: function (result) {
-                if (result.code == 20) {//后台定义的20为
+                if(result.code == 11){
+                    layer.msg(result.message);
+                    return false;
+                }else if (result.code == 20) {//后台定义的20为
                     flag = true;
                     if(flag){
                         layer.msg('此时间段不受理积分落户，详情请关注重要通知！');
