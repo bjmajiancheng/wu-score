@@ -28,6 +28,8 @@
 		<result property="openFunctionTime" column="open_function_time"/>
 		<result property="closeLoginTime" column="close_login_time"/>
 		<result property="openLoginTime" column="open_login_time"/>
+		<result property="closeRegisterTime" column="closeRegisterTime"/>
+		<result property="openRegisterTime" column="openRegisterTime"/>
 		<result property="scoreValue" column="score_value"/>
 		<result property="closeOrder" column="closeOrder"/>
 
@@ -37,7 +39,7 @@
 	<sql id="columns">
 	    <![CDATA[
         id ,batch_name ,batch_number ,apply_begin ,apply_end ,accept_begin ,accept_end ,publish_begin ,publish_end ,notice_begin ,notice_end ,self_score_end ,accept_address_id ,indicator_type ,indicator_value ,accept_user_count ,status ,process,
-         close_function_time,open_function_time,close_login_time,open_login_time,score_value,closeOrder
+         close_function_time,open_function_time,close_login_time,open_login_time,score_value,closeOrder,openRegisterTime,closeRegisterTime
 	    ]]>
 	</sql>
 

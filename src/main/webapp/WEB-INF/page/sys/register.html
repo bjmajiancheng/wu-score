@@ -600,10 +600,18 @@
                                             showLoading(false);
                                             parent.location.href = '../login.html';
                                         } else {
-                                            layer.alert(result.message);
+                                            var index = layer.confirm(result.message,{
+                                                btn: ['确认', '取消'] //按钮
+                                            },function () {
+                                                layer.alert(result.message);
 
-                                            refreshCode();
-                                            window.open("${rc.contextPath}/systemNotice/systemNotice.html");// 跳转到重要通知页面
+                                                refreshCode();
+                                                window.open("${rc.contextPath}/systemNotice/systemNotice.html");// 跳转到重要通知页面
+                                            },function () {
+                                                layer.alert(result.message);
+                                                window.open("${rc.contextPath}/systemNotice/systemNotice.html");// 跳转到重要通知页面
+                                            });
+
                                         }
                                     }
                                 });

@@ -1431,6 +1431,37 @@ public class IdentityInfoController {
         }
     }
 
+
+    /*
+    获取是否关闭了单位、个人信息的注册
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sys/getCloseRegisterTime", method = RequestMethod.POST)
+    public ResultParam getCloseRegisterTime() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date closeRegisterTime = new Date();
+        Date openRegisterTime = new Date();
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
+                closeRegisterTime = batchConf.getCloseRegisterTime();
+                openRegisterTime = batchConf.getOpenRegisterTime();
+            }
+        }
+
+        if(System.currentTimeMillis()>closeRegisterTime.getTime()){
+            ResultParam resultParam = new ResultParam();
+            resultParam.setMessage("积分注册阶段已停止，请关注重要通知页面内容");
+            resultParam.setCode(11);
+            resultParam.setData(null);
+            return resultParam;
+        } else {
+            return ResultParam.ok();
+        }
+    }
+
     /*
     2019年10月24日，关闭申请人的预约交件时间
      */

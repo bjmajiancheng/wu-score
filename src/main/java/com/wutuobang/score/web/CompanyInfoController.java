@@ -118,6 +118,24 @@ public class CompanyInfoController {
                     flag = false;
                 }
             }
+
+            //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+            Date closeRegisterTime = new Date();
+            Date openRegisterTime = new Date();
+            for (BatchConfModel batchConf : batchConfs) {
+                if (batchConf.getStatus() == 1) {
+                    closeRegisterTime = batchConf.getCloseRegisterTime();
+                    openRegisterTime = batchConf.getOpenRegisterTime();
+                }
+            }
+            if(System.currentTimeMillis()>closeRegisterTime.getTime()){
+                ResultParam resultParam = new ResultParam();
+                resultParam.setMessage("积分注册阶段已停止，请关注重要通知页面内容");
+                resultParam.setCode(11);
+                resultParam.setData(null);
+                return resultParam;
+            }
+
             if (flag) {
                 return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
             }
@@ -220,9 +238,9 @@ public class CompanyInfoController {
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
 
             CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
-            String strHistory = "公司名字："+currCompany.getCompanyName()+"；单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名："+currCompany.getOperator() +
-                    "；经办人联系手机："+currCompany.getOperatorMobile()+"；经办人身份证号："+currCompany.getIdCardNumber_1()+"；联系地址："+currCompany.getOperatorAddress()
-                    +"；图片正面："+currCompany.getBusinessLicenseSrc()+"；图片反面："+currCompany.getOperator2();
+            String strHistory = "公司名字"+currCompany.getCompanyName()+";单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名:"+currCompany.getOperator() +
+                    "；经办人联系手机:"+currCompany.getOperatorMobile()+"；经办人身份证号:"+currCompany.getIdCardNumber_1()+"；联系地址:"+currCompany.getOperatorAddress()
+                    +"；图片地址，正面："+currCompany.getBusinessLicenseSrc()+"；反面："+currCompany.getOperator2();
 
             if (currCompany != null) {
                 String message = "用人单位信息修改成功!";
@@ -248,7 +266,7 @@ public class CompanyInfoController {
 
                 if ("用人单位信息修改成功!".equals(message)) {
                     currCompany.setChangeDate(companyInfoModel);
-                    currCompany.setIdCardNumber_2(strHistory); // 保存申请人的修改历史信息
+                    currCompany.setIdCardNumber_2(strHistory); //
                     companyInfoService.update(currCompany);
                     //companyInfoService.insertCompanyEditRecord(currCompany);
                     return new ResultParam(0, message);
