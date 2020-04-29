@@ -1912,14 +1912,14 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseAddress"
                                                placeholder="天津市房屋租赁登记备案证明所载房屋坐落"
-                                               value="$!{houseMoveModel.rentHouseAddress}">
+                                               value="$!{houseInformation.rentHouseAddress}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>租赁登记备案证明编号:</td>
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentIdNumber"
-                                               value="$!{houseMoveModel.rentIdNumber}">
+                                               value="$!{houseInformation.rentIdNumber}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1927,7 +1927,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseStartDate"
                                                placeholder="天津市房屋租赁登记备案证明核发日"
-                                               value="$!{houseMoveModel.rentHouseStartDate}">
+                                               value="$!{houseInformation.rentHouseStartDate}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1935,7 +1935,7 @@
                                     <td colspan="3">
                                         <input class="integral-input w425" type="text" name="rentHouseEndDate"
                                                placeholder="房屋租赁合同约定租赁合同终止日"
-                                               value="$!{houseMoveModel.rentHouseEndDate}">
+                                               value="$!{houseInformation.rentHouseEndDate}">
                                     </td>
                                 </tr>
                             </table>
@@ -3568,6 +3568,57 @@
         // 与表t _house_move 对应 户籍迁移信息
         var houseMoveInfo = {};
         houseMoveInfo = serializeForm($(".houseMoveForm"));
+        // 增加租赁信息时，有多个信息时保存多个，需要循环处理
+        var a=[];
+        var b=[];
+        var c=[];
+        var d=[];
+
+        var e=0;
+        var f=0;
+        var g=0;
+        var h=0;
+        $("input[name='rentHouseAddress']").each(function () {
+            if($(this).val()==null || $(this).val().trim()==""){
+                e++;
+            }
+            a.push($(this).val());
+        });
+        $("input[name='rentIdNumber']").each(function () {
+            if($(this).val()==null || $(this).val().trim()==""){
+                f++;
+            }
+            b.push($(this).val());
+        });
+        $("input[name='rentHouseStartDate']").each(function () {
+            if($(this).val()==null || $(this).val().trim()==""){
+                g++;
+            }
+            c.push($(this).val());
+        });
+        $("input[name='rentHouseEndDate']").each(function () {
+            if($(this).val()==null || $(this).val().trim()==""){
+                h++;
+            }
+            d.push($(this).val());
+        });
+        console.log(e+","+f+","+","+g+","+h);
+        if(e!=f || e!=g || e!=h){
+            layer.msg("第7页 请完善租赁备案信息");
+            return false;
+        }
+        if(a.length>0){
+            houseMoveInfo["rentHouseAddress"]=a;
+        }
+        if(b.length>0){
+            houseMoveInfo["rentIdNumber"]=b;
+        }
+        if(c.length>0){
+            houseMoveInfo["rentHouseStartDate"]=c;
+        }
+        if(d.length>0) {
+            houseMoveInfo["rentHouseEndDate"] = d;
+        }
 
         //申请人其他信息
         // 与表 t_house_other 对应的关系，申请人其他信息

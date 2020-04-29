@@ -596,37 +596,12 @@ public class IdentityInfoController {
             if (identityInfo.getHouseMoveModel()!=null && identityInfo.getHouseMoveModel().getRentHouseAddress() != null){
                 HouseMoveModel houseMoveModel = identityInfo.getHouseMoveModel();
 
-                String strRentIdNumber = "";
-                if(houseMoveModel.getRentIdNumber()==null){
-                    strRentIdNumber = "申请人没填写";
-                }else {
-                    strRentIdNumber = houseMoveModel.getRentIdNumber().replace("\"",""); // 租赁登记备案证明编号
-                }
-                String strRentHouseAddress = "";
-                if (houseMoveModel.getRentHouseAddress()==null){
-                    strRentHouseAddress = "申请人没填写";
-                }else {
-                    strRentHouseAddress = houseMoveModel.getRentHouseAddress().replace("\"",""); // 租赁房屋地址
-                }
-                String strRenHouseStartDate = "";
-                if (houseMoveModel.getRentHouseStartDate()==null){
-                    strRenHouseStartDate = "申请人没填写";
-                }else {
-                    strRenHouseStartDate = houseMoveModel.getRentHouseStartDate().replace("\"",""); // 租赁备案起始日
-                }
-                String strRentHouseEndDate = "";
-                if (houseMoveModel.getRentHouseEndDate()==null){
-                    strRentHouseEndDate = "申请人没填写";
-                }else {
-                    strRentHouseEndDate = houseMoveModel.getRentHouseEndDate().replace("\"",""); // 租赁合同终止日
-                }
+                String[] renIdNumberArr = houseMoveModel.getRentIdNumber().replaceAll("\"","").replaceAll("\\[","").replaceAll("\\]","").split(",");
+                String[] strRentHouseAddressArr = houseMoveModel.getRentHouseAddress().replaceAll("\"","").replaceAll("\\[","").replaceAll("\\]","").split(",");
+                String[] strRenHouseStartDateArr = houseMoveModel.getRentHouseStartDate().replaceAll("\"","").replaceAll("\\[","").replaceAll("\\]","").split(",");
+                String[] strRentHouseEndDateArr = houseMoveModel.getRentHouseEndDate().replaceAll("\"","").replaceAll("\\[","").replaceAll("\\]","").split(",");
 
-                String[] renIdNumberArr = strRentIdNumber.substring(1,strRentIdNumber.length()-1).split(",");
-                String[] strRentHouseAddressArr = strRentHouseAddress.substring(1,strRentHouseAddress.length()-1).split(",");
-                String[] strRenHouseStartDateArr = strRenHouseStartDate.substring(1,strRenHouseStartDate.length()-1).split(",");
-                String[] strRentHouseEndDateArr = strRentHouseEndDate.substring(1,strRentHouseEndDate.length()-1).split(",");
-
-                for (int i=0; i<renIdNumberArr.length; i++){
+                for (int i=0; i<strRentHouseAddressArr.length; i++){
                     HouseMoveModel hv = new HouseMoveModel();
                     hv.setRentIdNumber(renIdNumberArr[i]);
                     hv.setRentHouseAddress(strRentHouseAddressArr[i]);
