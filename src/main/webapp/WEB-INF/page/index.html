@@ -429,46 +429,62 @@
      * @param id
      */
     function deleteIdentityInfo(id) {
-        /*
-         读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
-         */
-        var flag = false;
+
         $.ajax({
             type: "POST",
-            url: "${rc.contextPath}/identityInfo/sys/getCloseOrOpenFunTime",
+            url: "${rc.contextPath}/identityInfo/sys/getCloseRegisterTime",
             data: null,
             dataType: "json",
             success: function (result) {
-                if (result.code == 20) {//后台定义的20为
-                    flag = true;
-                    if(flag){
-                        layer.msg('此时间段不受理积分落户，详情请关注重要通知！');
-                        return false;
-                    }
+                if(result.code == 11){
+                    layer.msg(result.message);
+                    return false;
                 }else {
-                    //询问框
-                    var index = layer.confirm('确定要删除吗？', {
-                        btn: ['确认', '取消'] //按钮
-                    }, function () {
+                    /*
+                     读取后台的参数，获得关闭、打开注册、申请人填写、评审、预测等功能的时间；
+                     */
+                    var flag = false;
+                    $.ajax({
+                        type: "POST",
+                        url: "${rc.contextPath}/identityInfo/sys/getCloseOrOpenFunTime",
+                        data: null,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 20) {//后台定义的20为
+                                flag = true;
+                                if(flag){
+                                    layer.msg('此时间段不受理积分落户，详情请关注重要通知！');
+                                    return false;
+                                }
+                            }else {
+                                //询问框
+                                var index = layer.confirm('确定要删除吗？', {
+                                    btn: ['确认', '取消'] //按钮
+                                }, function () {
 
-                        /*
-                        2020年1月19日
-                        根据申请人id， 删除信息
-                         */
-                        // 申请审核
-                        postResult("${rc.contextPath}/identityInfo/deleteIdentityInfo", {"id": id}, function (data) {
-                            component.load();
-                            layer.alert(data.message);
-                        });
+                                    /*
+                                     2020年1月19日
+                                     根据申请人id， 删除信息
+                                     */
+                                    // 申请审核
+                                    postResult("${rc.contextPath}/identityInfo/deleteIdentityInfo", {"id": id}, function (data) {
+                                        component.load();
+                                        layer.alert(data.message);
+                                    });
 
 
-                        layer.close(index);
-                    }, function () {
-                        layer.close(index);
+                                    layer.close(index);
+                                }, function () {
+                                    layer.close(index);
+                                });
+                            }
+                        }
                     });
                 }
             }
+
         });
+        
     }
 
     /**
