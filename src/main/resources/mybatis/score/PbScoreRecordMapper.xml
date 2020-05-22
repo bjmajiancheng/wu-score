@@ -29,14 +29,29 @@
         <result property="score_detail" column="score_detail"/>
         <result property="c_time" column="c_time"/>
         <result property="accept_address_id" column="accept_address_id"/>
+        <result property="toreviewreason" column="toreviewreason"/>
+        <result property="toreviewtime" column="toreviewtime"/>
+        <result property="idreviewend" column="idreviewend"/>
     </resultMap>
 
     <sql id="columns">
         <![CDATA[
         id,accept_number,batch_id,indicator_id,indicator_name,person_id,person_name,person_id_num,person_mobile_phone,company_id,company_name,
-        status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id
+        status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id,toreviewreason,toreviewtime,idreviewend
 	    ]]>
     </sql>
+
+    <update id="update">
+        update t_pb_score_record set
+        <if test="person_name!=null">person_name=#{person_name,jdbcType=VARCHAR},</if>
+        <if test="person_id_num!=null">person_id_num=#{person_id_num,jdbcType=VARCHAR},</if>
+        <if test="indicator_name!=null">indicator_name=#{indicator_name,jdbcType=VARCHAR},</if>
+        <if test="toreviewreason!=null">toreviewreason=#{toreviewreason,jdbcType=VARCHAR},</if>
+        <if test="toreviewtime!=null">toreviewtime=#{toreviewtime,jdbcType=TIMESTAMP},</if>
+        id = #{id}
+        WHERE
+            id = #{id}
+    </update>
 
     <select id="getByPersonId" resultMap="PbScoreRecord">
         SELECT <include refid="columns"/> FROM t_pb_score_record

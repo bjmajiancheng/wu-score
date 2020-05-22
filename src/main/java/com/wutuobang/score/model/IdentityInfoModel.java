@@ -156,6 +156,34 @@ public class IdentityInfoModel implements Serializable {
     private String housePactNumber; // 购房合同编号
     private String rightProperty;// 持有
 
+    private Integer istoreview;//"申请人是否申请复核过；1：是；2：否
+    private Date toreviewtime;//"申请人是否申请复的时间"
+    private String cancelReason;// 申请人的复核理由
+
+    public Integer getIstoreview() {
+        return istoreview;
+    }
+
+    public void setIstoreview(Integer istoreview) {
+        this.istoreview = istoreview;
+    }
+
+    public Date getToreviewtime() {
+        return toreviewtime;
+    }
+
+    public void setToreviewtime(Date toreviewtime) {
+        this.toreviewtime = toreviewtime;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
+    }
+
     public Integer getSaveStatus() {
         return saveStatus;
     }

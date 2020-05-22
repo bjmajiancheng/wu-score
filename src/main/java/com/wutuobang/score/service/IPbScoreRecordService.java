@@ -35,4 +35,6 @@ public interface IPbScoreRecordService {
      */
     public List<PbScoreRecordModel> findOnePbScoreRecord(String id_number,Integer batch_id);
 
+    public int update(PbScoreRecordModel pbScoreRecordModel);
+
 }

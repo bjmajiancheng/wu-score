@@ -36,6 +36,34 @@ public class PbScoreRecordModel implements Serializable {
     private  Date c_time;//DATE创建时间
     private Integer accept_address_id;//NUMBER(11)
 
+    private  String toreviewreason;// 申请人申请复核的理由
+    private  Date toreviewtime;//申请人申请复核的时间
+    private Integer idreviewend;// 申请复核是否完毕，1：结束
+
+    public String getToreviewreason() {
+        return toreviewreason;
+    }
+
+    public void setToreviewreason(String toreviewreason) {
+        this.toreviewreason = toreviewreason;
+    }
+
+    public Date getToreviewtime() {
+        return toreviewtime;
+    }
+
+    public void setToreviewtime(Date toreviewtime) {
+        this.toreviewtime = toreviewtime;
+    }
+
+    public Integer getIdreviewend() {
+        return idreviewend;
+    }
+
+    public void setIdreviewend(Integer idreviewend) {
+        this.idreviewend = idreviewend;
+    }
+
     public Integer getId() {
         return id;
     }

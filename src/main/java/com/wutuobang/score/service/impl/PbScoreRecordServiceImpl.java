@@ -66,4 +66,12 @@ public class PbScoreRecordServiceImpl implements IPbScoreRecordService {
         List<PbScoreRecordModel> list = pbScoreRecordDao.findOnePbScoreRecord(id_number, batch_id);
         return  list;
     }
+
+    @Override
+    public int update(PbScoreRecordModel pbScoreRecordModel) {
+        if (pbScoreRecordModel==null){
+            return 0;
+        }
+        return pbScoreRecordDao.update(pbScoreRecordModel);
+    }
 }

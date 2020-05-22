@@ -69,21 +69,29 @@
 
         <div style="clear: both;"></div>
         <table class="integral-table">
-            <tr>
-                <th colspan="3"><front style="color:#0000FF">打分指标列表</front></th>
+            <input type="hidden" value="${identityInfo.id}" id="identityInfoId">
+            <input type="hidden" value="${identityInfo.cancelStatus}" id="cancelStatus">
+            <input type="hidden" value="${identityInfo.istoreview}" id="istoreview">
+            <tr class="cancelFade">
+                <td><input type="checkbox" class="choosecheck cancelcheck"></td>
+                <td colspan="3">取消资格时申请复核<br><input type="text" id="cancelReason" class="toreviewreason" style="width: 100%;display: none" placeholder="请输入这个打分项的申请复核理由，请谨慎填写"></td>
             </tr>
             <tr>
+                <th colspan="4"><front style="color:#0000FF">打分指标列表</front></th>
+            </tr>
+            <tr>
+                <th  class="fadeOrDisplay" width="10%">勾选框</th>
                 <th>序号</th>
                 <th>指标项</th>
                 <th>分数</th>
             </tr>
             <tbody>
-
-
             #foreach (${pbScoreRecord} in ${pbScoreRecords})
             <tr>
+                <td  class="fadeOrDisplay"><input type="checkbox" class="choosecheck"></td>
                 <td>${velocityCount}</td>
-                <td>${pbScoreRecord.indicator_name}</td>
+                <td>${pbScoreRecord.indicator_name}<br><input type="text" id="${pbScoreRecord.id}" class="toreviewreason secondchoose"
+                                                              style="width: 100%;display: none" placeholder="请输入这个打分项的申请复核理由，请谨慎填写"></td>
                 <td>${pbScoreRecord.score_value}</td>
             </tr>
             #end
@@ -91,6 +99,10 @@
             </tbody>
         </table>
     </div>
+    <input type="button" value="申请复核" id="toreview" style="margin-left: 16%;font-size: large;background-color: #3b8df9;
+                                    color: white;margin-top: 2%;height: 30px;width: 120px;border-radius: 15px;">
+    <input  class="fadeOrDisplay" type="button" value="提交复核" id="submitreview" style="margin-left: 16%;font-size: large;background-color: #3b8df9;
+                                    color: white;margin-top: 2%;height: 30px;width: 120px;border-radius: 15px;">
 </div>
 
 <!-- 底部栏 footer -->
@@ -104,6 +116,92 @@
         $("#cancalList").on("click", function(){
             window.location.href = "${rc.contextPath}/pbScoreResult/searchScore.html";
         });
+
+        // 2020年5月19日，申请人打开此页面时，要隐藏掉 1、取消资格时申请复核；2、勾选框；3、提交复核按钮
+        $(".fadeOrDisplay").hide();
+        $(".cancelFade").hide();
+
+    });
+
+    // 不见面复核分数的输入框是比照后台所写
+    $(".choosecheck").on("change", function () {
+        if($(this).is(":checked")){
+            $(this).parent().parent().find("input").eq(1).show();
+        }else {
+            $(this).parent().parent().find("input").eq(1).hide();
+        }
+    });
+
+    // 点击申请审核按钮
+    // 1、获取手机验证码
+    // 2、通过后显示勾选框 checkbox
+    $("#toreview").on("click",function () {
+        var identityInfoId = $("#identityInfoId").val(); // 申请人ID
+        postResult("/pbScoreResult/reviewPhoneCode",{"identityInfoId":identityInfoId}, function (data) {
+            if(data.code==110){
+                layer.msg(data.data);
+                return false;
+            }
+            layer.prompt({title:'验证码已发送到经办人手机'+data.data+', 请输入短信验证码',formType:0},function (pass,index) {
+                postResult("/pbScoreResult/validReviewPhoneCode",{"identityInfoId":identityInfoId,"msgCode":pass},function (data) {
+                    layer.msg("短信码验证成功", {
+                        time: 2000
+                    });
+                    layer.close(index);
+                    // 显示勾选框
+                    $(".fadeOrDisplay").show();
+                    if($("#cancelStatus").val()==1){
+                        $(".cancelFade").show();
+                    }
+
+                });
+            });
+        });
+
+
+    });
+
+    // 申请人提交申请复核的理由
+    $("#submitreview").on("click",function () {
+        /**
+         * 1、获取申请人的复核理由，包含2种情况
+         *      a、申请人被取消资格，申请复核为什么取消资格；
+         *      b、申请人的分数申请复核，申请人复核分值；
+         * 2、传到后台的 t_pb_score_record 表中
+          */
+        var reviewArr = new Array();
+        $(".secondchoose").each(function () {
+            var scorerecord = $(this).attr("id"); // 指标项ID
+            var reason = $(this).val(); // 指标项对应的的复核理由
+            console.log($(this).parent().parent().find("input").eq(0).prop("checked")+scorerecord+":---"+reason);
+            if($(this).parent().parent().find("input").eq(0).prop("checked")){
+                reviewArr.push({
+                    "id": scorerecord,
+                    "toreviewreason" : reason
+                });
+            };
+
+        });
+        var reviewJson = JSON.stringify(reviewArr);
+        // 若申请人勾选了申请复核不通过
+        var cancelReason = "";
+        if($(".cancelcheck").is(":checked")){
+            cancelReason = $("#cancelReason").val();
+        }
+        var identityInfoId = $("#identityInfoId").val(); // 申请人ID
+
+        postResultData("/pbScoreResult/saveReviewReason",{
+            "identityInfoId":identityInfoId,
+            "cancelReason":cancelReason,
+            "reviewJson":reviewJson
+        },function () {
+            layer.msg('保存成功!!', {
+                time: 1000
+            }, function () {
+                window.location.href = "${rc.contextPath}/identityInfo/index.html";
+            });
+        });
+
     });
 
 </script>

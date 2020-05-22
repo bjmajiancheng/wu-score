@@ -29,4 +29,6 @@ public interface IPbScoreRecordDao {
     查询一条数据
      */
     public List<PbScoreRecordModel> findOnePbScoreRecord(@Param("id_number") String id_number, @Param("batch_id") Integer batch_id);
+
+    public int update(PbScoreRecordModel pbScoreRecordModel);
 }

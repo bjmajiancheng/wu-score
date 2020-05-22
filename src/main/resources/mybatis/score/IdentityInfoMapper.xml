@@ -61,6 +61,9 @@
 		<result property="houseProperty" column="houseProperty"/>
 		<result property="housePactDate" column="housePactDate"/>
 		<result property="housePactNumber" column="housePactNumber"/>
+		<result property="istoreview" column="istoreview"/>
+		<result property="toreviewtime" column="toreviewtime"/>
+		<result property="cancelReason" column="cancelReason"/>
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -119,7 +122,10 @@
 		houseOurNumber,
 		houseProperty,
 		housePactDate,
-		housePactNumber
+		housePactNumber,
+		istoreview,
+		toreviewtime,
+		cancelReason
         ]]>
 	</sql>
 
@@ -289,7 +295,9 @@
 		<if test="houseProperty != null">houseProperty = #{houseProperty, jdbcType=VARCHAR} ,</if>
 		<if test="housePactDate != null">housePactDate = #{housePactDate, jdbcType=VARCHAR} ,</if>
 		<if test="housePactNumber != null">housePactNumber = #{housePactNumber, jdbcType=VARCHAR} ,</if>
-
+		<if test="istoreview != null">istoreview = #{istoreview, jdbcType=INTEGER} ,</if>
+		<if test="toreviewtime != null">toreviewtime = #{toreviewtime, jdbcType=TIMESTAMP} ,</if>
+		<if test="cancelReason != null">cancelReason = #{cancelReason, jdbcType=VARCHAR} ,</if>
 		id = #{id}
 		WHERE
 		id = #{id}

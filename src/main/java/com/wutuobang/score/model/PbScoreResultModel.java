@@ -45,7 +45,6 @@ public class PbScoreResultModel implements Serializable {
 	private Date ctime;//"新建日期"
 
 	//columns END
-		
 	public void setId(Integer id) {
 		this.id = id;
 	}

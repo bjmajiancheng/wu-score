@@ -8,6 +8,7 @@
 package com.wutuobang.score.web;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,15 +16,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.wutuobang.common.client.ShardJedisClient;
+import com.wutuobang.common.message.SmsUtil;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.common.utils.RandomCodeUtil;
 import com.wutuobang.common.utils.ResultParam;
+import com.wutuobang.score.constant.CacheConstant;
 import com.wutuobang.score.model.*;
 import com.wutuobang.score.util.IdNumberReplaceUtil;
 import com.wutuobang.score.view.SearchScoreView;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +68,14 @@ public class PbScoreResultController {
 
     @Autowired
     private IFakeRecordService fakeRecordService;
+
+    @Autowired
+    private ShardJedisClient jedisClient;
+
+    @Autowired
+    private IHouseOtherService houseOtherService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PbScoreResultController.class);
 
     /**
      * 跳转到积分查询页面
@@ -512,5 +527,102 @@ public class PbScoreResultController {
 
         return finalScoreResults;
     }
+
+    /**
+     * 2020年5月15日
+     * 不见面复核，保存申请人的理由
+     */
+    @ResponseBody
+    @RequestMapping(value = "/saveReviewReason", method = RequestMethod.POST)
+    public ResultParam saveReviewReason(HttpServletRequest request, @RequestParam("reviewJson") String reviewJson,
+                                        @RequestParam("identityInfoId") Integer identityInfoId,
+                                        @RequestParam("cancelReason") String cancelReason){
+
+        List<PbScoreRecordModel> pbScoreResultModels = JSON
+                .parseArray(reviewJson, PbScoreRecordModel.class);
+        for(PbScoreRecordModel pbScoreRecordModel : pbScoreResultModels){
+            pbScoreRecordModel.setToreviewtime(new Date());
+            pbScoreRecordService.update(pbScoreRecordModel);
+        }
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+        identityInfoModel.setIstoreview(1); // 1：表示申请复核了
+        identityInfoModel.setToreviewtime(new Date());
+        identityInfoModel.setCancelReason(cancelReason); // 申请复核取消资格的理由
+        identityInfoService.update(identityInfoModel);
+        return ResultParam.SUCCESS_RESULT;
+
+    }
+
+    /**
+     * 2020年5月21日
+     * 申请人申请复核手机验证码
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/reviewPhoneCode" ,method = RequestMethod.POST)
+    public ResultParam reviewPhoneCode(@RequestParam("identityInfoId") Integer identityInfoId){
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+        /*
+        如果已经申请过复核了，那就不能再次审核了
+         */
+        if (identityInfoModel.getIstoreview()!=null){
+            ResultParam resultParam = new ResultParam();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String mobileStr = "您已申请复核一次，复核时间为："+sdf.format(identityInfoModel.getToreviewtime())+"，每人只有一次申请机会，重复申请无效。";
+            //resultParam.setData(mobileStr);
+            resultParam.setMessage(mobileStr);
+            resultParam.setCode(110); // 提示码 110
+            return resultParam;
+        }
+        HouseOtherModel houseOtherModel = houseOtherService.getByIdentityInfoId(identityInfoId);
+
+        try {
+//            String randomCode = "1234";
+//            SmsUtil.send("15863150206",String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
+            String randomCode = RandomCodeUtil.generRandomCode(4);
+            jedisClient.setex(String.format(CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, identityInfoModel.getIdNumber()), randomCode, 5 * 60);
+            //发送短信
+            SmsUtil.send(houseOtherModel.getSelfPhone(),String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
+
+            LOGGER.info("用户验证码:{}", randomCode);
+
+            ResultParam resultParam = new ResultParam();
+            String mobileStr = " " + identityInfoModel.getName() + ":" + houseOtherModel.getSelfPhone().substring(0,3)+"****"+houseOtherModel.getSelfPhone().substring(7);
+            resultParam.setData(mobileStr);
+            resultParam.setMessage("验证码发送成功!!");
+            return resultParam;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+
+    }
+
+    /**
+     * 短信验证码
+     * @param identityInfoId
+     * @param msgCode
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/validReviewPhoneCode", method = RequestMethod.POST)
+    public ResultParam validReviewPhoneCode(@RequestParam("identityInfoId") Integer identityInfoId,
+                                            @RequestParam("msgCode") String msgCode){
+
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+        String randomCode = jedisClient.get(String.format(CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, identityInfoModel.getIdNumber()));
+        //String randomCode = "1234";
+        if (randomCode == null) {
+            return ResultParam.error("短信验证码已失效, 请重新发送。");
+        }
+
+        if (!msgCode.equals(randomCode)) {
+            return ResultParam.error("短信验证码不正确, 请重新输入。");
+        }
+
+        return ResultParam.SUCCESS_RESULT;
+
+    }
+
 
 }
