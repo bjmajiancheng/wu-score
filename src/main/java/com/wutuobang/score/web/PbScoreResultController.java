@@ -544,6 +544,37 @@ public class PbScoreResultController {
             pbScoreRecordModel.setToreviewtime(new Date());
             pbScoreRecordService.update(pbScoreRecordModel);
         }
+        // 处理
+        List<PbScoreRecordModel> list = pbScoreRecordService.getByPersonId(identityInfoId);
+        PbScoreRecordModel p1 = new PbScoreRecordModel();
+        PbScoreRecordModel p2 = new PbScoreRecordModel();
+        for (PbScoreRecordModel pbScoreRecordModel : list){
+            if (pbScoreRecordModel.getIndicator_id()==14 && pbScoreRecordModel.getToreviewtime()!=null){
+                p1=pbScoreRecordModel;
+            }
+            if (pbScoreRecordModel.getIndicator_id()==3 && pbScoreRecordModel.getToreviewtime()!=null){
+                p2=pbScoreRecordModel;
+            }
+        }
+        if (p1!=null){
+            for (PbScoreRecordModel pbScoreRecordModel : list){
+                if (pbScoreRecordModel.getIndicator_id()==14 && pbScoreRecordModel.getToreviewtime()==null){
+                    pbScoreRecordModel.setToreviewtime(p1.getToreviewtime());
+                    pbScoreRecordModel.setToreviewreason(p1.getToreviewreason());
+                    pbScoreRecordService.update(pbScoreRecordModel);
+                }
+            }
+        }
+        if (p2!=null){
+            for (PbScoreRecordModel pbScoreRecordModel : list){
+                if (pbScoreRecordModel.getIndicator_id()==3 && pbScoreRecordModel.getToreviewtime()==null){
+                    pbScoreRecordModel.setToreviewtime(p1.getToreviewtime());
+                    pbScoreRecordModel.setToreviewreason(p1.getToreviewreason());
+                    pbScoreRecordService.update(pbScoreRecordModel);
+                }
+            }
+        }
+
         IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
         identityInfoModel.setIstoreview(1); // 1：表示申请复核了
         identityInfoModel.setToreviewtime(new Date());
