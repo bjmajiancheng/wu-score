@@ -66,6 +66,9 @@ public class MaterialInfoController {
     @Autowired
     private IHouseRelationshipService houseRelationshipService;
 
+    @Autowired
+    private IPbScoreRecordService pbScoreRecordService;
+
     /**
      * 跳转到上传文件页面
      *
@@ -551,6 +554,17 @@ public class MaterialInfoController {
                         材料上传页面，材料驳回后，申请人再次上传通过后，
                          */
                         updateIdentityInfo.setMaterialStatus(2);
+
+                        /**
+                         * 2020年5月27日优化材料补正
+                         */
+                        List<PbScoreRecordModel> list = pbScoreRecordService.getByPersonId(identityInfoId);
+                        for (PbScoreRecordModel pbScoreRecordModel : list){
+                            if (pbScoreRecordModel.getStatus()==5){
+                                pbScoreRecordModel.setStatus(2); // 由补正状态改为待审核状态
+                                pbScoreRecordService.update(pbScoreRecordModel);
+                            }
+                        }
                     }
                     identityInfoService.update(updateIdentityInfo);
                 }

@@ -48,6 +48,7 @@
         <if test="indicator_name!=null">indicator_name=#{indicator_name,jdbcType=VARCHAR},</if>
         <if test="toreviewreason!=null">toreviewreason=#{toreviewreason,jdbcType=VARCHAR},</if>
         <if test="toreviewtime!=null">toreviewtime=#{toreviewtime,jdbcType=TIMESTAMP},</if>
+        <if test="status != null">status = #{status, jdbcType=INTEGER} ,</if>
         id = #{id}
         WHERE
             id = #{id}
