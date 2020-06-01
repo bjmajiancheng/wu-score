@@ -165,6 +165,9 @@ public class CompanyInfoController {
             if (validateModel != null) {
                 return ResultParam.error("用户名已注册, 请更换用户名!!!");
             }
+            if (companyInfoModel.getRegstate().equals("注销")){
+                return ResultParam.error("公司已注销，无法注册!!!");
+            }
 
             companyInfoModel.setPassword(new Sha256Hash(companyInfoModel.getPassword()).toHex());
             companyInfoModel.setRemark(StringUtils.EMPTY);
