@@ -214,6 +214,10 @@ public class IdentityInfoBiz {
                 map.put(18	,36);
                 map.put(20	,33);
                 houseMoveModel.setRegion(map.get(Integer.parseInt(houseMoveModel.getRegisteredOffice())));
+                if(houseMoveModel.getRegion()==null){
+                    identityInfoService.removeById(houseMoveModel.getIdentityInfoId());
+                    return false;
+                }
                 houseMoveService.insert(houseMoveModel);
             }
             //申请人家庭关系

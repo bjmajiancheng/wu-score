@@ -200,6 +200,9 @@ public class IdentityInfoController {
 
             identityInfoModel.setAutoTestNum(basicConfModel.getSelfTestLimit());
             boolean addFlag = identityInfoBiz.addIdentityInfo(identityInfoModel, batchConfModel, currUser, attachment_id_card_positive, attachment_id_card_opposite);
+            if (!addFlag){
+                return ResultParam.error("请用电脑端谷歌浏览器进行信息录入");
+            }
 
             return ResultParam.SUCCESS_RESULT;
         } catch (Exception e) {
