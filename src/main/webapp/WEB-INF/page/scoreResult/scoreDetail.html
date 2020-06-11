@@ -169,12 +169,16 @@
          *      b、申请人的分数申请复核，申请人复核分值；
          * 2、传到后台的 t_pb_score_record 表中
           */
+        var flag = false;
         var reviewArr = new Array();
         $(".secondchoose").each(function () {
             var scorerecord = $(this).attr("id"); // 指标项ID
             var reason = $(this).val(); // 指标项对应的的复核理由
             console.log($(this).parent().parent().find("input").eq(0).prop("checked")+scorerecord+":---"+reason);
             if($(this).parent().parent().find("input").eq(0).prop("checked")){
+                if (reason==null ||reason=="" ){
+                    flag = true;
+                }
                 reviewArr.push({
                     "id": scorerecord,
                     "toreviewreason" : reason
@@ -182,6 +186,12 @@
             };
 
         });
+
+        if(flag){
+            layer.msg('勾选的分数项文字输入框为必填项，空白不可提交；若不填写理由，请不要勾选此项。');
+            return false;
+        }
+
         var reviewJson = JSON.stringify(reviewArr);
         // 若申请人勾选了申请复核不通过
         var cancelReason = "";

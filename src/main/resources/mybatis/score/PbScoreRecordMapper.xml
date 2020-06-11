@@ -37,7 +37,8 @@
     <sql id="columns">
         <![CDATA[
         id,accept_number,batch_id,indicator_id,indicator_name,person_id,person_name,person_id_num,person_mobile_phone,company_id,company_name,
-        status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id,toreviewreason,toreviewtime,idreviewend
+        status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id,
+        toreviewreason,toreviewtime,idreviewend,isdeducted,original_score_value,useful
 	    ]]>
     </sql>
 
@@ -54,13 +55,59 @@
             id = #{id}
     </update>
 
+    <!--使用union all 来处理，以区分居住（、规自局）、住房所在区-->
     <select id="getByPersonId" resultMap="PbScoreRecord">
-        SELECT <include refid="columns"/> FROM t_pb_score_record
+        SELECT *	 FROM t_pb_score_record
         <where>
             <if test="id != null">
                 AND  person_id= #{id}
+                and INDICATOR_id not in ('1022', '1025', '1030', '1021', '1031')
             </if>
         </where>
+        union all
+        select t1.*
+        from t_pb_score_record t1, t_identity_info t2
+        where person_id= #{id}
+        and t1.INDICATOR_id in ('1022')
+        and t1.person_id = t2.id
+        and t2.is201826doc = 1
+
+        union all
+
+        select min(ID) ID,
+        min(ACCEPT_NUMBER) ACCEPT_NUMBER,
+        min(BATCH_ID) BATCH_ID,
+        min(INDICATOR_ID) INDICATOR_ID,
+        case when min(INDICATOR_NAME) is not null then '住房' end INDICATOR_NAME,
+        min(PERSON_ID) PERSON_ID,
+        min(PERSON_NAME) PERSON_NAME,
+        min(PERSON_ID_NUM) PERSON_ID_NUM,
+        min(PERSON_MOBILE_PHONE) PERSON_MOBILE_PHONE,
+        min(COMPANY_ID) COMPANY_ID,
+        min(COMPANY_NAME) COMPANY_NAME,
+        min(STATUS) STATUS,
+        sum(SCORE_VALUE) SCORE_VALUE,
+        min(ITEM_ID) ITEM_ID,
+        min(ACCEPT_DATE) ACCEPT_DATE,
+        min(SUBMIT_DATE) SUBMIT_DATE,
+        min(SCORE_DATE) SCORE_DATE,
+        min(OP_USER_ID) OP_USER_ID,
+        min(OP_USER) OP_USER,
+        min(OP_ROLE_ID) OP_ROLE_ID,
+        min(OP_ROLE) OP_ROLE,
+        min(SCORE_DETAIL) SCORE_DETAIL,
+        min(C_TIME) C_TIME,
+        min(ACCEPT_ADDRESS_ID) ACCEPT_ADDRESS_ID,
+        min(ORIGINAL_SCORE_VALUE) ORIGINAL_SCORE_VALUE,
+        min(ISDEDUCTED) ISDEDUCTED,
+        min(TOREVIEWREASON) TOREVIEWREASON,
+        min(TOREVIEWTIME) TOREVIEWTIME,
+        min(IDREVIEWEND) IDREVIEWEND,
+        min(USEFUL) USEFUL
+        from t_pb_score_record
+        where person_id= #{id}
+        and INDICATOR_id in ('1025', '1030', '1021', '1031')
+
     </select>
 
     <select id="getPublicList" resultMap="PbScoreRecord">
