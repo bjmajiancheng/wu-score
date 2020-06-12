@@ -75,6 +75,9 @@ public class PbScoreResultController {
     @Autowired
     private IHouseOtherService houseOtherService;
 
+    @Autowired
+    private IHouseMoveService houseMoveService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PbScoreResultController.class);
 
     /**
@@ -538,6 +541,8 @@ public class PbScoreResultController {
                                         @RequestParam("identityInfoId") Integer identityInfoId,
                                         @RequestParam("cancelReason") String cancelReason){
 
+        IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
+        HouseMoveModel houseMoveModel = houseMoveService.getByIdentityInfoId(identityInfoId);
         List<PbScoreRecordModel> pbScoreResultModels = JSON
                 .parseArray(reviewJson, PbScoreRecordModel.class);
         for(PbScoreRecordModel pbScoreRecordModel : pbScoreResultModels){
@@ -546,14 +551,19 @@ public class PbScoreResultController {
         }
         // 处理
         List<PbScoreRecordModel> list = pbScoreRecordService.getByPersonId(identityInfoId);
+        List<PbScoreRecordModel> list2 = pbScoreRecordService.getByPersonId2(identityInfoId);
         PbScoreRecordModel p1 = new PbScoreRecordModel();
         PbScoreRecordModel p2 = new PbScoreRecordModel();
+        PbScoreRecordModel p3 = new PbScoreRecordModel();
         for (PbScoreRecordModel pbScoreRecordModel : list){
             if (pbScoreRecordModel.getIndicator_id()==14 && pbScoreRecordModel.getToreviewtime()!=null){
                 p1=pbScoreRecordModel;
             }
             if (pbScoreRecordModel.getIndicator_id()==3 && pbScoreRecordModel.getToreviewtime()!=null){
                 p2=pbScoreRecordModel;
+            }
+            if (pbScoreRecordModel.getIndicator_id()==1021 && pbScoreRecordModel.getToreviewtime()!=null){
+                p3=pbScoreRecordModel;
             }
         }
         if (p1!=null){
@@ -568,17 +578,60 @@ public class PbScoreResultController {
         if (p2!=null){
             for (PbScoreRecordModel pbScoreRecordModel : list){
                 if (pbScoreRecordModel.getIndicator_id()==3 && pbScoreRecordModel.getToreviewtime()==null){
-                    pbScoreRecordModel.setToreviewtime(p1.getToreviewtime());
-                    pbScoreRecordModel.setToreviewreason(p1.getToreviewreason());
+                    pbScoreRecordModel.setToreviewtime(p2.getToreviewtime());
+                    pbScoreRecordModel.setToreviewreason(p2.getToreviewreason());
                     pbScoreRecordService.update(pbScoreRecordModel);
                 }
             }
         }
+        if (p3!=null){
+            if (identityInfoModel.getRightProperty().equals("1") && houseMoveModel.getRentHouseAddress()==null){
+                for (PbScoreRecordModel pbScoreRecordModel : list2){
+                    if (pbScoreRecordModel.getIndicator_id()==1025 && pbScoreRecordModel.getToreviewtime()==null){
+                        pbScoreRecordModel.setToreviewtime(p3.getToreviewtime());
+                        pbScoreRecordModel.setToreviewreason(p3.getToreviewreason());
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                    if (pbScoreRecordModel.getIndicator_id()==1030 && pbScoreRecordModel.getToreviewtime()==null){
+                        pbScoreRecordModel.setToreviewtime(p3.getToreviewtime());
+                        pbScoreRecordModel.setToreviewreason(p3.getToreviewreason());
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                }
+            }else{
+                for (PbScoreRecordModel pbScoreRecordModel : list2){
+                    if (pbScoreRecordModel.getIndicator_id()==1021){
+                        pbScoreRecordModel.setToreviewtime(p3.getToreviewtime());
+                        pbScoreRecordModel.setToreviewreason(p3.getToreviewreason());
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                    if (pbScoreRecordModel.getIndicator_id()==1031){
+                        pbScoreRecordModel.setToreviewtime(p3.getToreviewtime());
+                        pbScoreRecordModel.setToreviewreason(p3.getToreviewreason());
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                    if (pbScoreRecordModel.getIndicator_id()==1025){
+                        pbScoreRecordModel.setToreviewtime(null);
+                        pbScoreRecordModel.setToreviewreason("");
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                    if (pbScoreRecordModel.getIndicator_id()==1030){
+                        pbScoreRecordModel.setToreviewtime(null);
+                        pbScoreRecordModel.setToreviewreason("");
+                        pbScoreRecordService.update(pbScoreRecordModel);
+                    }
+                }
+            }
+        }
 
-        IdentityInfoModel identityInfoModel = identityInfoService.getById(identityInfoId);
-        identityInfoModel.setIstoreview(1); // 1：表示申请复核了
+
+        if(identityInfoModel.getHallStatus()==8){
+            identityInfoModel.setIstoreview(1); // 1：表示申请复核取消资格
+            identityInfoModel.setCancelReason(cancelReason); // 申请复核取消资格的理由
+        }else{
+            identityInfoModel.setIstoreview(3); // 2：表示申请复核分数项
+        }
         identityInfoModel.setToreviewtime(new Date());
-        identityInfoModel.setCancelReason(cancelReason); // 申请复核取消资格的理由
         identityInfoService.update(identityInfoModel);
         return ResultParam.SUCCESS_RESULT;
 

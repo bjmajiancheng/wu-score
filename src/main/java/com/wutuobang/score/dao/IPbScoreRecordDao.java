@@ -16,6 +16,8 @@ public interface IPbScoreRecordDao {
      */
     public List<PbScoreRecordModel> getByPersonId(@Param("id") Integer id);
 
+    public List<PbScoreRecordModel> getByPersonId2(@Param("id") Integer id);
+
     public List<PbScoreRecordModel> getPublicList(@Param("batch_id") Integer batch_id);
 
     public List<PbScoreRecordModel> findPublicPage(Map<String, Object> param, RowBounds rowBounds);

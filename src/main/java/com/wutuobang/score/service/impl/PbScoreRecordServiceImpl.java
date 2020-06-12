@@ -28,6 +28,11 @@ public class PbScoreRecordServiceImpl implements IPbScoreRecordService {
     }
 
     @Override
+    public List<PbScoreRecordModel> getByPersonId2(Integer id) {
+        return pbScoreRecordDao.getByPersonId2(id);
+    }
+
+    @Override
     public List<PbScoreRecordModel> getPublicList(Integer batch_id) {
         return pbScoreRecordDao.getPublicList(batch_id);
     }

@@ -14,6 +14,7 @@ public interface IPbScoreRecordService {
      */
     public List<PbScoreRecordModel> getByPersonId(Integer id);
 
+    public List<PbScoreRecordModel> getByPersonId2(Integer id);
     /*
     2018年12月10日 名单公示
      */

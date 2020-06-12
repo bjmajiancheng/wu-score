@@ -55,13 +55,23 @@
             id = #{id}
     </update>
 
+    <!-- 得到所有的打分指标项 -->
+    <select id="getByPersonId2" resultMap="PbScoreRecord">
+    SELECT *	 FROM t_pb_score_record
+    <where>
+        <if test="id != null">
+            AND  person_id= #{id}
+        </if>
+    </where>
+    </select>
+
     <!--使用union all 来处理，以区分居住（、规自局）、住房所在区-->
     <select id="getByPersonId" resultMap="PbScoreRecord">
         SELECT *	 FROM t_pb_score_record
         <where>
             <if test="id != null">
                 AND  person_id= #{id}
-                and INDICATOR_id not in ('1022', '1025', '1030', '1021', '1031')
+                and INDICATOR_id not in ( '1003','1022', '1025', '1030', '1021', '1031')
             </if>
         </where>
         union all

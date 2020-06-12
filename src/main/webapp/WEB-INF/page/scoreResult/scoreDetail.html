@@ -80,7 +80,7 @@
                 <th colspan="4"><front style="color:#0000FF">打分指标列表</front></th>
             </tr>
             <tr>
-                <th  class="fadeOrDisplay" width="10%">勾选框</th>
+                <th  class="fadeOrDisplay" width="10%">勾选复核</th>
                 <th>序号</th>
                 <th>指标项</th>
                 <th>分数</th>
@@ -163,54 +163,65 @@
 
     // 申请人提交申请复核的理由
     $("#submitreview").on("click",function () {
-        /**
-         * 1、获取申请人的复核理由，包含2种情况
-         *      a、申请人被取消资格，申请复核为什么取消资格；
-         *      b、申请人的分数申请复核，申请人复核分值；
-         * 2、传到后台的 t_pb_score_record 表中
-          */
-        var flag = false;
-        var reviewArr = new Array();
-        $(".secondchoose").each(function () {
-            var scorerecord = $(this).attr("id"); // 指标项ID
-            var reason = $(this).val(); // 指标项对应的的复核理由
-            console.log($(this).parent().parent().find("input").eq(0).prop("checked")+scorerecord+":---"+reason);
-            if($(this).parent().parent().find("input").eq(0).prop("checked")){
-                if (reason==null ||reason=="" ){
-                    flag = true;
-                }
-                reviewArr.push({
-                    "id": scorerecord,
-                    "toreviewreason" : reason
-                });
-            };
+        var index = layer.confirm('每人只能提交一次申请，请确认是否选择完毕', {
+            btn: ['是', '否'] //按钮
+        }, function () {
+            /**
+             * 1、获取申请人的复核理由，包含2种情况
+             *      a、申请人被取消资格，申请复核为什么取消资格；
+             *      b、申请人的分数申请复核，申请人复核分值；
+             * 2、传到后台的 t_pb_score_record 表中
+             */
+            var flag = false;
+            var reviewArr = new Array();
+            $(".secondchoose").each(function () {
+                var scorerecord = $(this).attr("id"); // 指标项ID
+                var reason = $(this).val(); // 指标项对应的的复核理由
+                console.log($(this).parent().parent().find("input").eq(0).prop("checked")+scorerecord+":---"+reason);
+                if($(this).parent().parent().find("input").eq(0).prop("checked")){
+                    if (reason==null ||reason=="" ){
+                        flag = true;
+                    }
+                    reviewArr.push({
+                        "id": scorerecord,
+                        "toreviewreason" : reason
+                    });
+                };
 
-        });
-
-        if(flag){
-            layer.msg('勾选的分数项文字输入框为必填项，空白不可提交；若不填写理由，请不要勾选此项。');
-            return false;
-        }
-
-        var reviewJson = JSON.stringify(reviewArr);
-        // 若申请人勾选了申请复核不通过
-        var cancelReason = "";
-        if($(".cancelcheck").is(":checked")){
-            cancelReason = $("#cancelReason").val();
-        }
-        var identityInfoId = $("#identityInfoId").val(); // 申请人ID
-
-        postResultData("/pbScoreResult/saveReviewReason",{
-            "identityInfoId":identityInfoId,
-            "cancelReason":cancelReason,
-            "reviewJson":reviewJson
-        },function () {
-            layer.msg('保存成功!!', {
-                time: 1000
-            }, function () {
-                window.location.href = "${rc.contextPath}/identityInfo/index.html";
             });
+
+            if(flag){
+                layer.msg('勾选复核的分数项必须填入复核理由；若没有复核要求，请不要勾选。');
+                return false;
+            }
+
+            var reviewJson = JSON.stringify(reviewArr);
+            // 若申请人勾选了申请复核不通过
+            var cancelReason = "";
+            if($(".cancelcheck").is(":checked")){
+                cancelReason = $("#cancelReason").val();
+                if(cancelReason==null || cancelReason==""){
+                    layer.msg('勾选复核的项必须填入复核理由；若没有复核要求，请不要勾选。');
+                    return false;
+                }
+            }
+            var identityInfoId = $("#identityInfoId").val(); // 申请人ID
+
+            postResultData("/pbScoreResult/saveReviewReason",{
+                "identityInfoId":identityInfoId,
+                "cancelReason":cancelReason,
+                "reviewJson":reviewJson
+            },function () {
+                layer.msg('保存成功!!', {
+                    time: 1000
+                }, function () {
+                    window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                });
+            });
+        }, function () {
+            layer.close(index);
         });
+
 
     });
 
