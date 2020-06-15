@@ -254,9 +254,9 @@ public class PbScoreResultController {
                 if (pbScoreRecord_14.size()>1){
                     Long l1 = pbScoreRecord_14.get(0).getScore_value().longValue();
                     Long l2 = pbScoreRecord_14.get(1).getScore_value().longValue();
-                    BigDecimal value_10 = new BigDecimal(10.00);
+                    BigDecimal value_10 = new BigDecimal(20.00);
                     BigDecimal value_0 = new BigDecimal(0.00);
-                    if ((l1+l2)==20.00){
+                    if ((l1+l2)==40.00){
                         pbScoreRecord_14.get(0).setScore_value(value_10.setScale(2));
                     }else {
                         pbScoreRecord_14.get(0).setScore_value(value_0.setScale(2));
