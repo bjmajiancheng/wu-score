@@ -67,6 +67,7 @@
 
     <!--使用union all 来处理，以区分居住（、规自局）、住房所在区-->
     <select id="getByPersonId" resultMap="PbScoreRecord">
+        select * from (
         SELECT *	 FROM t_pb_score_record
         <where>
             <if test="id != null">
@@ -113,10 +114,12 @@
         min(TOREVIEWREASON) TOREVIEWREASON,
         min(TOREVIEWTIME) TOREVIEWTIME,
         min(IDREVIEWEND) IDREVIEWEND,
-        min(USEFUL) USEFUL
+        min(USEFUL) USEFUL,
+        min(sort) sort
         from t_pb_score_record
         where person_id= #{id}
         and INDICATOR_id in ('1025', '1030', '1021', '1031')
+        ) order by sort asc
 
     </select>
 
