@@ -220,7 +220,7 @@ public class PbScoreResultController {
             2019年6月10日
             人社部门提出的需求：本期“积分查询”的时候，取消资格的申请人也公布积分的明细，然后注明取消资格，这个应该是需要改代码
              */
-            if (pbScoreRecords.size()>0 ) { //&& identityInfo.getCancelStatus()==0
+            if (pbScoreRecords.size()>2 ) { //&& identityInfo.getCancelStatus()==0
 
                 for (PbScoreRecordModel p : pbScoreRecords){
                     if (p.getScore_value()!=null){
