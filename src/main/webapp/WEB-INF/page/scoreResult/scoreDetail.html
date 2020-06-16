@@ -176,6 +176,7 @@
              * 2、传到后台的 t_pb_score_record 表中
              */
             var flag = false;
+            var flag2 = true;
             var reviewArr = new Array();
             $(".secondchoose").each(function () {
                 var scorerecord = $(this).attr("id"); // 指标项ID
@@ -185,6 +186,7 @@
                     if (reason==null ||reason=="" ){
                         flag = true;
                     }
+                    flag2 = false;
                     reviewArr.push({
                         "id": scorerecord,
                         "toreviewreason" : reason
@@ -197,6 +199,20 @@
                 layer.msg('勾选复核的分数项必须填入复核理由；若没有复核要求，请不要勾选。');
                 return false;
             }
+
+            if($("#cancelStatus").val()==1){
+                if(!$(".cancelcheck").is(":checked")){
+                    layer.msg('对取消资格申请复核（勾选左侧勾选框后填写理由），才能点击“提交复核”按钮。若您没有需要申请复核的项，无需点击。');
+                    return false;
+                }
+            }
+
+            if($("#cancelStatus").val()!=1 && flag2){
+                layer.msg('请先勾选复核的分数项并填写复核的理由后，点击“提交复核”。若您没有需要申请复核的项，无需点击。');
+                return false;
+            }
+
+
 
             var reviewJson = JSON.stringify(reviewArr);
             // 若申请人勾选了申请复核不通过
