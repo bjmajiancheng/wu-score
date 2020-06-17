@@ -168,7 +168,7 @@ public class PbScoreResultController {
             return new ResultParam(ResultParam.SUCCESS_RESULT, pageData);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultParam.SYSTEM_ERROR_RESULT;
+            return ResultParam.PARAM_ERROR_RESULT;
         }
     }
 
