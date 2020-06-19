@@ -250,6 +250,7 @@ public class PbScoreResultController {
                 }
                 /*
                 2、婚姻情况，只显示1条，人社打分和市民政局打分相加等于20时，显示10分，否则显示0分
+                   2020年6月18日，做了调整：人社打分和市民政局打分相加等于40时，显示20分，否则显示0分
                  */
                 if (pbScoreRecord_14.size()>1){
                     Long l1 = pbScoreRecord_14.get(0).getScore_value().longValue();
