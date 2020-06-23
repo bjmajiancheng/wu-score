@@ -408,21 +408,34 @@ public class PbScoreResultController {
 //                return new ResultParam(ResultParam.SUCCESS_RESULT, filterScoreResult(batchConfModel, pbScoreResults));
 //                return new ResultParam(ResultParam.SUCCESS_RESULT, pbScoreRecordModels);
 
+                Integer pageNo = (Integer) param.get("pageNo");
+                List<PbScoreResultModel> pbScoreResults = pbScoreResultService.findCurrBatch(batchConfModel.getId(),pageNo);
+
+                if (CollectionUtils.isNotEmpty(pbScoreResults)) {
+                    for (PbScoreResultModel pbScoreResult : pbScoreResults) {
+                        pbScoreResult.setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResult.getPersonIdNum()));
+                    }
+                }
+                PageData<PbScoreResultModel> pageData3 = new PageData<PbScoreResultModel>();
+                pageData3.setData(pbScoreResults);
+                pageData3.setRecordsTotal(14630);
+                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData3);
+
                 /*
                 获取分页的数据,0：总人数选取；1：分数线选取；
                  */
 //                PageData<IdentityInfoModel> pageData = identityInfoService.findPage(param, searchScoreView.getPageNo());
-                Integer pageNo = (Integer) param.get("pageNo");
-                List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
-                        batchConfModel.getIndicatorValue(), pageNo, batchConfModel.getScoreValue());
-                PageData<PbScoreRecordModel> pageData2 = new PageData<PbScoreRecordModel>();
-                for (PbScoreRecordModel p : pbScoreRePbulicList){
-                    p.setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(p.getPerson_id_num()));
-                }
-                pageData2.setData(pbScoreRePbulicList);
-                int publicPageCount = pbScoreRecordService.findPublicPageCount(batchConfModel);//获得总页数
-                pageData2.setRecordsTotal(publicPageCount);
-                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData2);
+//                Integer pageNo = (Integer) param.get("pageNo");
+//                List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
+//                        batchConfModel.getIndicatorValue(), pageNo, batchConfModel.getScoreValue());
+//                PageData<PbScoreRecordModel> pageData2 = new PageData<PbScoreRecordModel>();
+//                for (PbScoreRecordModel p : pbScoreRePbulicList){
+//                    p.setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(p.getPerson_id_num()));
+//                }
+//                pageData2.setData(pbScoreRePbulicList);
+//                int publicPageCount = pbScoreRecordService.findPublicPageCount(batchConfModel);//获得总页数
+//                pageData2.setRecordsTotal(publicPageCount);
+//                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData2);
 
             }
 
@@ -432,22 +445,35 @@ public class PbScoreResultController {
              */
             String queryStr = (String) param.get("queryStr");
             param.put("queryStr", "%" + queryStr + "%");
-//            List<PbScoreRecordModel> pbScoreRePbulicList = pbScoreRecordService.findPublicPage(batchConfModel.getId(), batchConfModel.getIndicatorType() ,
-//                    batchConfModel.getIndicatorValue(), pageNo);
-
-            List<PbScoreRecordModel> pbScoreRecordModel = pbScoreRecordService.findOnePbScoreRecord(queryStr, batchConfModel.getId());
-            if (pbScoreRecordModel.size()>0){
-                if(pbScoreRecordModel.get(0).getScore_value().compareTo(new BigDecimal(batchConfModel.getScoreValue()))==-1){
-                    return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
-//                    return ResultParam.error("请确认您的身份证号是否正确！");
-                }
-                pbScoreRecordModel.get(0).setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(pbScoreRecordModel.get(0).getPerson_id_num()));
-                PageData<PbScoreRecordModel> pageData_one = new PageData<PbScoreRecordModel>();
-                pageData_one.setData(pbScoreRecordModel);
+            PbScoreResultModel pbScoreResultModel = pbScoreResultService.getByPersonIdNum(batchConfModel.getId(),queryStr);
+            if (pbScoreResultModel!=null){
+                pbScoreResultModel.setPersonIdNum(IdNumberReplaceUtil.replaceIdNumber(pbScoreResultModel.getPersonIdNum()));
+                List<PbScoreResultModel> list = new ArrayList<PbScoreResultModel>();
+                list.add(pbScoreResultModel);
+                PageData<PbScoreResultModel> pageData_one = new PageData<PbScoreResultModel>();
+                pageData_one.setData(list);
                 pageData_one.setPageCount(1);
                 return new ResultParam(ResultParam.SUCCESS_RESULT,pageData_one);
+            }else{
+                                    return ResultParam.error("请确认您的身份证号是否正确！");
+                //return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreResultModel>());
             }
-            return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+
+
+
+//            List<PbScoreRecordModel> pbScoreRecordModel = pbScoreRecordService.findOnePbScoreRecord(queryStr, batchConfModel.getId());
+//            if (pbScoreRecordModel.size()>0){
+//                if(pbScoreRecordModel.get(0).getScore_value().compareTo(new BigDecimal(batchConfModel.getScoreValue()))==-1){
+//                    return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
+////                    return ResultParam.error("请确认您的身份证号是否正确！");
+//                }
+//                pbScoreRecordModel.get(0).setPerson_id_num(IdNumberReplaceUtil.replaceIdNumber(pbScoreRecordModel.get(0).getPerson_id_num()));
+//                PageData<PbScoreRecordModel> pageData_one = new PageData<PbScoreRecordModel>();
+//                pageData_one.setData(pbScoreRecordModel);
+//                pageData_one.setPageCount(1);
+//                return new ResultParam(ResultParam.SUCCESS_RESULT,pageData_one);
+//            }
+//            return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<PbScoreRecordModel>());
         } catch (Exception e) {
             e.printStackTrace();
             return ResultParam.SYSTEM_ERROR_RESULT;

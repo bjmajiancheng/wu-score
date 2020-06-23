@@ -44,5 +44,9 @@ public interface IPbScoreResultService{
 	 * @param batchId
 	 * @return
      */
+	public List<PbScoreResultModel> findCurrBatch(Integer batchId, Integer pageNo);
+
 	public List<PbScoreResultModel> findCurrBatch(Integer batchId);
+
+	public PbScoreResultModel getByPersonIdNum(Integer batchId,String personIdNum);
 }

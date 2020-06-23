@@ -145,7 +145,7 @@
 		</if>
     </select>
 
-	<select id="findCurrBatch" resultMap="PbScoreResult">
+	<!--<select id="findCurrBatch" resultMap="PbScoreResult">
 		select
 		  person_id,
 		  max(person_name) person_name ,
@@ -155,6 +155,28 @@
 		where batch_id=#{batchId}
 		group by person_id
 		order by score_value desc
+	</select>-->
+
+	<select id="findCurrBatch" resultMap="PbScoreResult">
+		select
+		person_id,
+		batch_id,
+		person_name ,
+		person_id_num,
+		score_value
+		from t_pb_score_result
+		where batch_id=#{batchId} order by score_value desc 
+	</select>
+
+	<select id="getByPersonIdNum" resultMap="PbScoreResult">
+		select
+		person_id,
+		batch_id,
+		person_name ,
+		person_id_num,
+		score_value
+		from t_pb_score_result
+		where batch_id=#{batchId} and person_id_num=#{personIdNum}
 	</select>
 	
 </mapper>

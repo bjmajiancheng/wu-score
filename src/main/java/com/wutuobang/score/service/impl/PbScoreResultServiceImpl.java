@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wutuobang.common.constant.CommonConstant;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,12 +88,28 @@ public class PbScoreResultServiceImpl implements IPbScoreResultService {
      * @param batchId
      * @return
      */
-    public List<PbScoreResultModel> findCurrBatch(Integer batchId) {
+    public List<PbScoreResultModel> findCurrBatch(Integer batchId,Integer pageNo) {
         if(batchId == null) {
             return Collections.emptyList();
         }
 
-        return pbScoreResultDao.findCurrBatch(batchId);
+        return pbScoreResultDao.findCurrBatch(batchId, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
+    }
+    public List<PbScoreResultModel> findCurrBatch(Integer batchId) {
+        if(batchId == null) {
+            return Collections.emptyList();
+        }
+        Integer pageNo = 1;
+
+        return pbScoreResultDao.findCurrBatch(batchId, new RowBounds((pageNo - 1) * CommonConstant.PAGE_SIZE, CommonConstant.PAGE_SIZE));
+    }
+
+    @Override
+    public PbScoreResultModel getByPersonIdNum(Integer batchId,String personIdNum) {
+        if (personIdNum == null) {
+            return null;
+        }
+        return pbScoreResultDao.getByPersonIdNum(batchId,personIdNum);
     }
 
 }

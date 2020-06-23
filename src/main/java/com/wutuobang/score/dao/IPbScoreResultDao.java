@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.*;
 import com.wutuobang.score.dao.*;
 import com.wutuobang.score.service.*;
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author  davdian
@@ -36,6 +37,8 @@ public interface IPbScoreResultDao {
 	 * @param batchId
 	 * @return
 	 */
-	public List<PbScoreResultModel> findCurrBatch(@Param("batchId") Integer batchId);
+	public List<PbScoreResultModel> findCurrBatch(@Param("batchId") Integer batchId, RowBounds rowBounds);
+
+	public PbScoreResultModel getByPersonIdNum(@Param("batchId") Integer batchId,@Param("personIdNum") String  personIdNum);
 	
 }

@@ -38,7 +38,7 @@ public class PbScoreResultModel implements Serializable {
 
 	private String personIdNum;//"申请人身份证"
 
-	private Integer scoreValue;//"分数值"
+	private double scoreValue;//"分数值"
 
 	private String scoreDetail;//"分数详情"
 
@@ -109,11 +109,11 @@ public class PbScoreResultModel implements Serializable {
 		return this.personIdNum;
 	}
 		
-	public void setScoreValue(Integer scoreValue) {
+	public void setScoreValue(double scoreValue) {
 		this.scoreValue = scoreValue;
 	}
 
-	public Integer getScoreValue() {
+	public double getScoreValue() {
 		return this.scoreValue;
 	}
 		
