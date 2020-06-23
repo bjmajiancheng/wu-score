@@ -112,4 +112,9 @@ public class PbScoreResultServiceImpl implements IPbScoreResultService {
         return pbScoreResultDao.getByPersonIdNum(batchId,personIdNum);
     }
 
+    @Override
+    public int getCount(Integer batchId) {
+        return pbScoreResultDao.getCount(batchId);
+    }
+
 }

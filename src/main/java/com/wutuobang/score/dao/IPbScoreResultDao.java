@@ -40,5 +40,7 @@ public interface IPbScoreResultDao {
 	public List<PbScoreResultModel> findCurrBatch(@Param("batchId") Integer batchId, RowBounds rowBounds);
 
 	public PbScoreResultModel getByPersonIdNum(@Param("batchId") Integer batchId,@Param("personIdNum") String  personIdNum);
+
+	public int getCount(@Param("batchId") Integer batchId);
 	
 }

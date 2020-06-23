@@ -418,7 +418,8 @@ public class PbScoreResultController {
                 }
                 PageData<PbScoreResultModel> pageData3 = new PageData<PbScoreResultModel>();
                 pageData3.setData(pbScoreResults);
-                pageData3.setRecordsTotal(14630);
+                int count = pbScoreResultService.getCount(batchConfModel.getId());
+                pageData3.setRecordsTotal(count);
                 return new ResultParam(ResultParam.SUCCESS_RESULT,pageData3);
 
                 /*
