@@ -128,20 +128,29 @@ public class CompanyInfoController {
                     openRegisterTime = batchConf.getOpenRegisterTime();
                 }
             }
-            if(System.currentTimeMillis()>closeRegisterTime.getTime()){
-                ResultParam resultParam = new ResultParam();
-                resultParam.setMessage("积分注册阶段已停止，请关注重要通知页面内容");
-                resultParam.setCode(11);
-                resultParam.setData(null);
-                return resultParam;
+            /*
+            2020年6月30日
+            因为下周二人社部门刘旭进行给全市的企业宣讲积分注册的内容
+            屏蔽掉一些限制条件，只允许 91120116MA05KCC93E 这个统一社会信用代码注册
+             */
+            CompanyInfoModel companyInfoModel2 = JSON.parseObject(companyInfo, CompanyInfoModel.class);
+            if (!companyInfoModel2.getUserName().equalsIgnoreCase("91120116MA05KCC93E")){
+                if(System.currentTimeMillis()>closeRegisterTime.getTime()){
+                    ResultParam resultParam = new ResultParam();
+                    resultParam.setMessage("积分注册阶段已停止，请关注重要通知页面内容");
+                    resultParam.setCode(11);
+                    resultParam.setData(null);
+                    return resultParam;
+                }
+
+                if (flag) {
+                    return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
+                }
+                if (closeLogintime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openLoginTime.getTime()) {
+                    return ResultParam.error("居住证积分受理阶段网上注册已经关闭，详情请关注重要通知！");
+                }
             }
 
-            if (flag) {
-                return ResultParam.error("此时间段不受理积分落户，详情请关注重要通知！");
-            }
-            if (closeLogintime.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < openLoginTime.getTime()) {
-                return ResultParam.error("居住证积分受理阶段网上注册已经关闭，详情请关注重要通知！");
-            }
 
 
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
@@ -157,13 +166,20 @@ public class CompanyInfoController {
 
             List<CompanyInfoModel> companyInfos = companyInfoService
                     .findByCompanyNameOrCode(companyInfoModel.getCompanyName(), companyInfoModel.getSocietyCode());
-            if (CollectionUtils.isNotEmpty(companyInfos)) {
-                return ResultParam.error("单位名称或统一社会信用代码已注册,请更换公司名称和统一社会信用代码!!!");
-            }
+            /*
+            2020年6月30日
+            因为下周二人社部门刘旭进行给全市的企业宣讲积分注册的内容
+            屏蔽掉一些限制条件，只允许 91120116MA05KCC93E 这个统一社会信用代码注册
+             */
+            if (!companyInfoModel2.getUserName().equalsIgnoreCase("91120116MA05KCC93E")){
+                if (CollectionUtils.isNotEmpty(companyInfos)) {
+                    return ResultParam.error("单位名称或统一社会信用代码已注册,请更换公司名称和统一社会信用代码!!!");
+                }
 
-            CompanyInfoModel validateModel = companyInfoService.queryByUserName(companyInfoModel.getUserName());
-            if (validateModel != null) {
-                return ResultParam.error("用户名已注册, 请更换用户名!!!");
+                CompanyInfoModel validateModel = companyInfoService.queryByUserName(companyInfoModel.getUserName());
+                if (validateModel != null) {
+                    return ResultParam.error("用户名已注册, 请更换用户名!!!");
+                }
             }
 
             companyInfoModel.setPassword(new Sha256Hash(companyInfoModel.getPassword()).toHex());
