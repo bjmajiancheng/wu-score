@@ -45,6 +45,7 @@
 		<result property="rejectReason" column="reject_reason"/>
 		<result property="is201826Doc" column="is201826Doc"/>
 		<result property="contractCertificate" column="contractCertificate"/>
+		<result property="contractOrCertificate" column="contractOrCertificate"/>
 
 		<result property="rentHouseAddress" column="rentHouseAddress"/>
 		<result property="rentIdNumber" column="rentIdNumber"/>
@@ -108,6 +109,7 @@
         materialStatus,
 		is201826Doc,
 		contractCertificate,
+		contractOrCertificate,
 		rentHouseAddress,
 		rentIdNumber,
 		rentHouseStartDate,
@@ -167,6 +169,7 @@
 	        materialStatus,
 	        is201826Doc,
 	        contractCertificate,
+	        contractOrCertificate,
 	        rentHouseAddress,
 			rentIdNumber,
 			rentHouseStartDate,
@@ -215,6 +218,7 @@
         	#{materialStatus, jdbcType=INTEGER},
         	#{is201826Doc, jdbcType=INTEGER},
         	#{contractCertificate, jdbcType=INTEGER},
+        	#{contractOrCertificate, jdbcType=INTEGER},
 
         	#{rentHouseAddress, jdbcType=VARCHAR} ,
         	#{rentIdNumber, jdbcType=VARCHAR} ,
@@ -279,6 +283,7 @@
 		<if test="materialStatus != null">materialStatus = #{materialStatus, jdbcType=INTEGER} ,</if>
 		<if test="is201826Doc != null">is201826Doc = #{is201826Doc, jdbcType=INTEGER} ,</if>
 		<if test="contractCertificate != null">contractCertificate = #{contractCertificate, jdbcType=INTEGER} ,</if>
+		<if test="contractOrCertificate != null">contractOrCertificate = #{contractOrCertificate, jdbcType=INTEGER} ,</if>
 
 		<if test="rentHouseAddress != null">rentHouseAddress = #{rentHouseAddress, jdbcType=VARCHAR} ,</if>
 		<if test="rentIdNumber != null">rentIdNumber = #{rentIdNumber, jdbcType=VARCHAR} ,</if>

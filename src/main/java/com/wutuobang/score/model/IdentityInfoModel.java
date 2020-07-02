@@ -136,6 +136,7 @@ public class IdentityInfoModel implements Serializable {
      */
     private Integer is201826Doc;//"是否按照“津发改社会〔2018〕26号”文件计算"
     private Integer contractCertificate; // 购买住房的合同/产权证，1：合同；2：产权证
+    private Integer contractOrCertificate; // 1：合同-住建委；2：产权证-规自局；选择按照积分的方式
 
     private String rentHouseAddress; // 租赁房屋地址
     private String rentIdNumber; // 租赁登记备案证明编号
@@ -214,6 +215,14 @@ public class IdentityInfoModel implements Serializable {
 
     public void setIs201826Doc(Integer is201826Doc) {
         this.is201826Doc = is201826Doc;
+    }
+
+    public Integer getContractOrCertificate() {
+        return contractOrCertificate;
+    }
+
+    public void setContractOrCertificate(Integer contractOrCertificate) {
+        this.contractOrCertificate = contractOrCertificate;
     }
 
     public String getRentHouseAddress() {

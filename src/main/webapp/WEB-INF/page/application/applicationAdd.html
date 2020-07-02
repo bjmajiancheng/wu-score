@@ -2022,10 +2022,11 @@
                                     产权住房（40分）。包括：已签订天津市商品房买卖合同或房屋买卖协议，并已缴纳契税取得契
                                     税完税证明；或取得不动产权证书。</span>
                                 <br>
+                                <span>如选择“是”，则一次性积40分，如选择“否”，则按照“津发改规【2020】4号文件规定按年积分</span>
                             </td>
                         </tr>
                         <tr class="ourBuyHouseTable" style="display: none">
-                            <td>是否按照“津发改社会〔2018〕26号”文件计算:</td>
+                            <td>是否按照“津发改社会〔2018〕26号”文件积分:</td>
                             <td colspan="2">
                                 <input class="input_radio" type="radio" name="is201826Doc" value="1"
                                        #if(${identityInfo.is201826Doc}== 1) checked #end>&nbsp;
@@ -2033,6 +2034,17 @@
                                 <input class="input_radio ml30" type="radio" name="is201826Doc" value="2"
                                        #if(${identityInfo.is201826Doc}== 2) checked #end>&nbsp;
                                 <label>否</label>
+                            </td>
+                        </tr>
+                        <tr class="ourHouseTable" style="display: none">
+                            <td>选择按合同还是产权证计算分数:</td>
+                            <td colspan="2">
+                                <input class="input_radio" type="radio" name="contractOrCertificate" value="1"
+                                       #if(${identityInfo.contractOrCertificate}== 1) checked #end>&nbsp;
+                                <label>合同</label>
+                                <input class="input_radio ml30" type="radio" name="contractOrCertificate" value="2"
+                                       #if(${identityInfo.contractOrCertificate}== 2) checked #end>&nbsp;
+                                <label>产权证</label>
                             </td>
                         </tr>
                         <tr class="ourHouseTable" style="display: none">
@@ -2079,8 +2091,8 @@
                             <td colspan="2">
                                 <select name="rightProperty" id="rightProperty">
                                     <option value="0">请选择</option>
-                                    <option value="1">持有“不动产权证”</option>
-                                    <option value="2">持有《天津市商品房买卖合同》或《天津市二手房买卖协议》，未取得“不动产权证”</option>
+                                    <option value="1">凭《不动产权证》积分</option>
+                                    <option value="2">凭《天津市商品房买卖合同》或《天津市二手房买卖协议》</option>
                                 </select>
                             </td>
                         </tr>
@@ -3324,11 +3336,15 @@
                 return false;
             }*/
             if($("input[name='ourBuyHouse']:checked").val()==null){
-                layer.msg("第7页，请选择 是否于2019年12月31日之前购买住房");
+                layer.msg("第7页，请选择 是否于2020年4月2日之前购买住房");
                 return false;
             }
             if($("input[name='is201826Doc']:checked").val()==null){
                 layer.msg("第7页，请选择 是否按照“津发改社会〔2018〕26号”文件计算");
+                return false;
+            }
+            if($("input[name='contractOrCertificate']:checked").val()==null){
+                layer.msg("第7页，请选择 选择按合同还是产权证计算分数");
                 return false;
             }
             if($("input[name='houseAddress']").val().trim()==""){
