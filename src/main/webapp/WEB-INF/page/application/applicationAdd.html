@@ -2037,17 +2037,6 @@
                             </td>
                         </tr>
                         <tr class="ourHouseTable" style="display: none">
-                            <td>选择按合同还是产权证计算分数:</td>
-                            <td colspan="2">
-                                <input class="input_radio" type="radio" name="contractOrCertificate" value="1"
-                                       #if(${identityInfo.contractOrCertificate}== 1) checked #end>&nbsp;
-                                <label>合同</label>
-                                <input class="input_radio ml30" type="radio" name="contractOrCertificate" value="2"
-                                       #if(${identityInfo.contractOrCertificate}== 2) checked #end>&nbsp;
-                                <label>产权证</label>
-                            </td>
-                        </tr>
-                        <tr class="ourHouseTable" style="display: none">
                             <td>住房所在区:</td>
                             <td>
                                 <select name="housingArea" id="housingArea">
@@ -2087,7 +2076,7 @@
                             </td>
                         </tr>
                         <tr class="ourHouseTable" style="display: none">
-                            <td>持有:</td>
+                            <td>选择凭合同还是产权证计算分数:</td>
                             <td colspan="2">
                                 <select name="rightProperty" id="rightProperty">
                                     <option value="0">请选择</option>
@@ -3343,10 +3332,6 @@
                 layer.msg("第7页，请选择 是否按照“津发改社会〔2018〕26号”文件计算");
                 return false;
             }
-            if($("input[name='contractOrCertificate']:checked").val()==null){
-                layer.msg("第7页，请选择 选择按合同还是产权证计算分数");
-                return false;
-            }
             if($("input[name='houseAddress']").val().trim()==""){
                 layer.msg("第7页，请选择 住房详细坐落");
                 return false;
@@ -3356,7 +3341,7 @@
                 return false;
             }
             if($("#rightProperty").val().trim()==0){
-                layer.msg("第7页，请选择 持有");
+                layer.msg("第7页，请选择 选择凭合同还是产权证计算分数");
                 return false;
             }
             if($("#rightProperty").val().trim()==1){
