@@ -1187,7 +1187,7 @@
                         <tr class="">
                             <td colspan="2">
                                 本人及配偶承诺目前:&nbsp;&nbsp;&nbsp;&nbsp;
-                                <select id="pregnantPromise" name="pregnantPromise">
+                                <select style="width: 100px;" id="pregnantPromise" name="pregnantPromise">
                                     <option #if(${identityInfo.pregnantPromise}=="0") selected #end value="0">请选择
                                     </option>
                                     <option #if(${identityInfo.pregnantPromise}=="1") selected #end value="1">已怀孕
@@ -1252,13 +1252,19 @@
                     <table class="integral-cont-table">
                         <tr class="">
                             <td colspan="2">
-                                本人及配偶承诺目前未政策外生育（或收养）第三个及以上子女，未处于政策外怀孕第三个及以上子女
-                                <input class="input_radio" type="radio" name="thirdPregnantPromise" value="1"
-                                       #if(${identityInfo.thirdPregnantPromise}== 1) checked #end>
-                                &nbsp;&nbsp;<label>是</label>
-                                <input class="input_radio ml30" type="radio" name="thirdPregnantPromise" value="2"
-                                       #if(${identityInfo.thirdPregnantPromise}== 2) checked #end>
-                                &nbsp;&nbsp;<label>否</label>
+                                本人及配偶承诺目前
+                                <select style="width: 100px;" id="thirdPregnantPromise" name="thirdPregnantPromise">
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 0) selected #end value="0">请选择</option>
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 1) selected #end  value="1">未处于</option>
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 2) selected #end  value="2">处于</option>
+                                </select>
+                                政策外生育（或收养）第三个及以上子女，
+                                <select style="width: 100px;" id="contractOrCertificate" name="contractOrCertificate">
+                                    <option #if(${identityInfo.contractOrCertificate}== 0) selected #end value="0">请选择</option>
+                                    <option #if(${identityInfo.contractOrCertificate}== 1) selected #end  value="1">未处于</option>
+                                    <option #if(${identityInfo.contractOrCertificate}== 2) selected #end  value="2">处于</option>
+                                </select>
+                                政策外怀孕第三个及以上子女
                             </td>
                         </tr>
                     </table>
@@ -1371,7 +1377,6 @@
                                 <tr style="background-color: #E0E0E0">
                                     <td>
                                         <input type="hidden" name="id">
-                                        <input type="checkbox" name="check" class="checkRelation">
                                     </td>
                                     <td colspan="6" style="text-align: center"><span
                                             style="font-size: 14px">子女个人信息</span>
@@ -1553,7 +1558,6 @@
                                 <tr style="background-color: #E0E0E0">
                                     <td>
                                         <input type="hidden" name="id">
-                                        <input type="checkbox" name="check" class="checkRelation">
                                     </td>
                                     <td colspan="6" style="text-align: center"><span
                                             style="font-size: 14px">子女个人信息</span>
@@ -3513,7 +3517,11 @@
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
             return false;
         }
-        if ($("input[name='thirdPregnantPromise']:checked").val() == undefined) {
+        if ($("#thirdPregnantPromise").val()==0) {
+            layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
+            return false;
+        }
+        if ($("#contractOrCertificate").val()==0) {
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
