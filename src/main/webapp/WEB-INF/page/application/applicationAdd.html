@@ -1373,6 +1373,9 @@
                         </div>
                         <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
+                            <br>
+                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
+                            <span class="color-red">2、再生育审批情况里的“再生育审批情况”信息，第三个及以上孩子为必填项；</span>
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
                                     <td>
@@ -1383,11 +1386,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>姓名:</td>
+                                    <td>姓名<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="name">
                                     </td>
-                                    <td>性别:</td>
+                                    <td>性别<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input type="hidden" name="relationship">
                                         <label>
@@ -1402,13 +1405,13 @@
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="formerName">
                                     </td>
-                                    <td>身份证号码:</td>
+                                    <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="idNumber">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>政策属性:</td>
+                                    <td>政策属性<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <select name="policyAttribute" onchange="setZaishengyuCheck($(this))">
                                             <option value="一孩">一孩</option>
@@ -1418,7 +1421,7 @@
                                             <option value="政策外多孩">政策外多孩</option>
                                         </select>
                                     </td>
-                                    <td>文化程度:</td>
+                                    <td>文化程度<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="cultureDegree">
                                     </td>
@@ -1436,13 +1439,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>是否随迁:</td>
+                                    <td>是否随迁<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isRemove" value="1">是
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input class="input_radio" type="radio" name="isRemove" value="2">否
                                     </td>
-                                    <td>收养子女:</td>
+                                    <td>收养子女<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isAdopt" value="1">是
                                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -1450,14 +1453,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>申请人本人亲生子女:</td>
+                                    <td>申请人亲生子女<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isNaturalChild"
                                                onclick="changeIsNaturalChild($(this))" value="1">是
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input class="input_radio" type="radio" name="isNaturalChild" value="2">否
                                     </td>
-                                    <td>是否为中国籍:</td>
+                                    <td>是否为中国籍<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <label>
                                             <input class="input_radio" type="radio" name="isChinese"
@@ -1470,14 +1473,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>出生地:</td>
+                                    <td>出生地<span class="color-red">*</span>:</td>
                                     <td colspan="5">
                                         <input class="integral-input" style="width: 440px" type="text" name="birthplace"
                                                placeholder="按照省、地、县填写至县级。直辖市填写到区（县）">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>与第</td>
+                                    <td>与第<span class="color-red">*</span></td>
                                     <td>
                                         <select name="approval_index">
                                             <option value="1">1</option>
@@ -1488,7 +1491,7 @@
                                             <option value="6">6</option>
                                         </select>
                                     </td>
-                                    <td>任</td>
+                                    <td>任<span class="color-red">*</span></td>
                                     <td>
                                         <select name="approval_spouse">
                                             <option value="妻子">妻子</option>
@@ -1499,7 +1502,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>抚养权归属:</td>
+                                    <td>抚养权归属<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <select name="approval_custody">
                                             <option value="婚内共同抚养">婚内共同抚养</option>
@@ -1554,6 +1557,9 @@
                         #if ($houseRelationship.relationship!="配偶")
                             <form class="houseRelationshipsForm" >
                         <div class="integral-cont-table sonTwoForm">
+                            <br>
+                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
+                            <span class="color-red">2、再生育审批情况里的“再生育审批情况”信息，第三个及以上孩子为必填项；</span>
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
                                     <td>
@@ -1564,12 +1570,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>姓名:</td>
+                                    <td>姓名<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="name"
                                                value="$!{houseRelationship.name}">
                                     </td>
-                                    <td>性别:</td>
+                                    <td>性别<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input type="hidden" name="relationship"
                                                value="$!{houseRelationship.relationship}">
@@ -1590,14 +1596,14 @@
                                         <input class="integral-input" type="text" name="formerName"
                                                value="$!{houseRelationship.formerName}">
                                     </td>
-                                    <td>身份证号码:</td>
+                                    <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="idNumber"
                                                value="$!{houseRelationship.idNumber}">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>政策属性:</td>
+                                    <td>政策属性<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <select name="policyAttribute" onchange="setZaishengyuCheck($(this))">
                                             <option value="一孩" #if(${houseRelationship.policyAttribute}=="一孩") selected
@@ -1617,7 +1623,7 @@
                                             </option>
                                         </select>
                                     </td>
-                                    <td>文化程度:</td>
+                                    <td>文化程度<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="cultureDegree"
                                                value="$!{houseRelationship.cultureDegree}">
@@ -1638,7 +1644,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>是否随迁:</td>
+                                    <td>是否随迁<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isRemove" value="1"
                                                #if(${houseRelationship.isRemove}== 1) checked #end>是
@@ -1646,7 +1652,7 @@
                                         <input class="input_radio" type="radio" name="isRemove" value="2"
                                                #if(${houseRelationship.isRemove}== 2) checked #end>否
                                     </td>
-                                    <td>收养子女:</td>
+                                    <td>收养子女<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isAdopt" value="1"
                                                #if(${houseRelationship.isAdopt}== 1) checked #end>是
@@ -1656,7 +1662,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>申请人本人亲生子女:</td>
+                                    <td>申请人亲生子女<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="input_radio" type="radio" name="isNaturalChild"
                                                onclick="changeIsNaturalChild($(this))" value="1"
@@ -1665,7 +1671,7 @@
                                         <input class="input_radio" type="radio" name="isNaturalChild" value="2"
                                                #if(${houseRelationship.isNaturalChild}== 2) checked #end>否
                                     </td>
-                                    <td>是否为中国籍:</td>
+                                    <td>是否为中国籍<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <label>
                                             <input class="input_radio" type="radio" name="isChinese"
@@ -1678,7 +1684,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>出生地:</td>
+                                    <td>出生地<span class="color-red">*</span>:</td>
                                     <td colspan="5">
                                         <input class="integral-input" style="width: 440px" type="text" name="birthplace"
                                                placeholder="按照省、地、县填写至县级。直辖市填写到区（县）"
@@ -1686,7 +1692,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>与第</td>
+                                    <td>与第<span class="color-red">*</span></td>
                                     <td>
                                         <select name="approval_index">
                                             <option value="1" #if(${houseRelationship.approval_index}=="1") selected
@@ -1709,7 +1715,7 @@
                                             </option>
                                         </select>
                                     </td>
-                                    <td>任</td>
+                                    <td>任<span class="color-red">*</span></td>
                                     <td>
                                         <select name="approval_spouse">
                                             <option value="妻子" #if(${houseRelationship.approval_spouse}=="妻子") selected
@@ -1724,7 +1730,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>抚养权归属:</td>
+                                    <td>抚养权归属<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <select name="approval_custody">
                                             <option value="婚内共同抚养" #if(${houseRelationship.approval_custody}=="婚内共同抚养")
@@ -3133,7 +3139,6 @@
 
         if($("#idNumber").val().trim().length==18){
             var idNumber = $("#idNumber").val().trim();
-            console.log("idNumber:"+idNumber);
             var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
 
             var sum = 0;
@@ -3148,7 +3153,6 @@
             var code = ch[c];
             var last = idNumber.charAt(17);
             last = last=='x' ? 'X': last;
-            console.log("---------:"+last != code)
             if(last != code){
                 layer.msg("第1页，请输入 正确的公民身份号码");
                 return false;
@@ -3184,6 +3188,32 @@
                 layer.msg("第1页，请输入配偶身份证号");
                 return false;
             }
+            if($("#relationshipID_3").val().trim().length!=18){
+                layer.msg("第1页，请输入 18位长度的配偶身份证号");
+                return false;
+            }
+            if($("#relationshipID_3").val().trim().length==18){
+                var idNumber = $("#relationshipID_3").val().trim();
+                var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+
+                var sum = 0;
+                for(var i=0; i<arr.length; i++){
+                    sum += parseInt(idNumber.charAt(i)) * arr[i];
+                }
+                //2、用加出来和除以11，看余数，
+                var c = sum % 11;
+
+                //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+                var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+                var code = ch[c];
+                var last = idNumber.charAt(17);
+                last = last=='x' ? 'X': last;
+                if(last != code){
+                    layer.msg("第1页，请输入 正确的配偶身份证号");
+                    return false;
+                }
+            }
+            
             if ($("input[name='inTianjin']:checked").val() == null) {
                 layer.msg("第1页，请选择 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月");
                 return false;
@@ -3525,6 +3555,184 @@
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
+        // 2020年7月9日 校验子女的信息，必填项、再生育审批情况
+        var nameFlag = false;
+        $("#sonTwoRelationshipsDiv input[name='name']").each(function () {
+            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+                nameFlag = true;
+            }
+        });
+        if(nameFlag){
+            layer.msg("第5页 请输入 子女个人信息的 姓名");
+            return false;
+        }
+
+        var sexCount1 = 0;
+        var sexCount2 = 0;
+        $("#sonTwoRelationshipsDiv input[name='sex']").each(function () {
+            sexCount1++;
+            if($(this).filter(':checked').val()==null){
+                sexCount2++;
+            }
+        });
+        // 2020年7月10日如果是2倍的比例，那就是申请人填写了性别
+        if(sexCount1>0 && sexCount1/2 != sexCount2){
+            layer.msg("第5页 请输入 子女个人信息的 性别");
+            return false;
+        }
+
+        // 2020年7月10日子女个人信息 身份证号
+        var idnumFlag = false;
+        $("#sonTwoRelationshipsDiv input[name='idNumber']").each(function () {
+            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+                idnumFlag = true;
+            }
+
+            if(!idnumFlag){
+                idnumFlag = !(validIdNum($(this).val().trim()));// 若身份证号没有问题，则将此变量设为false，不进行身份证的提示
+            }
+        });
+        if(idnumFlag){
+            layer.msg("第5页 请输入 子女个人信息的 正确的身份证号码");
+            return false;
+        }
+
+        // 2020年7月10日子女个人信息 文化程度
+        var cultureDegreeFlag = false;
+        $("#sonTwoRelationshipsDiv input[name='cultureDegree']").each(function () {
+            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+                cultureDegreeFlag = true;
+            }
+        });
+        if(cultureDegreeFlag){
+            layer.msg("第5页 请输入 子女个人信息的 文化程度");
+            return false;
+        }
+
+        // 2020年7月10日 是否随迁
+        var isRemoveCount1 = 0;
+        var isRemoveCount2 = 0;
+        $("#sonTwoRelationshipsDiv input[name='isRemove']").each(function () {
+            isRemoveCount1++;
+            if($(this).filter(':checked').val()==null){
+                isRemoveCount2++;
+            }
+        });
+        if(isRemoveCount1>0 && isRemoveCount1/2 != isRemoveCount2){
+            layer.msg("第5页 请输入 子女个人信息的 是否随迁");
+            return false;
+        }
+
+        // 2020年7月10日 收养子女
+        var isAdoptCount1 = 0;
+        var isAdoptCount2 = 0;
+        $("#sonTwoRelationshipsDiv input[name='isAdopt']").each(function () {
+            isAdoptCount1++;
+            if($(this).filter(':checked').val()==null){
+                isAdoptCount2++;
+            }
+        });
+        if(isAdoptCount1>0 && isAdoptCount1/2 != isAdoptCount2){
+            layer.msg("第5页 请输入 子女个人信息的 收养子女");
+            return false;
+        }
+
+        // 2020年7月10日 申请人亲生子女
+        var isNaturalChildCount1 = 0;
+        var isNaturalChildCount2 = 0;
+        $("#sonTwoRelationshipsDiv input[name='isNaturalChild']").each(function () {
+            isNaturalChildCount1++;
+            if($(this).filter(':checked').val()==null){
+                isNaturalChildCount2++;
+            }
+        });
+        if(isNaturalChildCount1>0 && isNaturalChildCount1/2 != isNaturalChildCount2){
+            layer.msg("第5页 请输入 子女个人信息的 申请人亲生子女");
+            return false;
+        }
+
+        // 2020年7月10日 是否为中国籍
+        var isChineseChildCount1 = 0;
+        var isChineseChildCount2 = 0;
+        $("#sonTwoRelationshipsDiv input[name='isChinese']").each(function () {
+            isChineseChildCount1++;
+            if($(this).filter(':checked').val()==null){
+                isChineseChildCount2++;
+            }
+        });
+        if(isChineseChildCount1>0 && isChineseChildCount1/2 != isChineseChildCount2){
+            layer.msg("第5页 请输入 子女个人信息的 是否为中国籍");
+            return false;
+        }
+
+        // 2020年7月10日子女个人信息 出生地
+        var birthplaceFlag = false;
+        $("#sonTwoRelationshipsDiv input[name='birthplace']").each(function () {
+            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+                birthplaceFlag = true;
+            }
+        });
+        if(birthplaceFlag){
+            layer.msg("第5页 请输入 子女个人信息的 出生地");
+            return false;
+        }
+
+        // 2020年7月10日 第3个子女的 再生育审批情况
+        var approval_timeFlag = false;
+        var i = 0;
+        $("#sonTwoRelationshipsDiv input[name='approval_time']").each(function () {
+            i++;
+            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+                approval_timeFlag = true;
+            }
+        });
+        if(approval_timeFlag){
+            layer.msg("第5页 请输入 子女个人信息的再生育审批情况 审批时间");
+            return false;
+        }
+
+        // 2020年7月10日 第3个子女的 再生育审批情况
+        var approval_numberFlag = false;
+        var i = 0;
+        $("#sonTwoRelationshipsDiv input[name='approval_number']").each(function () {
+            i++;
+            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+                approval_numberFlag = true;
+            }
+        });
+        if(approval_numberFlag){
+            layer.msg("第5页 请输入 子女个人信息的再生育审批情况 审批证明编号");
+            return false;
+        }
+
+        // 2020年7月10日 第3个子女的 再生育审批情况
+        var approval_companyNameFlag = false;
+        var i = 0;
+        $("#sonTwoRelationshipsDiv input[name='approval_companyName']").each(function () {
+            i++;
+            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+                approval_companyNameFlag = true;
+            }
+        });
+        if(approval_companyNameFlag){
+            layer.msg("第5页 请输入 子女个人信息的再生育审批情况 审批单位名称");
+            return false;
+        }
+
+        // 2020年7月10日 第3个子女的 再生育审批情况
+        var approval_rulesFlag = false;
+        var i = 0;
+        $("#sonTwoRelationshipsDiv input[name='approval_rules']").each(function () {
+            i++;
+            if (i>8 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+                approval_rulesFlag = true;
+            }
+        });
+        if(approval_rulesFlag){
+            layer.msg("第5页 请输入 子女个人信息的再生育审批情况 审批条例适用");
+            return false;
+        }
+
 
         if (!validateFlag) {
             layer.msg("请检查信息是否填写完毕");
@@ -3611,7 +3819,6 @@
             }
             d.push($(this).val());
         });
-        console.log(e+","+f+","+","+g+","+h);
         if(e!=f || e!=g || e!=h){
             layer.msg("第7页 请完善租赁备案信息");
             return false;
@@ -4523,7 +4730,6 @@
     function changeIsNaturalChild($ele) {
         // 2019年8月6日“申请人本人亲生子女”与“收养子女”有逻辑关系，需要添加
 //        $("input[name='isAdopt']").each(function () {
-//            console.log($(this).val())
 //        });
     }
 
@@ -4763,6 +4969,30 @@
             }
         });
         chcekChildNum();
+    }
+
+    function validIdNum(idNumber) {
+        if(idNumber.trim().length!=18){
+            return false;
+        }
+        var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+
+        var sum = 0;
+        for(var i=0; i<arr.length; i++){
+            sum += parseInt(idNumber.charAt(i)) * arr[i];
+        }
+        //2、用加出来和除以11，看余数，
+        var c = sum % 11;
+
+        //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+        var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+        var code = ch[c];
+        var last = idNumber.charAt(17);
+        last = last=='x' ? 'X': last;
+        if(last != code){
+            return false;
+        }
+        return true;
     }
 </script>
 
