@@ -157,6 +157,22 @@
                             </div>
                         </td>
                     </tr>
+
+                    <tr class="spouseModel">
+                        <td class="">
+                            2014年以前是否缴存开发区社保中心公积金：
+                        </td>
+                        <td>
+                            <div>
+                                <input class="input_radio" type="radio" name="kaifaquFund" value="1"
+                                       #if(${houseOtherModel.kaifaquFund}== 1) checked #end>
+                                &nbsp;&nbsp;&nbsp;<label>是</label>
+                                <input class="input_radio ml30" type="radio" name="kaifaquFund" value="2"
+                                       #if(${houseOtherModel.kaifaquFund}== 2) checked #end>
+                                &nbsp;&nbsp;&nbsp;<label>否</label>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </form>
             <form class="houseMoveForm" id="houseMoveForm1">
@@ -3169,6 +3185,10 @@
         }
         if ($("input[name='isInsurance']:checked").val() == null) {
             layer.msg("第1页，请选择 是否在开发区缴纳外资企业住房公积金");
+            return false;
+        }
+        if ($("input[name='kaifaquFund']:checked").val() == null) {
+            layer.msg("第1页，请选择 2014年以前是否缴存开发区社保中心公积金");
             return false;
         }
         if($("#moveAddress").val().trim()==""){

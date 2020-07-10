@@ -61,6 +61,8 @@ public class HouseOtherModel implements Serializable {
 
 	private Integer providentFund;//"是否参加住房公积金, 1、是；2、否"
 
+	private Integer kaifaquFund; // 2014年以前是否缴存开发区社保中心公积金：是/否
+
 	private Integer taxes;//"纳税情况, 1、是；2、否"
 
 	private Integer detention;//"拘留情况, 1、是；2、否"
@@ -361,6 +363,14 @@ public class HouseOtherModel implements Serializable {
 
 	public void setIsSpouseInsurance(Integer isSpouseInsurance) {
 		this.isSpouseInsurance = isSpouseInsurance;
+	}
+
+	public Integer getKaifaquFund() {
+		return kaifaquFund;
+	}
+
+	public void setKaifaquFund(Integer kaifaquFund) {
+		this.kaifaquFund = kaifaquFund;
 	}
 
 	public Map<String, Object> getParam() {

@@ -24,6 +24,7 @@
         <result property="applicationDate" column="application_date"/>
         <result property="socialSecurityPay" column="social_security_pay"/>
         <result property="providentFund" column="provident_fund"/>
+		<result property="kaifaquFund" column="kaifaquFund"/>
         <result property="taxes" column="taxes"/>
         <result property="detention" column="detention"/>
         <result property="penalty" column="penalty"/>
@@ -50,7 +51,7 @@
 	<sql id="columns">
 	    <![CDATA[
         id ,identity_info_id ,applicant_type ,political_status ,soldier_meritorious ,culture_degree ,degree ,profession ,company_name ,job_title, job_content,
-		company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address,
+		company_address ,company_phone ,self_phone ,application_date ,social_security_pay ,provident_fund ,kaifaquFund,taxes ,detention ,penalty ,awards_title ,c_time,apply_office_address,
 		isAnotherInsurance,isApplyRegiste,isInsurance,isSpouseInsurance,
 		penaltyDate,
 		penaltyContent,
@@ -98,7 +99,8 @@
 			socialSecurityType,
 			dispatch,
 			industry,
-			jobDate
+			jobDate,
+			kaifaquFund
         ) VALUES (
         	${id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -134,7 +136,8 @@
         	#{socialSecurityType, jdbcType=VARCHAR} ,
         	#{dispatch, jdbcType=INTEGER} ,
         	#{industry, jdbcType=VARCHAR} ,
-        	#{jobDate, jdbcType=VARCHAR}
+        	#{jobDate, jdbcType=VARCHAR},
+        	#{kaifaquFund, jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -158,6 +161,7 @@
 	        <if test="applicationDate != null">application_date = #{applicationDate, jdbcType=VARCHAR} ,</if>
 	        <if test="socialSecurityPay != null">social_security_pay = #{socialSecurityPay, jdbcType=INTEGER} ,</if>
 	        <if test="providentFund != null">provident_fund = #{providentFund, jdbcType=INTEGER} ,</if>
+			<if test="kaifaquFund != null">kaifaquFund = #{kaifaquFund, jdbcType=INTEGER} ,</if>
 	        <if test="taxes != null">taxes = #{taxes, jdbcType=INTEGER} ,</if>
 	        <if test="detention != null">detention = #{detention, jdbcType=INTEGER} ,</if>
 	        <if test="penalty != null">penalty = #{penalty, jdbcType=INTEGER} ,</if>
