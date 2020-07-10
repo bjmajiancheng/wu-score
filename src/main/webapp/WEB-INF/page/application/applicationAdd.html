@@ -257,7 +257,7 @@
                             <td class="">配偶身份证号：</td>
                             <td colspan="2">
                                 <input class="integral-input w425" type="text" placeholder="无配偶不用填写" name="idNumber"
-                                       value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID">
+                                       value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID"  onkeyup="this.value=this.value.toUpperCase()">
                             </td>
                         </tr>
                         <tr class="spouseModel">
@@ -1407,7 +1407,7 @@
                                     </td>
                                     <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
-                                        <input class="integral-input" type="text" name="idNumber">
+                                        <input class="integral-input" type="text" name="idNumber"  onkeyup="this.value=this.value.toUpperCase()">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1599,7 +1599,7 @@
                                     <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="idNumber"
-                                               value="$!{houseRelationship.idNumber}">
+                                               value="$!{houseRelationship.idNumber}"  onkeyup="this.value=this.value.toUpperCase()">
                                     </td>
                                 </tr>
                                 <tr>
