@@ -148,6 +148,95 @@
                                 {\#elseif identityInfo.hallStatus == 9}
                                     <span>打分完成</span>
                                 {/if}
+                                {\#if identityInfo.weijianwei == 2}
+                                    <br><span>卫健委待接收</span>
+                                {/if}
+                                {\#if identityInfo.weijianwei == 3}
+                                    <br><span>卫健委完成收件</span>
+                                {/if}
+                                {\#if identityInfo.weijianwei == 5}
+                                    <br><span>卫健委材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.gongjijin == 2}
+                                    <br><span>住房公积金部门待接收</span>
+                                {/if}
+                                {\#if identityInfo.gongjijin == 3}
+                                    <br><span>公积金完成收件</span>
+                                {/if}
+                                {\#if identityInfo.gongjijin == 5}
+                                    <br><span>公积金材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.zhujianwei == 2}
+                                    <br><span>住建委待接收</span>
+                                {/if}
+                                {\#if identityInfo.zhujianwei == 3}
+                                    <br><span>住建委完成收件</span>
+                                {/if}
+                                {\#if identityInfo.zhujianwei == 5}
+                                    <br><span>住建委材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.guiziju == 2}
+                                    <br><span>规自局待接收</span>
+                                {/if}
+                                {\#if identityInfo.guiziju == 3}
+                                    <br><span>规自局完成收件</span>
+                                {/if}
+                                {\#if identityInfo.guiziju == 5}
+                                    <br><span>规自局材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.tuiyijunren == 2}
+                                    <br><span>退役军人待接收</span>
+                                {/if}
+                                {\#if identityInfo.tuiyijunren == 3}
+                                    <br><span>退役军人完成收件</span>
+                                {/if}
+                                {\#if identityInfo.tuiyijunren == 5}
+                                    <br><span>退役军人材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.jiaowei == 2}
+                                    <br><span>教委待接收</span>
+                                {/if}
+                                {\#if identityInfo.jiaowei == 3}
+                                    <br><span>教委完成收件</span>
+                                {/if}
+                                {\#if identityInfo.jiaowei == 5}
+                                    <br><span>教委材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.minzheng == 2}
+                                    <br><span>民政局待接收</span>
+                                {/if}
+                                {\#if identityInfo.minzheng == 3}
+                                    <br><span>民政局完成收件</span>
+                                {/if}
+                                {\#if identityInfo.minzheng == 5}
+                                    <br><span>民政局材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.renshe == 2}
+                                    <br><span>人社局待接收</span>
+                                {/if}
+                                {\#if identityInfo.renshe == 3}
+                                    <br><span>人社局完成收件</span>
+                                {/if}
+                                {\#if identityInfo.renshe == 5}
+                                    <br><span>人社局材料待补正</span>
+                                {/if}
+
+                                {\#if identityInfo.gongan == 2}
+                                    <br><span>公安局待接收</span>
+                                {/if}
+                                {\#if identityInfo.gongan == 3}
+                                    <br><span>公安局完成收件</span>
+                                {/if}
+                                {\#if identityInfo.gongan == 5}
+                                    <br><span>公安局材料待补正</span>
+                                {/if}
                                 <!--<span>预约成功</span>-->
                             {/if}
                             {\#if identityInfo.unionApproveStatus1 == 4 || identityInfo.unionApproveStatus2 == 4}
