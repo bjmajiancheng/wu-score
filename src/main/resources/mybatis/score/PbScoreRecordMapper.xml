@@ -32,13 +32,14 @@
         <result property="toreviewreason" column="toreviewreason"/>
         <result property="toreviewtime" column="toreviewtime"/>
         <result property="idreviewend" column="idreviewend"/>
+        <result property="scoreReason" column="scoreReason"/>
     </resultMap>
 
     <sql id="columns">
         <![CDATA[
         id,accept_number,batch_id,indicator_id,indicator_name,person_id,person_name,person_id_num,person_mobile_phone,company_id,company_name,
         status,score_value,item_id,accept_date,submit_date,score_date,op_user_id,op_user,op_role_id,op_role,score_detail,c_time,accept_address_id,
-        toreviewreason,toreviewtime,idreviewend,isdeducted,original_score_value,useful
+        toreviewreason,toreviewtime,idreviewend,isdeducted,original_score_value,useful,scoreReason
 	    ]]>
     </sql>
 
@@ -115,7 +116,8 @@
         min(TOREVIEWTIME) TOREVIEWTIME,
         min(IDREVIEWEND) IDREVIEWEND,
         min(USEFUL) USEFUL,
-        min(sort) sort
+        min(sort) sort,
+        min(SCOREREASON) SCOREREASON
         from t_pb_score_record
         where person_id= #{id}
         and INDICATOR_id in ('1025', '1030', '1021', '1031')

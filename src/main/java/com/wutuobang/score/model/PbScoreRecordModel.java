@@ -39,6 +39,15 @@ public class PbScoreRecordModel implements Serializable {
     private  String toreviewreason;// 申请人申请复核的理由
     private  Date toreviewtime;//申请人申请复核的时间
     private Integer idreviewend;// 申请复核是否完毕，1：结束
+    private String scoreReason;
+
+    public String getScoreReason() {
+        return scoreReason;
+    }
+
+    public void setScoreReason(String scoreReason) {
+        this.scoreReason = scoreReason;
+    }
 
     public String getToreviewreason() {
         return toreviewreason;

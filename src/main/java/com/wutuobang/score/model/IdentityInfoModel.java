@@ -695,6 +695,88 @@ public class IdentityInfoModel implements Serializable {
         return this.getSex() == 1 ? "男" : "女";
     }
 
+    public Integer weijianwei;
+    public Integer gongjijin;
+    public Integer zhujianwei;
+    public Integer guiziju;
+    public Integer tuiyijunren;
+    public Integer jiaowei;
+    public Integer minzheng;
+    public Integer renshe;
+    public Integer gongan;
+
+    public Integer getWeijianwei() {
+        return weijianwei;
+    }
+
+    public void setWeijianwei(Integer weijianwei) {
+        this.weijianwei = weijianwei;
+    }
+
+    public Integer getGongjijin() {
+        return gongjijin;
+    }
+
+    public void setGongjijin(Integer gongjijin) {
+        this.gongjijin = gongjijin;
+    }
+
+    public Integer getZhujianwei() {
+        return zhujianwei;
+    }
+
+    public void setZhujianwei(Integer zhujianwei) {
+        this.zhujianwei = zhujianwei;
+    }
+
+    public Integer getGuiziju() {
+        return guiziju;
+    }
+
+    public void setGuiziju(Integer guiziju) {
+        this.guiziju = guiziju;
+    }
+
+    public Integer getTuiyijunren() {
+        return tuiyijunren;
+    }
+
+    public void setTuiyijunren(Integer tuiyijunren) {
+        this.tuiyijunren = tuiyijunren;
+    }
+
+    public Integer getJiaowei() {
+        return jiaowei;
+    }
+
+    public void setJiaowei(Integer jiaowei) {
+        this.jiaowei = jiaowei;
+    }
+
+    public Integer getMinzheng() {
+        return minzheng;
+    }
+
+    public void setMinzheng(Integer minzheng) {
+        this.minzheng = minzheng;
+    }
+
+    public Integer getRenshe() {
+        return renshe;
+    }
+
+    public void setRenshe(Integer renshe) {
+        this.renshe = renshe;
+    }
+
+    public Integer getGongan() {
+        return gongan;
+    }
+
+    public void setGongan(Integer gongan) {
+        this.gongan = gongan;
+    }
+
     public Integer getReservationDateNull() {
         return reservationDateNull;
     }

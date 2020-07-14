@@ -11,6 +11,7 @@ import com.wutuobang.common.model.AttachmentModel;
 import com.wutuobang.common.service.IAttachmentService;
 import com.wutuobang.common.utils.DateUtil;
 import com.wutuobang.common.utils.PageData;
+import com.wutuobang.common.utils.RandomCodeUtil;
 import com.wutuobang.common.utils.ResultParam;
 import com.wutuobang.score.biz.IdentityInfoBiz;
 import com.wutuobang.score.constant.Constant;
@@ -23,6 +24,8 @@ import freemarker.template.SimpleDate;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -99,6 +102,11 @@ public class IdentityInfoController {
 
     @Autowired
     private IAttachmentService attachmentService;
+
+    @Autowired
+    private IPbScoreRecordService pbScoreRecordService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IdentityInfoController.class);
 
     /**
      * 前往新增用户页面
@@ -336,6 +344,52 @@ public class IdentityInfoController {
                 if (Integer.parseInt(identityInfoModel.getThirdPregnantPromise())==0 && identityInfoModel.getReservationStatus()>6){
                     identityInfoModel.setSaveStatus(1);// 补录出现的状态设为1
                 }
+                List<PbScoreRecordModel> list = pbScoreRecordService.getByPersonId(identityInfoModel.getId());
+                for (PbScoreRecordModel pbScoreRecordModel : list){
+
+//                    3	    人社
+//                    4	    市公安局
+//                    5	    市民政局
+//                    6	    市教委
+//                    9	    市住建委
+//                    10	住房公积金中心
+//                    12	市卫健委
+//                    1050	退役军人事务局
+//                    1060	规自局
+
+                    if (pbScoreRecordModel!=null){
+                        switch (pbScoreRecordModel.getOp_role_id()){
+                            case 3:
+                                identityInfoModel.setRenshe(pbScoreRecordModel.getStatus());
+                                break;
+                            case 4:
+                                identityInfoModel.setGongan(pbScoreRecordModel.getStatus());
+                                break;
+                            case 5:
+                                identityInfoModel.setMinzheng(pbScoreRecordModel.getStatus());
+                                break;
+                            case 6:
+                                identityInfoModel.setJiaowei(pbScoreRecordModel.getStatus());
+                                break;
+                            case 9:
+                                identityInfoModel.setZhujianwei(pbScoreRecordModel.getStatus());
+                                break;
+                            case 10:
+                                identityInfoModel.setGongjijin(pbScoreRecordModel.getStatus());
+                                break;
+                            case 12:
+                                identityInfoModel.setWeijianwei(pbScoreRecordModel.getStatus());
+                                break;
+                            case 1050:
+                                identityInfoModel.setTuiyijunren(pbScoreRecordModel.getStatus());
+                                break;
+                            case 1060:
+                                identityInfoModel.setGuiziju(pbScoreRecordModel.getStatus());
+                        }
+                    }
+
+                }
+
             }
 
             AcceptDateConfModel acceptDateConf_shiqu = acceptDateConfService.getByBatchidAndAddressidAndAcceptdate(batchConfModel.getId(), 1,DateUtil.getDate(new Date()));
@@ -1478,6 +1532,55 @@ public class IdentityInfoController {
         }else {
             return ResultParam.ok();
         }
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value ="/reviewPhoneCode" ,method = RequestMethod.POST)
+    public ResultParam reviewPhoneCode(@RequestParam("mobilePhone") String mobilePhone){
+
+        try {
+            String randomCode = "1234";
+            SmsUtil.send("15863150206",String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
+//            String randomCode = RandomCodeUtil.generRandomCode(4);
+//            jedisClient.setex(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone), randomCode, 5 * 60);
+            //发送短信
+            SmsUtil.send(mobilePhone,String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
+
+            LOGGER.info("用户验证码:{}", randomCode);
+
+            ResultParam resultParam = new ResultParam();
+            String mobileStr =  ":" + mobilePhone.substring(0,3)+"****"+mobilePhone.substring(7);
+            resultParam.setData(mobileStr);
+            resultParam.setMessage("验证码发送成功!!");
+            resultParam.setCode(119); // 表示成功的代码号
+            return resultParam;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultParam.SYSTEM_ERROR_RESULT;
+        }
+
+    }
+
+    /*
+    2020年6月30日
+    接收短信验证码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/validReviewPhoneCode", method = RequestMethod.POST)
+    public ResultParam validReviewPhoneCode(@RequestParam("mobilePhone") String mobilePhone,@RequestParam("msgCode") String msgCode){
+
+        //String randomCode = jedisClient.get(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone));
+        String randomCode = "1234";
+        if (randomCode == null) {
+            return ResultParam.error("短信验证码已失效, 请重新发送。");
+        }
+
+        if (!msgCode.equals(randomCode)) {
+            return ResultParam.error("短信验证码不正确, 请重新输入。");
+        }
+
+        return ResultParam.SUCCESS_RESULT;
 
     }
 
