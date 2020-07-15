@@ -67,7 +67,9 @@
                                 src="$!{identityInfo.idCardPositive}"/>
                                 <input id="idcard1" name="idcard1" type="file" class="upload_input" accept="image/*"
                                        onchange="changeImg(this)" attr-inp="id_card_positive"/>
-                                <div class="pointer title_click" onclick="integral.clickImg(this);" style="font-size: 10px;">点击上传身份证原件头像面</div>
+                                <div class="pointer title_click" onclick="integral.clickImg(this);"
+                                     style="font-size: 10px;">点击上传身份证原件头像面
+                                </div>
                                 <div class="title_idcard" style="display:none;">身份证原件头像面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
@@ -84,7 +86,9 @@
                                 src="$!{identityInfo.idCardOpposite}"/>
                                 <input id="idcard2" name="idcard2" type="file" class="upload_input" accept="image/*"
                                        onchange="changeImg(this)" attr-inp="id_card_opposite"/>
-                                <div class="pointer title_click" onclick="integral.clickImg(this);" style="font-size: 10px;">点击上传身份证原件国徽面</div>
+                                <div class="pointer title_click" onclick="integral.clickImg(this);"
+                                     style="font-size: 10px;">点击上传身份证原件国徽面
+                                </div>
                                 <div class="title_idcard" style="display:none;">身份证原件国徽面</div>
                                 <div class="del_idcard" onclick="integral.deleteImg(this)" style="display:none;"></div>
 
@@ -127,6 +131,9 @@
                         <td class="" colspan="2">申请人手机号：
                             <input class="integral-input w350" type="text" name="selfPhone" id="selfPhone"
                                    value="$!{houseOtherModel.selfPhone}">
+                        </td>
+                        <td>
+                            <div class="interal-main-btn big-btn ml50" style="display: none" id="modifyMobilePhone">修改手机号</div>
                         </td>
                     </tr>
                     <tr class="spouseModel">
@@ -273,7 +280,8 @@
                             <td class="">配偶身份证号：</td>
                             <td colspan="2">
                                 <input class="integral-input w425" type="text" placeholder="无配偶不用填写" name="idNumber"
-                                       value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID"  onkeyup="this.value=this.value.toUpperCase()">
+                                       value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID"
+                                       onkeyup="this.value=this.value.toUpperCase()">
                             </td>
                         </tr>
                         <tr class="spouseModel">
@@ -309,7 +317,8 @@
                             <td class="" colspan="2">配偶是否是现役军人：</td>
                             <td>
                                 <div id="isSpousesoldier">
-                                    <input class="input_radio" type="radio" name="isSpousesoldier" value="1" id="isspousesoldier2"
+                                    <input class="input_radio" type="radio" name="isSpousesoldier" value="1"
+                                           id="isspousesoldier2"
                                            #if(${spouseHouseRelationshipModel.isSpousesoldier}== 1) checked #end>
                                     &nbsp;&nbsp;&nbsp;<label>是</label>
                                     <input class="input_radio ml30" type="radio" name="isSpousesoldier" value="2"
@@ -432,7 +441,7 @@
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">公安相关信息</div>
-                <div style="float: left;font-size: 8px;font-weight:500;">公安咨询电话，市区：24538075  滨海新区：66897743</div>
+                <div style="float: left;font-size: 8px;font-weight:500;">公安咨询电话，市区：24538075 滨海新区：66897743</div>
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
@@ -530,10 +539,10 @@
                         <tr class="color-red" id="settledItemRed" style="display: none;">
                             <td colspan="2">
                                 <div style="line-height: 20px;">
-                                1、随迁子女不满18周岁；<br>
-                                2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证书》或《房地产权证书》；<br>
-                                3、随迁子女户籍与申请人在同一户内,且居民户口本上亲子关系明确；<br>
-                                4、申请人离异的需取得随迁子女的抚养权。此种情况在公安材料中另需上传：与原配偶的《结婚证》、《离婚证》及确定子女抚养方的离婚协议书或者生效的人民法院判决书、民事调解书。
+                                    1、随迁子女不满18周岁；<br>
+                                    2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证书》或《房地产权证书》；<br>
+                                    3、随迁子女户籍与申请人在同一户内,且居民户口本上亲子关系明确；<br>
+                                    4、申请人离异的需取得随迁子女的抚养权。此种情况在公安材料中另需上传：与原配偶的《结婚证》、《离婚证》及确定子女抚养方的离婚协议书或者生效的人民法院判决书、民事调解书。
                                 </div>
                             </td>
                         </tr>
@@ -592,7 +601,7 @@
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">人社相关信息</div>
-                <div style="float: left;font-size: 8px;font-weight:500;">人社咨询电话，市区：12333、24538071  滨海新区：66898160</div>
+                <div style="float: left;font-size: 8px;font-weight:500;">人社咨询电话，市区：12333、24538071 滨海新区：66898160</div>
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
@@ -683,7 +692,8 @@
                         <tr class="moveIs_2" style="display: none">
                             <td colspan="2">缴纳类型：</td>
                             <td>
-                                <input class="integral-input w325" type="text" name="socialSecurityType" id="socialSecurityType"
+                                <input class="integral-input w325" type="text" name="socialSecurityType"
+                                       id="socialSecurityType"
                                        value="$!{houseOtherModel.socialSecurityType}">
                             </td>
                         </tr>
@@ -1065,7 +1075,7 @@
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">教育相关信息</div>
-                <div style="float: left;font-size: 8px;font-weight:500;">教委咨询电话，市区：24538087         滨海新区：66898160</div>
+                <div style="float: left;font-size: 8px;font-weight:500;">教委咨询电话，市区：24538087 滨海新区：66898160</div>
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
@@ -1149,14 +1159,15 @@
                         <tr>
                             <td class="">申请人身份证号码：</td>
                             <td>
-                                <input class="integral-input w450" type="text" id="sqr_idNumber" name="idNumber" disabled
+                                <input class="integral-input w450" type="text" id="sqr_idNumber" name="idNumber"
+                                       disabled
                                        value="$!{identityInfo.idNumber}" onkeyup="this.value=this.value.toUpperCase()">
                             </td>
                         </tr>
                         <tr>
                             <td class="">申请人婚姻状况：</td>
                             <td>
-                                <select name="marriageStatus" id="sqr_marriageStatus"  disabled>
+                                <select name="marriageStatus" id="sqr_marriageStatus" disabled>
                                     <option value="7">初婚</option>
                                     <option value="8">复婚</option>
                                     <option value="9">再婚</option>
@@ -1168,7 +1179,7 @@
                         </tr>
                         <tr>
                             <td>子女数量：</td>
-                            <td><select name="sonNumber" id="sqr_sonNumber"  disabled>
+                            <td><select name="sonNumber" id="sqr_sonNumber" disabled>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1180,7 +1191,8 @@
                         <tr>
                             <td class="">申请人曾用名：</td>
                             <td>
-                                <input class="integral-input w450" type="text" name="formerName" id="sqr_formerName" disabled
+                                <input class="integral-input w450" type="text" name="formerName" id="sqr_formerName"
+                                       disabled
                                        placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                        value="$!{identityInfo.formerName}">
                             </td>
@@ -1270,15 +1282,21 @@
                             <td colspan="2">
                                 本人及配偶承诺目前
                                 <select style="width: 100px;" id="thirdPregnantPromise" name="thirdPregnantPromise">
-                                    <option #if(${identityInfo.thirdPregnantPromise}== 0) selected #end value="0">请选择</option>
-                                    <option #if(${identityInfo.thirdPregnantPromise}== 1) selected #end  value="1">未处于</option>
-                                    <option #if(${identityInfo.thirdPregnantPromise}== 2) selected #end  value="2">处于</option>
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 0) selected #end value="0">请选择
+                                    </option>
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 1) selected #end value="1">未处于
+                                    </option>
+                                    <option #if(${identityInfo.thirdPregnantPromise}== 2) selected #end value="2">处于
+                                    </option>
                                 </select>
                                 政策外生育（或收养）第三个及以上子女，
                                 <select style="width: 100px;" id="contractOrCertificate" name="contractOrCertificate">
-                                    <option #if(${identityInfo.contractOrCertificate}== 0) selected #end value="0">请选择</option>
-                                    <option #if(${identityInfo.contractOrCertificate}== 1) selected #end  value="1">未处于</option>
-                                    <option #if(${identityInfo.contractOrCertificate}== 2) selected #end  value="2">处于</option>
+                                    <option #if(${identityInfo.contractOrCertificate}== 0) selected #end value="0">请选择
+                                    </option>
+                                    <option #if(${identityInfo.contractOrCertificate}== 1) selected #end value="1">未处于
+                                    </option>
+                                    <option #if(${identityInfo.contractOrCertificate}== 2) selected #end value="2">处于
+                                    </option>
                                 </select>
                                 政策外怀孕第三个及以上子女
                             </td>
@@ -1348,46 +1366,46 @@
                 </form>
                 <!--子女信息-->
 
-                    <div id="sonTwoRelationshipsDiv">
-                        <div id="children-footer" style="display: none;">
-                            <table class="color-red" style="font-size:100px;">
-                                <!--<tr>
-                                    <td>
-                                        <p style="font-size:20px;font-weight: bold">提交审核后，申请人携带以下材料到窗口提交随迁子女申请：</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>1、结婚证（随迁子女父母离异的需提供《离婚证》、确定子女抚养关系的离婚协议书或者生效的人民法院判决书、民事调解书）</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><p>2、随迁子女《出生医学证明》</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>3、随迁子女居民户口簿整本</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>4、请申请人在5个工作日内到居住证积分落户公安窗口提交随迁子女相关材料。超过时限未到现场提交材料，按照无子女随迁情况进入打分环节。</p></td>
-                                </tr>-->
-                                <!--<tr>
-                                    <td><p style="font-size:20px;font-weight: bold">申请子女随迁需满足以下条件：</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>1、随迁子女不满18周岁；</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证》；</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>3、随迁子女户籍与申请人在同一户内；</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>4、申请人离异的需取得随迁子女的抚养权；</p></td>
-                                </tr>-->
-                            </table>
-                        </div>
-                        <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
+                <div id="sonTwoRelationshipsDiv">
+                    <div id="children-footer" style="display: none;">
+                        <table class="color-red" style="font-size:100px;">
+                            <!--<tr>
+                                <td>
+                                    <p style="font-size:20px;font-weight: bold">提交审核后，申请人携带以下材料到窗口提交随迁子女申请：</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>1、结婚证（随迁子女父母离异的需提供《离婚证》、确定子女抚养关系的离婚协议书或者生效的人民法院判决书、民事调解书）</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>2、随迁子女《出生医学证明》</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>3、随迁子女居民户口簿整本</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>4、请申请人在5个工作日内到居住证积分落户公安窗口提交随迁子女相关材料。超过时限未到现场提交材料，按照无子女随迁情况进入打分环节。</p></td>
+                            </tr>-->
+                            <!--<tr>
+                                <td><p style="font-size:20px;font-weight: bold">申请子女随迁需满足以下条件：</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>1、随迁子女不满18周岁；</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证》；</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>3、随迁子女户籍与申请人在同一户内；</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>4、申请人离异的需取得随迁子女的抚养权；</p></td>
+                            </tr>-->
+                        </table>
+                    </div>
+                    <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
                             <br>
                             <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
@@ -1423,7 +1441,8 @@
                                     </td>
                                     <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
-                                        <input class="integral-input" type="text" name="idNumber"  onkeyup="this.value=this.value.toUpperCase()">
+                                        <input class="integral-input" type="text" name="idNumber"
+                                               onkeyup="this.value=this.value.toUpperCase()">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1568,10 +1587,10 @@
                             </table>
                             <br>
                         </div>
-                            </form>
-                        #foreach(${houseRelationship} in $!{houseRelationshipList})
-                        #if ($houseRelationship.relationship!="配偶")
-                            <form class="houseRelationshipsForm" >
+                    </form>
+                    #foreach(${houseRelationship} in $!{houseRelationshipList})
+                    #if ($houseRelationship.relationship!="配偶")
+                    <form class="houseRelationshipsForm">
                         <div class="integral-cont-table sonTwoForm">
                             <br>
                             <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
@@ -1615,7 +1634,8 @@
                                     <td>身份证号码<span class="color-red">*</span>:</td>
                                     <td colspan="2">
                                         <input class="integral-input" type="text" name="idNumber"
-                                               value="$!{houseRelationship.idNumber}"  onkeyup="this.value=this.value.toUpperCase()">
+                                               value="$!{houseRelationship.idNumber}"
+                                               onkeyup="this.value=this.value.toUpperCase()">
                                     </td>
                                 </tr>
                                 <tr>
@@ -1810,11 +1830,11 @@
                             </table>
                             <br>
                         </div>
-                            </form>
-                        #end
-                        #end
+                    </form>
+                    #end
+                    #end
 
-                    </div>
+                </div>
 
             </div>
         </div>
@@ -1845,7 +1865,8 @@
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">居住信息</div>
-                <div style="float: left;font-size: 8px;font-weight:500;">居住咨询电话，市区：24538088 , 28468119        滨海新区：66897924</div>
+                <div style="float: left;font-size: 8px;font-weight:500;">居住咨询电话，市区：24538088 , 28468119 滨海新区：66897924
+                </div>
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
@@ -1859,7 +1880,8 @@
                                 <span style="font-weight:bold">上半年申请的以上年的12月31日为计算截止时间，下半年申请的以当年6月30日为计算截止时间。</span>
                                 <br><br>
                                 <hr style="height: 2px; border: none;border-top: 6px solid  #2b9518;">
-                                <div style="text-align: center;font-weight:700;font-size: 14px;color: #333333;">租房信息</div>
+                                <div style="text-align: center;font-weight:700;font-size: 14px;color: #333333;">租房信息
+                                </div>
                                 <hr style="height: 2px; border: none;border-top: 4px solid  #2b9518;">
                                 <span>在天津市租房居住，每年积6分。</span>
                                 <br>
@@ -2016,18 +2038,18 @@
                                 <br>
                             </td>
                         </tr>
-<!--                        <tr class="ourHouseTable" style="display: none">
-                            <td class="">购买住房的合同/产权证:</td>
-                            <td>
-                                <input class="input_radio" type="radio" name="contractCertificate" value="1"
-                                       #if(${identityInfo.contractCertificate}== 1) checked #end>&nbsp;
-                                <label>房屋购买合同</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <input class="input_radio" type="radio" name="contractCertificate" value="2"
-                                       #if(${identityInfo.contractCertificate}== 2) checked #end>&nbsp;
-                                <label>房屋购买产权证</label>
-                            </td>
-                        </tr>-->
+                        <!--                        <tr class="ourHouseTable" style="display: none">
+                                                    <td class="">购买住房的合同/产权证:</td>
+                                                    <td>
+                                                        <input class="input_radio" type="radio" name="contractCertificate" value="1"
+                                                               #if(${identityInfo.contractCertificate}== 1) checked #end>&nbsp;
+                                                        <label>房屋购买合同</label>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input class="input_radio" type="radio" name="contractCertificate" value="2"
+                                                               #if(${identityInfo.contractCertificate}== 2) checked #end>&nbsp;
+                                                        <label>房屋购买产权证</label>
+                                                    </td>
+                                                </tr>-->
                         <tr class="ourHouseTable" style="display: none">
                             <td class="">是否于2020年4月2日之前购买住房:</td>
                             <td>
@@ -2190,7 +2212,7 @@
             <!-- 示例title2 二级标题 -->
             <div class="integral-grey-title-bar title-bar2">
                 <div class="title-bar-head title-bar-hjqy">准迁证邮寄信息</div>
-                <div style="float: left;font-size: 8px;font-weight:500;">公安咨询电话，市区：24538075  滨海新区：66897743</div>
+                <div style="float: left;font-size: 8px;font-weight:500;">公安咨询电话，市区：24538075 滨海新区：66897743</div>
             </div>
             <!-- 表单主体部分  用table实现布局 -->
             <div class="integral-cont-table-wrap">
@@ -2237,7 +2259,7 @@
             </table>
             <!-- 保存按钮 -->
             <div class="integral-bottom-btn-group">
-                <div class="interal-main-btn big-btn m15" id="submitAndContinue">保存并继续录入</div>
+                <div class="interal-main-btn big-btn m15" id="submitAndContinue" style="display: none;">保存并继续录入</div>
                 <div class="interal-main-btn big-btn ml50" id="submit">保存</div>
                 <div class="interal-main-btn big-btn ml50" id="cancel">返回</div>
             </div>
@@ -2513,7 +2535,7 @@
 
                     for (var j = 0; j < delNum; j++) {
                         //选中最后一个
-                        $("#sonOneRelationshipsDiv>div:last").find(".checkSonRelation").attr("checked","checked");
+                        $("#sonOneRelationshipsDiv>div:last").find(".checkSonRelation").attr("checked", "checked");
                         //3.删除-选中的
                         $(".checkSonRelation:checked").each(function () {
                             findParentDom($(this), "DIV").remove();
@@ -2572,43 +2594,43 @@
             var idNumber = $('#idNumber').val();
 
             var formDataPerson = new FormData();
-            formDataPerson.append("busiCode","xxx");
-            formDataPerson.append("cerNo","xxx");
-            formDataPerson.append("certCode","tj_gaj_cer_098");
-            formDataPerson.append("itemCode","xxx");
-            formDataPerson.append("institution","xxx");
-            formDataPerson.append("method","getUserRegistration");
-            formDataPerson.append("otherParam",'{"id_card":"'+idNumber+'","phone":"'+selfPhone+'","name":"'+name+'"}');
+            formDataPerson.append("busiCode", "xxx");
+            formDataPerson.append("cerNo", "xxx");
+            formDataPerson.append("certCode", "tj_gaj_cer_098");
+            formDataPerson.append("itemCode", "xxx");
+            formDataPerson.append("institution", "xxx");
+            formDataPerson.append("method", "getUserRegistration");
+            formDataPerson.append("otherParam", '{"id_card":"' + idNumber + '","phone":"' + selfPhone + '","name":"' + name + '"}');
             $.ajax({
-                type:"POST",
-                url:"http://60.28.163.53:9002/yztb/rest/police",
-                data:formDataPerson,
-                contentType:false,
-                processData:false,
+                type: "POST",
+                url: "http://60.28.163.53:9002/yztb/rest/police",
+                data: formDataPerson,
+                contentType: false,
+                processData: false,
                 dataType: "json",
                 success: function (result) {
 
                     var user_id = result.data.data.user_id;
                     var formDataGongan = new FormData();
-                    formDataGongan.append("busiCode","xxx");
-                    formDataGongan.append("cerNo","xxx");
-                    formDataGongan.append("certCode","tj_gaj_cer_151");
-                    formDataGongan.append("itemCode","xxx");
-                    formDataGongan.append("Institution","xxx");
-                    formDataGongan.append("method","nationwidePopulationLibrary");
-                    formDataGongan.append("otherParam",'{"idcard":"'+idNumber+'","user_id":"'+user_id+'"}');
+                    formDataGongan.append("busiCode", "xxx");
+                    formDataGongan.append("cerNo", "xxx");
+                    formDataGongan.append("certCode", "tj_gaj_cer_151");
+                    formDataGongan.append("itemCode", "xxx");
+                    formDataGongan.append("Institution", "xxx");
+                    formDataGongan.append("method", "nationwidePopulationLibrary");
+                    formDataGongan.append("otherParam", '{"idcard":"' + idNumber + '","user_id":"' + user_id + '"}');
                     $.ajax({
-                        type:"POST",
-                        url:"http://60.28.163.53:9002/yztb/rest/police",
-                        data:formDataGongan,
-                        contentType:false,
-                        processData:false,
+                        type: "POST",
+                        url: "http://60.28.163.53:9002/yztb/rest/police",
+                        data: formDataGongan,
+                        contentType: false,
+                        processData: false,
                         dataType: "json",
                         success: function (result) {
 
-                            if(result.data.status==0){
+                            if (result.data.status == 0) {
                                 // 验证成功，就什么也不做
-                            }else {
+                            } else {
                                 layer.alert("请输入真实、有效、正确的姓名、身份证号、手机号！");
                                 return false;
                             }
@@ -2649,10 +2671,10 @@
             if (index > 1) {
                 $("#settledNatureRed").show();
                 $("#settledItem").val("1");
-                $("#settledItem").attr("disabled",true);
+                $("#settledItem").attr("disabled", true);
             } else {
                 $("#settledNatureRed").hide();
-                $("#settledItem").attr("disabled",false);
+                $("#settledItem").attr("disabled", false);
             }
         }).change();
 
@@ -2661,12 +2683,12 @@
         // 3、随迁子女户籍与申请人在同一户内，并且居民户口簿亲属关系明确；4、申请人离异的需取得随迁子女的抚养权。并系统默认：
         // 《不动产权证》、《结婚证》或《离婚证》及离婚协议书（结婚状态和离婚状态可选择一项）并做上传、《出生医学证明》、《居民户口簿》（整本）为必上传项目
         $("#settledItem").on("change", function () {
-           var index = $("#settledItem").val();
-           if(index>1){
-               $("#settledItemRed").show();
-           }else{
-               $("#settledItemRed").hide();
-           }
+            var index = $("#settledItem").val();
+            if (index > 1) {
+                $("#settledItemRed").show();
+            } else {
+                $("#settledItemRed").hide();
+            }
         });
 
         //2公安相关信息-拟落户地区联动
@@ -2783,7 +2805,7 @@
             } else if (index == 2) {
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").show();
-            } else if(index == 0){
+            } else if (index == 0) {
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").hide();
             }
@@ -2935,7 +2957,7 @@
             } else if (index == 2) {
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").show();
-            } else if(index == 0){
+            } else if (index == 0) {
                 $(".rightPropertyTr").hide();
                 $(".rightPropertyTr2").hide();
             }
@@ -3057,26 +3079,47 @@
             return false;
         }
 
-        var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
-        if ('${addFlag}' == 'false') {
-            url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
-        }
+        /**
+         *2020年7月15日
+         * 申请人填写信息时，本人手机号码需要通过验证，验证后手机号固定
+         */
+        var mobilePhone = $("#selfPhone").val();
+        postResult("${rc.contextPath}/identityInfo/reviewPhoneCode", {"mobilePhone": mobilePhone}, function (data) {
+            layer.prompt({title: '验证码已发送到申请人手机' + data.data + ', 请输入短信验证码', formType: 0}, function (pass, index) {
+                postResult("/identityInfo/validReviewPhoneCode", {
+                    "mobilePhone": mobilePhone,
+                    "msgCode": pass
+                }, function (data) {
+                    layer.msg("短信码验证成功", {
+                        time: 2000
+                    });
+                    var url = "${rc.contextPath}/identityInfo/addIdentityInfo";
+                    if ('${addFlag}' == 'false') {
+                        url = "${rc.contextPath}/identityInfo/updateIdentityInfo";
+                    }
 
-        var flag = false;
-        postSyncResultData(url, formInfo, function (data) {
-            flag = true;
-        });
-        registerValidateForm();
-        if (flag) {
-            layer.msg('保存成功!!', {
-                time: 1000
-            }, function () {
-                window.location.href = "${rc.contextPath}/identityInfo/index.html";
-                /*window.opener = null;
-                 window.open('', '_self');
-                 window.close();*/
+                    var flag = false;
+                    postSyncResultData(url, formInfo, function (data) {
+                        flag = true;
+                    });
+                    registerValidateForm();
+                    if (flag) {
+                        layer.msg('保存成功!!', {
+                            time: 1000
+                        }, function () {
+                            window.location.href = "${rc.contextPath}/identityInfo/index.html";
+                            /*window.opener = null;
+                             window.open('', '_self');
+                             window.close();*/
+                        });
+                    }
+                    layer.close(index);
+
+                });
             });
-        }
+        });
+
+
     }
 
     /**
@@ -3139,26 +3182,26 @@
 
         //第一页
         // 姓名
-        if($("#name").val().trim()==""){
+        if ($("#name").val().trim() == "") {
             layer.msg("第1页，请输入 姓名");
             return false;
         }
-        if($("#idNumber").val().trim()==""){
+        if ($("#idNumber").val().trim() == "") {
             layer.msg("第1页，请输入 公民身份号码");
             return false;
         }
 
-        if($("#idNumber").val().trim().length!=18){
+        if ($("#idNumber").val().trim().length != 18) {
             layer.msg("第1页，请输入 18位长度的公民身份号码");
             return false;
         }
 
-        if($("#idNumber").val().trim().length==18){
+        if ($("#idNumber").val().trim().length == 18) {
             var idNumber = $("#idNumber").val().trim();
-            var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+            var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 
             var sum = 0;
-            for(var i=0; i<arr.length; i++){
+            for (var i = 0; i < arr.length; i++) {
                 sum += parseInt(idNumber.charAt(i)) * arr[i];
             }
             //2、用加出来和除以11，看余数，
@@ -3168,14 +3211,14 @@
             var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
             var code = ch[c];
             var last = idNumber.charAt(17);
-            last = last=='x' ? 'X': last;
-            if(last != code){
+            last = last == 'x' ? 'X' : last;
+            if (last != code) {
                 layer.msg("第1页，请输入 正确的公民身份号码");
                 return false;
             }
         }
 
-        if($("#selfPhone").val().trim()==""){
+        if ($("#selfPhone").val().trim() == "") {
             layer.msg("第1页，请输入 申请人手机号");
             return false;
         }
@@ -3191,12 +3234,12 @@
             layer.msg("第1页，请选择 2014年以前是否缴存开发区社保中心公积金");
             return false;
         }
-        if($("#moveAddress").val().trim()==""){
+        if ($("#moveAddress").val().trim() == "") {
             layer.msg("第1页，请输入现居住地址");
             return false;
         }
-        if($("#marriageStatus").val()==7 || $("#marriageStatus").val()==8 || $("#marriageStatus").val()==9){
-            if($("#relationshipName").val().trim()==""){
+        if ($("#marriageStatus").val() == 7 || $("#marriageStatus").val() == 8 || $("#marriageStatus").val() == 9) {
+            if ($("#relationshipName").val().trim() == "") {
                 layer.msg("第1页，请输入配偶姓名");
                 return false;
             }
@@ -3204,20 +3247,20 @@
                 layer.msg("第1页，请选择 配偶是否为中国籍");
                 return false;
             }
-            if($("#relationshipID_3").val().trim()==""){
+            if ($("#relationshipID_3").val().trim() == "") {
                 layer.msg("第1页，请输入配偶身份证号");
                 return false;
             }
-            if($("#relationshipID_3").val().trim().length!=18){
+            if ($("#relationshipID_3").val().trim().length != 18) {
                 layer.msg("第1页，请输入 18位长度的配偶身份证号");
                 return false;
             }
-            if($("#relationshipID_3").val().trim().length==18){
+            if ($("#relationshipID_3").val().trim().length == 18) {
                 var idNumber = $("#relationshipID_3").val().trim();
-                var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+                var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 
                 var sum = 0;
-                for(var i=0; i<arr.length; i++){
+                for (var i = 0; i < arr.length; i++) {
                     sum += parseInt(idNumber.charAt(i)) * arr[i];
                 }
                 //2、用加出来和除以11，看余数，
@@ -3227,13 +3270,13 @@
                 var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
                 var code = ch[c];
                 var last = idNumber.charAt(17);
-                last = last=='x' ? 'X': last;
-                if(last != code){
+                last = last == 'x' ? 'X' : last;
+                if (last != code) {
                     layer.msg("第1页，请输入 正确的配偶身份证号");
                     return false;
                 }
             }
-            
+
             if ($("input[name='inTianjin']:checked").val() == null) {
                 layer.msg("第1页，请选择 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月");
                 return false;
@@ -3245,23 +3288,23 @@
         }
 
         //第二页
-        if($("#moveProvince").val().trim()==0 || $("#moveCity").val().trim()==0 || $("#moveRegion").val().trim()==0){
+        if ($("#moveProvince").val().trim() == 0 || $("#moveCity").val().trim() == 0 || $("#moveRegion").val().trim() == 0) {
             layer.msg("第2页，请选择 现户口登记地址");
             return false;
         }
-        if($("#currentRegisteredAddress").val().trim()==""){
+        if ($("#currentRegisteredAddress").val().trim() == "") {
             layer.msg("第2页，请输入 现户口登记地址详细地址");
             return false;
         }
-        if($("#moveRegisteredOffice").val().trim()==""){
+        if ($("#moveRegisteredOffice").val().trim() == "") {
             layer.msg("第2页，请输入 现户口地派出所");
             return false;
         }
-        if($("#address").val().trim()==""){
+        if ($("#address").val().trim() == "") {
             layer.msg("第2页，请输入 拟落户地址");
             return false;
         }
-        if($("#settledItem").val()==0){
+        if ($("#settledItem").val() == 0) {
             layer.msg("第2页，请选择 落户天津的人员");
             return false;
         }
@@ -3269,16 +3312,16 @@
             layer.msg("第2页，请选择 五年内有无刑事犯罪记录");
             return false;
         }
-        if($("input[name='penalty']:checked").val() ==1){
-            if($("#penaltyDate").val().trim()==""){
+        if ($("input[name='penalty']:checked").val() == 1) {
+            if ($("#penaltyDate").val().trim() == "") {
                 layer.msg("第2页，请输入 犯罪日期");
                 return false;
             }
-            if($("#penaltyContent").val().trim()==""){
+            if ($("#penaltyContent").val().trim() == "") {
                 layer.msg("第2页，请输入 犯罪内容");
                 return false;
             }
-            if($("#penaltyResults").val().trim()==""){
+            if ($("#penaltyResults").val().trim() == "") {
                 layer.msg("第2页，请输入 处罚结果");
                 return false;
             }
@@ -3289,31 +3332,31 @@
             layer.msg("第3页，请选择 是否为派遣制用工");
             return false;
         }
-        if($("input[name='companyName']").val().trim()==""){
+        if ($("input[name='companyName']").val().trim() == "") {
             layer.msg("第3页，请输入 实际用工单位名称");
             return false;
         }
-        if($("input[name='companyAddress']").val().trim()==""){
+        if ($("input[name='companyAddress']").val().trim() == "") {
             layer.msg("第3页，请输入 实际用工单位地址");
             return false;
         }
-        if($("input[name='industry']").val().trim()==""){
+        if ($("input[name='industry']").val().trim() == "") {
             layer.msg("第3页，请输入 实际用工单位所属行业");
             return false;
         }
-        if($("input[name='applyOfficeAddress']").val().trim()==""){
+        if ($("input[name='applyOfficeAddress']").val().trim() == "") {
             layer.msg("第3页，请输入 申请人实际办工地址");
             return false;
         }
-        if($("input[name='jobTitle']").val().trim()==""){
+        if ($("input[name='jobTitle']").val().trim() == "") {
             layer.msg("第3页，请输入 申请人现工作岗位");
             return false;
         }
-        if($("input[name='jobContent']").val().trim()==""){
+        if ($("input[name='jobContent']").val().trim() == "") {
             layer.msg("第3页，请输入 具体工作内容");
             return false;
         }
-        if($("input[name='jobDate']").val().trim()==""){
+        if ($("input[name='jobDate']").val().trim() == "") {
             layer.msg("第3页，请输入 在此岗位工作起始时间");
             return false;
         }
@@ -3325,44 +3368,44 @@
             layer.msg("第3页，请选择 是否具有国家职业资格");
             return false;
         }
-        if($("#awardsTitle").val()!=9){
-            if($("input[name='awardsName']").val().trim()==""){
+        if ($("#awardsTitle").val() != 9) {
+            if ($("input[name='awardsName']").val().trim() == "") {
                 layer.msg("第3页，请输入 奖项名称");
                 return false;
             }
-            if($("input[name='awardsDate']").val().trim()==""){
+            if ($("input[name='awardsDate']").val().trim() == "") {
                 layer.msg("第3页，请输入 获奖日期");
                 return false;
             }
-            if($("input[name='awardsOffical']").val().trim()==""){
+            if ($("input[name='awardsOffical']").val().trim() == "") {
                 layer.msg("第3页，请输入 授奖机关");
                 return false;
             }
         }
 
         // 第四页
-        if($("#cultureDegree").val() == 1011){
-            if($("input[name='graduateSchool']").val().trim()==""){
+        if ($("#cultureDegree").val() == 1011) {
+            if ($("input[name='graduateSchool']").val().trim() == "") {
                 layer.msg("第4页，请输入 毕业院校");
                 return false;
             }
-            if($("input[name='professional']").val().trim()==""){
+            if ($("input[name='professional']").val().trim() == "") {
                 layer.msg("第4页，请输入 专业");
                 return false;
             }
-            if($("input[name='office']").val().trim()==""){
+            if ($("input[name='office']").val().trim() == "") {
                 layer.msg("第4页，请输入 发证机关");
                 return false;
             }
-            if($("input[name='officeDate']").val().trim()==""){
+            if ($("input[name='officeDate']").val().trim() == "") {
                 layer.msg("第4页，请输入 发证日期");
                 return false;
             }
-            if($("input[name='jobTypeName']").val().trim()==""){
+            if ($("input[name='jobTypeName']").val().trim() == "") {
                 layer.msg("第4页，请输入 取得相对应的高级技能证书工种名称");
                 return false;
             }
-            if($("input[name='jobTypeDate']").val().trim()==""){
+            if ($("input[name='jobTypeDate']").val().trim() == "") {
                 layer.msg("第4页，请输入 取得相对应的高级技能证书发证日期");
                 return false;
             }
@@ -3374,46 +3417,46 @@
             return false;
         }
         if ($("input[name='ourHouse']:checked").val() == 1) {
-/*            if($("input[name='contractCertificate']:checked").val()==null){
-                layer.msg("第7页，请选择 购买住房合同/产权证");
-                return false;
-            }*/
-            if($("input[name='ourBuyHouse']:checked").val()==null){
+            /*            if($("input[name='contractCertificate']:checked").val()==null){
+             layer.msg("第7页，请选择 购买住房合同/产权证");
+             return false;
+             }*/
+            if ($("input[name='ourBuyHouse']:checked").val() == null) {
                 layer.msg("第7页，请选择 是否于2020年4月2日之前购买住房");
                 return false;
             }
-            if($("input[name='is201826Doc']:checked").val()==null){
+            if ($("input[name='is201826Doc']:checked").val() == null) {
                 layer.msg("第7页，请选择 是否按照“津发改社会〔2018〕26号”文件计算");
                 return false;
             }
-            if($("input[name='houseAddress']").val().trim()==""){
+            if ($("input[name='houseAddress']").val().trim() == "") {
                 layer.msg("第7页，请选择 住房详细坐落");
                 return false;
             }
-            if($("input[name='houseUse']").val().trim()==""){
+            if ($("input[name='houseUse']").val().trim() == "") {
                 layer.msg("第7页，请选择 房屋设计用途");
                 return false;
             }
-            if($("#rightProperty").val().trim()==0){
+            if ($("#rightProperty").val().trim() == 0) {
                 layer.msg("第7页，请选择 选择凭合同还是产权证计算分数");
                 return false;
             }
-            if($("#rightProperty").val().trim()==1){
-                if($("input[name='houseOurDate']").val().trim()==""){
+            if ($("#rightProperty").val().trim() == 1) {
+                if ($("input[name='houseOurDate']").val().trim() == "") {
                     layer.msg("第7页，请选择 不动产权证取得日期");
                     return false;
                 }
-                if($("input[name='houseOurNumber']").val().trim()==""){
+                if ($("input[name='houseOurNumber']").val().trim() == "") {
                     layer.msg("第7页，请选择 不动产权登记号");
                     return false;
                 }
             }
-            if($("#rightProperty").val().trim()==2){
-                if($("input[name='housePactDate']").val().trim()==""){
+            if ($("#rightProperty").val().trim() == 2) {
+                if ($("input[name='housePactDate']").val().trim() == "") {
                     layer.msg("第7页，请选择 购房合同签署日期");
                     return false;
                 }
-                if($("input[name='housePactNumber']").val().trim()==""){
+                if ($("input[name='housePactNumber']").val().trim() == "") {
                     layer.msg("第7页，请选择 购房合同编号");
                     return false;
                 }
@@ -3426,17 +3469,17 @@
                 validateFlag = false;
             }
             var spouse_HJAddress = $("#spouse_HJAddress").val();
-            if(spouse_HJAddress == ''){
+            if (spouse_HJAddress == '') {
                 layer.msg("第5页 请输入卫健委相关信息页面配偶户籍地地址");
                 return false;
             }
             var spouse_LivingAddress = $("#spouse_LivingAddress").val();
-            if(spouse_LivingAddress == ''){
+            if (spouse_LivingAddress == '') {
                 layer.msg("第5页 请输入卫健委相关信息页面配偶现居住地地址");
                 return false;
             }
             var spouseMarriageStatus = $("#spouseMarriageStatus option:selected").val();
-            if(spouseMarriageStatus == 0){
+            if (spouseMarriageStatus == 0) {
                 layer.msg("第5页 请选择卫健委相关信息页面配偶婚姻状况");
                 return false;
             }
@@ -3523,19 +3566,19 @@
         }
         //公安-犯罪
         var penalty = $("input[name='penalty']:checked").val();
-        if(penalty == 1){
+        if (penalty == 1) {
             var penaltyDate = $("#penaltyDate").val();
-            if(penaltyDate == "" || penaltyDate == undefined || penaltyDate == null){
+            if (penaltyDate == "" || penaltyDate == undefined || penaltyDate == null) {
                 layer.msg("请选择公安信息页面犯罪日期");
                 return false;
             }
             var penaltyContent = $("#penaltyContent").val();
-            if(penaltyContent == "" || penaltyContent == undefined || penaltyContent == null){
+            if (penaltyContent == "" || penaltyContent == undefined || penaltyContent == null) {
                 layer.msg("请输入公安信息页面犯罪内容");
                 return false;
             }
             var penaltyResults = $("#penaltyResults").val();
-            if(penaltyResults == "" || penaltyResults == undefined || penaltyResults == null){
+            if (penaltyResults == "" || penaltyResults == undefined || penaltyResults == null) {
                 layer.msg("请输入公安信息页面处罚结果");
                 return false;
             }
@@ -3543,13 +3586,13 @@
 
         //人社-社保
         var isAnotherInsurance = $("input[name='isAnotherInsurance']:checked").val();
-        if(isAnotherInsurance == 1){
+        if (isAnotherInsurance == 1) {
             var socialSecurityType = $("#socialSecurityType").val();
-            if(socialSecurityType == "" || socialSecurityType == undefined || socialSecurityType == null){
+            if (socialSecurityType == "" || socialSecurityType == undefined || socialSecurityType == null) {
                 layer.msg("第3页 请输入人社相关信息页面缴纳类型");
                 return false;
             }
-            if($('#moveIsCity').val() == '0' || $('#moveIsProvince').val() == '0'){
+            if ($('#moveIsCity').val() == '0' || $('#moveIsProvince').val() == '0') {
                 layer.msg("第3页 请选择人社相关信息页面缴纳地点");
                 return false;
             }
@@ -3567,22 +3610,22 @@
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前已怀孕 周");
             return false;
         }
-        if ($("#thirdPregnantPromise").val()==0) {
+        if ($("#thirdPregnantPromise").val() == 0) {
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
-        if ($("#contractOrCertificate").val()==0) {
+        if ($("#contractOrCertificate").val() == 0) {
             layer.msg("第5页 请选择卫健委相关信息页面本人及配偶是否承诺目前未处于政策外第三个及以上子女怀孕期间");
             return false;
         }
         // 2020年7月9日 校验子女的信息，必填项、再生育审批情况
         var nameFlag = false;
         $("#sonTwoRelationshipsDiv input[name='name']").each(function () {
-            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+            if ($(this).val().trim() == "" || $(this).val().trim() == null) {
                 nameFlag = true;
             }
         });
-        if(nameFlag){
+        if (nameFlag) {
             layer.msg("第5页 请输入 子女个人信息的 姓名");
             return false;
         }
@@ -3591,12 +3634,12 @@
         var sexCount2 = 0;
         $("#sonTwoRelationshipsDiv input[name='sex']").each(function () {
             sexCount1++;
-            if($(this).filter(':checked').val()==null){
+            if ($(this).filter(':checked').val() == null) {
                 sexCount2++;
             }
         });
         // 2020年7月10日如果是2倍的比例，那就是申请人填写了性别
-        if(sexCount1>0 && sexCount1/2 != sexCount2){
+        if (sexCount1 > 0 && sexCount1 / 2 != sexCount2) {
             layer.msg("第5页 请输入 子女个人信息的 性别");
             return false;
         }
@@ -3604,15 +3647,15 @@
         // 2020年7月10日子女个人信息 身份证号
         var idnumFlag = false;
         $("#sonTwoRelationshipsDiv input[name='idNumber']").each(function () {
-            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+            if ($(this).val().trim() == "" || $(this).val().trim() == null) {
                 idnumFlag = true;
             }
 
-            if(!idnumFlag){
+            if (!idnumFlag) {
                 idnumFlag = !(validIdNum($(this).val().trim()));// 若身份证号没有问题，则将此变量设为false，不进行身份证的提示
             }
         });
-        if(idnumFlag){
+        if (idnumFlag) {
             layer.msg("第5页 请输入 子女个人信息的 正确的身份证号码");
             return false;
         }
@@ -3620,11 +3663,11 @@
         // 2020年7月10日子女个人信息 文化程度
         var cultureDegreeFlag = false;
         $("#sonTwoRelationshipsDiv input[name='cultureDegree']").each(function () {
-            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+            if ($(this).val().trim() == "" || $(this).val().trim() == null) {
                 cultureDegreeFlag = true;
             }
         });
-        if(cultureDegreeFlag){
+        if (cultureDegreeFlag) {
             layer.msg("第5页 请输入 子女个人信息的 文化程度");
             return false;
         }
@@ -3634,11 +3677,11 @@
         var isRemoveCount2 = 0;
         $("#sonTwoRelationshipsDiv input[name='isRemove']").each(function () {
             isRemoveCount1++;
-            if($(this).filter(':checked').val()==null){
+            if ($(this).filter(':checked').val() == null) {
                 isRemoveCount2++;
             }
         });
-        if(isRemoveCount1>0 && isRemoveCount1/2 != isRemoveCount2){
+        if (isRemoveCount1 > 0 && isRemoveCount1 / 2 != isRemoveCount2) {
             layer.msg("第5页 请输入 子女个人信息的 是否随迁");
             return false;
         }
@@ -3648,11 +3691,11 @@
         var isAdoptCount2 = 0;
         $("#sonTwoRelationshipsDiv input[name='isAdopt']").each(function () {
             isAdoptCount1++;
-            if($(this).filter(':checked').val()==null){
+            if ($(this).filter(':checked').val() == null) {
                 isAdoptCount2++;
             }
         });
-        if(isAdoptCount1>0 && isAdoptCount1/2 != isAdoptCount2){
+        if (isAdoptCount1 > 0 && isAdoptCount1 / 2 != isAdoptCount2) {
             layer.msg("第5页 请输入 子女个人信息的 收养子女");
             return false;
         }
@@ -3662,11 +3705,11 @@
         var isNaturalChildCount2 = 0;
         $("#sonTwoRelationshipsDiv input[name='isNaturalChild']").each(function () {
             isNaturalChildCount1++;
-            if($(this).filter(':checked').val()==null){
+            if ($(this).filter(':checked').val() == null) {
                 isNaturalChildCount2++;
             }
         });
-        if(isNaturalChildCount1>0 && isNaturalChildCount1/2 != isNaturalChildCount2){
+        if (isNaturalChildCount1 > 0 && isNaturalChildCount1 / 2 != isNaturalChildCount2) {
             layer.msg("第5页 请输入 子女个人信息的 申请人亲生子女");
             return false;
         }
@@ -3676,11 +3719,11 @@
         var isChineseChildCount2 = 0;
         $("#sonTwoRelationshipsDiv input[name='isChinese']").each(function () {
             isChineseChildCount1++;
-            if($(this).filter(':checked').val()==null){
+            if ($(this).filter(':checked').val() == null) {
                 isChineseChildCount2++;
             }
         });
-        if(isChineseChildCount1>0 && isChineseChildCount1/2 != isChineseChildCount2){
+        if (isChineseChildCount1 > 0 && isChineseChildCount1 / 2 != isChineseChildCount2) {
             layer.msg("第5页 请输入 子女个人信息的 是否为中国籍");
             return false;
         }
@@ -3688,11 +3731,11 @@
         // 2020年7月10日子女个人信息 出生地
         var birthplaceFlag = false;
         $("#sonTwoRelationshipsDiv input[name='birthplace']").each(function () {
-            if ($(this).val().trim()=="" || $(this).val().trim()==null){
+            if ($(this).val().trim() == "" || $(this).val().trim() == null) {
                 birthplaceFlag = true;
             }
         });
-        if(birthplaceFlag){
+        if (birthplaceFlag) {
             layer.msg("第5页 请输入 子女个人信息的 出生地");
             return false;
         }
@@ -3702,11 +3745,11 @@
         var i = 0;
         $("#sonTwoRelationshipsDiv input[name='approval_time']").each(function () {
             i++;
-            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+            if (i > 2 && ($(this).val().trim() == "" || $(this).val().trim() == null)) {
                 approval_timeFlag = true;
             }
         });
-        if(approval_timeFlag){
+        if (approval_timeFlag) {
             layer.msg("第5页 请输入 子女个人信息的再生育审批情况 第三个及以上孩子审批时间");
             return false;
         }
@@ -3716,11 +3759,11 @@
         var i = 0;
         $("#sonTwoRelationshipsDiv input[name='approval_number']").each(function () {
             i++;
-            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+            if (i > 2 && ($(this).val().trim() == "" || $(this).val().trim() == null)) {
                 approval_numberFlag = true;
             }
         });
-        if(approval_numberFlag){
+        if (approval_numberFlag) {
             layer.msg("第5页 请输入 子女个人信息的再生育审批情况 第三个及以上孩子审批证明编号");
             return false;
         }
@@ -3730,11 +3773,11 @@
         var i = 0;
         $("#sonTwoRelationshipsDiv input[name='approval_companyName']").each(function () {
             i++;
-            if (i>2 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+            if (i > 2 && ($(this).val().trim() == "" || $(this).val().trim() == null)) {
                 approval_companyNameFlag = true;
             }
         });
-        if(approval_companyNameFlag){
+        if (approval_companyNameFlag) {
             layer.msg("第5页 请输入 子女个人信息的再生育审批情况 第三个及以上孩子审批单位名称");
             return false;
         }
@@ -3744,11 +3787,11 @@
         var i = 0;
         $("#sonTwoRelationshipsDiv input[name='approval_rules']").each(function () {
             i++;
-            if (i>8 && ($(this).val().trim()=="" || $(this).val().trim()==null)){
+            if (i > 8 && ($(this).val().trim() == "" || $(this).val().trim() == null)) {
                 approval_rulesFlag = true;
             }
         });
-        if(approval_rulesFlag){
+        if (approval_rulesFlag) {
             layer.msg("第5页 请输入 子女个人信息的再生育审批情况 第三个及以上孩子审批条例适用");
             return false;
         }
@@ -3806,53 +3849,53 @@
         var houseMoveInfo = {};
         houseMoveInfo = serializeForm($(".houseMoveForm"));
         // 增加租赁信息时，有多个信息时保存多个，需要循环处理
-        var a=[];
-        var b=[];
-        var c=[];
-        var d=[];
+        var a = [];
+        var b = [];
+        var c = [];
+        var d = [];
 
-        var e=0;
-        var f=0;
-        var g=0;
-        var h=0;
+        var e = 0;
+        var f = 0;
+        var g = 0;
+        var h = 0;
         $("input[name='rentHouseAddress']").each(function () {
-            if($(this).val()==null || $(this).val().trim()==""){
+            if ($(this).val() == null || $(this).val().trim() == "") {
                 e++;
             }
             a.push($(this).val());
         });
         $("input[name='rentIdNumber']").each(function () {
-            if($(this).val()==null || $(this).val().trim()==""){
+            if ($(this).val() == null || $(this).val().trim() == "") {
                 f++;
             }
             b.push($(this).val());
         });
         $("input[name='rentHouseStartDate']").each(function () {
-            if($(this).val()==null || $(this).val().trim()==""){
+            if ($(this).val() == null || $(this).val().trim() == "") {
                 g++;
             }
             c.push($(this).val());
         });
         $("input[name='rentHouseEndDate']").each(function () {
-            if($(this).val()==null || $(this).val().trim()==""){
+            if ($(this).val() == null || $(this).val().trim() == "") {
                 h++;
             }
             d.push($(this).val());
         });
-        if(e!=f || e!=g || e!=h){
+        if (e != f || e != g || e != h) {
             layer.msg("第7页 请完善租赁备案信息");
             return false;
         }
-        if(a.length>0){
-            houseMoveInfo["rentHouseAddress"]=a;
+        if (a.length > 0) {
+            houseMoveInfo["rentHouseAddress"] = a;
         }
-        if(b.length>0){
-            houseMoveInfo["rentIdNumber"]=b;
+        if (b.length > 0) {
+            houseMoveInfo["rentIdNumber"] = b;
         }
-        if(c.length>0){
-            houseMoveInfo["rentHouseStartDate"]=c;
+        if (c.length > 0) {
+            houseMoveInfo["rentHouseStartDate"] = c;
         }
-        if(d.length>0) {
+        if (d.length > 0) {
             houseMoveInfo["rentHouseEndDate"] = d;
         }
 
@@ -3868,7 +3911,7 @@
 
         //子女配偶信息
         var houseRelationSonInfos = [];
-        $(".houseRelationshipsFormOne").each(function(){
+        $(".houseRelationshipsFormOne").each(function () {
             var tempObject = serializeForm($(this));
             houseRelationSonInfos.push(tempObject);
         });
@@ -3942,7 +3985,7 @@
             "attachment_id_card_positive": $('#attachment_id_card_positive').val(),
             "attachment_id_card_opposite": $('#attachment_id_card_opposite').val()
         };
-        console.log("formData:"+formData);
+        console.log("formData:" + formData);
         return formData;
     }
 
@@ -4248,7 +4291,7 @@
                 address: {
                     required: true
                 },
-                currentRegisteredAddress:{
+                currentRegisteredAddress: {
                     required: true
                 }
             },
@@ -4568,8 +4611,29 @@
         $("#rightProperty").val('$!{identityInfo.rightProperty}');
         //住房-产权所有
         $("#houseProperty").val('$!{identityInfo.houseProperty}');
-
+        // 申请人手机号回显时锁定不编辑
+        $("#selfPhone").attr("readOnly","readOnly");
+        $("#modifyMobilePhone").css("display","block");
     }
+
+    $("#modifyMobilePhone").on("click",function () {
+        var mobilePhone = $("#selfPhone").val();
+        postResult("${rc.contextPath}/identityInfo/reviewPhoneCode", {"mobilePhone": mobilePhone}, function (data) {
+            layer.prompt({title: '验证码已发送到申请人手机' + data.data + ', 请输入短信验证码', formType: 0}, function (pass, index) {
+                postResult("/identityInfo/validReviewPhoneCode", {
+                    "mobilePhone": mobilePhone,
+                    "msgCode": pass
+                }, function (data) {
+                    layer.msg("短信码验证成功", {
+                        time: 2000
+                    });
+                    $("#selfPhone").removeAttr("readOnly");
+                    layer.close(index);
+
+                });
+            });
+        });
+    });
 
     //校验身份证号
     function validateIdNumber(idNumber) {
@@ -4637,7 +4701,7 @@
 
     function showInfo4() {
         var penalty = $("input[name='penalty']:checked").val();
-        if (penalty == 2){
+        if (penalty == 2) {
             var index = layer.confirm('本人承诺5年内无刑事犯罪记录，如有隐瞒事实填报行为，一经查实公安部门将进行相关处理。', {
                 btn: ['确认'] //按钮
             }, function () {
@@ -4717,7 +4781,7 @@
 
     function selectPage() {
         var selectedPage = $("#pages").val();
-        if(selectedPage==1){
+        if (selectedPage == 1) {
             $("#prev").addClass("notclick");
             $("#prev").unbind('click');
             $(".pageTable").css("display", "none");
@@ -4726,7 +4790,7 @@
             $("#pages").val(selectedPage);
             pagesChange();
 
-        }else if(selectedPage==8){
+        } else if (selectedPage == 8) {
             $("#next").addClass("notclick");
             $("#next").unbind('click');
             $(".pageTable").css("display", "none");
@@ -4735,7 +4799,7 @@
             $("#pages").val(selectedPage);
             pagesChange();
 
-        }else{
+        } else {
             $("#prev").removeClass("notclick");
             $("#prev").bind('click');
             $(".pageTable").css("display", "none");
@@ -4992,13 +5056,13 @@
     }
 
     function validIdNum(idNumber) {
-        if(idNumber.trim().length!=18){
+        if (idNumber.trim().length != 18) {
             return false;
         }
-        var arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+        var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 
         var sum = 0;
-        for(var i=0; i<arr.length; i++){
+        for (var i = 0; i < arr.length; i++) {
             sum += parseInt(idNumber.charAt(i)) * arr[i];
         }
         //2、用加出来和除以11，看余数，
@@ -5008,8 +5072,8 @@
         var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
         var code = ch[c];
         var last = idNumber.charAt(17);
-        last = last=='x' ? 'X': last;
-        if(last != code){
+        last = last == 'x' ? 'X' : last;
+        if (last != code) {
             return false;
         }
         return true;

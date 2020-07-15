@@ -1543,10 +1543,10 @@ public class IdentityInfoController {
     public ResultParam reviewPhoneCode(@RequestParam("mobilePhone") String mobilePhone){
 
         try {
-            String randomCode = "1234";
-            SmsUtil.send("15863150206",String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
-//            String randomCode = RandomCodeUtil.generRandomCode(4);
-//            jedisClient.setex(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone), randomCode, 5 * 60);
+            //String randomCode = "1234";
+            //SmsUtil.send("15863150206",String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
+            String randomCode = RandomCodeUtil.generRandomCode(4);
+            jedisClient.setex(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone), randomCode, 5 * 60);
             //发送短信
             SmsUtil.send(mobilePhone,String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
 
@@ -1556,7 +1556,6 @@ public class IdentityInfoController {
             String mobileStr =  ":" + mobilePhone.substring(0,3)+"****"+mobilePhone.substring(7);
             resultParam.setData(mobileStr);
             resultParam.setMessage("验证码发送成功!!");
-            resultParam.setCode(119); // 表示成功的代码号
             return resultParam;
         }catch (Exception e){
             e.printStackTrace();
@@ -1573,8 +1572,8 @@ public class IdentityInfoController {
     @RequestMapping(value = "/validReviewPhoneCode", method = RequestMethod.POST)
     public ResultParam validReviewPhoneCode(@RequestParam("mobilePhone") String mobilePhone,@RequestParam("msgCode") String msgCode){
 
-        //String randomCode = jedisClient.get(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone));
-        String randomCode = "1234";
+        String randomCode = jedisClient.get(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone));
+        //String randomCode = "1234";
         if (randomCode == null) {
             return ResultParam.error("短信验证码已失效, 请重新发送。");
         }
