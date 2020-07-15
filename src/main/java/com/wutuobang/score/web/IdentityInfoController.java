@@ -1550,7 +1550,7 @@ public class IdentityInfoController {
             //发送短信
             SmsUtil.send(mobilePhone,String.format("系统提示：您的验证码为：%s，有效期为5分钟，请勿向他人提供收到的信息。", randomCode));
 
-            LOGGER.info("用户验证码1111:{}", randomCode);
+            LOGGER.info("用户验证码:{}", randomCode);
 
             ResultParam resultParam = new ResultParam();
             String mobileStr =  ":" + mobilePhone.substring(0,3)+"****"+mobilePhone.substring(7);
@@ -1573,8 +1573,6 @@ public class IdentityInfoController {
     public ResultParam validReviewPhoneCode(@RequestParam("mobilePhone") String mobilePhone,@RequestParam("msgCode") String msgCode){
 
         String randomCode = jedisClient.get(String.format(com.wutuobang.score.constant.CacheConstant.RETRIEVE_PASSWD_CACHE_KEY, mobilePhone));
-        LOGGER.info("msgCode:{}", mobilePhone +"----"+msgCode);
-        LOGGER.info("用户验证码2222:{}", randomCode);
 
         //String randomCode = "1234";
         if (randomCode == null) {
