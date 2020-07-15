@@ -66,4 +66,6 @@ public interface IOnlinePersonMaterialDao {
      */
     public List<OnlinePersonMaterialModel> getByPersonId(@Param("personId")Integer personId);
 
+    public List<OnlinePersonMaterialModel> getByPersonId_1(@Param("personId")Integer personId);
+
 }

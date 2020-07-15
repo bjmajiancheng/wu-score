@@ -22,6 +22,7 @@ import com.wutuobang.score.model.*;
 import com.wutuobang.shiro.utils.ShiroUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -146,7 +147,7 @@ public class MaterialInfoController {
             }
 
             if (identityInfo.getMaterialStatus() != null && identityInfo.getMaterialStatus() == 1) {
-                mv.addObject("reUpload", 1);
+                mv.addObject("reUpload", 2);
             }
             mv.addObject("identityInfo", identityInfo);
 
@@ -429,6 +430,99 @@ public class MaterialInfoController {
                 }
 
             }
+            mv.addObject("materialInfos", materialInfos);
+
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+    }
+
+
+    @RequestMapping(value = "/reUploadMaterial/{identityInfoId}.html", method = RequestMethod.GET)
+    public ModelAndView reUploadMaterial(HttpServletRequest request,
+                                     @PathVariable("identityInfoId") Integer identityInfoId) {
+        if (identityInfoId == null) {
+            return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
+        }
+        try {
+            ModelAndView mv = new ModelAndView("file/uploadFile.html");
+
+            //用户所有已上传的材料信息
+            List<OnlinePersonMaterialModel> allOnlinePersonMaterials = onlinePersonMaterialService
+                    .find(Collections.singletonMap("personId", (Object) identityInfoId));
+            Map<Integer, String> allReasonMap = new HashMap<Integer, String>();
+            if (CollectionUtils.isNotEmpty(allOnlinePersonMaterials)) {
+                for (OnlinePersonMaterialModel onlinePersonMaterial : allOnlinePersonMaterials) {
+                    if (StringUtils.isEmpty(onlinePersonMaterial.getReason())) {
+                        continue;
+                    }
+                    String reason = allReasonMap.get(onlinePersonMaterial.getMaterialInfoId());
+
+                    if (StringUtils.isEmpty(reason)) {
+                        allReasonMap.put(onlinePersonMaterial.getMaterialInfoId(), onlinePersonMaterial.getReason());
+                    } else {
+                        allReasonMap.put(onlinePersonMaterial.getMaterialInfoId(),
+                                reason + "<br/>" + onlinePersonMaterial.getReason());
+                    }
+                }
+            }
+
+            //用户已上传的材料信息
+            List<OnlinePersonMaterialModel> onlinePersonMaterials = onlinePersonMaterialService
+                    .getByPersonId(identityInfoId);
+
+            Map<Integer, OnlinePersonMaterialModel> onlinePersonMaterialMap = new HashMap<Integer, OnlinePersonMaterialModel>();
+            if (CollectionUtils.isNotEmpty(onlinePersonMaterials)) {
+                for (OnlinePersonMaterialModel onlinePersonMaterial : onlinePersonMaterials) {
+                    onlinePersonMaterialMap.put(onlinePersonMaterial.getMaterialInfoId(), onlinePersonMaterial);
+                }
+            }
+
+            //所有材料信息
+
+            Map<String, Object> findMap = new HashMap<>();
+            findMap.put("isUpload", 1);
+            findMap.put("sortColumns", "SORTCOLUMNS");
+            List<MaterialInfoModel> materialInfos = materialInfoService.find(findMap);
+            if (CollectionUtils.isNotEmpty(materialInfos)) {
+                for (MaterialInfoModel materialInfo : materialInfos) {
+                    OnlinePersonMaterialModel tmpMaterialModel = onlinePersonMaterialMap.get(materialInfo.getId());
+                    if (tmpMaterialModel != null) {
+                        String reason = allReasonMap.get(materialInfo.getId());
+                        if (StringUtils.isNotEmpty(reason)) {
+                            tmpMaterialModel.setReason(reason);
+                        }
+                    }
+                    if(tmpMaterialModel!=null && tmpMaterialModel.getStatus()!=null && tmpMaterialModel.getStatus()==1){
+                        materialInfo.setOnlinePersonMaterial(tmpMaterialModel);
+                    }
+                }
+            }
+
+            for (int i=0;i<materialInfos.size();i++){
+                if(materialInfos.get(i).getOnlinePersonMaterial()== null){
+                    materialInfos.remove(i--);
+                }
+            }
+
+
+            //判断当前状态是否是重新上传材料
+            IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+            if (identityInfo.getUnionApproveStatus1() == 4 || identityInfo.getReservationStatus() == 7 || identityInfo.getReservationStatus() == 8 || identityInfo.getReservationStatus() == 10 || identityInfo.getReservationStatus() == 11
+                    || identityInfo.getPoliceApproveStatus() == 2 || identityInfo.getRensheAcceptStatus() == 2) {
+                mv.addObject("reUpload", 1);
+            } else {
+                mv.addObject("reUpload", 0);
+            }
+
+            if (identityInfo.getMaterialStatus() != null && identityInfo.getMaterialStatus() == 1) {
+                mv.addObject("reUpload", 1);
+            }
+            mv.addObject("identityInfo", identityInfo);
+
             mv.addObject("materialInfos", materialInfos);
 
             return mv;

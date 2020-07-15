@@ -38,6 +38,9 @@ public interface IOnlinePersonMaterialService{
      */
 	public List<OnlinePersonMaterialModel> getByPersonId(Integer personId);
 
+	// 查找申请人的补正材料项
+	public List<OnlinePersonMaterialModel> getByPersonId_1(Integer personId);
+
 	/**
 	 * 批量新增申请人信息
 	 *

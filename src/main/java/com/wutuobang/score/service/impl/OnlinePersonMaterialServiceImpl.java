@@ -81,6 +81,14 @@ public class OnlinePersonMaterialServiceImpl implements IOnlinePersonMaterialSer
         return onlinePersonMaterialDao.getByPersonId(personId);
     }
 
+    public List<OnlinePersonMaterialModel> getByPersonId_1(Integer personId) {
+        if (personId == null) {
+            return Collections.emptyList();
+        }
+
+        return onlinePersonMaterialDao.getByPersonId_1(personId);
+    }
+
     /**
      * 批量新增申请人信息
      *

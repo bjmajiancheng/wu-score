@@ -344,6 +344,9 @@ public class IdentityInfoController {
                 if (Integer.parseInt(identityInfoModel.getThirdPregnantPromise())==0 && identityInfoModel.getReservationStatus()>6){
                     identityInfoModel.setSaveStatus(1);// 补录出现的状态设为1
                 }
+                //用户已上传的材料信息
+                List<OnlinePersonMaterialModel> onlinePersonMaterials = onlinePersonMaterialService.getByPersonId_1(identityInfoModel.getId());
+                identityInfoModel.setAge(onlinePersonMaterials.size()); /// 占用年龄的字段来表示有多少需要补正的材料
                 List<PbScoreRecordModel> list = pbScoreRecordService.getByPersonId(identityInfoModel.getId());
                 for (PbScoreRecordModel pbScoreRecordModel : list){
 

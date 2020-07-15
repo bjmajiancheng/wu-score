@@ -154,6 +154,11 @@
 		SELECT <include refid="columns"/> FROM t_online_person_material
 		WHERE person_id = #{personId} AND status IN(0, 1)
 	</select>
+
+	<select id="getByPersonId_1" resultMap="OnlinePersonMaterial">
+		SELECT <include refid="columns"/> FROM t_online_person_material
+		WHERE person_id = #{personId} AND status IN( 1)
+	</select>
 	
 </mapper>
 
