@@ -3086,7 +3086,7 @@
         var mobilePhone = $("#selfPhone").val();
         postResult("${rc.contextPath}/identityInfo/reviewPhoneCode", {"mobilePhone": mobilePhone}, function (data) {
             layer.prompt({title: '验证码已发送到申请人手机' + data.data + ', 请输入短信验证码', formType: 0}, function (pass, index) {
-                postResult("/identityInfo/validReviewPhoneCode", {
+                postResult("${rc.contextPath}/identityInfo/validReviewPhoneCode", {
                     "mobilePhone": mobilePhone,
                     "msgCode": pass
                 }, function (data) {
