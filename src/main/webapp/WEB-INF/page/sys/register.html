@@ -93,21 +93,26 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>
-                            <span class="color-red">提示：非企业法人是指机关、事业单位和社会团体法人</span>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
                             <span class="color-red">*</span>单位类型：
                         </td>
                         <td>
-                            <input class="input_radio" type="radio" name="companyType" value="1" id="causeCompany">&nbsp;&nbsp;&nbsp;
-                            <label for="causeCompany">企业法人</label>
-                            <input class="input_radio ml30" type="radio" name="companyType" value="2"
-                                   id="simpleCompany">&nbsp;&nbsp;&nbsp;
-                            <label for="simpleCompany">非企业法人</label>
+                            <input class="input_radio" type="radio" name="companyType" value="1" id="shiyedanwei">&nbsp;&nbsp;&nbsp;
+                            <label for="shiyedanwei">事业单位</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="2" id="guoyouqiye">&nbsp;&nbsp;&nbsp;
+                            <label for="guoyouqiye">国有企业</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="3" id="waizihezi">&nbsp;&nbsp;&nbsp;
+                            <label for="waizihezi">外资、合资企业</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="4" id="siyingqiye">&nbsp;&nbsp;&nbsp;
+                            <label for="siyingqiye">私营企业</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="5" id="zhongyang">&nbsp;&nbsp;&nbsp;
+                            <label for="zhongyang">央企和中央驻津单位</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="6" id="getigongshanghu">&nbsp;&nbsp;&nbsp;
+                            <label for="getigongshanghu">个体工商户</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="7" id="minbanfeiqiye">&nbsp;&nbsp;&nbsp;
+                            <label for="minbanfeiqiye">民办非企业</label><br>
+                            <input class="input_radio" type="radio" name="companyType" value="8" id="qita">&nbsp;&nbsp;&nbsp;
+                            <label for="qita">其他</label>
                         </td>
                     </tr>
                    <!-- 2019年12月23日
@@ -519,9 +524,6 @@
                             isFlag = true;
                         }
 
-                        if(companyType==2){
-                            isFlag = true;
-                        }
 
                         /*
                          2019年12月24日
