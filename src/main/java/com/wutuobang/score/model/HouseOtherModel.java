@@ -91,6 +91,44 @@ public class HouseOtherModel implements Serializable {
 	private String industry;//"实际用工单位所属行业"
 	private String jobDate;//"自??年??月在此岗位工作"
 
+	private Integer isDispatchLicense; // 是否具有劳务派遣经营许可证 1：是；2：否
+	private String  DispatchLicenseNum; // 劳务派遣经营许可证编号
+	private Integer isDispatchLicenseDate; // 劳务派遣经营许可证是否在有效期内 1：是；2：否
+	private Integer isSignDispatch; // 是否签订派遣协议 1：是；2：否
+
+	public Integer getIsDispatchLicense() {
+		return isDispatchLicense;
+	}
+
+	public void setIsDispatchLicense(Integer isDispatchLicense) {
+		this.isDispatchLicense = isDispatchLicense;
+	}
+
+	public String getDispatchLicenseNum() {
+		return DispatchLicenseNum;
+	}
+
+	public void setDispatchLicenseNum(String dispatchLicenseNum) {
+		DispatchLicenseNum = dispatchLicenseNum;
+	}
+
+	public Integer getIsDispatchLicenseDate() {
+		return isDispatchLicenseDate;
+	}
+
+	public void setIsDispatchLicenseDate(Integer isDispatchLicenseDate) {
+		this.isDispatchLicenseDate = isDispatchLicenseDate;
+	}
+
+	public Integer getIsSignDispatch() {
+		return isSignDispatch;
+	}
+
+	public void setIsSignDispatch(Integer isSignDispatch) {
+		this.isSignDispatch = isSignDispatch;
+	}
+
+
 	//columns END
 
 	public String getPenaltyDate() {

@@ -253,14 +253,14 @@
                             <td colspan="2">
                                 <input type="hidden" name="relationship" value="配偶"/>
                                 <input type="hidden" name="id" value="$!{spouseHouseRelationshipModel.id}">
-                                <input class="integral-input w325" type="text" placeholder="无配偶不用填写" name="name"
+                                <input class="integral-input w325" type="text" placeholder="" name="name"
                                        value="$!{spouseHouseRelationshipModel.name}" id="relationshipName">
                             </td>
                         </tr>
                         <tr class="spouseModel">
                             <td class="">配偶曾用名：</td>
                             <td>
-                                <input class="integral-input w325" type="text" placeholder="无配偶不用填写"
+                                <input class="integral-input w325" type="text" placeholder="涉及曾用名的需填写曾用名，没有曾用名则无需填写"
                                        name="formerName" value="$!{spouseHouseRelationshipModel.formerName}">
                             </td>
                         </tr>
@@ -279,7 +279,7 @@
                         <tr class="spouseModel">
                             <td class="">配偶身份证号：</td>
                             <td colspan="2">
-                                <input class="integral-input w425" type="text" placeholder="无配偶不用填写" name="idNumber"
+                                <input class="integral-input w425" type="text" placeholder="" name="idNumber"
                                        value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID"
                                        onkeyup="this.value=this.value.toUpperCase()">
                             </td>
@@ -619,19 +619,68 @@
                                 <label for="undispatch">否</label>
                             </td>
                         </tr>
+                        <tr class="dispatchLicense" style="display: none;">
+                            <td class="" colspan="2"></span>是否具有劳务派遣经营许可证：</td>
+                            <td>
+                                <input class="input_radio" type="radio" name="isDispatchLicense" value="1" id="isdispatch1"
+                                       #if(${houseOtherModel.isDispatchLicense}== 1) checked #end>&nbsp;
+                                <label for="isdispatch1">是</label>
+                                <input class="input_radio ml30" type="radio" name="isDispatchLicense" value="2" id="undispatch2"
+                                       #if(${houseOtherModel.isDispatchLicense}== 2) checked #end>&nbsp;
+                                <label for="undispatch2">否</label>
+                            </td>
+                        </tr>
+                        <tr class="dispatchLicenseNum" style="display: none;">
+                            <td class="" colspan="2">劳务派遣经营许可证编号：</td>
+                            <td>
+                                <input class="integral-input w325" type="text" name="DispatchLicenseNum" placeholder=""
+                                       value="$!{houseOtherModel.DispatchLicenseNum}">
+                            </td>
+                        </tr>
+                        <tr class="dispatchLicense" style="display: none;">
+                            <td class="" colspan="2"></span>劳务派遣经营许可证是否在有效期内：</td>
+                            <td>
+                                <input class="input_radio" type="radio" name="isDispatchLicenseDate" value="1" id="isdispatch3"
+                                       #if(${houseOtherModel.isDispatchLicenseDate}== 1) checked #end>&nbsp;
+                                <label for="isdispatch3">是</label>
+                                <input class="input_radio ml30" type="radio" name="isDispatchLicenseDate" value="2" id="undispatch4"
+                                       #if(${houseOtherModel.isDispatchLicenseDate}== 2) checked #end>&nbsp;
+                                <label for="undispatch4">否</label>
+                            </td>
+                        </tr>
+                        <tr class="dispatchLicense" style="display: none;">
+                            <td class="" colspan="2"></span>是否签订派遣协议：</td>
+                            <td>
+                                <input class="input_radio" type="radio" name="isSignDispatch" value="1" id="isdispatch5"
+                                       #if(${houseOtherModel.isSignDispatch}== 1) checked #end>&nbsp;
+                                <label for="isdispatch5">是</label>
+                                <input class="input_radio ml30" type="radio" name="isSignDispatch" value="2" id="undispatch6"
+                                       #if(${houseOtherModel.isSignDispatch}== 2) checked #end>&nbsp;
+                                <label for="undispatch6">否</label>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td class="" colspan="2">实际用工单位名称：</td>
                             <td>
-                                <input class="integral-input w325" type="text" name="companyName"
+                                <input class="integral-input w325" type="text" name="companyName" placeholder="指派遣公司将劳动者派向的实际用工的单位"
                                        value="$!{houseOtherModel.companyName}">
                             </td>
                         </tr>
                         <tr>
-                            <td class="" colspan="2">实际用工单位地址：</td>
+                            <td class="" colspan="2">实际用工单位现经营地址：</td>
                             <td>
                                 <input class="integral-input w325" type="text" name="companyAddress"
-                                       placeholder="天津市XX区XX路（道）XX号"
+                                       placeholder="用工单位实际生产经营的固定地点"
                                        value="$!{houseOtherModel.companyAddress}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="" colspan="2">申请人实际办公地址：</td>
+                            <td>
+                                <input class="integral-input w325" type="text" name="applyOfficeAddress"
+                                       placeholder="申请人正常出勤工作办公的地点"
+                                       value="$!{houseOtherModel.applyOfficeAddress}">
                             </td>
                         </tr>
                         <tr>
@@ -639,14 +688,6 @@
                             <td>
                                 <input class="integral-input w325" type="text" name="industry"
                                        value="$!{houseOtherModel.industry}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="" colspan="2">申请人实际办工地址：</td>
-                            <td>
-                                <input class="integral-input w325" type="text" name="applyOfficeAddress"
-                                       placeholder="天津市XX区XX路（道）XX号"
-                                       value="$!{houseOtherModel.applyOfficeAddress}">
                             </td>
                         </tr>
                         <tr>
@@ -664,10 +705,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="" colspan="2">在此岗位工作起始时间：</td>
-                            <td>
-                                <input class="integral-input w200" type="text" id="jobDate" name="jobDate"
-                                       value="$!{houseOtherModel.jobDate}">
+                            <td class="" colspan="3">
+                                <span class="color-red">提示：请如实填写上述信息，违反人社局【2018】3号文件第十四条、第十六条相关规定的，将依法依规处理。</span>
                             </td>
                         </tr>
                         <tr>
@@ -1338,7 +1377,7 @@
                         <tr class="spouseModels_11">
                             <td class="">配偶户籍地地址：</td>
                             <td>
-                                <input class="integral-input w518" type="text" placeholder="无配偶不用填写"
+                                <input class="integral-input w518" type="text" placeholder=""
                                        name="spouse_HJAddress" id="spouse_HJAddress"
                                        value="$!{spouseHouseRelationshipModel.spouse_HJAddress}">
                             </td>
@@ -1346,7 +1385,7 @@
                         <tr class="spouseModels_11">
                             <td class="">配偶现居住地地址：</td>
                             <td>
-                                <input class="integral-input w518" type="text" placeholder="无配偶不用填写"
+                                <input class="integral-input w518" type="text" placeholder=""
                                        name="spouse_LivingAddress" id="spouse_LivingAddress"
                                        value="$!{spouseHouseRelationshipModel.spouse_LivingAddress}">
                             </td>
@@ -2753,6 +2792,24 @@
                 $("tr.moveIs_2").hide();
             }
         }).change();
+        $("input[name='dispatch']").on('change',function () {
+            var isDispatchLicenseVal = $("input[name='dispatch']:checked").val();
+            if(isDispatchLicenseVal=="1"){
+                $("tr.dispatchLicense").show();
+            }else if(isDispatchLicenseVal=="2"){
+                $("tr.dispatchLicense").hide();
+                $("tr.dispatchLicenseNum").hide();
+            }
+        }).change();
+        $("input[name='isDispatchLicense']").on('change',function () {
+            var isDispatchLicenseVal = $("input[name='isDispatchLicense']:checked").val();
+            if(isDispatchLicenseVal=="1"){
+                $("tr.dispatchLicenseNum").show();
+            }else if(isDispatchLicenseVal=="2"){
+                $("tr.dispatchLicenseNum").hide();
+            }
+        }).change();
+
         //3人社相关信息-职业资格
         $("input[name=professionType]").on("change", function () {
             var professionType = $('input:radio[name="professionType"]:checked').val();
@@ -3332,6 +3389,27 @@
             layer.msg("第3页，请选择 是否为派遣制用工");
             return false;
         }
+        if ($("input[name='dispatch']:checked").val() == 1) {
+
+            if ($("input[name='isDispatchLicense']:checked").val() == null) {
+                layer.msg("第3页，请选择 是否具有劳务派遣经营许可证");
+                return false;
+            }
+            if ($("input[name='isDispatchLicense']:checked").val() == 1) {
+                if ($("input[name='DispatchLicenseNum']").val().trim() == "") {
+                    layer.msg("第3页，请输入 劳务派遣经营许可证编号");
+                    return false;
+                }
+            }
+            if ($("input[name='isDispatchLicenseDate']:checked").val() == null) {
+                layer.msg("第3页，请选择 劳务派遣经营许可证是否在有效期内");
+                return false;
+            }
+            if ($("input[name='isSignDispatch']:checked").val() == null) {
+                layer.msg("第3页，请选择 是否签订派遣协议");
+                return false;
+            }
+        }
         if ($("input[name='companyName']").val().trim() == "") {
             layer.msg("第3页，请输入 实际用工单位名称");
             return false;
@@ -3354,10 +3432,6 @@
         }
         if ($("input[name='jobContent']").val().trim() == "") {
             layer.msg("第3页，请输入 具体工作内容");
-            return false;
-        }
-        if ($("input[name='jobDate']").val().trim() == "") {
-            layer.msg("第3页，请输入 在此岗位工作起始时间");
             return false;
         }
         if ($("input[name='isAnotherInsurance']:checked").val() == null) {

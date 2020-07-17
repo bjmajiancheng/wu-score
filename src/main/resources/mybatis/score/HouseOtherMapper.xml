@@ -43,6 +43,10 @@
 		<result property="dispatch" column="dispatch"/>
 		<result property="industry" column="industry"/>
 		<result property="jobDate" column="jobDate"/>
+		<result property="isDispatchLicense" column="isDispatchLicense"/>
+		<result property="DispatchLicenseNum" column="DispatchLicenseNum"/>
+		<result property="isDispatchLicenseDate" column="isDispatchLicenseDate"/>
+		<result property="isSignDispatch" column="isSignDispatch"/>
 
 
     </resultMap>
@@ -59,7 +63,11 @@
 		socialSecurityType,
 		dispatch,
 		industry,
-		jobDate
+		jobDate,
+		isDispatchLicense,
+		DispatchLicenseNum,
+		isDispatchLicenseDate,
+		isSignDispatch
 	    ]]>
 	</sql>
 	
@@ -100,7 +108,11 @@
 			dispatch,
 			industry,
 			jobDate,
-			kaifaquFund
+			kaifaquFund,
+			isDispatchLicense,
+			DispatchLicenseNum,
+			isDispatchLicenseDate,
+			isSignDispatch
         ) VALUES (
         	${id}  ,
         	#{identityInfoId, jdbcType=INTEGER} ,
@@ -137,7 +149,11 @@
         	#{dispatch, jdbcType=INTEGER} ,
         	#{industry, jdbcType=VARCHAR} ,
         	#{jobDate, jdbcType=VARCHAR},
-        	#{kaifaquFund, jdbcType=INTEGER}
+        	#{kaifaquFund, jdbcType=INTEGER},
+        	#{isDispatchLicense, jdbcType=INTEGER},
+        	#{DispatchLicenseNum, jdbcType=VARCHAR},
+        	#{isDispatchLicenseDate, jdbcType=INTEGER},
+        	#{isSignDispatch, jdbcType=INTEGER}
         )
     ]]>
     </insert>
@@ -179,6 +195,10 @@
 			<if test="dispatch != null">dispatch = #{dispatch, jdbcType=INTEGER} ,</if>
 			<if test="industry != null">industry = #{industry, jdbcType=VARCHAR} ,</if>
 			<if test="jobDate != null">jobDate = #{jobDate, jdbcType=VARCHAR} ,</if>
+			<if test="isDispatchLicense != null">isDispatchLicense = #{isDispatchLicense, jdbcType=INTEGER} ,</if>
+			<if test="DispatchLicenseNum != null">DispatchLicenseNum = #{DispatchLicenseNum, jdbcType=VARCHAR} ,</if>
+			<if test="isDispatchLicenseDate != null">isDispatchLicenseDate = #{isDispatchLicenseDate, jdbcType=INTEGER} ,</if>
+			<if test="isSignDispatch != null">isSignDispatch = #{isSignDispatch, jdbcType=INTEGER} ,</if>
 			id = #{id}
         WHERE 
 	        id = #{id} 
