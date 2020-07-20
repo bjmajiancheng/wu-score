@@ -113,7 +113,13 @@ public class SysLoginController {
         /*
         qiyezhanghao1是个申请人用户名，用来测试用的
          */
-        if(!username.equals("QIYEZHANGHAO1")){
+        boolean userFlage = false;
+        if(username.equals("QIYEZHANGHAO1")){
+            userFlage = true;
+        }else if(username.equals("QIYEZHANGHAO2")){
+            userFlage = true;
+        }
+        if(!userFlage){
             if (flag) {
                 return ResultParam.error("此时间段不受理积分落户，请关注重要通知！");
             }
