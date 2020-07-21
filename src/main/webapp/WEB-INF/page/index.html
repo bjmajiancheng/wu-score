@@ -300,7 +300,7 @@
                                     <!--<span class="integral-table-btn integral-table-btn2" onclick="followUp({identityInfo.id})">修改随迁信息</span>-->
                                 {/if}
                             {/if}
-                            {\#if identityInfo.materialStatus == 1}
+                            {\#if identityInfo.materialStatus == 1 || identityInfo.policeApproveStatus==2 || identityInfo.rensheAcceptStatus==2}
                                 <span class="integral-table-btn integral-table-btn2" onclick="reUploadMaterial({identityInfo.id})">材料补正 {identityInfo.age} 个</span>
                             {/if}
                         </td>
