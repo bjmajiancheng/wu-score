@@ -530,13 +530,13 @@ public class IdentityInfoController {
             boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel, currUser);
             if (evaluationFlag) {
                 if (currUser != null && StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
-                    SmsUtil.send(currUser.getOperatorMobile(),
-                            String.format(commonConstant.autoevaluationpassMessage, currUser.getOperator()));
+//                    SmsUtil.send(currUser.getOperatorMobile(),
+//                            String.format(commonConstant.autoevaluationpassMessage, currUser.getOperator()));
                 }
 
                 if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
-                    SmsUtil.send(houseOtherModel.getSelfPhone(),
-                            String.format(commonConstant.autoevaluationpassMessage, identityInfoModel.getName()));
+//                    SmsUtil.send(houseOtherModel.getSelfPhone(),
+//                            String.format(commonConstant.autoevaluationpassMessage, identityInfoModel.getName()));
                 }
 
                 return new ResultParam(ResultParam.SUCCESS, "您已通过测评!!");

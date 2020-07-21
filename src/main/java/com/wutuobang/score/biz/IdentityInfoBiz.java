@@ -266,6 +266,7 @@ public class IdentityInfoBiz {
                 houseProfessionService.insert(houseProfessionModel);
             }
 
+            /*2020年7月21日，删掉保存成功发送的短信
             if (StringUtils.isNotEmpty(currUser.getOperatorMobile())) {
                 SmsUtil.send(currUser.getOperatorMobile(),
                         String.format(commonConstant.addapplicationApplicantMessage, currUser.getOperator()));
@@ -274,7 +275,7 @@ public class IdentityInfoBiz {
             if (houseOtherModel != null && StringUtils.isNotEmpty(houseOtherModel.getSelfPhone())) {
                 SmsUtil.send(houseOtherModel.getSelfPhone(),
                         String.format(commonConstant.addapplicationApplicantMessage, identityInfoModel.getName()));
-            }
+            }*/
         }
 
         return true;
