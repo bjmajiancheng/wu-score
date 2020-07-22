@@ -49,36 +49,28 @@
                             </td>
                             <td>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="1"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;机关、事业单位
+                                       r-model={companyInfo.companyType} value="1" id="shiyedanwei">&nbsp;&nbsp;&nbsp;<label for="shiyedanwei">机关、事业单位</label>
                                 <br>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="2"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;国有企业
+                                       r-model={companyInfo.companyType} value="2" id="guoyouqiye">&nbsp;&nbsp;&nbsp;<label for="guoyouqiye">国有企业</label>
                                 <br>
                                  <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="3"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;外资、合资企业
+                                       r-model={companyInfo.companyType} value="3" id="waizihezi">&nbsp;&nbsp;&nbsp;<label for="waizihezi">外资、合资企业</label>
                                 <br>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="4"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;私营企业
+                                       r-model={companyInfo.companyType} value="4" id="siyingqiye">&nbsp;&nbsp;&nbsp;<label for="siyingqiye">私营企业</label>
                                 <br>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="5"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;央企和中央驻津单位
+                                       r-model={companyInfo.companyType} value="5"  id="zhongyang">&nbsp;&nbsp;&nbsp;<label for="zhongyang">央企和中央驻津单位</label>
                                 <br>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="6"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;个体工商户
+                                       r-model={companyInfo.companyType} value="6" id="getigongshanghu">&nbsp;&nbsp;&nbsp;<label for="getigongshanghu">个体工商户</label>
                                 <br>
                                  <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="7"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;民办非企业
+                                       r-model={companyInfo.companyType} value="7" id="minbanfeiqiye">&nbsp;&nbsp;&nbsp;<label for="minbanfeiqiye">民办非企业</label>
                                 <br>
                                 <input class="input_radio" type="radio" name="companyType"
-                                       r-model={companyInfo.companyType} value="8"
-                                       disabled="disabled">&nbsp;&nbsp;&nbsp;其他
+                                       r-model={companyInfo.companyType} value="8" id="qita">&nbsp;&nbsp;&nbsp;<label for="qita">其他</label>
                             </td>
                         </tr>
                         <tr>
@@ -379,6 +371,9 @@
                         "                                <div class=\"del_idcard\" onclick=\"integral.deleteImg(this)\" style=\"display:none;\"></div>\n" +
                         "                                <input id=\"businessLicenseSrc\" name=\"businessLicenseSrc\" type=\"hidden\" value=\"\"/>");
                 }
+                if(data['companyType'] == null){
+                    layer.alert("请先确认 单位类型");
+                }
                 component.data.companyInfo = data;
                 component.$update();
             });
@@ -397,6 +392,7 @@
         $('#operatorAddress').attr("disabled", "disabled");
         $('#business2_license').attr("disabled", "disabled");
         $('#business_license').attr("disabled", "disabled");
+        $("input[name='companyType']").attr("disabled", "disabled");
     }
 
     function checkSocialCreditCode(Code) {

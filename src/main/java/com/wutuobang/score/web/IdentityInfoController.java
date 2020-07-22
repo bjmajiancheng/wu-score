@@ -116,7 +116,8 @@ public class IdentityInfoController {
     @RequestMapping(value = "/applicationAdd.html", method = RequestMethod.GET)
     public ModelAndView toAddIdentityInfo() {
         ModelAndView mv = new ModelAndView("application/applicationAdd.html");
-        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc())) {
+        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc()) ||
+                companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getCompanyType()==null) {
             mv.setViewName("company/companyEdit.html");
         } else {
             mv.addObject("addFlag", true);
@@ -132,7 +133,8 @@ public class IdentityInfoController {
      */
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public String index() {
-        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc())) {
+        if (StringUtils.isEmpty(companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getBusinessLicenseSrc()) ||
+                companyInfoService.getById(ShiroUtils.getUserEntity().getId()).getCompanyType()==null) {
             return "company/companyEdit.html";
         } else {
             return "index.html";

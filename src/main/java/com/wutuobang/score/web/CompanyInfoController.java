@@ -283,6 +283,7 @@ public class CompanyInfoController {
                 if ("用人单位信息修改成功!".equals(message)) {
                     currCompany.setChangeDate(companyInfoModel);
                     currCompany.setIdCardNumber_2(strHistory); //
+                    currCompany.setCompanyType(companyInfoModel.getCompanyType());
                     companyInfoService.update(currCompany);
                     //companyInfoService.insertCompanyEditRecord(currCompany);
                     return new ResultParam(0, message);
