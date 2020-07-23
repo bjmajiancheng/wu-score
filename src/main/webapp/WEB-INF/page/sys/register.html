@@ -77,12 +77,7 @@
             <!-- 事业单位基本信息表格 -->
             <div class="integral-cont-table-wrap">
                 <table class="integral-cont-table">
-                    <tr>
-                        <td></td>
-                        <td>
-                            <span class="color-red">提示：单位名称与统一社会信用代码保存成功后不可更改</span>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td>
                             <span class="color-red">*</span>单位名称：
@@ -90,6 +85,12 @@
                         <td>
                             <input class="integral-input w450" id="companyName" name="companyName"
                                    placeholder="单位名称必须与营业执照一致" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <span class="color-red" style="padding-bottom: 20px;line-height:20px;">提示：单位名称与统一社会信用代码保存成功后不可更改</span>
                         </td>
                     </tr>
                     <tr>
@@ -115,28 +116,72 @@
                             <label for="qita">其他</label>
                         </td>
                     </tr>
-                   <!-- 2019年12月23日
-                    添加“申请人预约地点”：
-                        1、市级行政许可中心；
-                        2、滨海新区行政许可中心；-->
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>单位联系电话：
+                        </td>
+                        <td>
+                            <input class="integral-input w450" id="companyMobile" name="companyMobile"
+                                   placeholder="请输入11位手机号" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>实际经营地址：
+                        </td>
+                        <td>
+                            <input class="integral-input w450" placeholder="申请单位实际生产经营的固定地点" id="operatorAddress"
+                                   name="operatorAddress" type="text">
+                        </td>
+                    </tr>
                     <tr>
                         <td></td>
-                        <td style="line-height:20px;padding-top:20px;">
-                        <span class="color-red">提示：1、请根据实际情况选择受理点；
-                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、每个单位只能选择一个受理点，同一单位的全部申请人都按照此选择进行审核；
+                        <td style="line-height:20px;padding-bottom: 20px;">
+                        <span class="color-red">提示：请如实填写此项信息，违反人社局【2018】3号文件第十四条、第十六条相关规定的，将依法依规处理。。
+                        </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>经办人：
+                        </td>
+                        <td>
+                            <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三"
+                                   type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="line-height:20px;padding-bottom:20px;">
+                        <span class="color-red">提示：申报单位经办人与申请人社会保险缴费应为同一单位；
                         </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="color-red">*</span>本单位申请人受理点：
+                            <span class="color-red">*</span>经办人身份证号：
                         </td>
                         <td>
-                            <input class="input_radio" type="radio" name="operatorMobile2" value="1" id="shiji">&nbsp;&nbsp;&nbsp;
-                            <label for="shiji">天津市政务服务中心</label>
-                            <input class="input_radio ml30" type="radio" name="operatorMobile2" value="2"
-                                   id="binhai">&nbsp;&nbsp;&nbsp;
-                            <label for="binhai">滨海新区政务服务中心</label>
+                            <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1"
+                                   placeholder="请输入身份证号" type="text">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="color-red">*</span>经办人联系手机：
+                        </td>
+                        <td>
+                            <input class="integral-input w450" id="operatorMobile" name="operatorMobile"
+                                   placeholder="请输入11位手机号码" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="line-height:20px;padding-bottom:20px;">
+                        <span class="color-red">提示：经办人联系手机号码为找回密码所用手机号码，请谨慎填写。
+                        </span>
                         </td>
                     </tr>
                     <tr>
@@ -167,7 +212,7 @@
                                 <div class="color-red" style="font-size: 13px;padding: 5px 5px 5px 5px;line-height: 20px">
                                     上传经办人身份证原件提示：
                                     <br>1、身份证原件（彩色原件）；
-                                    <br>2、图片大小规定要求（格式、大小等）；
+                                    <br>2、图片大小规定要求（图片不超过3M，jpg、png格式，长宽不超过2000像素）；
                                 </div>
                             </div>
                         </td>
@@ -201,96 +246,32 @@
                                 <div class="color-red" style="font-size: 13px;padding: 5px 5px 5px 5px;line-height: 20px">
                                     上传经办人身份证原件提示：
                                     <br>1、身份证原件（彩色原件）；
-                                    <br>2、图片大小规定要求（格式、大小等）；
+                                    <br>2、图片大小规定要求（图片不超过3M，jpg、png格式，长宽不超过2000像素）；
                                 </div>
                             </div>
                         </td>
                     </tr>
-
+                    <!-- 2019年12月23日
+                    添加“申请人预约地点”：
+                        1、市级行政许可中心；
+                        2、滨海新区行政许可中心；-->
                     <tr>
                         <td>
-                            <span class="color-red">*</span>单位联系电话：
+                            <span class="color-red">*</span>本单位申请人受理点：
                         </td>
                         <td>
-                            <input class="integral-input w450" id="companyMobile" name="companyMobile"
-                                   placeholder="请输入11位手机号" type="text">
+                            <input class="input_radio" type="radio" name="operatorMobile2" value="1" id="shiji">&nbsp;&nbsp;&nbsp;
+                            <label for="shiji">天津市政务服务中心</label>
+                            <input class="input_radio ml30" type="radio" name="operatorMobile2" value="2"
+                                   id="binhai">&nbsp;&nbsp;&nbsp;
+                            <label for="binhai">滨海新区政务服务中心</label>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td style="line-height:20px;padding-top:20px;">
-                        <span class="color-red">提示：1、申报单位经办人与申请人社会保险缴费应为同一单位；
-                        </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>经办人：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="operator" name="operator" placeholder="如：张三"
-                                   type="text">
-                        </td>
-                    </tr>
-                    <!--<tr>
-                        <td></td>
-                        <td>
-                            <span class="color-red">*请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码</span>
-                        </td>
-                    </tr>-->
-                    <tr>
-                        <td></td>
-                        <td style="line-height:20px;padding-top:20px;">
-                        <span class="color-red">提示：经办人联系手机号码为找回密码所用手机号码，请谨慎填写。
-                        </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>经办人联系手机：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="operatorMobile" name="operatorMobile"
-                                   placeholder="请输入11位手机号码" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>经办人身份证号：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="idCardNumber_1" name="idCardNumber_1"
-                                   placeholder="请输入身份证号" type="text">
-                        </td>
-                    </tr>
-                    <!--<tr>
-                        <td></td>
-                        <td>
-                            <span class="color-red">*请填写真实可用的手机号码，注册成功后，系统会通过短信方式发送登录确认码</span>
-                        </td>
-                    </tr>-->
-                    <!--<tr>
-                        <td>
-                            <span class="color-red">*</span>经办人2联系手机：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" id="operatorMobile2" name="operatorMobile2"
-                                   placeholder="请输入11位手机号码" type="text">
-                        </td>
-                    </tr>-->
-                    <tr>
-                        <td>
-                            <span class="color-red">*</span>实际经营地址：
-                        </td>
-                        <td>
-                            <input class="integral-input w450" placeholder="申请单位实际生产经营的固定地点" id="operatorAddress"
-                                   name="operatorAddress" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="line-height:20px;">
-                        <span class="color-red">提示：请如实填写此项信息，违反人社局【2018】3号文件第十四条、第十六条相关规定的，将依法依规处理。。
+                        <td style="line-height:20px;padding-bottom:20px;">
+                        <span class="color-red">提示：1、请根据实际情况选择受理点；
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、每个单位只能选择一个受理点，同一单位的全部申请人都按照此选择进行审核；
                         </span>
                         </td>
                     </tr>
