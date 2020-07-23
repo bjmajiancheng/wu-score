@@ -97,8 +97,8 @@
                                        value=""/>
 
                             </div>
-                            <div style="float: left;padding-top: 30px;">
-                                <span class="color-red">&nbsp;&nbsp;提示：请上传身份证原件（彩色原件），背景色为白色。</span>
+                            <div style="float: left;padding-top: 10px;">
+                                <span class="color-red">&nbsp;&nbsp;提示：<br>1：请上传身份证原件（彩色原件），图片不超过3M，<br>2：jpg、png格式，长宽不超过2000像素。</span>
                             </div>
                         </td>
                     </tr>
@@ -277,7 +277,7 @@
                             </td>
                         </tr>
                         <tr class="spouseModel">
-                            <td class="">配偶身份证号：</td>
+                            <td class="">配偶身份证号或护照号：</td>
                             <td colspan="2">
                                 <input class="integral-input w425" type="text" placeholder="" name="idNumber"
                                        value="$!{spouseHouseRelationshipModel.idNumber}" id="relationshipID"
@@ -728,20 +728,20 @@
                                 &nbsp;&nbsp;&nbsp;<label for="redio12">否</label>
                             </td>
                         </tr>
-                        <tr class="moveIs_2" style="display: none">
+                        <!--<tr class="moveIs_2" style="display: none">
                             <td colspan="2">缴纳类型：</td>
                             <td>
                                 <input class="integral-input w325" type="text" name="socialSecurityType"
                                        id="socialSecurityType"
                                        value="$!{houseOtherModel.socialSecurityType}">
                             </td>
-                        </tr>
+                        </tr>-->
                     </table>
                 </form>
                 <form class="houseMoveForm" id="houseMoveForm3">
                     <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                     <table class="integral-cont-table">
-                        <tr class="moveIs_1" style="display: none">
+                        <!--<tr class="moveIs_1" style="display: none">
                             <td>缴纳地点：</td>
                             <td>
                                 <select name="moveIsProvince" id="moveIsProvince" style="width:125px;">
@@ -753,7 +753,7 @@
                                 </select>
                                 市
                             </td>
-                        </tr>
+                        </tr>-->
                     </table>
                 </form>
                 <form class="houseProfessionForm" id="houseProfessionForm1">
@@ -2540,6 +2540,19 @@
                 $("#sonTwoRelationshipsDiv>form").remove();
             }
         }).change();
+
+        //
+        $("input[name='isAnotherInsurance']").on("change",function () {
+            var isAnoInsur = $("input[name='isAnotherInsurance']:checked").val();
+            if(isAnoInsur==1){
+                var index = layer.confirm('根据津人社局发【2018】3号文件第二条规定具有同时在异地就业并缴纳社会保险情形的，不得在津申请积分入户。', {
+                    btn: ['确认'] //按钮
+                }, function () {
+                    layer.close(index);
+                });
+            }
+        });
+
         //1综合信息-子女数量
         $("#sonNumber").on("change", function () {
             var index = $("#sonNumber").val();
@@ -3308,31 +3321,35 @@
                 layer.msg("第1页，请输入配偶身份证号");
                 return false;
             }
-            if ($("#relationshipID_3").val().trim().length != 18) {
-                layer.msg("第1页，请输入 18位长度的配偶身份证号");
-                return false;
-            }
-            if ($("#relationshipID_3").val().trim().length == 18) {
-                var idNumber = $("#relationshipID_3").val().trim();
-                var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
-
-                var sum = 0;
-                for (var i = 0; i < arr.length; i++) {
-                    sum += parseInt(idNumber.charAt(i)) * arr[i];
-                }
-                //2、用加出来和除以11，看余数，
-                var c = sum % 11;
-
-                //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
-                var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-                var code = ch[c];
-                var last = idNumber.charAt(17);
-                last = last == 'x' ? 'X' : last;
-                if (last != code) {
-                    layer.msg("第1页，请输入 正确的配偶身份证号");
+            // 配偶不是中国人时不校验身份证号
+            if($("input[name='isChinese']:checked").val() == 1){
+                if ($("#relationshipID_3").val().trim().length != 18) {
+                    layer.msg("第1页，请输入 18位长度的配偶身份证号");
                     return false;
                 }
+                if ($("#relationshipID_3").val().trim().length == 18) {
+                    var idNumber = $("#relationshipID_3").val().trim();
+                    var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+
+                    var sum = 0;
+                    for (var i = 0; i < arr.length; i++) {
+                        sum += parseInt(idNumber.charAt(i)) * arr[i];
+                    }
+                    //2、用加出来和除以11，看余数，
+                    var c = sum % 11;
+
+                    //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+                    var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+                    var code = ch[c];
+                    var last = idNumber.charAt(17);
+                    last = last == 'x' ? 'X' : last;
+                    if (last != code) {
+                        layer.msg("第1页，请输入 正确的配偶身份证号");
+                        return false;
+                    }
+                }
             }
+
 
             if ($("input[name='inTianjin']:checked").val() == null) {
                 layer.msg("第1页，请选择 配偶是否在天津就业且用人单位依法缴纳社会保险累计满24个月");
@@ -3436,6 +3453,14 @@
         }
         if ($("input[name='isAnotherInsurance']:checked").val() == null) {
             layer.msg("第3页，请选择 是否存在同时在异地缴纳社会保险情况");
+            return false;
+        }
+        if ($("input[name='isAnotherInsurance']:checked").val() == 1) {
+            var index = layer.confirm('根据津人社局发【2018】3号文件第二条规定具有同时在异地就业并缴纳社会保险情形的，不得在津申请积分入户。', {
+                btn: ['确认'] //按钮
+            }, function () {
+                layer.close(index);
+            });
             return false;
         }
         if ($("input[name='professionType']:checked").val() == null) {
