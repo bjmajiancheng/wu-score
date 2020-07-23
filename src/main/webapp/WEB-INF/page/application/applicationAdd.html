@@ -1447,8 +1447,7 @@
                     <form class="houseRelationshipsForm" id="houseRelationshipsForm2">
                         <div class="integral-cont-table sonTwoForm" id="sonTwoClone">
                             <br>
-                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
-                            <span class="color-red">2、再生育审批情况里的“再生育审批情况”信息，第三个及以上孩子为必填项；</span>
+                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span>
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
                                     <td>
@@ -1632,8 +1631,7 @@
                     <form class="houseRelationshipsForm">
                         <div class="integral-cont-table sonTwoForm">
                             <br>
-                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span><br>
-                            <span class="color-red">2、再生育审批情况里的“再生育审批情况”信息，第三个及以上孩子为必填项；</span>
+                            <span class="color-red">提示：<br>1、以下的“子女个人信息”，带红色 * 的为必填项，不填不能提交；</span>
                             <table class="integral-table border-add integral-cont-table sonOneRelationshipsTable">
                                 <tr style="background-color: #E0E0E0">
                                     <td>
@@ -3840,6 +3838,13 @@
         }
 
         // 2020年7月10日 第3个子女的 再生育审批情况
+
+        /*
+        2020年7月23日
+         我处前期曾建议将第三个及以上子女“再生育审批情况”设置为必填项，已完成修改；
+         但在本期测试阶段，工作人员在测试时发现，如改成必填项会给申请人填报造成不便，
+         经与市家庭人口处请示后再次申请将该项设置为非必填项。请将第三个及以上子女“再生育审批情况”设置为非必填项。
+
         var approval_timeFlag = false;
         var i = 0;
         $("#sonTwoRelationshipsDiv input[name='approval_time']").each(function () {
@@ -3893,7 +3898,7 @@
         if (approval_rulesFlag) {
             layer.msg("第5页 请输入 子女个人信息的再生育审批情况 第三个及以上孩子审批条例适用");
             return false;
-        }
+        }*/
 
 
         if (!validateFlag) {
