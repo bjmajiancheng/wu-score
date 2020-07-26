@@ -430,8 +430,8 @@
                     "captcha": $("input[name=captcha]").val()
                 }, function () {
                     flag = true;
-                    layer.msg('保存成功!!', {
-                        time: 1000
+                    layer.msg('保存成功，请申请审核；若申请过审核了就忽略此提示!!', {
+                        time: 5000
                     }, function () {
                         /*if (window.opener && window.opener.component) {
                          window.opener.component.load();
