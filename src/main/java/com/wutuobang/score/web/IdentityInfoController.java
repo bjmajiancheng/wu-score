@@ -1088,6 +1088,9 @@ public class IdentityInfoController {
         }
 
         IdentityInfoModel identityInfoModel = identityInfoService.getById(id);
+        if(identityInfoModel.getReservationStatus()>6){
+            return ResultParam.error("您已申请审核，现在不能删除!!");
+        }
 
         identityInfoService.removeById(id);
 //        houseMoveService.removeById(id);
