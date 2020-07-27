@@ -272,7 +272,9 @@ public class CompanyInfoController {
                 if (status == null || status != 1) {
                     //如果企业信息不修改,不改变字段的值
                     if (!currCompany.isOperatorEquals(companyInfoModel)) {
-                        currCompany.setStatus(1);
+                        if(companyInfoModel.getCompanyType()!=null){
+                            currCompany.setStatus(1);
+                        }
                     } else if (!isUploadbusinessLicense) {
                         message = "每一期只可以修改一次用人单位信息,请确定有信息修改后保存";
                     }
