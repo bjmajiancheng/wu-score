@@ -272,7 +272,7 @@ public class CompanyInfoController {
                 if (status == null || status != 1) {
                     //如果企业信息不修改,不改变字段的值
                     if (!currCompany.isOperatorEquals(companyInfoModel)) {
-                        if(companyInfoModel.getCompanyType()!=null){
+                        if(currCompany.getCompanyType()!=null){
                             currCompany.setStatus(1);
                         }
                     } else if (!isUploadbusinessLicense) {
