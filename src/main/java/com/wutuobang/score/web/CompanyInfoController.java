@@ -253,8 +253,9 @@ public class CompanyInfoController {
         try {
             CompanyInfoModel companyInfoModel = JSON.parseObject(companyInfo, CompanyInfoModel.class);
 
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
-            String strHistory = "公司名字"+currCompany.getCompanyName()+";单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名:"+currCompany.getOperator() +
+            String strHistory = sdf.format(new Date())+"日修改:公司名字"+currCompany.getCompanyName()+";单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名:"+currCompany.getOperator() +
                     "；经办人联系手机:"+currCompany.getOperatorMobile()+"；经办人身份证号:"+currCompany.getIdCardNumber_1()+"；联系地址:"+currCompany.getOperatorAddress()
                     +"；图片地址，正面："+currCompany.getBusinessLicenseSrc()+"；反面："+currCompany.getOperator2();
 
