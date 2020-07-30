@@ -296,12 +296,13 @@
                                     <!-- 2019年7月11日，
                                     前台网站，申请人通过在线测评之后，申请人列表——操作中加入“已上传材料”按钮，此按钮一直存在，
                                     即申请人可随时查看自己的材料情况。材料上传、补正等功能都整合进这个按钮。 -->
-                                    <span class="integral-table-btn integral-table-btn2" onclick="reUpload({identityInfo.id})">已上传材料</span>
+                                    <span class="integral-table-btn integral-table-btn2" onclick="reUpload({identityInfo.id})">已上传材料
+                                        {\#if identityInfo.materialStatus == 1 || identityInfo.policeApproveStatus==2 || identityInfo.rensheAcceptStatus==2}
+                                            <br>补正材料{identityInfo.age}个
+                                        {/if}
+                                    </span>
                                     <!--<span class="integral-table-btn integral-table-btn2" onclick="followUp({identityInfo.id})">修改随迁信息</span>-->
                                 {/if}
-                            {/if}
-                            {\#if identityInfo.materialStatus == 1 || identityInfo.policeApproveStatus==2 || identityInfo.rensheAcceptStatus==2}
-                                <span class="integral-table-btn integral-table-btn2" onclick="reUploadMaterial({identityInfo.id})">材料补正 {identityInfo.age} 个</span>
                             {/if}
                         </td>
                     </tr>
