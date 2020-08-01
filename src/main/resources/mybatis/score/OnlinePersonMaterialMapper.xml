@@ -148,7 +148,6 @@
 		<foreach collection="ids" item="item" separator="," open="(" close=")">
 			#{item}
 		</foreach>
-		and status!=0
 	</update>
 
 	<select id="getByPersonId" resultMap="OnlinePersonMaterial">

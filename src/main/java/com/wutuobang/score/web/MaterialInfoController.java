@@ -147,7 +147,7 @@ public class MaterialInfoController {
             }
 
             if (identityInfo.getMaterialStatus() != null && identityInfo.getMaterialStatus() == 1) {
-                mv.addObject("reUpload", 2);
+                mv.addObject("reUpload", 1);
             }
             mv.addObject("identityInfo", identityInfo);
 
