@@ -288,7 +288,7 @@
                 var operatorMobile = $("#operatorMobile").val(); // 经办人联系手机
                 var idCardNumber_1 = $("#idCardNumber_1").val(); // 经办人身份证号
                 var operatorAddress = $("#operatorAddress").val(); // 联系地址
-                var index = layer.confirm('每一期的企业信息<span><span style="color: red;">只能修改一次</span></strong>，请确认上传的图片是正确的，本次修改后的内容如下所示：</br>' +
+                var index = layer.confirm('每一期的企业信息<span><span style="color: red;">只能修改二次</span></strong>，请确认上传的图片是正确的，本次修改后的内容如下所示：</br>' +
                     '</br>' +
                     ' 单位联系电话：' +companyMobile+"</br>"+
                     ' 经办人姓名：' +operator+"</br>"+
@@ -344,7 +344,7 @@
         data: {companyInfo: {}},
         load: function (data) {
             getResultData("${rc.contextPath}/companyInfo/getCurrCompanyInfo", {}, function (data) {
-                if (data.hasOwnProperty("status") && data['status'] == 1) {
+                if (data.hasOwnProperty("status") && data['status'] > 1) {
                     setDisabled();
                 }
 

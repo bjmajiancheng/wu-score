@@ -259,6 +259,7 @@ public class CompanyInfoController {
                     "；经办人联系手机:"+currCompany.getOperatorMobile()+"；经办人身份证号:"+currCompany.getIdCardNumber_1()+"；联系地址:"+currCompany.getOperatorAddress()
                     +"；图片地址，正面："+currCompany.getBusinessLicenseSrc()+"；反面："+currCompany.getOperator2();
 
+            String aa = currCompany.getIdCardNumber_2()==null ?"":currCompany.getIdCardNumber_2();
             if (currCompany != null) {
                 String message = "用人单位信息修改成功!";
                 Integer status = currCompany.getStatus();
@@ -270,22 +271,27 @@ public class CompanyInfoController {
                     currCompany.setBusinessLicenseSrc(companyInfoModel.getBusinessLicenseSrc());
                 }
 
-                if (status == null || status != 1) {
+                if (status == null || status < 2) {
                     //如果企业信息不修改,不改变字段的值
                     if (!currCompany.isOperatorEquals(companyInfoModel)) {
                         if(currCompany.getCompanyType()!=null){
-                            currCompany.setStatus(1);
+                            // 为空，或者非空但是等于0
+                            if(currCompany.getStatus()==null || (currCompany.getStatus()!=null && currCompany.getStatus()==0)){
+                                currCompany.setStatus(1);
+                            }else if(currCompany.getStatus()!=null){
+                                currCompany.setStatus(currCompany.getStatus()+1);
+                            }
                         }
                     } else if (!isUploadbusinessLicense) {
-                        message = "每一期只可以修改一次用人单位信息,请确定有信息修改后保存";
+                        message = "每一期只可以修改二次用人单位信息,请确定有信息修改后保存";
                     }
                 } else if (!isUploadbusinessLicense) {
-                    message = "每一期只可以修改一次用人单位信息";
+                    message = "每一期只可以修改二次用人单位信息";
                 }
 
                 if ("用人单位信息修改成功!".equals(message)) {
                     currCompany.setChangeDate(companyInfoModel);
-                    currCompany.setIdCardNumber_2(strHistory); //
+                    currCompany.setIdCardNumber_2(strHistory+";"+aa); //
                     currCompany.setCompanyType(companyInfoModel.getCompanyType());
                     companyInfoService.update(currCompany);
                     //companyInfoService.insertCompanyEditRecord(currCompany);
