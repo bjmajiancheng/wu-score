@@ -182,6 +182,19 @@
      * 登录操作
      */
     function login() {
+        /*
+        2020年8月4日
+        若申请人用电脑端微信打开的网页，拒绝登录，并引导申请人用谷歌浏览器操作
+         */
+        var ua = navigator.userAgent.toLowerCase();
+        console.log("ua："+ua);
+        if(ua.match(/MicroMessenger/i)=='micromessenger'){
+            layer.msg("请不要使用微信内置浏览器，推荐在电脑端使用谷歌浏览器操作！", {
+                time: 5000
+            });
+            return false;
+        }
+
         var username = $("input[type=text][name=username]").val();
         var password = $("input[type=password][name=password]").val();
         var captcha = $("input[type=text][name=captcha]").val();
