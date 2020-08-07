@@ -188,8 +188,8 @@
          */
         var ua = navigator.userAgent.toLowerCase();
         console.log("ua："+ua);
-        if(ua.match(/MicroMessenger/i)=='micromessenger'){
-            layer.msg("请不要使用微信内置浏览器，推荐在电脑端使用谷歌浏览器操作！", {
+        if(ua.match(/MicroMessenger/i)=='micromessenger' || ua.match(/android/i)=='android' || ua.match(/iPhone/i)=='iPhone'){
+            layer.msg("请不要使用微信内置浏览器、手机端操作，推荐在电脑端使用谷歌浏览器操作！", {
                 time: 5000
             });
             return false;
