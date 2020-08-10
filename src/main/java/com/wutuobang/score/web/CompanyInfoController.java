@@ -286,7 +286,7 @@ public class CompanyInfoController {
                         message = "每一期只可以修改二次用人单位信息,请确定有信息修改后保存";
                     }
                 } else if (!isUploadbusinessLicense) {
-                    message = "每一期只可以修改二次用人单位信息";
+                    message = "每一期只可以修改二次用人单位信息，您已用完";
                 }
 
                 if ("用人单位信息修改成功!".equals(message)) {
