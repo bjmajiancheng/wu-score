@@ -278,6 +278,13 @@
                     layer.alert("上传的图片文件的格式要求为 jpg、png、jpeg！图片命名不要有特殊符号（类似：@#$%^&）！");
                     return false;
                 }
+                // 2020年8月11日 图片命名中有特殊符号的不能上传成功
+                var pattern = new RegExp("[`~!@#$^&*()=|{}'%:;',\\[\\]<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
+                if(pattern.test(fileName)){
+                    layer.alert("图片文件名不要有特殊符号（类似：@#$%^&），请重新命名！");
+                    return false;
+                }
+
                 if(file.files[0].width>2000 || file.files[0].height>2000){
                     layer.alert("上传的图片的尺寸太大，温馨提示，图片的长宽都不得大于2000像素！");
                     return false;
