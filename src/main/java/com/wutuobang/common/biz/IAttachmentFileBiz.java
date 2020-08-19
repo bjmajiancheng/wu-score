@@ -88,4 +88,51 @@ public class IAttachmentFileBiz {
         return attachmentModel;
     }
 
+    /**
+     * 上传文件
+     *
+     * @param request
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    public AttachmentModel uploadFile2(HttpServletRequest request, MultipartFile file, int isSystem, int attachmentType)
+            throws IOException {
+        Date currDate = new Date();
+
+        String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+                .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+
+        String path = request.getContextPath();
+
+        String downloadPath =
+                "http://218.67.246.52:80/wu-score"
+                        + "/shopPic/businessLicenseSrc/" + DateUtil
+                        .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
+
+        File targetFile = new File(savePath);
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+
+        String fileName = file.getOriginalFilename();
+
+        String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        String newFileName = DateUtil.DateToString(currDate, DateStyle.YYYYMMDDHHMMSS) + String
+                .format("%04d", new Random().nextInt(1000)) + "_" + fileName;
+
+        FileUtil.saveFileFromInputStream(file.getInputStream(), savePath, newFileName);
+
+        AttachmentModel attachmentModel = new AttachmentModel();
+        attachmentModel.setAttachmentName(fileName);
+        attachmentModel.setAttachmentType(attachmentType);
+        attachmentModel.setAttachmentSuffix(fileExt);
+        attachmentModel.setAttachmentPath(savePath + newFileName);
+        attachmentModel.setAttachmentUrl(downloadPath + newFileName);
+        attachmentModel.setAttachmentSize(file.getSize());
+        int count = attachmentService.insert(attachmentModel);
+
+        return attachmentModel;
+    }
+
 }

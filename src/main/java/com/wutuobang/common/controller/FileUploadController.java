@@ -52,7 +52,7 @@ public class FileUploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
 
     /**
-     * 上传图片
+     * 上传图片，企业信息修改页面
      *
      * @param request
      * @return
@@ -83,7 +83,7 @@ public class FileUploadController {
             }
 
             AttachmentModel attachmentFile = attachmentFileBiz
-                    .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO, 0);
+                    .uploadFile2(request, file, AttachmentFileModel.IS_SYSTEM_NO, 0);
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!", attachmentFile);
             writer.println(JSON.toJSONString(param));
