@@ -100,7 +100,7 @@ public class IAttachmentFileBiz {
             throws IOException {
         Date currDate = new Date();
 
-        String savePath = uploadFolder + "/" + ShiroUtils.getCurrUserName() + "/" + DateUtil
+        String savePath = uploadFolder + "/" + "businessLicenseSrc"+ "/"  + DateUtil
                 .DateToString(currDate, DateStyle.YYYYMMDD) + "/";
 
         String path = request.getContextPath();
