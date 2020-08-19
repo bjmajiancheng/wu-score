@@ -83,7 +83,7 @@ public class FileUploadController {
             }
 
             AttachmentModel attachmentFile = attachmentFileBiz
-                    .uploadFile2(request, file, AttachmentFileModel.IS_SYSTEM_NO, 0);
+                    .uploadFile(request, file, AttachmentFileModel.IS_SYSTEM_NO, 0);
 
             ResultParam param = new ResultParam(ResultParam.SUCCESS_RESULT.getCode(), "图片上传成功!!", attachmentFile);
             writer.println(JSON.toJSONString(param));
