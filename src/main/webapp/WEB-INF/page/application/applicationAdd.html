@@ -3257,6 +3257,14 @@
             layer.msg("第1页，请输入 姓名");
             return false;
         }
+        if ($("#name").val().trim() != "") {
+            var patt = /[0-9a-zA-Z]+/i;
+            var isCharacter = patt.test($("#name").val().trim());
+            if(isCharacter){
+                layer.msg("第1页，姓名不能包含字母、数字");
+                return false;
+            }
+        }
         if ($("#idNumber").val().trim() == "") {
             layer.msg("第1页，请输入 公民身份号码");
             return false;
