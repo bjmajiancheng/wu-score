@@ -255,9 +255,8 @@ public class CompanyInfoController {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             CompanyInfoModel currCompany = companyInfoService.getById(ShiroUtils.getUserId());
-            String strHistory = sdf.format(new Date())+"日修改:公司名字"+currCompany.getCompanyName()+";单位联系电话："+currCompany.getCompanyMobile()+"；经办人姓名:"+currCompany.getOperator() +
-                    "；经办人联系手机:"+currCompany.getOperatorMobile()+"；经办人身份证号:"+currCompany.getIdCardNumber_1()+"；联系地址:"+currCompany.getOperatorAddress()
-                    +"；图片地址，正面："+currCompany.getBusinessLicenseSrc()+"；反面："+currCompany.getOperator2();
+            String strHistory = sdf.format(new Date())+"日修改:单位电话："+currCompany.getCompanyMobile()+"；经办人姓名:"+currCompany.getOperator() +
+                    "；经办人手机:"+currCompany.getOperatorMobile()+"；经办人身份证号:"+currCompany.getIdCardNumber_1()+"；联系地址:"+currCompany.getOperatorAddress();
 
             String aa = currCompany.getIdCardNumber_2()==null ?"":currCompany.getIdCardNumber_2();
             if (currCompany != null) {
