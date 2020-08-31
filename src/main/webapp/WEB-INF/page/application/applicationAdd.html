@@ -856,11 +856,6 @@
                             <td colspan="2">职业资格级别：</td>
                             <td>
                                 <select name="jobLevel" id="jobLevel" onchange="showInfo2()">
-                                    <option value="19">高级技师</option>
-                                    <option value="20">技师</option>
-                                    <option value="21">高级工</option>
-                                    <option value="22">中级工</option>
-                                    <option value="23">初级工</option>
                                 </select>
                                 <span class="integral-td-title ml50">职业名称：</span>
                                 <select name="jobName" id="jobName">
@@ -3049,7 +3044,7 @@
             initIndicatorInfo(data["2"], $("#cultureDegree"), '$!{houseOtherModel.cultureDegree}');//教育相关信息-文化程度
 
             // 2020年8月7日，与后台的字典表脱钩
-            // initIndicatorInfo_2(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');//人社相关信息-职业资格级别
+            initIndicatorInfo_2(data["3"], $("#jobLevel"), '$!{houseProfessionModel.jobLevel}');//人社相关信息-职业资格级别
 
             initIndicatorInfo(data["8"], $("#jobType"), '$!{houseProfessionModel.jobType}');//人社相关信息-工种
 
@@ -4216,7 +4211,10 @@
             }
 
             if (indicatorItems[i].content != '具有高级职称' && indicatorItems[i].content != '具有中级职称'
-                && indicatorItems[i].content != '具有初级职称' && indicatorItems[i].content != '无') {
+                && indicatorItems[i].content != '具有初级职称' && indicatorItems[i].content != '无'
+                && indicatorItems[i].content != '对应高级职称的专业技术人员职业资格'
+                && indicatorItems[i].content != '对应中级职称的专业技术人员职业资格'
+                && indicatorItems[i].content != '对应初级职称的专业技术人员职业资格') {
                 arr.push('<option value="' + indicatorItems[i].id + '" ' + selected + '>' + indicatorItems[i].content + '</option>');
             }
 
