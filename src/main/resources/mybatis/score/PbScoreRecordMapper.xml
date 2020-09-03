@@ -76,7 +76,7 @@
         <where>
             <if test="id != null">
                 AND  person_id= #{id}
-                and INDICATOR_id not in ( '1003','1022', '1025', '1030', '1021', '1031')
+                and INDICATOR_id not in ('1020', '1003','1022', '1025', '1030', '1021', '1031')
             </if>
         </where>
         union all
@@ -105,7 +105,7 @@
         min(PERSON_MOBILE_PHONE) PERSON_MOBILE_PHONE,
         min(COMPANY_ID) COMPANY_ID,
         min(COMPANY_NAME) COMPANY_NAME,
-        min(STATUS) STATUS,
+        max(STATUS) STATUS,
         sum(SCORE_VALUE) SCORE_VALUE,
         min(ITEM_ID) ITEM_ID,
         min(ACCEPT_DATE) ACCEPT_DATE,
@@ -128,7 +128,7 @@
         min(SCOREREASON) SCOREREASON
         from t_pb_score_record
         where person_id= #{id}
-        and INDICATOR_id in ('1025', '1030', '1021', '1031')
+        and INDICATOR_id in ('1025', '1030', '1020','1021', '1031')
         ) order by sort asc
 
     </select>
