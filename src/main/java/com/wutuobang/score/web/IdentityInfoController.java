@@ -365,16 +365,28 @@ public class IdentityInfoController {
                     if (pbScoreRecordModel!=null){
                         switch (pbScoreRecordModel.getOp_role_id()){
                             case 3:
-                                identityInfoModel.setRenshe(pbScoreRecordModel.getStatus());
+                                if(pbScoreRecordModel.getAccept_address_id()==1){
+                                    identityInfoModel.setRenshe(pbScoreRecordModel.getStatus());
+                                }else if(pbScoreRecordModel.getAccept_address_id()==2){ // 滨海新区的状态为加10用来区分
+                                    identityInfoModel.setRenshe(pbScoreRecordModel.getStatus()+10);
+                                }
                                 break;
                             case 4:
                                 identityInfoModel.setGongan(pbScoreRecordModel.getStatus());
                                 break;
                             case 5:
-                                identityInfoModel.setMinzheng(pbScoreRecordModel.getStatus());
+                                if(pbScoreRecordModel.getAccept_address_id()==1){
+                                    identityInfoModel.setMinzheng(pbScoreRecordModel.getStatus());
+                                }else if(pbScoreRecordModel.getAccept_address_id()==2){ // 滨海新区的状态为加10用来区分
+                                    identityInfoModel.setMinzheng(pbScoreRecordModel.getStatus()+10);
+                                }
                                 break;
                             case 6:
-                                identityInfoModel.setJiaowei(pbScoreRecordModel.getStatus());
+                                if(pbScoreRecordModel.getAccept_address_id()==1){
+                                    identityInfoModel.setJiaowei(pbScoreRecordModel.getStatus());
+                                }else if(pbScoreRecordModel.getAccept_address_id()==2){ // 滨海新区的状态为加10用来区分
+                                    identityInfoModel.setJiaowei(pbScoreRecordModel.getStatus()+10);
+                                }
                                 break;
                             case 9:
                                 identityInfoModel.setZhujianwei(pbScoreRecordModel.getStatus());
