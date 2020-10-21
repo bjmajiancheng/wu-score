@@ -207,6 +207,15 @@
                                 {\#if identityInfo.jiaowei == 5}
                                     <br><span>教委材料待补正</span>
                                 {/if}
+                                {\#if identityInfo.jiaowei == 12}
+                                    <br><span>滨海新区综合受理（教委材料）待接收</span>
+                                {/if}
+                                {\#if identityInfo.jiaowei == 13 ||  identityInfo.jiaowei == 14}
+                                    <br><span>滨海新区综合受理（教委材料）完成收件</span>
+                                {/if}
+                                {\#if identityInfo.jiaowei == 15}
+                                    <br><span>滨海新区综合受理（教委材料）材料待补正</span>
+                                {/if}
 
                                 {\#if identityInfo.minzheng == 2}
                                     <br><span>民政局待接收</span>
@@ -216,6 +225,15 @@
                                 {/if}
                                 {\#if identityInfo.minzheng == 5}
                                     <br><span>民政局材料待补正</span>
+                                {/if}
+                                {\#if identityInfo.minzheng == 12}
+                                    <br><span>滨海新区综合受理（民政材料）待接收</span>
+                                {/if}
+                                {\#if identityInfo.minzheng == 13 ||  identityInfo.minzheng == 14}
+                                    <br><span>滨海新区综合受理（民政材料）完成收件</span>
+                                {/if}
+                                {\#if identityInfo.minzheng == 15}
+                                    <br><span>滨海新区综合受理（民政材料）材料待补正</span>
                                 {/if}
 
                                 <!--{\#if identityInfo.renshe == 2}
