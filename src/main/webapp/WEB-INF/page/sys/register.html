@@ -317,6 +317,9 @@
 
     //点击注册按钮，2018年7月18日，添加提示
     $("#register").on("click", function () {
+//        var unisci = "91120101572337651";
+//        var uniFlag = checkSocialCreditCode(unisci);
+//        console.log("真假："+uniFlag);
         if ($('#userName').val().indexOf(" ") !== -1) {
             layer.alert("统一社会信用代码中不能有空格！");
         } else if ($('#businessLicenseSrc').val().trim() == "") {
