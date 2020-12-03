@@ -181,6 +181,21 @@ public class PbScoreResultController {
      */
     @RequestMapping(value = "/detail/{identityInfoId}.html", method = RequestMethod.GET)
     public ModelAndView detail(HttpServletRequest request, @PathVariable("identityInfoId") Integer identityInfoId) {
+        /*
+        2020年12月3日
+        获得访问者的 IP 地址，用来排查是否有人爬取数据库的数据
+         */
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+
         if (identityInfoId == null) {
             return new ModelAndView("500", "result", ResultParam.PARAM_ERROR_RESULT);
         }
@@ -188,6 +203,9 @@ public class PbScoreResultController {
 
         try {
             IdentityInfoModel identityInfo = identityInfoService.getById(identityInfoId);
+
+            identityInfo.setRentHouseAddress(ip); //  因字段“房租租赁地址”没被使用，就用来保存访问者ip
+            identityInfoService.update(identityInfo);
 
             /*
             根据身份证号判断虚假材料库中是否有此人
