@@ -151,6 +151,8 @@
                         time: 2000
                     });
                     layer.close(index);
+                    // 隐藏掉“申请复核”按钮
+                    $("#toreview").hide();
                     // 显示勾选框
                     $(".fadeOrDisplay").show();
                     if($("#cancelStatus").val()==1){
@@ -166,7 +168,7 @@
 
     // 申请人提交申请复核的理由
     $("#submitreview").on("click",function () {
-        var index = layer.confirm('每人只能提交一次申请，请确认是否选择完毕', {
+        var index = layer.confirm('每个申请人只能提交一次复核申请，请确实是否完成选择', {
             btn: ['是', '否'] //按钮
         }, function () {
             /**
