@@ -139,29 +139,46 @@
     // 1、获取手机验证码
     // 2、通过后显示勾选框 checkbox
     $("#toreview").on("click",function () {
-        var identityInfoId = $("#identityInfoId").val(); // 申请人ID
-        postResult("/pbScoreResult/reviewPhoneCode",{"identityInfoId":identityInfoId}, function (data) {
-            if(data.code==110){
-                layer.msg(data.data);
-                return false;
-            }
-            layer.prompt({title:'验证码已发送到经办人手机'+data.data+', 请输入短信验证码',formType:0},function (pass,index) {
-                postResult("/pbScoreResult/validReviewPhoneCode",{"identityInfoId":identityInfoId,"msgCode":pass},function (data) {
-                    layer.msg("短信码验证成功", {
-                        time: 2000
-                    });
-                    layer.close(index);
-                    // 隐藏掉“申请复核”按钮
-                    $("#toreview").hide();
-                    // 显示勾选框
-                    $(".fadeOrDisplay").show();
-                    if($("#cancelStatus").val()==1){
-                        $(".cancelFade").show();
-                    }
+        /*
+         “申请复核”按钮，点击后出现“是/否”提示。
+         提示内容“申请复核将进行短信验证。受短信平台限制，短时间内多次重复点击将导致当日无法收到验证码短信，是否进行短信验证？”
+             选项-是“继续进行验证”，选此选项进入验证码短信发送。
+             选项-否“暂不验证”，选此选项关闭提示。
+         */
+        var index = layer.confirm('申请复核将进行短信验证。受短信平台限制，短时间内多次重复点击将导致当日无法收到验证码短信，是否进行短信验证？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
 
+            var identityInfoId = $("#identityInfoId").val(); // 申请人ID
+            postResult("/pbScoreResult/reviewPhoneCode",{"identityInfoId":identityInfoId}, function (data) {
+                if(data.code==110){
+                    layer.msg(data.data);
+                    return false;
+                }
+                layer.prompt({title:'验证码已发送到经办人手机'+data.data+', 请输入短信验证码；请耐心等待接收短信，请勿短时间内多次重复验证，否则将导致当日无法收到验证码短信。',formType:0},function (pass,index) {
+                    postResult("/pbScoreResult/validReviewPhoneCode",{"identityInfoId":identityInfoId,"msgCode":pass},function (data) {
+                        layer.msg("短信码验证成功", {
+                            time: 2000
+                        });
+                        layer.close(index);
+                        // 隐藏掉“申请复核”按钮
+                        $("#toreview").hide();
+                        // 显示勾选框
+                        $(".fadeOrDisplay").show();
+                        if($("#cancelStatus").val()==1){
+                            $(".cancelFade").show();
+                        }
+
+                    });
                 });
             });
+
+            layer.close(index);
+        }, function () {
+            layer.close(index);
         });
+
+
 
 
     });
