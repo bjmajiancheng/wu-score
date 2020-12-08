@@ -73,6 +73,9 @@ public class BatchConfModel implements Serializable {
 	private Date closeRegisterTime; // 关闭企业、个人注册时间
 	private Date openRegisterTime; // 打开企业、个人注册时间
 
+	private Date queryTimeStart; // 查询开始时间
+	private Date queryTimeEnd; // 查询结束时间
+
 	/*
 	2019年10月24日，关闭申请人预约交件时间
 	 */
@@ -297,6 +300,22 @@ public class BatchConfModel implements Serializable {
 
 	public void setCloseOrder(Date closeOrder) {
 		this.closeOrder = closeOrder;
+	}
+
+	public Date getQueryTimeStart() {
+		return queryTimeStart;
+	}
+
+	public void setQueryTimeStart(Date queryTimeStart) {
+		this.queryTimeStart = queryTimeStart;
+	}
+
+	public Date getQueryTimeEnd() {
+		return queryTimeEnd;
+	}
+
+	public void setQueryTimeEnd(Date queryTimeEnd) {
+		this.queryTimeEnd = queryTimeEnd;
 	}
 }
 

@@ -124,6 +124,18 @@
         $(".fadeOrDisplay").hide();
         $(".cancelFade").hide();
 
+        $.ajax({
+            type: "POST",
+            url: "${rc.contextPath}/pbScoreResult/getPublishAndQueryTime",
+            data: null,
+            dataType: "json",
+            success: function (result) {
+                console.log("result.code:"+result.code);
+                if (result.code != 1) {
+                    $("#toreview").hide(); // 申请复核的时间过去后，隐藏掉“申请复核”按钮
+                }
+            }});
+
     });
 
     // 不见面复核分数的输入框是比照后台所写

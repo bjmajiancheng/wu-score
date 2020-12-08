@@ -123,7 +123,8 @@ public class PbScoreResultController {
 
             long startTimestamp = DateUtil.getTheDayZeroTime(batchConfModel.getPublishBegin()).getTime();
             long endTimestamp = DateUtil.getNextDayZeroTime(batchConfModel.getPublishEnd()).getTime();
-            if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > endTimestamp) {
+            Date queryEndTime = batchConfModel.getQueryTimeEnd();
+            if (System.currentTimeMillis() < startTimestamp || System.currentTimeMillis() > queryEndTime.getTime()) {
 //                if (StringUtils.isEmpty(searchScoreView.getAcceptNumber()) && StringUtils.isEmpty(searchScoreView.getIdCardNumber())) {
                     return new ResultParam(ResultParam.SUCCESS_RESULT, new PageData<IdentityInfoModel>());
 //                }
@@ -171,6 +172,55 @@ public class PbScoreResultController {
             return ResultParam.PARAM_ERROR_RESULT;
         }
     }
+
+
+    /*
+    2020年12月8日
+        四、复核期结束之后（本期为12月9日17:00后），在积分查询页面，点击“查询”按钮出现“是/否”提示。
+            提示内容“2020年第二期居住证积分分数结果申请复核结束时间为2020年12月9日17:00，当前可查询积分结果，无法申请复核。”
+            选项-是“已知晓，继续查询”，选此选项进入分数查询流程。
+            选项-否“暂不查询”，选此选项关闭提示。
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getPublishAndQueryTime", method = RequestMethod.POST)
+    public ResultParam getPublishAndQueryTime() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("status", 1);//
+        List<BatchConfModel> batchConfs = batchConfService.find(params);
+        //由于条件为1 的查询结果结果不是预期的一条，所以挑选了一个状态为1 的记录
+        Date publishBegin = new Date();
+        Date publishEnd = new Date();
+        Date queryStart = new Date();
+        Date queryEnd = new Date();
+        for (BatchConfModel batchConf : batchConfs) {
+            if (batchConf.getStatus() == 1) {
+                publishBegin = batchConf.getPublishBegin();
+                publishEnd = batchConf.getPublishEnd();
+                queryStart = batchConf.getQueryTimeStart();
+                queryEnd = batchConf.getQueryTimeEnd(); // 查询结束的时间
+            }
+        }
+
+        ResultParam resultParam = new ResultParam();
+        if(System.currentTimeMillis()>publishBegin.getTime() && System.currentTimeMillis()<publishEnd.getTime()){
+            resultParam.setMessage("积分在查询复核的时间内");
+            resultParam.setCode(1);
+            resultParam.setData(null);
+            return resultParam;
+        }else if (System.currentTimeMillis() < queryEnd.getTime()){
+            resultParam.setMessage("积分不在查询复核的时间内，只能查询，不能复核");
+            resultParam.setCode(2);
+            resultParam.setData(null);
+            return resultParam;
+        } else {
+            resultParam.setMessage("不能查询，不能复核");
+            resultParam.setCode(3);
+            resultParam.setData(null);
+            return resultParam;
+        }
+    }
+
+
 
     /**
      * 获取申请人id积分详情

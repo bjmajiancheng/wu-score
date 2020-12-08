@@ -158,7 +158,30 @@
      * @param id
      */
     function showDetail(id) {
-        window.open("${rc.contextPath}/pbScoreResult/detail/"+id+".html");
+        $.ajax({
+            type: "POST",
+            url: "${rc.contextPath}/pbScoreResult/getPublishAndQueryTime",
+            data: null,
+            dataType: "json",
+            success: function (result) {
+                if (result.code == 1) {
+                    window.open("${rc.contextPath}/pbScoreResult/detail/"+id+".html");
+                }else if(result.code == 2){
+                    //询问框
+                    var index = layer.confirm('2020年第二期居住证积分分数结果申请复核结束时间为2020年12月9日17:00，当前可查询积分结果，无法申请复核。', {
+                        btn: ['确认', '取消'] //按钮
+                    }, function () {
+                        window.open("${rc.contextPath}/pbScoreResult/detail/"+id+".html");
+                        layer.close(index);
+                    }, function () {
+                        layer.close(index);
+                    });
+                }else {
+                    layer.msg('此时间段无查询，详情请关注重要通知！');
+                    return false;
+                }
+            }});
+        //window.open("${rc.contextPath}/pbScoreResult/detail/"+id+".html");
     }
 </script>
 
