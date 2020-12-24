@@ -165,7 +165,9 @@
 		person_id_num,
 		score_value
 		from t_pb_score_result
-		where batch_id=#{batchId} order by score_value desc
+		where batch_id=#{batchId} and
+			  score_value >= (select case when SCORE_VALUE is null then 0 else SCORE_VALUE end SCORE_VALUE from t_batch_conf where id = 1050)
+		order by score_value desc
 	</select>
 
 	<select id="getByPersonIdNum" resultMap="PbScoreResult">
@@ -182,7 +184,8 @@
 	<select id="getCount"  resultType="int">
 		select count(1)
 		from t_pb_score_result
-		where batch_id=#{batchId}
+		where batch_id=#{batchId}  and
+			  score_value >= (select case when SCORE_VALUE is null then 0 else SCORE_VALUE end SCORE_VALUE from t_batch_conf where id = 1050)
 	</select>
 	
 </mapper>
