@@ -449,7 +449,7 @@
                     <input type="hidden" name="id" value="$!{houseMoveModel.id}"/>
                     <table class="integral-cont-table">
                         <tr>
-                            <td class="">现户口登记地址：</td>
+                            <td class="">现户籍地(省市区)：</td>
                             <td>
                                 <select name="moveProvince" id="moveProvince" style="width:125px;">
                                     <option value="0">请选择</option>
@@ -468,15 +468,13 @@
                         <tr>
                             <td class=""></td>
                             <td style="line-height:20px;padding-top:20px;">
-                                <span style="">现户口地址、拟落户地址填写规范如下所示：</span>
+                                <span style="">现户籍详细地址填写规范如下所示：</span>
                                 <br>
-                                <span>格式示例1：XX省（自治区/直辖市）XX市（县/区）XX区 XX街道XX小区X号楼X门X室;</span>
-                                <br>
-                                <span>格式示例2：XX省（自治区/直辖市）XX市（县/区）XX县XX乡（镇）XX村X排X号;</span>
+                                <span>杨官屯镇田庄村**号</span>
                             </td>
                         </tr>
                         <tr>
-                            <td class="">现户口登记地址详细地址：</td>
+                            <td class="">现户籍详细地址：</td>
                             <td>
                                 <input class="integral-input w518" type="text" name="currentRegisteredAddress"
                                        id="currentRegisteredAddress"
@@ -485,7 +483,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="">现户口地派出所：</td>
+                            <td class="">现户籍地派出所：</td>
                             <td>
                                 <input class="integral-input w518" type="text" name="moveRegisteredOffice"
                                        id="moveRegisteredOffice"
@@ -494,7 +492,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="">拟落户地址：</td>
+                            <td class=""></td>
+                            <td style="line-height:20px;padding-top:20px;">
+                                <span style="">拟落户地详细地址填写规范如下所示：</span>
+                                <br>
+                                <span>天津市武清区**小区*号楼*单元*号</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="">拟落户地详细地址：</td>
                             <td>
                                 <input class="integral-input w518" type="text" name="address" id="address"
                                        value="$!{houseMoveModel.address}">
@@ -526,7 +532,8 @@
                             </td>
                         </tr>
                         <!-- 2020年2月18日 -->
-                        <tr>
+                        <!--- 2020年12月24日  第三、信息页第二页删除：落户天津人员及选项的填报。->
+                        <!--<tr>
                             <td class="">落户天津的人员：</td>
                             <td>
                                 <select name="settledItem" id="settledItem">
@@ -535,7 +542,7 @@
                                     <option value="2">申请本人及随迁子女</option>
                                 </select>
                             </td>
-                        </tr>
+                        </tr>-->
                         <tr class="color-red" id="settledItemRed" style="display: none;">
                             <td colspan="2">
                                 <div style="line-height: 20px;">
@@ -2275,6 +2282,10 @@
                         </tr>
                     </table>
                 </form>
+                <div class="color-red">
+                    温馨提示：<br>
+                    请填写本市内可接收快递文件的详细地址。
+                </div>
             </div>
             <!-- 验证码和底部按钮 -->
             <table class="check-table" id="checkimgTable">
@@ -2690,7 +2701,7 @@
 
         });
 
-        //2公安相关信息-初始化省份信息-现户口登记地址
+        //2公安相关信息-初始化省份信息-现户籍地(省市区)
         regionChange(0, "moveProvince", '$!{houseMoveModel.moveProvince}');
         $("#moveProvince").on("change", function () {
             regionChange($("#moveProvince").val(), "moveCity", '$!{houseMoveModel.moveCity}');
@@ -2724,6 +2735,16 @@
                 $("#settledItem").attr("disabled", false);
             }
         }).change();
+        //2020年12月24日
+        // 申请人填报信息页第一页，在申请人填写姓名与公民身份号码后应弹出红色大字对话框提示语言，请您仔细核对填写内容与公民身份证信息是否一致。申请人阅读后点击确定对话框可继续操作
+        $("#idNumber").on('blur', function () {
+            //询问框
+            var index = layer.confirm('请您仔细核对填写内容与公民身份证信息是否一致。', {
+                btn: ['确认'] //按钮
+            }, function () {
+                layer.close(index);
+            });
+        });
 
         // 一、在公安填报信息页，增加两个选填：申请本人；申请本人及子女。如申请人选择本人，可按照正常程序填报相关内容。
         // 如申请人选择本人及子女，系统提示：1、随迁子女不满18周岁；2、申请人在津具有合法稳定住所，且该住所已经取得《不动产权证书》；
@@ -3367,19 +3388,19 @@
 
         //第二页
         if ($("#moveProvince").val().trim() == 0 || $("#moveCity").val().trim() == 0 || $("#moveRegion").val().trim() == 0) {
-            layer.msg("第2页，请选择 现户口登记地址");
+            layer.msg("第2页，请选择 现户籍地(省市区)");
             return false;
         }
         if ($("#currentRegisteredAddress").val().trim() == "") {
-            layer.msg("第2页，请输入 现户口登记地址详细地址");
+            layer.msg("第2页，请输入 现户籍详细地址");
             return false;
         }
         if ($("#moveRegisteredOffice").val().trim() == "") {
-            layer.msg("第2页，请输入 现户口地派出所");
+            layer.msg("第2页，请输入 现户籍地派出所");
             return false;
         }
         if ($("#address").val().trim() == "") {
-            layer.msg("第2页，请输入 拟落户地址");
+            layer.msg("第2页，请输入 拟落户地详细地址");
             return false;
         }
         if ($("#settledItem").val() == 0) {
@@ -4413,13 +4434,13 @@
                     required: "请选择户口登记地址"
                 },
                 moveRegisteredOffice: {
-                    required: "请输入现户口地派出所"
+                    required: "请输入现户籍地派出所"
                 },
                 address: {
-                    required: "请输入拟落户地址"
+                    required: "请输入拟落户地详细地址"
                 },
                 currentRegisteredAddress: {
-                    required: "请输入现户口登记地址"
+                    required: "请输入现户籍地(省市区)"
                 }
             },
             errorPlacement: function (error, element) { //指定错误信息位置
