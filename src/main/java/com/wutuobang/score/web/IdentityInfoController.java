@@ -536,9 +536,10 @@ public class IdentityInfoController {
                 return ResultParam.error("您自助测评已通过, 不能再次测评!!");
             }
 
-            if (identityInfoModel.getAutoTestNum() == 0) {
+            // 2021年1月27日 不限制测评次数
+            /*if (identityInfoModel.getAutoTestNum() == 0) {
                 return ResultParam.error("您本期已没有自助评测机会,请下期再进行评测!!");
-            }
+            }*/
 
             //自助评测信息
             boolean evaluationFlag = identityInfoBiz.autoEvaluation(indicatorView, basicConfModel, currUser);
