@@ -389,6 +389,7 @@
                 },
                 operator: {
                     required: true,
+                    minlength: 2,
                     maxlength: 10
                 },
                 operator2: {
@@ -441,7 +442,8 @@
                 },
                 operator: {
                     required: "经办人的社保缴纳单位与申请人一致",
-                    maxlength: "密码长度不能大于 10 个字母"
+                    minlength: "经办人全名",
+                    maxlength: "经办人不能大于 10 个字母"
                 },
                 operator2: {
                     required: "经办人的社保缴纳单位与申请人一致",
