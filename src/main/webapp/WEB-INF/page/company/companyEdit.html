@@ -367,14 +367,14 @@
                     layer.alert("请先上传经办人身份证");
                     $('#businessLicenseDiv').empty();
                     $('#businessLicenseDiv').append("<img class=\"addImg pointer\"\n" +
-                        "                                     src=\"${rc.contextPath}/$static.curr_ver()/img/yingyezhizhao.png\"\n" +
+                        "                                     src=\"${rc.contextPath}/$static.curr_ver()/img/IDcard1.png\"\n" +
                         "                                     onclick=\"integral.clickImg(this);\">\n" +
                         "                                <img class=\"preview\" id=\"preview\" alt=\"\" name=\"pic\" width=\"180\" height=\"158\"\n" +
                         "                                     style=\"display: none\"/>\n" +
                         "                                <input id=\"business_license\" name=\"business_license\" type=\"file\" class=\"upload_input\"\n" +
                         "                                       accept=\"image/*\" onchange=\"changeImg(this)\" attr-inp=\"businessLicenseSrc\"/>\n" +
-                        "                                <div class=\"pointer title_click\" onclick=\"integral.clickImg(this);\">点击上传营业执照</div>\n" +
-                        "                                <div class=\"title_idcard\" style=\"display:none;\">营业执照</div>\n" +
+                        "                                <div class=\"pointer title_click\" onclick=\"integral.clickImg(this);\">点击上传</div>\n" +
+                        "                                <div class=\"title_idcard\" style=\"display:none;\">身份证</div>\n" +
                         "                                <div class=\"del_idcard\" onclick=\"integral.deleteImg(this)\" style=\"display:none;\"></div>\n" +
                         "                                <input id=\"businessLicenseSrc\" name=\"businessLicenseSrc\" type=\"hidden\" value=\"\"/>");
                 }
