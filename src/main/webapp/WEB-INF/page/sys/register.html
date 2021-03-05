@@ -512,6 +512,14 @@
                             isFlag = true;
                         }
 
+                        if(validIdNum(uniscid)){
+                            layer.msg("请输入正确的统一社会信用代码",{
+                                time: 3000
+                            },function () {
+                                window.open("${rc.contextPath}/sys/register.html");
+                            });
+                        }
+
 
                         /*
                          2019年12月24日
@@ -762,6 +770,29 @@
             spinner.spin();
             $(spinContainer).hide();
         }
+    }
+    function validIdNum(idNumber) {
+        if (idNumber.trim().length != 18) {
+            return false;
+        }
+        var arr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+
+        var sum = 0;
+        for (var i = 0; i < arr.length; i++) {
+            sum += parseInt(idNumber.charAt(i)) * arr[i];
+        }
+        //2、用加出来和除以11，看余数，
+        var c = sum % 11;
+
+        //3、分别对应的最后一位身份证的号码为：1－0－X－9－8－7－6－5－4－3－2
+        var ch = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+        var code = ch[c];
+        var last = idNumber.charAt(17);
+        last = last == 'x' ? 'X' : last;
+        if (last != code) {
+            return false;
+        }
+        return true;
     }
 </script>
 <style type="text/css">

@@ -3034,14 +3034,15 @@
         * */
         $("input[name='ourBuyHouse']").on("change",function(){
             var ourBuyHouseValue = $("input[name='ourBuyHouse']:checked").val();
-            console.log("是否选择："+ourBuyHouseValue);
             if(ourBuyHouseValue==1){
                 // 是
                 $("input[name='is201826Doc']").removeAttr("disabled");
+                $(".ourBuyHouseTable").show();
             }else if(ourBuyHouseValue==2){
                 // 否
                 $("input[name='is201826Doc'][value='2']").get(0).checked=true;
                 $("input[name='is201826Doc']").attr("disabled","disabled");
+                $(".ourBuyHouseTable").show();
             }
         }).change();
 
