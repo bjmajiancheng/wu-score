@@ -3027,6 +3027,24 @@
                 }
             }
         }).change();
+        /*
+        * 2021年3月5日
+        * 按照住建委要求
+        * 若申请人选择 “2020年4月2日后购买住房的只能按年积分”为‘否’，那么 ‘是否按照“津发改社会〔2018〕26号”文件积分’强制选择“否”
+        * */
+        $("input[name='ourBuyHouse']").on("change",function(){
+            var ourBuyHouseValue = $("input[name='ourBuyHouse']:checked").val();
+            console.log("是否选择："+ourBuyHouseValue);
+            if(ourBuyHouseValue==1){
+                // 是
+                $("input[name='is201826Doc']").removeAttr("disabled");
+            }else if(ourBuyHouseValue==2){
+                // 否
+                $("input[name='is201826Doc'][value='2']").get(0).checked=true;
+                $("input[name='is201826Doc']").attr("disabled","disabled");
+            }
+        }).change();
+
         //7居住信息-购买住房
         /*$("input[name='ourBuyHouse']").on('click', function () {
             var index = $("input[name='ourBuyHouse']:checked").val();
