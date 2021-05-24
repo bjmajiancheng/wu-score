@@ -91,6 +91,16 @@
         and t1.INDICATOR_id in ('1022')
         and t1.person_id = t2.id
         and t2.is201826doc = 1
+        and t1.person_id in (
+            select t3.person_id from  t_identity_info t1, t_house_move t2,t_pb_score_record t3
+              where  t1.batch_id in (select id from t_batch_conf where status=1)
+                     and t1.id=t2.identity_info_id
+                     and t1.IS201826DOC=1
+                     and t3.op_role in ( '市住建委' ,'规自局')
+                     and t3.INDICATOR_ID!='1020'
+                     and t3.SCORE_VALUE in (0,40)
+                     and t3.person_id=t1.id
+        )
 
         union all
 
@@ -146,7 +156,16 @@
                         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),40,20,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
                         union all
                         select t1.PERSON_NAME, t1.OP_ROLE, t1.person_id_num, t1.score_value as score        from t_pb_score_record t1, t_identity_info t2
-                        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1  and t1.batch_id = #{batch_id}
+                        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1 and t1.person_id in (
+                                                                            select t3.person_id from  t_identity_info t1, t_house_move t2,t_pb_score_record t3
+                                                                              where  t1.batch_id in (select id from t_batch_conf where status=1)
+                                                                                     and t1.id=t2.identity_info_id
+                                                                                     and t1.IS201826DOC=1
+                                                                                     and t3.op_role in ( '市住建委' ,'规自局')
+                                                                                     and t3.INDICATOR_ID!='1020'
+                                                                                     and t3.SCORE_VALUE in (0,40)
+                                                                                     and t3.person_id=t1.id
+                                                                            )  and t1.batch_id = #{batch_id}
                         union all
                         select  min(person_name) person_name,min(op_role) op_role,min(PERSON_ID_NUM) person_id_num,sum(score_value) score
                         from t_pb_score_record
@@ -171,7 +190,16 @@
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),40,20,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
         union all
         select t1.PERSON_NAME, t1.OP_ROLE, t1.person_id_num, t1.score_value as score        from t_pb_score_record t1, t_identity_info t2
-                          where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1  and t1.batch_id = #{batch_id}
+                          where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1 and t1.person_id in (
+                                                                    select t3.person_id from  t_identity_info t1, t_house_move t2,t_pb_score_record t3
+                                                                      where  t1.batch_id in (select id from t_batch_conf where status=1)
+                                                                             and t1.id=t2.identity_info_id
+                                                                             and t1.IS201826DOC=1
+                                                                             and t3.op_role in ( '市住建委' ,'规自局')
+                                                                             and t3.INDICATOR_ID!='1020'
+                                                                             and t3.SCORE_VALUE in (0,40)
+                                                                             and t3.person_id=t1.id
+                                                                    ) and t1.batch_id = #{batch_id}
         union all
         select  min(person_name) person_name,min(op_role) op_role,min(PERSON_ID_NUM) person_id_num,sum(score_value) score
         from t_pb_score_record
@@ -204,7 +232,16 @@
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),40,20,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
         union all
         select t1.PERSON_NAME, t1.OP_ROLE, t1.person_id_num, t1.score_value as score        from t_pb_score_record t1, t_identity_info t2
-        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1  and t1.batch_id = #{batch_id}
+        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1 and t1.person_id in (
+                                        select t3.person_id from  t_identity_info t1, t_house_move t2,t_pb_score_record t3
+                                          where  t1.batch_id in (select id from t_batch_conf where status=1)
+                                                 and t1.id=t2.identity_info_id
+                                                 and t1.IS201826DOC=1
+                                                 and t3.op_role in ( '市住建委' ,'规自局')
+                                                 and t3.INDICATOR_ID!='1020'
+                                                 and t3.SCORE_VALUE in (0,40)
+                                                 and t3.person_id=t1.id
+                                        ) and t1.batch_id = #{batch_id}
         union all
         select  min(person_name) person_name,min(op_role) op_role,min(PERSON_ID_NUM) person_id_num,sum(score_value) score
         from t_pb_score_record
@@ -232,7 +269,16 @@
         select max(t.PERSON_NAME) PERSON_NAME, max(t.OP_ROLE) OP_ROLE, t.person_id_num, decode(sum(t.score_value),40,20,0) as score  from t_pb_score_record t where t.indicator_id=14 and t.batch_id = #{batch_id}  group by t.person_id_num
         union all
         select t1.PERSON_NAME, t1.OP_ROLE, t1.person_id_num, t1.score_value as score        from t_pb_score_record t1, t_identity_info t2
-        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1  and t1.batch_id = #{batch_id}
+        where  t1.INDICATOR_id in ('1022')        and t1.person_id = t2.id    and t2.is201826doc = 1 and t1.person_id in (
+                                                        select t3.person_id from  t_identity_info t1, t_house_move t2,t_pb_score_record t3
+                                                          where  t1.batch_id in (select id from t_batch_conf where status=1)
+                                                                 and t1.id=t2.identity_info_id
+                                                                 and t1.IS201826DOC=1
+                                                                 and t3.op_role in ( '市住建委' ,'规自局')
+                                                                 and t3.INDICATOR_ID!='1020'
+                                                                 and t3.SCORE_VALUE in (0,40)
+                                                                 and t3.person_id=t1.id
+                                                        ) and t1.batch_id = #{batch_id}
         union all
         select  min(person_name) person_name,min(op_role) op_role,min(PERSON_ID_NUM) person_id_num,sum(score_value) score
         from t_pb_score_record
